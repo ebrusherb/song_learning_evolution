@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage{/Users/eleanorbrush/Documents/custom2}
 \usepackage{wasysym}
+\usepackage{color}
 \usepackage[numbers,sort&compress]{natbib}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 %% for inline R code: if the inline code is not correctly parsed, you will see a message
@@ -19,6 +20,9 @@ options(formatR.arrow=TRUE,width=90)
 
 << get_code, echo = FALSE, cache = FALSE >>=
 read_chunk("continuous_traits_knitr.R")
+@
+
+<<integral, echo = FALSE>>=
 @
 
 
@@ -55,21 +59,48 @@ read_chunk("continuous_traits_knitr.R")
 
 \subsection{Continuous traits }
 
-Each male has a song and each female has preference for a particular song. She will mate with males with songs other than her preferred song, but the probability of her doing so decreases as the potential mate's song gets less similar to her preferred song. Each female mates once and chooses a male according to her preferences and the distribution of songs present in the population. Each male, therefore, may breed multiple times or not at all. We assume that generations are non-overlapping, so once the adults breed they die and we can shift our focus to the new generation. To begin with, we assume that males acquire their songs from their fathers at birth and females acquire their preferences from their mothers at birth. Before the new generation mates, each male has a small probability of ``mutating" its song. This can be interpreted as a learning error or as innovation. After mutation, the new males and females mate. 
+Each male has a song and each female has preference for a particular song. She will mate with males with songs other than her preferred song, but the probability of her doing so decreases as the potential mate's song gets less similar to her preferred song. Each female mates once and chooses a male according to her preferences and the distribution of songs present in the population. Each male, therefore, may breed multiple times or not at all. We assume that generations are non-overlapping, so once the adults breed they die and we can shift our focus to the new generation. To begin with, we assume that males acquire their songs from their fathers at birth and females acquire their preferences from their mothers at birth. We further assume an unbiased sex ratio. Before the new generation mates, each male has a small probability of ``mutating" its song. This can be interpreted as a learning error or as innovation. After mutation, the new males and females mate. 
 
-Mathematically, each male has a song $x\in \R$ and each female has a preference $y\in\R$. Her preference function 
+Mathematically, each male has a song $x\in \R$ and each female has a preference $y\in\R$. The probability density of the male songs will be written $P_\text{m}(x)$ and the probability density of female preferences will be written $P_\text{f}(y)$. The preference of a female with preference $y$ mates for a male with song $x$ is 
+\begin{equation*}
+f_y(x)=\frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left(-\frac{(x-y)^2}{2\sigma^2}\right),
+\end{equation*}
+which is maximal when $x=y$ and decreases as $|x-y|$ increases. The probability that a female with preference $y$ choose a male with song $x$ is 
+\begin{equation*}
+\frac{P_\text{m}(x)f_y(x)}{\int_\R P_\text{m}(x')f_y(x')dx'},
+\end{equation*}
+so the probability of a $(x,y)$ pair mating is then
+\begin{equation*}
+P(x,y)=\frac{P_\text{f}(y)P_\text{m}(x)f_y(x)}{\int_\R P_\text{m}(x')f_y(x')dx'}.
+\end{equation*}
+Each such pair will produce a male with song $x$ and a female with preference $y$. Before mating, the male's song changes to $x-\delta_\text{mut}$ with probability $p_\text{mut}/2$ and to $x+\delta_\text{mut}$ with probability $p_\text{mut}/2$. Under these assumptions, the probability density of female preferences does not change over time:
+\begin{equation*}
+P_\text{f}(y,t+1)=P_\text{f}(y,t).
+\end{equation*}
+The probability density of male songs in the next generation, before mutating and after mutating, follows
+\begin{align*}
+P_\text{m}(x,t+1/2)&=\int_\R P(x,y) dy
+\\P_\text{m}(x,t+1)&=(1-p_\text{mut})P_\text{m}(x,t+1/2)+p_\text{mut}/2P_\text{m}(x-\delta_\text{mut},t+1/2)+p_\text{mut}/2P_\text{m}(x+\delta_\text{mut},t+1/2)
+\end{align*}
+The last thing we need to specify is the initial distributions of male songs and female preferences. 
+
+\vspace{.1 in}
+\noindent {\color{red} CODE FOR THE POPULATION DYNAMICS:}
+
+<<dynamics, echo =TRUE >>=
+@ 
+
+\vspace{.1 in}
+{\color{red} GLOBAL / NEEDED PARAMETERS:}
 
 <<parameters, echo =TRUE >>=
 @ 
 
-<<functions, echo = FALSE>>=
-@
-
-
-
+{\color{red} INTERESTING PARAMETERS:} 
 <<peaks, echo = TRUE, cache = TRUE >>=
 @
 
+Even with a continuous distribution of female preferences, we find that after several generations, the male song distribution is concentrated in several discrete peaks (Figure \ref{fig:plot_peaks}). 
 << plot_peaks, fig.width=5, fig.height=5, echo = FALSE, fig.cap = 'Probability  density of male songs. Notice the discrete peaks. ' >>=
 t=60
 plot(mrange,Pm[,t],type='l',xlab = 'Song',ylab = 'Probability density',main = c('T=',t))

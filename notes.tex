@@ -52,12 +52,15 @@
 \usepackage{graphicx}
 \usepackage{/Users/eleanorbrush/Documents/custom2}
 \usepackage{wasysym}
+\usepackage{color}
 \usepackage[numbers,sort&compress]{natbib}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 %% for inline R code: if the inline code is not correctly parsed, you will see a message
 \newcommand{\rinline}[1]{SOMETHING WRONG WITH knitr}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
+
+
 
 
 
@@ -97,61 +100,38 @@
 
 \subsection{Continuous traits }
 
-Each male has a song and each female has preference for a particular song. She will mate with males with songs other than her preferred song, but the probability of her doing so decreases as the potential mate's song gets less similar to her preferred song. Each female mates once and chooses a male according to her preferences and the distribution of songs present in the population. Each male, therefore, may breed multiple times or not at all. We assume that generations are non-overlapping, so once the adults breed they die and we can shift our focus to the new generation. To begin with, we assume that males acquire their songs from their fathers at birth and females acquire their preferences from their mothers at birth. Before the new generation mates, each male has a small probability of ``mutating" its song. This can be interpreted as a learning error or as innovation. After mutation, the new males and females mate. 
+Each male has a song and each female has preference for a particular song. She will mate with males with songs other than her preferred song, but the probability of her doing so decreases as the potential mate's song gets less similar to her preferred song. Each female mates once and chooses a male according to her preferences and the distribution of songs present in the population. Each male, therefore, may breed multiple times or not at all. We assume that generations are non-overlapping, so once the adults breed they die and we can shift our focus to the new generation. To begin with, we assume that males acquire their songs from their fathers at birth and females acquire their preferences from their mothers at birth. We further assume an unbiased sex ratio. Before the new generation mates, each male has a small probability of ``mutating" its song. This can be interpreted as a learning error or as innovation. After mutation, the new males and females mate. 
 
-Mathematically, each male has a song $x\in \R$ and each female has a preference $y\in\R$.
+Mathematically, each male has a song $x\in \R$ and each female has a preference $y\in\R$. The probability density of the male songs will be written $P_\text{m}(x)$ and the probability density of female preferences will be written $P_\text{f}(y)$. The preference of a female with preference $y$ mates for a male with song $x$ is 
+\begin{equation*}
+f_y(x)=\frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left(-\frac{(x-y)^2}{2\sigma^2}\right),
+\end{equation*}
+which is maximal when $x=y$ and decreases as $|x-y|$ increases. The probability that a female with preference $y$ choose a male with song $x$ is 
+\begin{equation*}
+\frac{P_\text{m}(x)f_y(x)}{\int_\R P_\text{m}(x')f_y(x')dx'},
+\end{equation*}
+so the probability of a $(x,y)$ pair mating is then
+\begin{equation*}
+P(x,y)=\frac{P_\text{f}(y)P_\text{m}(x)f_y(x)}{\int_\R P_\text{m}(x')f_y(x')dx'}.
+\end{equation*}
+Each such pair will produce a male with song $x$ and a female with preference $y$. Before mating, the male's song changes to $x-\delta_\text{mut}$ with probability $p_\text{mut}/2$ and to $x+\delta_\text{mut}$ with probability $p_\text{mut}/2$. Under these assumptions, the probability density of female preferences does not change over time:
+\begin{equation*}
+P_\text{f}(y,t+1)=P_\text{f}(y,t).
+\end{equation*}
+The probability density of male songs in the next generation, before mutating and after mutating, follows
+\begin{align*}
+P_\text{m}(x,t+1/2)&=\int_\R P(x,y) dy
+\\P_\text{m}(x,t+1)&=(1-p_\text{mut})P_\text{m}(x,t+1/2)+p_\text{mut}/2P_\text{m}(x-\delta_\text{mut},t+1/2)+p_\text{mut}/2P_\text{m}(x+\delta_\text{mut},t+1/2)
+\end{align*}
+The last thing we need to specify is the initial distributions of male songs and female preferences. 
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{Tsteps} \hlkwb{=} \hlnum{1000} \hlcom{#how many generations}
-\hlstd{step} \hlkwb{=} \hlnum{0.01} \hlcom{#step size of trait space}
-\hlstd{int_step} \hlkwb{=} \hlstd{step} \hlcom{#step to use for integration function}
-\hlstd{mut_prob} \hlkwb{=} \hlnum{0.01} \hlcom{#probability a male changes song to one on either side}
-\hlstd{mut_delta} \hlkwb{=} \hlnum{0} \hlcom{#how to implement mutations of different sizes?}
-\hlstd{alpha} \hlkwb{=} \hlnum{0.5} \hlcom{#if preference function is a step fx, strength of preference}
-\hlstd{sigma2} \hlkwb{=} \hlnum{1} \hlcom{#variance of female preference function}
-\hlstd{fmix_sigma2} \hlkwb{=} \hlnum{0.4} \hlcom{#variance of female distribution(s)}
-\hlstd{mmix_sigma2} \hlkwb{=} \hlnum{0.1} \hlcom{#variance of male distribution(s)}
-
-\hlstd{mrange} \hlkwb{=} \hlkwd{seq}\hlstd{(}\hlopt{-}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlkwc{by}\hlstd{=step)} \hlcom{#range of male songs}
-\hlstd{Nm} \hlkwb{=} \hlkwd{length}\hlstd{(mrange)}
-\hlstd{mmin} \hlkwb{=} \hlopt{-}\hlnum{1}
-\hlstd{mmax} \hlkwb{=} \hlnum{1}
-\hlstd{m0} \hlkwb{=} \hlkwd{which}\hlstd{(mrange}\hlopt{==}\hlstd{mmin)}
-\hlstd{m1} \hlkwb{=} \hlkwd{which}\hlstd{(mrange}\hlopt{==}\hlstd{mmax)}
-\hlstd{mrange_orig} \hlkwb{=} \hlkwd{seq}\hlstd{(mmin,mmax,}\hlkwc{by}\hlstd{=step)}
-\hlstd{frange} \hlkwb{=} \hlkwd{seq}\hlstd{(}\hlopt{-}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlkwc{by}\hlstd{=step)} \hlcom{#range of female preferences}
-\hlstd{Nf} \hlkwb{=} \hlkwd{length}\hlstd{(frange)}
-\hlstd{fmin} \hlkwb{=} \hlopt{-}\hlnum{1}
-\hlstd{fmax} \hlkwb{=} \hlnum{1}
-\hlstd{f0} \hlkwb{=} \hlkwd{which}\hlstd{(frange}\hlopt{==}\hlstd{fmin)}
-\hlstd{f1} \hlkwb{=} \hlkwd{which}\hlstd{(frange}\hlopt{==}\hlstd{fmax)}
-\hlstd{frange_orig} \hlkwb{=} \hlkwd{seq}\hlstd{(fmin,fmax,}\hlkwc{by}\hlstd{=step)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-
-
-PEAKS
+\vspace{.1 in}
+\noindent {\color{red} CODE FOR THE POPULATION DYNAMICS:}
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{mut_prob} \hlkwb{=} \hlnum{0.01}
-\hlstd{Tsteps} \hlkwb{=} \hlnum{100}
-\hlstd{sigma2} \hlkwb{=} \hlnum{0.1}
-\hlstd{fmix_sigma2} \hlkwb{=} \hlnum{1}
-
-\hlstd{m_init} \hlkwb{=} \hlkwd{array}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwc{dim} \hlstd{=} \hlkwd{c}\hlstd{(Nm,}\hlnum{1}\hlstd{))}
-\hlstd{m_init[m0]} \hlkwb{=} \hlnum{0.6}
-\hlstd{m_init[m1]} \hlkwb{=} \hlnum{0.4}
-\hlstd{m_init[,}\hlnum{1}\hlstd{]} \hlkwb{=} \hlstd{m_init[,}\hlnum{1}\hlstd{]}\hlopt{/}\hlkwd{int}\hlstd{(m_init[,}\hlnum{1}\hlstd{])}
-
-\hlstd{p} \hlkwb{=} \hlnum{.4}
-\hlstd{f_init} \hlkwb{=} \hlstd{p}\hlopt{*}\hlkwd{dnorm}\hlstd{(frange,}\hlopt{-}\hlnum{1}\hlstd{,fmix_sigma2)}\hlopt{+}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{p)}\hlopt{*}\hlkwd{dnorm}\hlstd{(frange,}\hlnum{1}\hlstd{,fmix_sigma2)}
-
+\hlstd{dynamics} \hlkwb{<-}\hlkwa{function}\hlstd{()\{}
 \hlstd{Pm} \hlkwb{=} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,Nm,Tsteps}\hlopt{+}\hlnum{1}\hlstd{)} \hlcom{#probability of male songs over time}
 \hlstd{Pm[,}\hlnum{1}\hlstd{]} \hlkwb{=} \hlstd{m_init}
 
@@ -181,14 +161,77 @@ PEAKS
                 \hlstd{Pm_beforemut[i]} \hlkwb{=} \hlkwd{int}\hlstd{(pxy[i,])} \hlcom{#probability of males being born}
         \hlstd{\}}
         \hlstd{Pm_aftermut} \hlkwb{=} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,Nm)}
-        \hlstd{Pm_aftermut} \hlkwb{=} \hlstd{(}\hlnum{1}\hlopt{-}\hlstd{mut_prob)}\hlopt{*}\hlstd{Pm_beforemut} \hlopt{+} \hlstd{mut_prob}\hlopt{/}\hlnum{2}\hlopt{*}\hlkwd{c}\hlstd{(Pm_beforemut[}\hlnum{2}\hlopt{:}\hlstd{Nm],}\hlnum{0}\hlstd{)} \hlopt{+} \hlstd{mut_prob}\hlopt{/}\hlnum{2}\hlopt{*}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Pm_beforemut[}\hlnum{1}\hlopt{:}\hlstd{Nm}\hlopt{-}\hlnum{1}\hlstd{])} \hlcom{#and then they can change their songs}
+        \hlstd{Pm_aftermut} \hlkwb{=} \hlstd{(}\hlnum{1}\hlopt{-}\hlstd{mut_prob)}\hlopt{*}\hlstd{Pm_beforemut} \hlopt{+} \hlstd{mut_prob}\hlopt{/}\hlnum{2}\hlopt{*}\hlkwd{c}\hlstd{(Pm_beforemut[}\hlnum{2}\hlopt{:}\hlstd{Nm],}\hlnum{0}\hlstd{)}
+                \hlopt{+} \hlstd{mut_prob}\hlopt{/}\hlnum{2}\hlopt{*}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Pm_beforemut[}\hlnum{1}\hlopt{:}\hlstd{Nm}\hlopt{-}\hlnum{1}\hlstd{])} \hlcom{#and then they change their songs}
         \hlstd{Pm[,t}\hlopt{+}\hlnum{1}\hlstd{]} \hlkwb{=} \hlstd{Pm_aftermut}
         \hlstd{Pf[,t}\hlopt{+}\hlnum{1}\hlstd{]} \hlkwb{=} \hlstd{Pf_adults}
+\hlstd{\}}
+\hlstd{pop_dens} \hlkwb{=} \hlkwd{list}\hlstd{(}\hlkwc{Pm}\hlstd{=Pm,}\hlkwc{Pf}\hlstd{=Pf)}
+\hlkwd{return}\hlstd{(pop_dens)}
 \hlstd{\}}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 
+\vspace{.1 in}
+{\color{red} GLOBAL / NEEDED PARAMETERS:}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{step} \hlkwb{=} \hlnum{0.01} \hlcom{#step size of trait space}
+\hlstd{int_step} \hlkwb{=} \hlstd{step} \hlcom{#step to use for integration function}
+\hlcom{# alpha = 0.5 #if preference function is a step fx, strength of preference}
+\hlcom{# sigma2 = #variance of female preference function}
+\hlcom{# mut_prob =  #probability a male changes song to one on either side}
+\hlcom{# mut_delta = #how to implement mutations of different sizes?}
+\hlcom{# fmix_sigma2 = #variance of female distribution(s)}
+\hlcom{# mmix_sigma2 = 0.1 #variance of male distribution(s)}
+\hlcom{# Tsteps = #how many generations}
+
+\hlstd{mrange} \hlkwb{=} \hlkwd{seq}\hlstd{(}\hlopt{-}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlkwc{by}\hlstd{=step)} \hlcom{#range of male songs}
+\hlstd{Nm} \hlkwb{=} \hlkwd{length}\hlstd{(mrange)}
+\hlstd{mmin} \hlkwb{=} \hlopt{-}\hlnum{1}
+\hlstd{mmax} \hlkwb{=} \hlnum{1}
+\hlstd{m0} \hlkwb{=} \hlkwd{which}\hlstd{(mrange}\hlopt{==}\hlstd{mmin)}
+\hlstd{m1} \hlkwb{=} \hlkwd{which}\hlstd{(mrange}\hlopt{==}\hlstd{mmax)}
+\hlstd{mrange_orig} \hlkwb{=} \hlkwd{seq}\hlstd{(mmin,mmax,}\hlkwc{by}\hlstd{=step)}
+\hlstd{frange} \hlkwb{=} \hlkwd{seq}\hlstd{(}\hlopt{-}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlkwc{by}\hlstd{=step)} \hlcom{#range of female preferences}
+\hlstd{Nf} \hlkwb{=} \hlkwd{length}\hlstd{(frange)}
+\hlstd{fmin} \hlkwb{=} \hlopt{-}\hlnum{1}
+\hlstd{fmax} \hlkwb{=} \hlnum{1}
+\hlstd{f0} \hlkwb{=} \hlkwd{which}\hlstd{(frange}\hlopt{==}\hlstd{fmin)}
+\hlstd{f1} \hlkwb{=} \hlkwd{which}\hlstd{(frange}\hlopt{==}\hlstd{fmax)}
+\hlstd{frange_orig} \hlkwb{=} \hlkwd{seq}\hlstd{(fmin,fmax,}\hlkwc{by}\hlstd{=step)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+{\color{red} INTERESTING PARAMETERS:} 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{sigma2} \hlkwb{=} \hlnum{0.1}
+\hlstd{mut_prob} \hlkwb{=} \hlnum{0.01}
+\hlstd{fmix_sigma2} \hlkwb{=} \hlnum{1}
+\hlstd{Tsteps} \hlkwb{=} \hlnum{60}
+
+\hlstd{m_init} \hlkwb{=} \hlkwd{array}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwc{dim} \hlstd{=} \hlkwd{c}\hlstd{(Nm,}\hlnum{1}\hlstd{))}
+\hlstd{m_init[m0]} \hlkwb{=} \hlnum{0.6}
+\hlstd{m_init[m1]} \hlkwb{=} \hlnum{0.4}
+\hlstd{m_init[,}\hlnum{1}\hlstd{]} \hlkwb{=} \hlstd{m_init[,}\hlnum{1}\hlstd{]}\hlopt{/}\hlkwd{int}\hlstd{(m_init[,}\hlnum{1}\hlstd{])}
+
+\hlstd{p} \hlkwb{=} \hlnum{.4}
+\hlstd{f_init} \hlkwb{=} \hlstd{p}\hlopt{*}\hlkwd{dnorm}\hlstd{(frange,}\hlopt{-}\hlnum{1}\hlstd{,fmix_sigma2)}\hlopt{+}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{p)}\hlopt{*}\hlkwd{dnorm}\hlstd{(frange,}\hlnum{1}\hlstd{,fmix_sigma2)}
+
+\hlstd{pop_dens} \hlkwb{=} \hlkwd{dynamics}\hlstd{()}
+\hlstd{Pm} \hlkwb{=} \hlstd{pop_dens}\hlopt{$}\hlstd{Pm}
+\hlstd{Pf} \hlkwb{=} \hlstd{pop_dens}\hlopt{$}\hlstd{Pf}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+Even with a continuous distribution of female preferences, we find that after several generations, the male song distribution is concentrated in several discrete peaks (Figure \ref{fig:plot_peaks}). 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
 \includegraphics[width=\maxwidth]{figure/plot_peaks-1} \caption[Probability  density of male songs]{Probability  density of male songs. Notice the discrete peaks. }\label{fig:plot_peaks}
@@ -215,37 +258,14 @@ PEAKS
 \hlstd{Pf2} \hlkwb{=} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,Nf,Tsteps}\hlopt{+}\hlnum{1}\hlstd{)}
 \hlstd{Pf2[,}\hlnum{1}\hlstd{]} \hlkwb{=} \hlstd{f_init}
 
-\hlcom{# t = 1}
-\hlkwa{for}\hlstd{(t} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{Tsteps)\{}
-        \hlstd{Pm_adults} \hlkwb{=} \hlstd{Pm2[,t]}
-        \hlstd{Pf_adults} \hlkwb{=} \hlstd{Pf2[,t]}
-        \hlstd{pxy} \hlkwb{=} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,Nm,Nf)}
-
-        \hlkwa{for}\hlstd{(j} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{Nf)\{}
-                \hlstd{y} \hlkwb{=} \hlstd{frange[j]}
-                \hlcom{# weight = 1/sqrt(2*pi*sigma2)*exp(-(mrange-y)^2/(2*sigma2))}
-                \hlstd{weight} \hlkwb{=} \hlkwd{dnorm}\hlstd{(mrange,}\hlkwc{mean}\hlstd{=y,}\hlkwc{sd}\hlstd{=}\hlkwd{sqrt}\hlstd{(sigma2))}
-                \hlcom{# weight = matrix (0,Nf,1)}
-                \hlcom{# weight[c(f0,x1)] = 1}
-                \hlcom{# weight[j] = 1+alpha}
-                \hlstd{z} \hlkwb{=} \hlkwd{int}\hlstd{(weight}\hlopt{*}\hlstd{Pm_adults)}
-                \hlkwa{if}\hlstd{(z}\hlopt{!=}\hlnum{0}\hlstd{)\{}
-                        \hlstd{pxy[,j]} \hlkwb{=} \hlstd{Pf_adults[j]}\hlopt{*}\hlstd{weight}\hlopt{*}\hlstd{Pm_adults}\hlopt{/}\hlstd{z}
-                        \hlstd{\}}
-        \hlstd{\}}
-        \hlstd{Pm_beforemut} \hlkwb{=} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,Nm)}
-        \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{Nm)\{}
-                \hlstd{Pm_beforemut[i]} \hlkwb{=} \hlkwd{int}\hlstd{(pxy[i,])}
-        \hlstd{\}}
-        \hlstd{Pm_aftermut} \hlkwb{=} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,Nm)}
-        \hlstd{Pm_aftermut} \hlkwb{=} \hlstd{(}\hlnum{1}\hlopt{-}\hlstd{mut_prob)}\hlopt{*}\hlstd{Pm_beforemut} \hlopt{+} \hlstd{mut_prob}\hlopt{/}\hlnum{2}\hlopt{*}\hlkwd{c}\hlstd{(Pm_beforemut[}\hlnum{2}\hlopt{:}\hlstd{Nm],}\hlnum{0}\hlstd{)} \hlopt{+} \hlstd{mut_prob}\hlopt{/}\hlnum{2}\hlopt{*}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Pm_beforemut[}\hlnum{1}\hlopt{:}\hlstd{Nm}\hlopt{-}\hlnum{1}\hlstd{])}
-        \hlstd{Pm2[,t}\hlopt{+}\hlnum{1}\hlstd{]} \hlkwb{=} \hlstd{Pm_aftermut}
-        \hlstd{Pf2[,t}\hlopt{+}\hlnum{1}\hlstd{]} \hlkwb{=} \hlstd{Pf_adults}
-\hlstd{\}}
+\hlstd{pop_dens2} \hlkwb{=} \hlkwd{dynamics}\hlstd{()}
+\hlstd{Pm2} \hlkwb{=} \hlstd{pop_dens2}\hlopt{$}\hlstd{Pm}
+\hlstd{Pf2} \hlkwb{=} \hlstd{pop_dens2}\hlopt{$}\hlstd{Pf}
 
 \hlcom{# break down the mating and preference probabilities}
 \hlstd{c} \hlkwb{=} \hlnum{1e-10} \hlcom{#recognition cutoff}
-\hlstd{d} \hlkwb{=} \hlkwd{sqrt}\hlstd{(}\hlopt{-}\hlnum{2}\hlopt{*}\hlstd{sigma2}\hlopt{*}\hlkwd{log}\hlstd{(}\hlkwd{sqrt}\hlstd{(}\hlnum{2}\hlopt{*}\hlstd{pi}\hlopt{*}\hlstd{sigma2)}\hlopt{*}\hlstd{c))} \hlcom{#distance / difference at which a female can recognize a male}
+\hlstd{d} \hlkwb{=} \hlkwd{sqrt}\hlstd{(}\hlopt{-}\hlnum{2}\hlopt{*}\hlstd{sigma2}\hlopt{*}\hlkwd{log}\hlstd{(}\hlkwd{sqrt}\hlstd{(}\hlnum{2}\hlopt{*}\hlstd{pi}\hlopt{*}\hlstd{sigma2)}\hlopt{*}\hlstd{c))}
+\hlcom{#^distance / difference at which a female can recognize a male}
 \hlstd{recognized} \hlkwb{=} \hlkwd{array}\hlstd{(}\hlnum{0}\hlstd{,}\hlkwc{dim}\hlstd{=}\hlkwd{c}\hlstd{(Nm,}\hlnum{1}\hlstd{))}
 
 \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{Nm)\{}
@@ -254,7 +274,9 @@ PEAKS
         \hlstd{y2} \hlkwb{=} \hlstd{x} \hlopt{+} \hlstd{d}
         \hlstd{w1} \hlkwb{=} \hlkwd{which}\hlstd{(frange}\hlopt{>=}\hlstd{x}\hlopt{-}\hlstd{d)}
         \hlstd{w2} \hlkwb{=} \hlkwd{which}\hlstd{(frange}\hlopt{<=}\hlstd{x}\hlopt{+}\hlstd{d)}
-        \hlstd{recognized[i]} \hlkwb{=} \hlkwd{int}\hlstd{(Pf_adults[}\hlkwd{intersect}\hlstd{(w1,w2)]}\hlopt{*}\hlkwd{dnorm}\hlstd{(x}\hlopt{-}\hlstd{frange[}\hlkwd{intersect}\hlstd{(w1,w2)],}\hlkwc{mean}\hlstd{=}\hlnum{0}\hlstd{,}\hlkwc{sd}\hlstd{=}\hlkwd{sqrt}\hlstd{(sigma2)))} \hlcom{#how many females recognize each male, weighted by their preferences}
+        \hlstd{recognized[i]} \hlkwb{=} \hlkwd{int}\hlstd{(Pf2[}\hlkwd{intersect}\hlstd{(w1,w2),}\hlnum{1}\hlstd{]}
+        \hlopt{*}\hlkwd{dnorm}\hlstd{(x}\hlopt{-}\hlstd{frange[}\hlkwd{intersect}\hlstd{(w1,w2)],}\hlkwc{mean}\hlstd{=}\hlnum{0}\hlstd{,}\hlkwc{sd}\hlstd{=}\hlkwd{sqrt}\hlstd{(sigma2)))}
+        \hlcom{#^how many females recognize each male, weighted by their preferences}
 \hlstd{\}}
 
 \hlstd{preferences} \hlkwb{=} \hlkwd{array}\hlstd{(}\hlnum{0}\hlstd{,}\hlkwc{dim}\hlstd{=}\hlkwd{c}\hlstd{(Nm,Nf))}
@@ -267,9 +289,9 @@ PEAKS
         \hlcom{# weight = matrix (0,Nf,1)}
         \hlcom{# weight[c(f0,x1)] = 1}
         \hlcom{# weight[j] = 1+alpha}
-        \hlstd{z} \hlkwb{=} \hlkwd{int}\hlstd{(weight}\hlopt{*}\hlstd{Pm_adults)}
+        \hlstd{z} \hlkwb{=} \hlkwd{int}\hlstd{(weight}\hlopt{*}\hlstd{Pm2[,Tsteps])}
         \hlcom{# if(z!=0)\{}
-                \hlcom{# pxy[,j] = Pf_adults[j]*weight*Pm_adults/z}
+                \hlcom{# pxy[,j] = Pf2[j,1]*weight*Pm2[,Tsteps]/z}
                 \hlcom{# \}}
         \hlstd{preferences[,j]} \hlkwb{=} \hlstd{weight} \hlcom{#preference given by each female to each male}
         \hlstd{female_tots[j]} \hlkwb{=} \hlstd{z} \hlcom{#total preferences given by each female}

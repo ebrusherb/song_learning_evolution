@@ -1,13 +1,13 @@
 ## ---- parameters ----------------
-Tsteps = 1000 #how many generations
 step = 0.01 #step size of trait space
 int_step = step #step to use for integration function
-mut_prob = 0.01 #probability a male changes song to one on either side
-mut_delta = 0 #how to implement mutations of different sizes?
-alpha = 0.5 #if preference function is a step fx, strength of preference
-sigma2 = 1 #variance of female preference function
-fmix_sigma2 = 0.4 #variance of female distribution(s)
-mmix_sigma2 = 0.1 #variance of male distribution(s)
+# alpha = 0.5 #if preference function is a step fx, strength of preference
+# sigma2 = #variance of female preference function
+# mut_prob =  #probability a male changes song to one on either side
+# mut_delta = #how to implement mutations of different sizes?
+# fmix_sigma2 = #variance of female distribution(s)
+# mmix_sigma2 = 0.1 #variance of male distribution(s)
+# Tsteps = #how many generations
 
 mrange = seq(-10,10,by=step) #range of male songs
 Nm = length(mrange) 
@@ -25,26 +25,19 @@ f1 = which(frange==fmax)
 frange_orig = seq(fmin,fmax,by=step)
 
 
-## ---- functions -------------------------
+## ---- integral -------------------------
 int<-function(v){ #manual integration
 	l=length(v)
 	int_step/2*(sum(2*v)-v[1]-v[l])
 }
 
-## ---- peaks -----------------
-mut_prob = 0.01
-Tsteps = 100
-sigma2 = 0.1
-fmix_sigma2 = 1
+x = runif(
+ 10)
 
-m_init = array(0, dim = c(Nm,1))
-m_init[m0] = 0.6
-m_init[m1] = 0.4
-m_init[,1] = m_init[,1]/int(m_init[,1])
 
-p = .4
-f_init = p*dnorm(frange,-1,fmix_sigma2)+(1-p)*dnorm(frange,1,fmix_sigma2)
+## ---- dynamics -----------------------
 
+dynamics <-function(){
 Pm = matrix(0,Nm,Tsteps+1) #probability of male songs over time
 Pm[,1] = m_init
 
@@ -74,10 +67,32 @@ for(t in 1:Tsteps){
 		Pm_beforemut[i] = int(pxy[i,]) #probability of males being born
 	}
 	Pm_aftermut = matrix(0,Nm)
-	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + mut_prob/2*c(0,Pm_beforemut[1:Nm-1]) #and then they can change their songs
+	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) 
+		+ mut_prob/2*c(0,Pm_beforemut[1:Nm-1]) #and then they change their songs
 	Pm[,t+1] = Pm_aftermut
 	Pf[,t+1] = Pf_adults
 }
+pop_dens = list(Pm=Pm,Pf=Pf)
+return(pop_dens)
+}
+
+## ---- peaks -----------------
+sigma2 = 0.1
+mut_prob = 0.01
+fmix_sigma2 = 1
+Tsteps = 60
+
+m_init = array(0, dim = c(Nm,1))
+m_init[m0] = 0.6
+m_init[m1] = 0.4
+m_init[,1] = m_init[,1]/int(m_init[,1])
+
+p = .4
+f_init = p*dnorm(frange,-1,fmix_sigma2)+(1-p)*dnorm(frange,1,fmix_sigma2)
+
+pop_dens = dynamics()
+Pm = pop_dens$Pm
+Pf = pop_dens$Pf
 
 ## ---- explanation -----------------
 v = Pm[,1]
@@ -95,37 +110,14 @@ Pm2[,1] = m_init
 Pf2 = matrix(0,Nf,Tsteps+1)
 Pf2[,1] = f_init
 
-# t = 1
-for(t in 1:Tsteps){
-	Pm_adults = Pm2[,t]
-	Pf_adults = Pf2[,t]
-	pxy = matrix(0,Nm,Nf)
-
-	for(j in 1:Nf){
-		y = frange[j]
-		# weight = 1/sqrt(2*pi*sigma2)*exp(-(mrange-y)^2/(2*sigma2))
-		weight = dnorm(mrange,mean=y,sd=sqrt(sigma2))
-		# weight = matrix (0,Nf,1)
-		# weight[c(f0,x1)] = 1
-		# weight[j] = 1+alpha
-		z = int(weight*Pm_adults)
-		if(z!=0){
-			pxy[,j] = Pf_adults[j]*weight*Pm_adults/z
-			}
-	}
-	Pm_beforemut = matrix(0,Nm)
-	for(i in 1:Nm){
-		Pm_beforemut[i] = int(pxy[i,])
-	}
-	Pm_aftermut = matrix(0,Nm)
-	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + mut_prob/2*c(0,Pm_beforemut[1:Nm-1])
-	Pm2[,t+1] = Pm_aftermut
-	Pf2[,t+1] = Pf_adults
-}
+pop_dens2 = dynamics()
+Pm2 = pop_dens2$Pm
+Pf2 = pop_dens2$Pf
 
 # break down the mating and preference probabilities
 c = 1e-10 #recognition cutoff
-d = sqrt(-2*sigma2*log(sqrt(2*pi*sigma2)*c)) #distance / difference at which a female can recognize a male
+d = sqrt(-2*sigma2*log(sqrt(2*pi*sigma2)*c)) 
+#^distance / difference at which a female can recognize a male
 recognized = array(0,dim=c(Nm,1))
 
 for(i in 1:Nm){
@@ -134,7 +126,9 @@ for(i in 1:Nm){
 	y2 = x + d
 	w1 = which(frange>=x-d)
 	w2 = which(frange<=x+d)
-	recognized[i] = int(Pf_adults[intersect(w1,w2)]*dnorm(x-frange[intersect(w1,w2)],mean=0,sd=sqrt(sigma2))) #how many females recognize each male, weighted by their preferences
+	recognized[i] = int(Pf2[intersect(w1,w2),1]
+	*dnorm(x-frange[intersect(w1,w2)],mean=0,sd=sqrt(sigma2))) 
+	#^how many females recognize each male, weighted by their preferences
 }
 
 preferences = array(0,dim=c(Nm,Nf))
@@ -147,21 +141,20 @@ for(j in 1:Nf){
 	# weight = matrix (0,Nf,1)
 	# weight[c(f0,x1)] = 1
 	# weight[j] = 1+alpha
-	z = int(weight*Pm_adults)
+	z = int(weight*Pm2[,Tsteps])
 	# if(z!=0){
-		# pxy[,j] = Pf_adults[j]*weight*Pm_adults/z
+		# pxy[,j] = Pf2[j,1]*weight*Pm2[,Tsteps]/z
 		# }
 	preferences[,j] = weight #preference given by each female to each male
 	female_tots[j] = z #total preferences given by each female
 }
 
 ## ---- playing -----------------
-mut_prob = 0.01
-Tsteps = 200
 sigma2 = 1
+mut_prob = 0.01
 fmix_sigma2 = 1
 mmix_sigma2 = 0.05
-mut_prob = 0.01
+Tsteps = 200
 
 #option: initial male distribution uniformly randomly distributed
 m_init = runif(n=length(mrange_orig))
@@ -219,7 +212,8 @@ for(t in 1:Tsteps){
 		Pm_beforemut[i] = int(pxy[i,])
 	}
 	Pm_aftermut = matrix(0,Nm)
-	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + mut_prob/2*c(0,Pm_beforemut[1:Nm-1])
+	Pm_aftermut = (1-mut_prob)*Pm_beforemut 
+	+ mut_prob/2*c(Pm_beforemut[2:Nm],0) + mut_prob/2*c(0,Pm_beforemut[1:Nm-1])
 	Pm[,t+1] = Pm_aftermut
 	Pf[,t+1] = Pf_adults
 }
