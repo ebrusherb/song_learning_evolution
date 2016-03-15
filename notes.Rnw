@@ -1,0 +1,88 @@
+\documentclass{article}
+\pdfoptionpdfminorversion=5
+\usepackage{graphicx}
+\usepackage{/Users/eleanorbrush/Documents/custom2}
+\usepackage{wasysym}
+\usepackage[numbers,sort&compress]{natbib}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+%% for inline R code: if the inline code is not correctly parsed, you will see a message
+\newcommand{\rinline}[1]{SOMETHING WRONG WITH knitr}
+
+\begin{document}
+
+<<setup, include=FALSE, cache=TRUE>>=
+library(knitr)
+# set global chunk options
+opts_chunk$set(fig.path='figure/minimal-', fig.align='center', fig.show='hold', cache.path='cache/latex-', size = "footnotesize")
+options(formatR.arrow=TRUE,width=90)
+@
+
+<< get_code, echo = FALSE, cache = FALSE >>=
+read_chunk("continuous_traits_knitr.R")
+@
+
+
+\section{Question}
+\begin{enumerate}
+\item H1 Song learning can decelerate speciation by allowing for genetically diverse birds to mate with each other, maintaining gene flow between subpopulations that might either begin to diverge
+\item H2 Song learning can accelerate speciation by increasing standing genetic variation, which would allow for quicker divergence once new selection pressures arise \cite{Lachlan:2004tg}
+\item H3 Song learning can accelerate speciation because culturally inherited traits can evolve more quickly than genetically inherited ones \cite{Irwin:2012hc}
+\end{enumerate}
+
+\begin{table}
+\caption{\label{summmary_previous} Summary of choices made in previous models}
+\ra{1.3}
+\begin{tabular}{@{}l@{}llllll}
+&\citet{Lachlan:2004tg}
+\\ \male trait(s) & allele A  / a: song predisposition
+ \\ & song
+\\ How \male trait is learned 
+\\ Inherited 
+\\\female trait(s) 
+\\How \female trait is learned 
+\\Inherited
+\\ Errors
+\\ Population structure
+\\ Mating structure
+\\ \female preference
+\\ Selection
+\end{tabular}
+\end{table}
+
+\section{Goals}
+
+\section{Model}
+
+\subsection{Continuous traits }
+
+Each male has a song and each female has preference for a particular song. She will mate with males with songs other than her preferred song, but the probability of her doing so decreases as the potential mate's song gets less similar to her preferred song. Each female mates once and chooses a male according to her preferences and the distribution of songs present in the population. Each male, therefore, may breed multiple times or not at all. We assume that generations are non-overlapping, so once the adults breed they die and we can shift our focus to the new generation. To begin with, we assume that males acquire their songs from their fathers at birth and females acquire their preferences from their mothers at birth. Before the new generation mates, each male has a small probability of ``mutating" its song. This can be interpreted as a learning error or as innovation. After mutation, the new males and females mate. 
+
+Mathematically, each male has a song $x\in \R$ and each female has a preference $y\in\R$.
+
+<<parameters, echo =TRUE >>=
+@ 
+
+<<functions, echo = FALSE>>=
+@
+
+PEAKS
+
+<<peaks, echo = TRUE, cache = TRUE >>=
+@
+
+<< plot_peaks, fig.width=5, fig.height=5, echo = FALSE, fig.cap = 'Probability  density of male songs. Notice the discrete peaks. ' >>=
+t=60
+plot(mrange,Pm[,t],type='l',xlab = 'Song',ylab = 'Probability density',main = c('T=',t))
+@
+
+<<explanation, echo = TRUE>>=
+@
+
+<< plot_female_tots, fig.width=5, fig.height=5, fig.cap = 'Available mates as a function of female preference.' >>=
+plot(frange, female_tots, type='l', xlab = 'Preferences',ylab = 'Available mates')
+@
+\bibliographystyle{plainnat}
+\bibliography{song_learning_evolution}
+
+
+\end{document}
