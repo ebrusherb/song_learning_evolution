@@ -57,7 +57,7 @@ read_chunk("continuous_traits_knitr.R")
 
 Each male has a song and each female has preference for a particular song. She will mate with males with songs other than her preferred song, but the probability of her doing so decreases as the potential mate's song gets less similar to her preferred song. Each female mates once and chooses a male according to her preferences and the distribution of songs present in the population. Each male, therefore, may breed multiple times or not at all. We assume that generations are non-overlapping, so once the adults breed they die and we can shift our focus to the new generation. To begin with, we assume that males acquire their songs from their fathers at birth and females acquire their preferences from their mothers at birth. Before the new generation mates, each male has a small probability of ``mutating" its song. This can be interpreted as a learning error or as innovation. After mutation, the new males and females mate. 
 
-Mathematically, each male has a song $x\in \R$ and each female has a preference $y\in\R$.
+Mathematically, each male has a song $x\in \R$ and each female has a preference $y\in\R$. 
 
 <<parameters, echo =TRUE >>=
 @ 
@@ -65,7 +65,7 @@ Mathematically, each male has a song $x\in \R$ and each female has a preference 
 <<functions, echo = FALSE>>=
 @
 
-PEAKS
+
 
 <<peaks, echo = TRUE, cache = TRUE >>=
 @
