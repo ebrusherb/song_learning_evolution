@@ -1,5 +1,6 @@
-# Particular folders #
+# Particular folders and files#
 ###################
+.Rapp.history
 cache/
 figure/
 
@@ -34,6 +35,7 @@ figure/
 *.blg
 *.fdb_latexmk
 *.m~
+*.bbl
 
 # OS generated files #
 ######################
