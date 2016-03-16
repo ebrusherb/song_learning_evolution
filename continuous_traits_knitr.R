@@ -67,8 +67,8 @@ for(t in 1:Tsteps){
 		Pm_beforemut[i] = int(pxy[i,]) #probability of males being born
 	}
 	Pm_aftermut = matrix(0,Nm)
-	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) 
-		+ mut_prob/2*c(0,Pm_beforemut[1:Nm-1]) #and then they change their songs
+	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + 
+		mut_prob/2*c(0,Pm_beforemut[1:Nm-1]) #and then they change their songs
 	Pm[,t+1] = Pm_aftermut
 	Pf[,t+1] = Pf_adults
 }
@@ -80,7 +80,7 @@ return(pop_dens)
 sigma2 = 0.1
 mut_prob = 0.01
 fmix_sigma2 = 1
-Tsteps = 60
+Tsteps = 100
 
 m_init = array(0, dim = c(Nm,1))
 m_init[m0] = 0.6
@@ -95,8 +95,8 @@ Pm = pop_dens$Pm
 Pf = pop_dens$Pf
 
 ## ---- explanation -----------------
-v = Pm[,1]
-Tsteps = 1 
+Tsteps = 1
+v = Pm[,57] 
 m_init = v
 m_init = m_init/int(m_init)
 
@@ -126,8 +126,8 @@ for(i in 1:Nm){
 	y2 = x + d
 	w1 = which(frange>=x-d)
 	w2 = which(frange<=x+d)
-	recognized[i] = int(Pf2[intersect(w1,w2),1]
-	*dnorm(x-frange[intersect(w1,w2)],mean=0,sd=sqrt(sigma2))) 
+	recognized[i] = int(Pf2[intersect(w1,w2),1]*
+		dnorm(x-frange[intersect(w1,w2)],mean=0,sd=sqrt(sigma2))) 
 	#^how many females recognize each male, weighted by their preferences
 }
 
@@ -212,8 +212,8 @@ for(t in 1:Tsteps){
 		Pm_beforemut[i] = int(pxy[i,])
 	}
 	Pm_aftermut = matrix(0,Nm)
-	Pm_aftermut = (1-mut_prob)*Pm_beforemut 
-	+ mut_prob/2*c(Pm_beforemut[2:Nm],0) + mut_prob/2*c(0,Pm_beforemut[1:Nm-1])
+	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + 
+		mut_prob/2*c(0,Pm_beforemut[1:Nm-1])
 	Pm[,t+1] = Pm_aftermut
 	Pf[,t+1] = Pf_adults
 }
