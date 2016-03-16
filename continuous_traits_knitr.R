@@ -80,7 +80,7 @@ return(pop_dens)
 sigma2 = 0.1
 mut_prob = 0.01
 fmix_sigma2 = 1
-Tsteps = 100
+Tsteps = 60
 
 m_init = array(0, dim = c(Nm,1))
 m_init[m0] = 0.6
@@ -95,59 +95,53 @@ Pm = pop_dens$Pm
 Pf = pop_dens$Pf
 
 ## ---- explanation -----------------
-Tsteps = 1
-v = Pm[,57] 
-m_init = v
-m_init = m_init/int(m_init)
-
-p = .4
-f_init = p*dnorm(frange,-1,fmix_sigma2)+(1-p)*dnorm(frange,1,fmix_sigma2)
-# f_init = .3*dnorm(frange,-1,fmix_sigma2)+.3*dnorm(frange,0,fmix_sigma2)+.4*dnorm(frange,1,fmix_sigma2)
-
-Pm2 = matrix(0,Nm,Tsteps+1)
-Pm2[,1] = m_init
-
-Pf2 = matrix(0,Nf,Tsteps+1)
-Pf2[,1] = f_init
-
-pop_dens2 = dynamics()
-Pm2 = pop_dens2$Pm
-Pf2 = pop_dens2$Pf
+t_peak = 56
 
 # break down the mating and preference probabilities
 c = 1e-10 #recognition cutoff
 d = sqrt(-2*sigma2*log(sqrt(2*pi*sigma2)*c)) 
 #^distance / difference at which a female can recognize a male
-recognized = array(0,dim=c(Nm,1))
-
-for(i in 1:Nm){
-	x = mrange[i]
-	y1 = x - d
-	y2 = x + d
-	w1 = which(frange>=x-d)
-	w2 = which(frange<=x+d)
-	recognized[i] = int(Pf2[intersect(w1,w2),1]*
-		dnorm(x-frange[intersect(w1,w2)],mean=0,sd=sqrt(sigma2))) 
-	#^how many females recognize each male, weighted by their preferences
-}
 
 preferences = array(0,dim=c(Nm,Nf))
 female_tots = matrix(0,Nf)
 
 for(j in 1:Nf){
 	y = frange[j]
+	# x1 = y-d 
+	# x2 = y+d
+	# w1 = which(mrange>=x1)
+	# w2 = which(mrange<=x2)
+	# recognize[j] = int(Pm[intersect(w1,w2),t_peak])
 	# weight = 1/sqrt(2*pi*sigma2)*exp(-(mrange-y)^2/(2*sigma2))
 	weight = dnorm(mrange,mean=y,sd=sqrt(sigma2))
 	# weight = matrix (0,Nf,1)
 	# weight[c(f0,x1)] = 1
 	# weight[j] = 1+alpha
-	z = int(weight*Pm2[,Tsteps])
+	z = int(weight*Pm[,t_peak])
 	# if(z!=0){
-		# pxy[,j] = Pf2[j,1]*weight*Pm2[,Tsteps]/z
+		# pxy[,j] = Pf[j,t_peak]*weight*Pm[,t_peak]/z
 		# }
 	preferences[,j] = weight #preference given by each female to each male
 	female_tots[j] = z #total preferences given by each female
 }
+
+growth_rate = array(0,dim=c(Nm,1))
+preferredby = array(0,dim=c(Nm,1))
+recognizedby = array(0,dim=c(Nm,1))
+
+for(i in 1:Nm){
+	x = mrange[i]
+	y1 = x - d
+	y2 = x + d
+	w1 = which(frange>=y1)
+	w2 = which(frange<=y2)
+	preferredby[i] = int(Pf[intersect(w1,w2),t_peak]*
+		dnorm(x-frange[intersect(w1,w2)],mean=0,sd=sqrt(sigma2))) 
+	recognizedby[i] = int(Pf[intersect(w1,w2),t_peak])
+	#^how many females recognize each male, weighted by their preferences
+	growth_rate[i] = int(preferences[i,]*Pf[,t_peak]/female_tots)
+}
+growth_rate[Pm[,t_peak]==0]=0
 
 ## ---- playing -----------------
 sigma2 = 1

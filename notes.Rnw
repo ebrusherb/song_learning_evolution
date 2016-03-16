@@ -1,5 +1,6 @@
 \documentclass{article}
 \pdfoptionpdfminorversion=5
+\usepackage[textwidth=6in]{geometry}
 \usepackage{graphicx}
 \usepackage{/Users/eleanorbrush/Documents/custom2}
 \usepackage{wasysym}
@@ -8,14 +9,17 @@
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 %% for inline R code: if the inline code is not correctly parsed, you will see a message
 \newcommand{\rinline}[1]{SOMETHING WRONG WITH knitr}
+\newtheorem{rexample}{Code}[section]
 
 \begin{document}
 
-<<setup, include=FALSE, cache=TRUE>>=
+<<setup, include=FALSE>>=
 library(knitr)
-# set global chunk options
-opts_chunk$set(fig.path='figure/minimal-', fig.align='center', fig.show='hold', cache.path='cache/latex-', size = "footnotesize")
+opts_chunk$set(fig.path='figure/minimal-',fig.align='center', fig.show='hold',cache.path='cache/latex-', size = "footnotesize")
 options(formatR.arrow=TRUE,width=90)
+knit_hooks$set(rexample = function(before, options, envir) {
+  if (before) sprintf('\\begin{rexample}\\label{%s}\\hfill{}', options$label) else '\\end{rexample}'
+})
 @
 
 << get_code, echo = FALSE, cache = FALSE >>=
@@ -24,6 +28,8 @@ read_chunk("continuous_traits_knitr.R")
 
 <<integral, echo = FALSE>>=
 @
+
+\section{Introduction}
 
 
 \section{Question}
@@ -71,47 +77,64 @@ which is maximal when $x=y$ and decreases as $|x-y|$ increases. The probability 
 \end{equation*}
 so the probability of a $(x,y)$ pair mating is then
 \begin{equation*}
-P(x,y)=\frac{P_\text{f}(y)P_\text{m}(x)f_y(x)}{\int_\R P_\text{m}(x')f_y(x')dx'}.
+P_\text{mate}(x,y)=\frac{P_\text{f}(y)P_\text{m}(x)f_y(x)}{\int_\R P_\text{m}(x')f_y(x')dx'}=\frac{P_\text{f}(y)P_\text{m}(x)f_y(x)}{Z_y},
 \end{equation*}
+where $Z_y$ is the normalizing factor $\int_\R P_\text{m}(x')f_y(x')dx'$.
 Each such pair will produce a male with song $x$ and a female with preference $y$. Before mating, the male's song changes to $x-\delta_\text{mut}$ with probability $p_\text{mut}/2$ and to $x+\delta_\text{mut}$ with probability $p_\text{mut}/2$. Under these assumptions, the probability density of female preferences does not change over time:
 \begin{equation*}
 P_\text{f}(y,t+1)=P_\text{f}(y,t).
 \end{equation*}
 The probability density of male songs in the next generation, before mutating and after mutating, follows
 \begin{align*}
-P_\text{m}(x,t+1/2)&=\int_\R P(x,y) dy
+P_\text{m}(x,t+1/2)&=\int_\R P_\text{mate}(x,y,t) dy
 \\P_\text{m}(x,t+1)&=(1-p_\text{mut})P_\text{m}(x,t+1/2)+p_\text{mut}/2P_\text{m}(x-\delta_\text{mut},t+1/2)+p_\text{mut}/2P_\text{m}(x+\delta_\text{mut},t+1/2)
 \end{align*}
-The last thing we need to specify is the initial distributions of male songs and female preferences. 
+ (Population dynamics are modeled in Code \ref{dynamics}. Global and / or needed parameters are given in Code \ref{parameters}.)
 
-\vspace{.1 in}
-\noindent {\color{red} CODE FOR THE POPULATION DYNAMICS:}
-
-<<dynamics, echo =TRUE >>=
+<<dynamics, echo =TRUE, rexample = TRUE >>=
 @ 
 
-\vspace{.1 in}
-{\color{red} GLOBAL / NEEDED PARAMETERS:}
-
-<<parameters, echo =TRUE >>=
+<<parameters, echo =TRUE, rexample=TRUE >>=
 @ 
 
-{\color{red} INTERESTING PARAMETERS:} 
-<<peaks, echo = TRUE, cache = TRUE >>=
+Even with a continuous distribution of female preferences, we find that after several generations, the male song distribution is concentrated in several discrete peaks (Figure \ref{fig:plot_peaks}). (Parameters and initial conditions given in Code \ref{peaks}.)
+
+<<peaks, echo = TRUE, cache = TRUE, rexample=TRUE >>=
 @
 
-Even with a continuous distribution of female preferences, we find that after several generations, the male song distribution is concentrated in several discrete peaks (Figure \ref{fig:plot_peaks}). 
 << plot_peaks, fig.width=5, fig.height=5, echo = FALSE, fig.cap = 'Probability  density of male songs. Notice the discrete peaks. ' >>=
 t=60
 plot(mrange,Pm[,t],type='l',xlab = 'Song',ylab = 'Probability density',main = c('T=',t))
 @
 
-<<explanation, echo = TRUE>>=
+Mutations give rise to a small number of males with song traits that are slightly higher (lower) than the rest of the population. The ``edge" females that most prefer these extreme songs have limited options because they do not like the songs most males are singing. They therefore mate with the new ``edge" males with very high probability, which leads to a very fast increase of these songs. As mutations continue to generate new songs, extreme songs will be selected for at the expense of similar songs closer to the middle of the song range. Ultimately, this results in a number of discrete songs at high density.
+
+Ignoring mutations for the moment, the rate of change of the probability density of a particular song is given by 
+\begin{equation}
+\frac{P_\text{m}(x,t+1)}{P_\text{m}(x,t)}= \int _\R\frac{ P_\text{f}(y)f_y(x)}{Z_y}dy \label{growth}
+\end{equation}
+This shows that the normalizing factor $Z_y$ affects how the density of male songs changes from one generation to the next: if a male is recognized by females with very few options (small $Z_y$), then the density of that song will increase more than the song a male recognized by females with many options (large $Z_y$) (Figure \ref{fig:explanation_plot}).
+
+<<explanation, echo = FALSE, cache = TRUE>>=
 @
 
-<< plot_female_tots, fig.width=5, fig.height=5, fig.cap = 'Available mates as a function of female preference.' >>=
-plot(frange, female_tots, type='l', xlab = 'Preferences',ylab = 'Available mates')
+<<explanation_plot, echo=FALSE, cache= TRUE, fig.cap = "The growth rate of songs depends on the females' available choices. On the left we plot the logarithm of the growth rate, highlighting two song traits. On the right we plot the integrand in Equation for growth rate for the same two song traits." >>=
+par(mfrow=c(1,2))
+i1 = 1133;
+i2 = 1140;
+r = 1100:1160
+
+plot(mrange[r],log(growth_rate[r]),type='l',xlab='Song',ylab='Log(growth rate)',main=c('T=',t_peak))
+abline(v=mrange[i1],col='red')
+abline(v=mrange[i2],col='blue')
+
+plot(frange,preferences[i2,]*Pf[,t_peak]/female_tots,type='l',	
+	col='blue',xlab='Preference',ylab='Probability of being chosen')
+lines(frange,preferences[i1,]*Pf[,t_peak]/female_tots,col='red')
+w=which.max(preferences[i2,]*Pf[,t_peak]/female_tots)
 @
+
+
 \bibliographystyle{plainnat}
 \bibliography{song_learning_evolution}
 

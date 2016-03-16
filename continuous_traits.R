@@ -97,7 +97,7 @@ f1 = which(frange==1)
 
 ########## THE PARAMETERS THAT MAKE LOTS OF PRETTY PEAKS
 mut_prob = 0.01
-Tsteps = 1000
+Tsteps = 100
 sigma2 = 0.1
 fmix_sigma2 = 1
 Pm = matrix(0,Nm,Tsteps+1)
