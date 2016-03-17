@@ -29,6 +29,11 @@ read_chunk("continuous_traits_knitr.R")
 <<integral, echo = FALSE>>=
 @
 
+<<check, echo =TRUE, eval = FALSE>>=
+x = runif(10)
+x[1]
+@
+
 \section{Introduction}
 
 

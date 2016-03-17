@@ -88,7 +88,7 @@ m_init[m1] = 0.4
 m_init[,1] = m_init[,1]/int(m_init[,1])
 
 p = .4
-f_init = p*dnorm(frange,-1,fmix_sigma2)+(1-p)*dnorm(frange,1,fmix_sigma2)
+f_init = p*dnorm(frange,fmin,fmix_sigma2)+(1-p)*dnorm(frange,fmax,fmix_sigma2)
 
 pop_dens = dynamics()
 Pm = pop_dens$Pm
@@ -150,18 +150,24 @@ fmix_sigma2 = 1
 mmix_sigma2 = 0.05
 Tsteps = 200
 
-#option: initial male distribution uniformly randomly distributed
-m_init = runif(n=length(mrange_orig))
-m_init = c(array(0,dim=c(m0-1,1)),m_init,array(0,dim=c(Nm-m1,1)))
-m_init = m_init/int(m_init)
+sigma2 = 0.1
+mut_prob = 0.01
+fmix_sigma2 = 1
+mmix_sigma2 = 0.5
+Tsteps = 1000
+
+# #option: initial male distribution uniformly randomly distributed
+# m_init = runif(n=length(mrange_orig))
+# m_init = c(array(0,dim=c(m0-1,1)),m_init,array(0,dim=c(Nm-m1,1)))
+# m_init = m_init/int(m_init)
 # # option: initial male distribution is two delta functions
 # m_init = array(0, dim = c(Nm,1))
 # m_init[m0] = 0.6
 # m_init[m1] = 0.4
 # m_init[,1] = m_init[,1]/int(m_init[,1])
-# # option: initial male distribution is a mix of two normal distributions
-# p = 0.6
-# m_init = p*dnorm(mrange,-1,mmix_sigma2)+(1-p)*dnorm(mrange,1,mmix_sigma2)
+# option: initial male distribution is a mix of two normal distributions
+p = 0.6
+m_init = p*dnorm(mrange,mmin,mmix_sigma2)+(1-p)*dnorm(mrange,mmax,mmix_sigma2)
 
 # #option: initial female distribution uniformly randomly distributed
 # f_init = runif( n=length(frange_orig)-1)
@@ -174,42 +180,44 @@ m_init = m_init/int(m_init)
 # f_init = f_init/int(f_init[,1])
 #option: initial female distribution is mix of two normal distributions
 p = .4
-f_init = p*dnorm(frange,-1,fmix_sigma2)+(1-p)*dnorm(frange,1,fmix_sigma2)
-# f_init = .3*dnorm(frange,-1,fmix_sigma2)+.3*dnorm(frange,0,fmix_sigma2)+.4*dnorm(frange,1,fmix_sigma2)
+f_init = p*dnorm(frange,fmin,fmix_sigma2)+(1-p)*dnorm(frange,fmax,fmix_sigma2)
+# f_init = .3*dnorm(frange,fmin,fmix_sigma2)+.3*dnorm(frange,mean(c(fmin,fmax)),fmix_sigma2)+.4*dnorm(frange,fmax,fmix_sigma2)
 
-Pm = matrix(0,Nm,Tsteps+1) #probability of male songs over time
-Pm[,1] = m_init
+pop_dens = dynamics()
+Pm = pop_dens$Pm
+Pf = pop_dens$Pf
 
-Pf = matrix(0,Nf,Tsteps+1) #probability of female preferences over time
-Pf[,1] = f_init
+## ---- variance_sweep ---------------
+mut_prob = 0.01
+Tsteps = 1000
+pm = 0.6
+pf = 0.4
 
-# t = 1
-for(t in 1:Tsteps){
-	Pm_adults = Pm[,t]
-	Pf_adults = Pf[,t]
-	pxy = matrix(0,Nm,Nf)
-	### should I round Pm_adults?!? how?!? is that why I'm getting bumps?!?
-	for(j in 1:Nf){
-		y = frange[j]
-		# weight = 1/sqrt(2*pi*sigma2)*exp(-(mrange-y)^2/(2*sigma2))
-		weight = dnorm(mrange,mean=y,sd=sqrt(sigma2))
-		# weight = matrix (0,Nf,1)
-		# weight[c(f0,x1)] = 1
-		# weight[j] = 1+alpha
-		z = int(weight*Pm_adults)
-		if(z!=0){
-			pxy[,j] = Pf_adults[j]*weight*Pm_adults/z
-			}
+sigma2_vals = c(0.1,0.5,1,2,4)
+Ns = length(sigma2_vals)
+fmix_sigma2_vals = c(0.01,0.05,0.1,0.5,1)
+Nfs = length(fmix_sigma2_vals)
+mmix_sigma2_vals = c(0.01,0.05,0.1,0.5,1)
+Nms = length(fmmix_sigma2_vals)
+Pm_keep = array(0,dim=c(Nm,Ns,Nfs,Nms))
+Pf_keep = array(0,dim=c(Nf,Ns,Nfs,Nms))
+
+for(s in 1:Ns){
+	sigma2 = sigma2_vals[s]
+	for(f in 1:Nfs){
+		fmix_sigma2 = fmix_sigma2_vals[f]
+		f_init = pf*dnorm(frange,fmin,fmix_sigma2)+(1-pf)*dnorm(frange,fmax,fmix_sigma2)
+		for(m in 1:Nms){
+			mmix_sigma2 = mmix_sigma2_vals[m]
+			m_init = pm*dnorm(mrange,mmin,mmix_sigma2)+(1-pm)*dnorm(mrange,mmax,mmix_sigma2)
+			pop_dens = dynamics()
+			Pm = pop_dens$Pm
+			Pf = pop_dens$Pf
+			Pm_keep[,s,f,m] = Pm[,Tsteps]
+			Pf_keep[,s,f,m] = Pf[,Tsteps]
+		}
 	}
-	Pm_beforemut = matrix(0,Nm)
-	for(i in 1:Nm){
-		Pm_beforemut[i] = int(pxy[i,])
-	}
-	Pm_aftermut = matrix(0,Nm)
-	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + 
-		mut_prob/2*c(0,Pm_beforemut[1:Nm-1])
-	Pm[,t+1] = Pm_aftermut
-	Pf[,t+1] = Pf_adults
 }
-		
+
+
 

@@ -222,7 +222,7 @@ Even with a continuous distribution of female preferences, we find that after se
 \hlstd{m_init[,}\hlnum{1}\hlstd{]} \hlkwb{=} \hlstd{m_init[,}\hlnum{1}\hlstd{]}\hlopt{/}\hlkwd{int}\hlstd{(m_init[,}\hlnum{1}\hlstd{])}
 
 \hlstd{p} \hlkwb{=} \hlnum{.4}
-\hlstd{f_init} \hlkwb{=} \hlstd{p}\hlopt{*}\hlkwd{dnorm}\hlstd{(frange,}\hlopt{-}\hlnum{1}\hlstd{,fmix_sigma2)}\hlopt{+}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{p)}\hlopt{*}\hlkwd{dnorm}\hlstd{(frange,}\hlnum{1}\hlstd{,fmix_sigma2)}
+\hlstd{f_init} \hlkwb{=} \hlstd{p}\hlopt{*}\hlkwd{dnorm}\hlstd{(frange,fmin,fmix_sigma2)}\hlopt{+}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{p)}\hlopt{*}\hlkwd{dnorm}\hlstd{(frange,fmax,fmix_sigma2)}
 
 \hlstd{pop_dens} \hlkwb{=} \hlkwd{dynamics}\hlstd{()}
 \hlstd{Pm} \hlkwb{=} \hlstd{pop_dens}\hlopt{$}\hlstd{Pm}
