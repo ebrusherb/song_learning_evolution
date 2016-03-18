@@ -9,15 +9,13 @@ cl <-makeCluster(num_cores)
 registerDoParallel(cl)
 
 source('ind2sub.R')
+source('glue.R')
 
 ## ---- integral -------------------------
 int<-function(v){ #manual integration
 	l=length(v)
 	int_step/2*(sum(2*v)-v[1]-v[l])
-}
-
-x = runif(
- 10)
+} 
 
 ## ---- parameters ----------------
 step = 0.01 #step size of trait space
@@ -99,15 +97,15 @@ Nfs = length(fmix_sigma2_vals)
 mmix_sigma2_vals = c(0.01,0.05,0.1,0.5,1)
 Nms = length(mmix_sigma2_vals)
 P = Ns*Nfs*Nms
+d = c(Ns,Nfs,Nms)
 
 Pm_keep=as.list(1:P)
-dim(Pm_keep)<-c(Ns,Nfs,Nms)
+dim(Pm_keep)<-d
 Pf_keep=as.list(1:P)
-dim(Pf_keep)<-c(Ns,Nfs,Nms)
+dim(Pf_keep)<-d
 
-invisible(
-foreach(ind = 1:P) %dopar% {
-	v=ind2sub(c(Ns,Nfs,Nms),ind)
+P_keep<-foreach(ind = 1:P, .combine='glue', .multicombine = TRUE, .init=list(list(),list())) %do% {
+	v=ind2sub(d,ind)
 	s=v[1]
 	f=v[2]
 	m=v[3]
@@ -117,12 +115,16 @@ foreach(ind = 1:P) %dopar% {
 	mmix_sigma2 = mmix_sigma2_vals[m]
 	m_init = pm*dnorm(mrange,mmin,mmix_sigma2)+(1-pm)*dnorm(mrange,mmax,mmix_sigma2)
 	pop_dens = dynamics()
-	Pm = pop_dens$Pm
-	Pf = pop_dens$Pf
-	Pm_keep[[ind]] = Pm[,Tsteps]
-	Pf_keep[[ind]] = Pf[,Tsteps]
+	pop_dens_last = list(pop_dens$Pm[,Tsteps],pop_dens$Pf[,Tsteps])
 }
-)
+
+Pm_keep_hold = P_keep[[1]]
+Pf_keep_hold = P_keep[[2]]
+
+for(ind in 1:P){
+	Pm_keep[[ind]] = Pm_keep_hold[[ind]]
+	Pf_keep[[ind]] = Pf_keep_hold[[ind]]
+}
 
 save(Pm_keep=Pm_keep,Pf_keep=Pf_keep,file='/homes/ebrush/priv/song_learning_evolution/paramsweep_par.Rdata')
 
