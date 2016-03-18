@@ -104,7 +104,7 @@ dim(Pm_keep)<-d
 Pf_keep=as.list(1:P)
 dim(Pf_keep)<-d
 
-P_keep<-foreach(ind = 1:P, .combine='glue', .multicombine = TRUE, .init=list(list(),list())) %do% {
+P_keep<-foreach(ind = 1:P, .combine='glue', .multicombine = TRUE, .init=list(list(),list())) %dopar% {
 	v=ind2sub(d,ind)
 	s=v[1]
 	f=v[2]
