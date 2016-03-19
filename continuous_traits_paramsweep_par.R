@@ -86,15 +86,15 @@ return(pop_dens)
 
 ## ---- variance_sweep ---------------
 mut_prob = 0.01
-Tsteps = 1000
+Tsteps = 5000
 pm = 0.6
 pf = 0.4
 
-sigma2_vals = c(0.1,0.5,1,2,4)
+sigma2_vals = c(0.01,0.1,0.5,1,2,4,6)
 Ns = length(sigma2_vals)
-fmix_sigma2_vals = c(0.01,0.05,0.1,0.5,1)
+fmix_sigma2_vals = c(0.01,0.05,0.1,0.5,1,1.5,2)
 Nfs = length(fmix_sigma2_vals)
-mmix_sigma2_vals = c(0.01,0.05,0.1,0.5,1)
+mmix_sigma2_vals = c(0.01,0.05,0.1,0.5,1,1.5,2)
 Nms = length(mmix_sigma2_vals)
 P = Ns*Nfs*Nms
 d = c(Ns,Nfs,Nms)
@@ -115,7 +115,7 @@ P_keep<-foreach(ind = 1:P, .combine='glue', .multicombine = TRUE, .init=list(lis
 	mmix_sigma2 = mmix_sigma2_vals[m]
 	m_init = pm*dnorm(mrange,mmin,mmix_sigma2)+(1-pm)*dnorm(mrange,mmax,mmix_sigma2)
 	pop_dens = dynamics()
-	pop_dens_last = list(pop_dens$Pm[,Tsteps],pop_dens$Pf[,Tsteps])
+	# pop_dens_last = list(pop_dens$Pm[,Tsteps],pop_dens$Pf[,Tsteps])
 }
 
 Pm_keep_hold = P_keep[[1]]
