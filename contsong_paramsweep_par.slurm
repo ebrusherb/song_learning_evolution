@@ -3,8 +3,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=20
 #SBATCH -t 20:00:00
-#SBATCH -J paramsweep
-#SBATCH -o paramsweep.out
+#SBATCH -J songlearning_paramsweep
+#SBATCH -o songlearning_paramsweep.out
 # #SBATCH --mail-type=begin
 #SBATCH --mail-type=end
 #SBATCH --mail-user=eleanor.brush@gmail.com
@@ -21,6 +21,6 @@ echo 'Running on'
 hostname
 echo '-------------------------------'
 
-R --no-save < continuous_traits_paramsweep_par.R
+R --no-save < contsong_paramsweep_par.R
 
 # rm -rf /tmp/ebrush/$SLURM_JOB_ID
