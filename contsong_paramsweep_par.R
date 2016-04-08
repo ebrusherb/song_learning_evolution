@@ -28,14 +28,14 @@ int_step = step #step to use for integration function
 # mmix_sigma2 = 0.1 #variance of male distribution(s)
 # Tsteps = #how many generations
 
-mrange = seq(-10,10,by=step) #range of male songs
+mrange = seq(-7.5,7.5,by=step) #range of male songs
 Nm = length(mrange) 
 mmin = -1
 mmax = 1
 m0 = which(mrange==mmin)
 m1 = which(mrange==mmax)
 mrange_orig = seq(mmin,mmax,by=step) 
-frange = seq(-10,10,by=step) #range of female preferences
+frange = seq(-7.5,7.5,by=step) #range of female preferences
 Nf = length(frange)
 fmin = -1
 fmax = 1
@@ -85,7 +85,6 @@ return(pop_dens)
 }
 
 ## ---- variance_sweep ---------------
-mut_prob = 0.01
 Tsteps = 1500
 pm = 0.6
 pf = 0.6
@@ -96,8 +95,10 @@ fmix_sigma2_vals = c(0.01,0.1,0.5,0.7,1)
 Nfs = length(fmix_sigma2_vals)
 mmix_sigma2_vals = c(0.01,0.1,0.3,0.5,1)
 Nms = length(mmix_sigma2_vals)
-P = Ns*Nfs*Nms
-d = c(Ns,Nfs,Nms)
+mut_prob_vals = c(0,0.01,0.1)
+Nmp = length(mut_prob_vals)
+P = Ns*Nfs*Nms*Nmp
+d = c(Ns,Nfs,Nms,Nmp)
 
 Pm_keep=as.list(1:P)
 dim(Pm_keep)<-d
@@ -109,11 +110,13 @@ P_keep<-foreach(ind = 1:P, .combine='glue', .multicombine = TRUE, .init=list(lis
 	s=v[1]
 	f=v[2]
 	m=v[3]
+	p=v[4]
 	sigma2 = sigma2_vals[s]
 	fmix_sigma2 = fmix_sigma2_vals[f]
 	f_init = pf*dnorm(frange,fmin,fmix_sigma2)+(1-pf)*dnorm(frange,fmax,fmix_sigma2)
 	mmix_sigma2 = mmix_sigma2_vals[m]
 	m_init = pm*dnorm(mrange,mmin,mmix_sigma2)+(1-pm)*dnorm(mrange,mmax,mmix_sigma2)
+	mut_prob = mut_prob_vals[p]
 	pop_dens = dynamics()
 	# pop_dens_last = list(pop_dens$Pm[,Tsteps],pop_dens$Pf[,Tsteps])
 }
@@ -138,11 +141,13 @@ P_onepop<-foreach(ind = 1:P, .combine='glue', .multicombine = TRUE, .init=list(l
 	s=v[1]
 	f=v[2]
 	m=v[3]
+	p=v[4]
 	sigma2 = sigma2_vals[s]
 	fmix_sigma2 = fmix_sigma2_vals[f]
 	mmix_sigma2 = mmix_sigma2_vals[m]
 	f_init = pf*dnorm(frange,fmin,fmix_sigma2)+(1-pf)*dnorm(frange,fmax,fmix_sigma2)
 	m_init = pm*dnorm(mrange,mmin,mmix_sigma2)+(1-pm)*dnorm(mrange,mmax,mmix_sigma2)
+	mut_prob = mut_prob_vals[p]
 	pop_dens = dynamics()
 	# pop_dens_last = list(pop_dens$Pm[,Tsteps],pop_dens$Pf[,Tsteps])
 }
@@ -155,7 +160,7 @@ for(ind in 1:P){
 	Pf_onepop[[ind]] = Pf_onepop_hold[[ind]]
 }
 
-save(Pm_keep=Pm_keep,Pf_keep=Pf_keep,Pm_onepop=Pm_onepop,Pf_onopop=Pf_onepop,sigma2_vals=sigma2_vals,fmix_sigma2_vals,mmix_sigma2_vals,file='/homes/ebrush/priv/song_learning_evolution/song_learning_paramsweep_par.Rdata')
+save(Pm_keep=Pm_keep,Pf_keep=Pf_keep,Pm_onepop=Pm_onepop,Pf_onopop=Pf_onepop,sigma2_vals=sigma2_vals,fmix_sigma2_vals,mmix_sigma2_vals,mut_prob_vals=mut_prob_vals,file='/homes/ebrush/priv/song_learning_evolution/song_learning_paramsweep_par.Rdata')
 
 stopCluster(cl)
 
