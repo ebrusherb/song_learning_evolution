@@ -105,7 +105,7 @@ for(ind in start:(start+25-1)){
 }
 
 par(mfrow=c(2,3))
-m=5
+m=4
 for(f in 1:5){
 	s=1
 	plot(sign(mrange-mrange[m0])*sqrt(abs(mrange-mrange[m0])),Pm_onepop[[s,f,m]][,Tsteps],type='l',col=mypal[s],ylim=c(0,0.5),xlim=c(-1.5,1.5),main=fmix_sigma2_vals[f])
@@ -186,7 +186,8 @@ half = floor(length(subset)/2)
 four_freq = array(NA,dim(Pm_keep))
 # four_coef = array(NA,dim(Pm_keep))
 four_mat = array(NA,c(dim(Pm_keep),half))
-var_mat = array(NA,c(dim(Pm_keep)))
+var_mat_m = array(NA,c(dim(Pm_keep)))
+var_mat_f = array(NA,c(dim(Pf_keep)))
 four_var = array(NA,c(dim(Pm_keep)))
 
 for(i in 1:P){
@@ -202,7 +203,10 @@ for(i in 1:P){
 	four_mat[cbind(matrix(rep(sub,half),nrow=half,byrow=TRUE),1:half)] = coeffs[1:half]
 	ex = int(mrange*Pm_onepop[[i]][,Tsteps])
 	vx = int((mrange-(ex))^2*Pm_onepop[[i]][,Tsteps])
-	var_mat[i] = vx
+	var_mat_m[i] = vx
+	ex = int(mrange*Pf_onepop[[i]][,Tsteps])
+	vx = int((mrange-(ex))^2*Pf_onepop[[i]][,Tsteps])
+	var_mat_f[i] = vx
 	mf = mean(coeffs[1:200])
 	ml = intersect(local_max(coeffs[1:half]),which(coeffs[1:half]>mf/2))
 	if(length(ml)==1){four_freq[i] = 1} else{ four_freq[i] = median(diff(ml))}
@@ -400,12 +404,12 @@ growth_rate[Pm[,t_peak]==0]=0
 
 ##---
 
-m=2;radius=sqrt(step*rev(as.vector(four_freq[,,m]+.05)));symbols(rev(as.vector(smat[,,m])),rev(as.vector(var_mat[,,m])),circles=radius,bg=rev(as.vector(colmat[,,m])),inches=.5*max(radius),xlab='Selectivity',ylab='Entropy');legend(x=1.5,y=01,legend=(fmix_sigma2_vals),lty=0,pch=16,col=(mypal),bty='n')
+m=2;radius=sqrt(step*rev(as.vector(four_freq[,,m]+.05)));symbols(rev(as.vector(smat[,,m])),rev(as.vector(ent_mat_m[,,m])),circles=radius,bg=rev(as.vector(colmat[,,m])),inches=.5*max(radius),xlab='Selectivity',ylab='Entropy');legend(x=1.5,y=01,legend=(fmix_sigma2_vals),lty=0,pch=16,col=(mypal),bty='n')
 
 
 m=2;radius=sqrt(rev(as.vector(1/wavelength_peaks[,,m]+.05)));symbols(rev(as.vector(smat[,,m])),rev(as.vector(ent_mat[,,m])),circles=radius,bg=rev(as.vector(colmat[,,m])),inches=.1*max(radius),xlab='Selectivity',ylab='Entropy');legend(x=1.5,y=01,legend=(fmix_sigma2_vals),lty=0,pch=16,col=(mypal),bty='n')
 
-
+m=5;radius=sqrt(step*(as.vector(four_freq[,,m]+.05)));symbols((as.vector(smat[,,m])),(sqrt(as.vector(var_mat_m[,,m]))),circles=radius,bg=(as.vector(colmat[,,m])),inches=.5*max(radius),xlab='Selectivity',ylab='Standard deviation');legend(x=1.5,y=01,legend=(fmix_sigma2_vals),lty=0,pch=16,col=(mypal),bty='n');for(f in 3:5){abline(h=fmix_sigma2_vals[f],col=mypal[f])}
 
 
 
