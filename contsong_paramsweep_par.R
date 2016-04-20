@@ -85,17 +85,17 @@ return(pop_dens)
 }
 
 ## ---- variance_sweep ---------------
-Tsteps = 1500
+Tsteps = 2500
 pm = 0.6
 pf = 0.6
 
-sigma2_vals = c(0.01,0.1,0.5,1,2)
+sigma2_vals = c(0.01,0.05,0.1,0.25,0.5,1,2)
 Ns = length(sigma2_vals)
 fmix_sigma2_vals = c(0.01,0.1,0.5,0.7,1)
 Nfs = length(fmix_sigma2_vals)
-mmix_sigma2_vals = c(0.01,0.1,0.3,0.5,1)
+mmix_sigma2_vals = c(0.01,0.1,0.3,0.5)
 Nms = length(mmix_sigma2_vals)
-mut_prob_vals = c(0,0.01,0.1)
+mut_prob_vals = c(0.01,0.1)
 Nmp = length(mut_prob_vals)
 P = Ns*Nfs*Nms*Nmp
 d = c(Ns,Nfs,Nms,Nmp)

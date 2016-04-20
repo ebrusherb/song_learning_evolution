@@ -1,6 +1,6 @@
-s=2
+s=5
 f=5
-m=4
+m=1
 
 sigma2 = sigma2_vals[s]
 fmix_sigma2 = fmix_sigma2_vals[f]
@@ -25,4 +25,11 @@ f_init = pf*forig + (1-pf)*fshift
 
 Tsteps = 100
 pop_dens = dynamics()
+
+Pm=pop_dens$Pm
+Pf=pop_dens$Pf
+
+plot(Pm[,1],type='l',col='red',ylim=c(0,max(Pm)),xlab='Song',ylab='Density',main=paste("Pref width = ",sigma2_vals[s],"Male var = ",mmix_sigma2_vals[m]))
+lines(Pf[,1],col='blue')
+lines(Pm[,Tsteps+1])
 
