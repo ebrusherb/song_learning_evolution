@@ -10,12 +10,7 @@ registerDoParallel(cl)
 
 source('ind2sub.R')
 source('glue.R')
-
-## ---- integral -------------------------
-int<-function(v){ #manual integration
-	l=length(v)
-	int_step/2*(sum(2*v)-v[1]-v[l])
-} 
+source('int.R')
 
 ## ---- parameters ----------------
 step = 0.01 #step size of trait space
@@ -43,6 +38,9 @@ f0 = which(frange==fmin)
 f1 = which(frange==fmax)
 frange_orig = seq(fmin,fmax,by=step)
 
+nonzero_thresh = 1e-5
+perc_thresh = 1e-10
+
 ## ---- dynamics -----------------------
 
 dynamics <-function(){
@@ -52,8 +50,9 @@ Pm[,1] = m_init
 Pf = matrix(0,Nf,Tsteps+1) #probability of female preferences over time
 Pf[,1] = f_init
 
-# t = 1
-for(t in 1:Tsteps){
+t = 1
+perc = 0
+while(t <= Tsteps){
 	Pm_adults = Pm[,t]
 	Pf_adults = Pf[,t]
 	pxy = matrix(0,Nm,Nf) #probability of a (x,y) pair
@@ -77,23 +76,32 @@ for(t in 1:Tsteps){
 	Pm_aftermut = matrix(0,Nm)
 	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + 
 		mut_prob/2*c(0,Pm_beforemut[1:Nm-1]) #and then they change their songs
-	Pm[,t+1] = Pm_aftermut
-	Pf[,t+1] = Pf_adults
+	nonzero = which(Pm_adults>nonzero_thresh)
+	perc = max(abs(range(Pm_aftermut[nonzero]/Pm_adults[nonzero],na.rm=TRUE)-c(1,1)))
+	if(perc>perc_thresh){	
+		Pm[,t+1] = Pm_aftermut
+		Pf[,t+1] = Pf_adults
+		t = t+1
+		} else{
+			Pm[,(t+1):(Tsteps+1)] = Pm_aftermut
+			Pf[,(t+1):(Tsteps+1)] = Pf_adults
+			t = Tsteps+1
+			}
 }
 pop_dens = list(Pm=Pm[,(Tsteps-200):Tsteps],Pf=Pf[,(Tsteps-200):Tsteps])
 return(pop_dens)
 }
 
 ## ---- variance_sweep ---------------
-Tsteps = 2500
+Tsteps = 20000
 pm = 0.6
 pf = 0.6
 
 sigma2_vals = c(0.001,0.01,0.05,0.1,0.25,0.5,1,2)
 Ns = length(sigma2_vals)
-fmix_sigma2_vals = c(0.001,0.01,0.1,0.5,1)
+fmix_sigma2_vals = c(0.01,0.05,0.1,0.5,1,2)
 Nfs = length(fmix_sigma2_vals)
-mmix_sigma2_vals = c(0.001,0.01,0.1,0.5)
+mmix_sigma2_vals = c(0.01,0.1,0.5)
 Nms = length(mmix_sigma2_vals)
 mut_prob_vals = c(0,0.01,0.1)
 Nmp = length(mut_prob_vals)
@@ -160,8 +168,9 @@ for(ind in 1:P){
 	Pf_onepop[[ind]] = Pf_onepop_hold[[ind]]
 }
 
+Date=Sys.Date()
 # save(Pm_keep=Pm_keep,Pf_keep=Pf_keep,Pm_onepop=Pm_onepop,Pf_onopop=Pf_onepop,sigma2_vals=sigma2_vals,fmix_sigma2_vals,mmix_sigma2_vals,mut_prob_vals=mut_prob_vals,file='/homes/ebrush/priv/song_learning_evolution/song_learning_paramsweep_par.Rdata')
-save(Pm_onepop=Pm_onepop,Pf_onopop=Pf_onepop,sigma2_vals=sigma2_vals,fmix_sigma2_vals,mmix_sigma2_vals,mut_prob_vals=mut_prob_vals,file='/homes/ebrush/priv/song_learning_evolution/song_learning_paramsweep_par.Rdata')
+save(Pm_onepop=Pm_onepop,Pf_onopop=Pf_onepop,sigma2_vals=sigma2_vals,fmix_sigma2_vals,mmix_sigma2_vals,mut_prob_vals=mut_prob_vals,Tsteps=Tsteps,mrange,Nm,frange,Nf,step,int_step,file=paste('/homes/ebrush/priv/song_learning_evolution/song_learning_paramsweep_par_',substr(Date,1,4),'_',substr(Date,6,7),'_',substr(Date,9,10),'.Rdata',sep=''))
 
 
 stopCluster(cl)

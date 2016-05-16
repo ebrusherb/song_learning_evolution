@@ -409,7 +409,7 @@ m=2;radius=sqrt(step*rev(as.vector(four_freq[,,m]+.05)));symbols(rev(as.vector(s
 
 m=2;radius=sqrt(rev(as.vector(1/wavelength_peaks[,,m]+.05)));symbols(rev(as.vector(smat[,,m])),rev(as.vector(ent_mat[,,m])),circles=radius,bg=rev(as.vector(colmat[,,m])),inches=.1*max(radius),xlab='Selectivity',ylab='Entropy');legend(x=1.5,y=01,legend=(fmix_sigma2_vals),lty=0,pch=16,col=(mypal),bty='n')
 
-m=5;radius=sqrt(step*(as.vector(four_freq[,,m]+.05)));symbols((as.vector(smat[,,m])),(sqrt(as.vector(var_mat_m[,,m]))),circles=radius,bg=(as.vector(colmat[,,m])),inches=.5*max(radius),xlab='Selectivity',ylab='Standard deviation');legend(x=1.5,y=01,legend=(fmix_sigma2_vals),lty=0,pch=16,col=(mypal),bty='n');for(f in 3:5){abline(h=fmix_sigma2_vals[f],col=mypal[f])}
+m=3;radius=sqrt(step*(as.vector(four_freq[,,m]+.05)));symbols((as.vector(smat[,,m])),(sqrt(as.vector(var_mat_m[,,m]))),circles=radius,bg=(as.vector(colmat[,,m])),inches=.5*max(radius),xlab='Selectivity',ylab='Standard deviation');legend(x=1.5,y=01,legend=(fmix_sigma2_vals),lty=0,pch=16,col=(mypal),bty='n');for(f in 3:5){abline(h=fmix_sigma2_vals[f],col=mypal[f])}
 
 
 
