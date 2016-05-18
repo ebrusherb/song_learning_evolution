@@ -2,6 +2,7 @@
 library(parallel)
 library(foreach)
 library(doParallel)
+library(abind)
 
 # num_cores <- detectCores()-1
 num_cores <-20
@@ -12,8 +13,9 @@ source('ind2sub.R')
 source('glue.R')
 source('int.R')
 
+
 ## ---- parameters ----------------
-step = 0.01 #step size of trait space
+step = 0.05 #step size of trait space
 int_step = step #step to use for integration function
 # alpha = 0.5 #if preference function is a step fx, strength of preference
 # sigma2 = #variance of female preference function
@@ -43,20 +45,24 @@ perc_thresh = 1e-10
 
 ## ---- dynamics -----------------------
 
-dynamics <-function(){
-Pm = matrix(0,Nm,Tsteps+1) #probability of male songs over time
-Pm[,1] = m_init
+dynamics_malefath_femaleboth <-function(){
 
 Pf = matrix(0,Nf,Tsteps+1) #probability of female preferences over time
 Pf[,1] = f_init
 
+Pm = array(0,dim=c(Nm,Nf,Tsteps+1)) #probability of male songs and preferences over time
+Pm[,,1] = outer(m_init,f_init,'*')
+
 t = 1
 perc = 0
 while(t <= Tsteps){
-	Pm_adults = Pm[,t]
+	Pm_adults = Pm[,,t]
+	m_adult_songs = apply(Pm_adults,1,int)
+	divisor = m_adult_songs
+	divisor[m_adult_songs==0] = 1
+	m_adults_prefs_normed = Pm_adults / matrix(rep(divisor,times = Nf),nrow=Nm)
 	Pf_adults = Pf[,t]
 	pxy = matrix(0,Nm,Nf) #probability of a (x,y) pair
-	### should I round Pm_adults?!? how?!? is that why I'm getting bumps?!?
 	for(j in 1:Nf){
 		y = frange[j]
 		# weight = 1/sqrt(2*pi*sigma2)*exp(-(mrange-y)^2/(2*sigma2))
@@ -64,45 +70,54 @@ while(t <= Tsteps){
 		# weight = matrix (0,Nf,1)
 		# weight[c(f0,x1)] = 1
 		# weight[j] = 1+alpha
-		z = int(weight*Pm_adults) #normalization factor
+		z = int(weight*m_adult_songs) #normalization factor
 		if(z!=0){
-			pxy[,j] = Pf_adults[j]*weight*Pm_adults/z
+			pxy[,j] = Pf_adults[j]*weight*m_adult_songs/z
 			}
 	}
-	# Pm_beforemut = matrix(0,Nm)
-	# for(i in 1:Nm){
-		# Pm_beforemut[i] = int(pxy[i,]) #probability of males being born
-	# }
-	Pm_beforemut = apply(pxy,1,int)
-	Pm_aftermut = matrix(0,Nm)
-	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + 
-		mut_prob/2*c(0,Pm_beforemut[1:Nm-1]) #and then they change their songs
-	nonzero = which(Pm_adults>nonzero_thresh)
-	perc = max(abs(range(Pm_aftermut[nonzero]/Pm_adults[nonzero],na.rm=TRUE)-c(1,1)))
+	# m_prefs.rows = split(m_adults_prefs_normed,row(m_adults_prefs_normed))
+	# pxy.rows = split(pxy,row(pxy))
+	# total_breeding_mat = lapply(seq_along(pxy.rows),function(i){t(outer(pxy.rows[[i]],m_prefs.rows[[i]],'/'))})
+	total_breeding_mat = array(0,dim=c(Nm,Nf,Nf))
+	for(i in 1:Nm){
+		total_breeding_mat[i,,] = t(outer(pxy[i,],m_adults_prefs_normed[i,],'*'))
+	}
+	
+	Pm_beforemut = array(0,dim=c(Nm,Nf))
+	for(i in 1:Nm){
+		Pm_beforemut[i,] = 1/2*apply(total_breeding_mat[i,,],1,int)+1/2*apply(total_breeding_mat[i,,],2,int)
+	}
+	Pm_aftermut = array(0,dim=c(Nm,Nf))
+	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*abind(Pm_beforemut[2:Nm,],array(0,Nf),along=1) +		mut_prob/2*abind(array(0,Nf),Pm_beforemut[1:Nm-1,],along=1) #and then they change their songs
+	pref_breeding_mat = apply(total_breeding_mat,c(2,3),int)
+	Pf_new = 1/2*apply(pref_breeding_mat,1,int) + 1/2*apply(pref_breeding_mat,2,int)
+	nonzero = which(m_adult_songs>nonzero_thresh)
+	perc = max(abs(range(apply(Pm_aftermut[nonzero,],1,int)/m_adult_songs[nonzero],na.rm=TRUE)-c(1,1)))
 	if(perc>perc_thresh){	
-		Pm[,t+1] = Pm_aftermut
-		Pf[,t+1] = Pf_adults
+		Pm[,,t+1] = Pm_aftermut
+		Pf[,t+1] = Pf_new
 		t = t+1
 		} else{
-			Pm[,(t+1):(Tsteps+1)] = Pm_aftermut
-			Pf[,(t+1):(Tsteps+1)] = Pf_adults
+			Pm[,,(t+1):(Tsteps+1)] = Pm_aftermut
+			Pf[,,(t+1):(Tsteps+1)] = Pf_new
 			t = Tsteps+1
 			}
 }
+Pm = apply(Pm,c(1,3),int)
 pop_dens = list(Pm=Pm[,(Tsteps-200):Tsteps],Pf=Pf[,(Tsteps-200):Tsteps])
 return(pop_dens)
 }
 
 ## ---- variance_sweep ---------------
-Tsteps = 20000
+Tsteps = 10000
 pm = 0.6
 pf = 0.6
 
-sigma2_vals = c(0.001,0.01,0.05,0.1,0.25,0.5,1,2)
+sigma2_vals = c(0.001,0.01,0.1,1)
 Ns = length(sigma2_vals)
-fmix_sigma2_vals = c(0.01,0.05,0.1,0.5,1,2)
+fmix_sigma2_vals = c(0.01,0.1,1)
 Nfs = length(fmix_sigma2_vals)
-mmix_sigma2_vals = c(0.01,0.1,0.5)
+mmix_sigma2_vals = c(0.01,0.1,1)
 Nms = length(mmix_sigma2_vals)
 mut_prob_vals = c(0,0.01,0.1)
 Nmp = length(mut_prob_vals)
@@ -126,7 +141,7 @@ d = c(Ns,Nfs,Nms,Nmp)
 	# mmix_sigma2 = mmix_sigma2_vals[m]
 	# m_init = pm*dnorm(mrange,mmin,mmix_sigma2)+(1-pm)*dnorm(mrange,mmax,mmix_sigma2)
 	# mut_prob = mut_prob_vals[p]
-	# pop_dens = dynamics()
+	# pop_dens = dynamics_malefath_femaleboth()
 	# # pop_dens_last = list(pop_dens$Pm[,Tsteps],pop_dens$Pf[,Tsteps])
 # }
 
@@ -157,7 +172,7 @@ P_onepop<-foreach(ind = 1:P, .combine='glue', .multicombine = TRUE, .init=list(l
 	f_init = pf*dnorm(frange,fmin,fmix_sigma2)+(1-pf)*dnorm(frange,fmax,fmix_sigma2)
 	m_init = pm*dnorm(mrange,mmin,mmix_sigma2)+(1-pm)*dnorm(mrange,mmax,mmix_sigma2)
 	mut_prob = mut_prob_vals[p]
-	pop_dens = dynamics()
+	pop_dens = dynamics_malefath_femaleboth()
 	# pop_dens_last = list(pop_dens$Pm[,Tsteps],pop_dens$Pf[,Tsteps])
 }
 
@@ -171,7 +186,7 @@ for(ind in 1:P){
 
 Date=Sys.Date()
 # save(Pm_keep=Pm_keep,Pf_keep=Pf_keep,Pm_onepop=Pm_onepop,Pf_onopop=Pf_onepop,sigma2_vals=sigma2_vals,fmix_sigma2_vals,mmix_sigma2_vals,mut_prob_vals=mut_prob_vals,file='/homes/ebrush/priv/song_learning_evolution/song_learning_paramsweep_par.Rdata')
-save(Pm_onepop=Pm_onepop,Pf_onepop=Pf_onepop,sigma2_vals=sigma2_vals,fmix_sigma2_vals,mmix_sigma2_vals,mut_prob_vals=mut_prob_vals,Tsteps=Tsteps,mrange,Nm,frange,Nf,step,int_step,file=paste('/homes/ebrush/priv/song_learning_evolution/song_learning_paramsweep_par_',substr(Date,1,4),'_',substr(Date,6,7),'_',substr(Date,9,10),'.Rdata',sep=''))
+save(Pm_onepop=Pm_onepop,Pf_onepop=Pf_onepop,sigma2_vals=sigma2_vals,fmix_sigma2_vals,mmix_sigma2_vals,mut_prob_vals=mut_prob_vals,Tsteps=Tsteps,mrange,Nm,frange,Nf,step,int_step,file=paste('/homes/ebrush/priv/song_learning_evolution/song_learning_malefath_femaleboth_',substr(Date,1,4),'_',substr(Date,6,7),'_',substr(Date,9,10),'.Rdata',sep=''))
 
 
 stopCluster(cl)
