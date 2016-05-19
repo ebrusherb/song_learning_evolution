@@ -89,7 +89,7 @@ while(t <= Tsteps){
 			t = Tsteps+1
 			}
 }
-pop_dens = list(Pm=Pm[,(Tsteps-200):Tsteps],Pf=Pf[,(Tsteps-200):Tsteps])
+pop_dens = list(Pm=Pm[,(1):Tsteps],Pf=Pf[,(1):Tsteps])
 return(pop_dens)
 }
 
