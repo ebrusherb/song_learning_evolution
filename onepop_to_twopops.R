@@ -6,8 +6,13 @@ sigma2 = sigma2_vals[s]
 fmix_sigma2 = fmix_sigma2_vals[f]
 mmix_sigma2 = mmix_sigma2_vals[m]
 
-mend = Pm_onepop[[s,f,m]][,Tsteps]
-fend= Pf_onepop[[s,f,m]][,Tsteps]
+i = 236
+
+pf = 0.6
+pm =0.4
+
+mend = Pm_onepop[[i]][,Tend]
+fend= Pf_onepop[[i]][,Tend]
 
 morig = mend
 forig = fend

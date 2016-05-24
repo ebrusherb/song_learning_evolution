@@ -20,6 +20,18 @@ Nfs = length(fmix_sigma2_vals)
 Nms = length(mmix_sigma2_vals)
 Nmp = length(mut_prob_vals)
 
+Nm = length(mrange) 
+mmin = -1
+mmax = 1
+m0 = which(mrange==mmin)
+m1 = which(mrange==mmax)
+
+Nf = length(frange)
+fmin = -1
+fmax = 1
+f0 = which(frange==fmin)
+f1 = which(frange==fmax)
+
 subset = 601:1201;
 subset = 1:Nm;
 Tend = dim(Pm_onepop[[1]])[2]
@@ -76,19 +88,19 @@ for(i in 1:P){
 	colmat[i] = mypal[sub[2]]
 }
 
-p=1
+p=2
 mvals=c(2,3)
 lm = length(mvals)
-fvals = c(2,3,4,5)
+fvals = c(1:3)
 
-subset = (m0-180):(m0+180)
-ylim = c(0,1.5)
+subset = (m0-250):(m0+250)
+ylim = c(0,5)
 marg = c(0.25,0.1,0.25,0.1)
 
 examples = list()
 bubble = list()
 
-ms_toplot = cbind(rep(mvals,each=2),c(1,4,4,Ns))
+ms_toplot = cbind(rep(mvals,each=2),c(1,4,1,Ns))
 for(i in 1:dim(ms_toplot)[1]){
 	m = ms_toplot[i,1]
 	s = ms_toplot[i,2]
@@ -106,45 +118,45 @@ for(i in 1:dim(ms_toplot)[1]){
 examples[[i]] <- ggplot(dist,aes(x=mrange,y=dist,color=f_sigma2)) + geom_line() + 
 	theme_bw() +
 	theme(text=element_text(family="Helvetica", size=10),plot.title=element_text(size=10) , plot.margin=unit(marg,"cm"),legend.position='none') + 
-	scale_color_manual(values=c('white',mypal[fvals-1]))+
+	scale_color_manual(values=c('white',mypal[fvals]))+
 	scale_y_continuous(limits=ylim)  + xlab('') + ylab('')
 }
 
-examples[[3]] = examples[[3]] + xlab('Song') + ylab('Probability')
-examples[[4]] = examples[[4]] + xlab('Song') + ylab('Probability')
+examples[[1]] = examples[[1]] + xlab('Song') + ylab('Probability')
+examples[[2]] = examples[[2]] + xlab('Song') + ylab('Probability')
 
 for(i in 1:lm){
 	m = mvals[i]
 	
-	toplot = melt(log((smat[,2:Nfs,m,p]),base=10),varnames = c('sigma2','f_sigma2'))
-	toplot$f_sigma2 = rep(fmix_sigma2_vals[2:Nfs],each=Ns)
-	toplot = cbind(toplot,as.vector(log(sqrt(var_mat_m[,2:Nfs,m,p]),base=10)))
-	toplot = cbind(toplot,(as.vector(num_peaks[,2:Nfs,m,p])))
-	colnames(toplot)[3:5] = c('x','y','size')
-	toplot$f_sigma2 = as.factor(toplot$f_sigma2)
+	toplot = melt(log(sqrt(var_mat_m[,1:Nfs,m,p]),base=10),varnames = c('sigma2','f_sigma2'))
+	toplot$sigma2 = log(rep(sigma2_vals,times=(Nfs)),base=10)
+	toplot$f_sigma2 = as.factor(rep(fmix_sigma2_vals[1:Nfs],each=Ns))
+	colnames(toplot)[3] = 'y'
+	toplot$size = as.vector(num_peaks[,1:Nfs,m,p])
 	
 	xbreaks = 10^(-3:0)
 	ybreaks = 10^(-10:0)
 	
-	bubble[[i]] <- ggplot(toplot, aes(x=x, y=y, size=size, color = f_sigma2),guide=FALSE)+
-		geom_hline(yintercept = log(fmix_sigma2_vals[2:Nfs],base=10), color =mypal[1:(Nfs-1)],size=.2) + 
+	bubble[[i]] <- ggplot(toplot, aes(x=sigma2, y=y, size=size, color = f_sigma2),guide=FALSE)+
+		geom_hline(yintercept = log(fmix_sigma2_vals[1:Nfs],base=10), color =mypal[1:(Nfs)],size=.2) + 
 		geom_line(size=0.5) + geom_point()+ scale_size_area(max_size = 5,limits = c(0,max(num_peaks)))+
 		theme_bw() +
 		theme(text=element_text(family="Helvetica", size=10),plot.title=element_text(size=10) , plot.margin=unit(marg,"cm")) + 
 		scale_color_manual(values=mypal)+
 		labs(color=expression(sigma[f]),size='# of peaks') +
 		 scale_x_continuous(limits=range(log(sigma2_vals,base=10))+c(-.4,.1),breaks=log(xbreaks,base=10),labels=xbreaks)+
-		scale_y_continuous(limits=c(floor(min(toplot$y)),.5),breaks=log(ybreaks,base=10),labels=ybreaks)+
+		scale_y_continuous(limits=c(floor(min(toplot$y)),0.5),breaks=log(ybreaks,base=10),labels=ybreaks)+
 		 guides(size = FALSE) 
 }
 
 
-bubble[[1]] = bubble[[1]] + theme(legend.position='none') + xlab('') + ylab('')
+bubble[[1]] = bubble[[1]] + theme(legend.position='none') + xlab('Promiscuity') + ylab('Standard deviation')
 legend_bub <- get_legend(bubble[[2]])
 bubble[[2]] = bubble[[2]] + theme(legend.position='none') + xlab('Promiscuity') + ylab('Standard deviation')
 
 	
-pdf(file=paste('/Users/eleanorbrush/Documents/research/song_learning_evolution/examples_and_summary_malefath_femalemoth_p=',p,'.pdf',sep=''),width=6.83,height=5)
-grid.arrange(examples[[1]],examples[[2]],bubble[[1]],legend_bub,examples[[3]],examples[[4]],bubble[[2]],ncol=4,widths=c(1,1,1,.4))
+pdf(file=paste('/Users/eleanorbrush/Documents/research/song_learning_evolution/examples_and_summary_malefath_femalefath_p=',p,'.pdf',sep=''),width=6.83,height=5)
+# grid.arrange(examples[[1]],examples[[2]],bubble[[1]],legend_bub,examples[[3]],examples[[4]],bubble[[2]],ncol=4,widths=c(1,1,1,.4))
+grid.arrange(examples[[1]],examples[[2]],bubble[[1]],legend_bub,ncol=4,widths=c(1,1,1,.4))
 dev.off()
 
