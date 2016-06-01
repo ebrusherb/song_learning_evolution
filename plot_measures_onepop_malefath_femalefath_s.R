@@ -8,7 +8,7 @@ source('ind2sub.R')
 source('int.R')
 source('get_legend.R')
 
-eightpal=brewer.pal(8,'Set1')
+mypal=brewer.pal(5,'Set1')
 
 d = dim(Pm_onepop)
 P = prod(d)
@@ -73,72 +73,66 @@ for(i in 1:P){
 	fmat[i] = fmix_sigma2_vals[sub[2]]
 	mmat[i] = mmix_sigma2_vals[sub[3]]
 	pmat[i] = mut_prob_vals[sub[4]]
-	colmat[i] = eightpal[sub[2]]
+	colmat[i] = mypal[sub[2]]
 }
 
 p=2
 mvals=c(2,3)
 lm = length(mvals)
-fvals = c(2,3,4,5)
-svals = 3:6
+fvals = 1:Nfs
 
-subset = (m0-180):(m0+180)
-ylim = c(0,1.5)
+subset = (m0-250):(m0+250)
+ylim = c(0,3)
 marg = c(0.25,0.1,0.25,0.1)
 
 examples = list()
 bubble = list()
 
-mf_toplot = cbind(rep(mvals,each=2),c(2,Nfs,4,Nfs))
-for(i in 1:dim(mf_toplot)[1]){
-	m = mf_toplot[i,1]
-	f = mf_toplot[i,2]
+ms_toplot = cbind(rep(mvals,each=2),c(1,4,3,Ns))
+for(i in 1:dim(ms_toplot)[1]){
+	m = ms_toplot[i,1]
+	s = ms_toplot[i,2]
 	dist = c()
 	m_init = dnorm(mrange[subset],mmin,mmix_sigma2_vals[m])
 	m_init[m_init>ylim[2]] = ylim[2]
 	dist = c(dist,m_init)
-	for(s in svals){
+	for(f in fvals){
 		toadd =Pm_onepop[[s,f,m,p]][subset,Tend]
 		toadd[toadd>ylim[2]] = ylim[2]
 		dist = c(dist,toadd)
 	}
-	dist = data.frame(dist = dist, mrange = rep(mrange[subset]+1,length(svals)+1),sigma2 = as.factor(rep(c(0,sigma2_vals[svals]),each=length(subset))))
+	dist = data.frame(dist = dist, mrange = rep(mrange[subset]+1,length(fvals)+1),f_sigma2 = as.factor(rep(c(fmix_sigma2_vals[Nfs]-1,fmix_sigma2_vals[fvals]),each=length(subset))))
 	
-examples[[i]] <- ggplot(dist,aes(x=mrange,y=dist,color=sigma2)) + geom_line() + 
+examples[[i]] <- ggplot(dist,aes(x=mrange,y=dist,color=f_sigma2)) + geom_line() + 
 	theme_bw() +
 	theme(text=element_text(family="Helvetica", size=10),plot.title=element_text(size=10) , plot.margin=unit(marg,"cm"),legend.position='none') + 
-	scale_color_manual(values=c('white',eightpal[1:length(svals)]))+
+	scale_color_manual(values=c('white',mypal[fvals]))+
 	scale_y_continuous(limits=ylim)  + xlab('') + ylab('')
 }
 
 examples[[3]] = examples[[3]] + xlab('Song') + ylab('Probability')
 examples[[4]] = examples[[4]] + xlab('Song') + ylab('Probability')
 
-eightpal2= eightpal
-eightpal2[svals] = eightpal[1:length(svals)]
-eightpal2[setdiff(1:length(eightpal),svals)] = eightpal[(length(svals)+1):length(eightpal)]
-
 for(i in 1:lm){
 	m = mvals[i]
 	
-	toplot = melt(log(sqrt(var_mat_m[rev(1:Ns),2:Nfs,m,p]),base=10),varnames = c('sigma2','f_sigma2'))
-	toplot$sigma2 = as.factor(rep(rev(sigma2_vals),times=(Nfs-1)))
-	toplot$f_sigma2 = log(rep(fmix_sigma2_vals[2:Nfs],each=Ns),base=10)
+	toplot = melt(log(sqrt(var_mat_m[,1:Nfs,m,p]),base=10),varnames = c('sigma2','f_sigma2'))
+	toplot$sigma2 = log(rep(sigma2_vals,times=(Nfs)),base=10)
+	toplot$f_sigma2 = as.factor(rep(fmix_sigma2_vals[1:Nfs],each=Ns))
 	colnames(toplot)[3] = 'y'
-	toplot$size = as.vector(num_peaks[rev(1:Ns),2:Nfs,m,p])
-
+	toplot$size = as.vector(num_peaks[,1:Nfs,m,p])
 	
-	xbreaks = fmix_sigma2_vals[2:Nfs]
-	ybreaks = fmix_sigma2_vals[2:Nfs]
+	xbreaks = 10^(-3:0)
+	ybreaks = 10^(-10:0)
 	
-	bubble[[i]] <- ggplot(toplot, aes(x=f_sigma2, y=y, size=size, color = sigma2),guide=FALSE)+
-		# geom_hline(yintercept = log(fmix_sigma2_vals[2:Nfs],base=10), color =eightpal[1:(Nfs-1)],size=.2) + 
+	bubble[[i]] <- ggplot(toplot, aes(x=sigma2, y=y, size=size, color = f_sigma2),guide=FALSE)+
+		geom_hline(yintercept = log(fmix_sigma2_vals[1:Nfs],base=10), color =mypal[1:(Nfs)],size=.2) + 
 		geom_line(size=0.5) + geom_point()+ scale_size_area(max_size = 5,limits = c(0,max(num_peaks)))+
 		theme_bw() +
 		theme(text=element_text(family="Helvetica", size=10),plot.title=element_text(size=10) , plot.margin=unit(marg,"cm")) + 
-		scale_color_manual(values=(eightpal2))+
-		labs(color=expression(sigma),size='# of peaks') +
-		 scale_x_continuous(limits=range(log(fmix_sigma2_vals[2:Nfs],base=10))+c(-.4,.1),breaks=log(xbreaks,base=10),labels=xbreaks)+
+		scale_color_manual(values=mypal)+
+		labs(color=expression(sigma[f]),size='# of peaks') +
+		 scale_x_continuous(limits=range(log(sigma2_vals,base=10))+c(-.4,.1),breaks=log(xbreaks,base=10),labels=xbreaks)+
 		scale_y_continuous(limits=c(floor(min(toplot$y)),0.5),breaks=log(ybreaks,base=10),labels=ybreaks)+
 		 guides(size = FALSE) 
 }
@@ -146,10 +140,10 @@ for(i in 1:lm){
 
 bubble[[1]] = bubble[[1]] + theme(legend.position='none') + xlab('') + ylab('')
 legend_bub <- get_legend(bubble[[2]])
-bubble[[2]] = bubble[[2]] + theme(legend.position='none') + xlab('Female standard deviation') + ylab('Male standard deviation')
+bubble[[2]] = bubble[[2]] + theme(legend.position='none') + xlab('Promiscuity') + ylab('Standard deviation')
 
 	
-pdf(file=paste('/Users/eleanorbrush/Documents/research/song_learning_evolution/examples_and_summary_malefath_femalemoth_f_p=',p,'.pdf',sep=''),width=6.83,height=5)
+pdf(file=paste('/Users/eleanorbrush/Documents/research/song_learning_evolution/examples_and_summary_malefath_femalefath_s_p=',p,'.pdf',sep=''),width=6.83,height=5)
 grid.arrange(examples[[1]],examples[[2]],bubble[[1]],legend_bub,examples[[3]],examples[[4]],bubble[[2]],ncol=4,widths=c(1,1,1,.4))
 dev.off()
 

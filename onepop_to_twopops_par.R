@@ -154,16 +154,16 @@ P_twopop<-foreach(ind = 1:P, .combine='glue', .multicombine = TRUE, .init=list(l
 	m=v[3]
 	p=pvals[v[4]]
 	shift = shift_vals[v[5]]
-	mend = Pm_onepop[[s,f,m,p]][,Tend]
-	fend= Pf_onepop[[s,f,m,p]][,Tend]
+	morig = Pm_onepop[[s,f,m,p]][,Tend]
+	forig= Pf_onepop[[s,f,m,p]][,Tend]
 	
 	mpeak_diff = m1-m0+shift
 	fpeak_diff = f1-f0+shift
 
 	mshift = matrix(0,Nm)
-	mshift[mpeak_diff:Nm] = mend[1:(Nm-mpeak_diff+1)]
+	mshift[mpeak_diff:Nm] = morig[1:(Nm-mpeak_diff+1)]
 	fshift = matrix(0,Nf)
-	fshift[fpeak_diff:Nf] = fend[1:(Nf-fpeak_diff+1)]
+	fshift[fpeak_diff:Nf] = forig[1:(Nf-fpeak_diff+1)]
 
 	m_init = pm*morig+(1-pm)*mshift
 	f_init = pf*forig + (1-pf)*fshift

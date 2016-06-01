@@ -5,7 +5,7 @@ library(doParallel)
 library(abind)
 
 # num_cores <- detectCores()-1
-num_cores <-20
+num_cores <-10
 cl <-makeCluster(num_cores)
 registerDoParallel(cl)
 
@@ -15,7 +15,7 @@ source('int.R')
 
 
 ## ---- parameters ----------------
-step = 0.05 #step size of trait space
+step = 0.01 #step size of trait space
 int_step = step #step to use for integration function
 # alpha = 0.5 #if preference function is a step fx, strength of preference
 # sigma2 = #variance of female preference function
@@ -88,7 +88,7 @@ while(t <= Tsteps){
 		Pm_beforemut[i,] = 1/2*apply(total_breeding_mat[i,,],1,int)+1/2*apply(total_breeding_mat[i,,],2,int)
 	}
 	Pm_aftermut = array(0,dim=c(Nm,Nf))
-	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*abind(Pm_beforemut[2:Nm,],array(0,Nf),along=1) +		mut_prob/2*abind(array(0,Nf),Pm_beforemut[1:Nm-1,],along=1) #and then they change their songs
+	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*abind(Pm_beforemut[2:Nm,],array(0,Nf),along=1) +		mut_prob/2*abind(array(0,Nf),Pm_beforemut[1:(Nm-1),],along=1) #and then they change their songs
 	pref_breeding_mat = apply(total_breeding_mat,c(2,3),int)
 	Pf_new = 1/2*apply(pref_breeding_mat,1,int) + 1/2*apply(pref_breeding_mat,2,int)
 	nonzero = which(m_adult_songs>nonzero_thresh)
@@ -99,17 +99,18 @@ while(t <= Tsteps){
 		t = t+1
 		} else{
 			Pm[,,(t+1):(Tsteps+1)] = Pm_aftermut
-			Pf[,,(t+1):(Tsteps+1)] = Pf_new
+			Pf[,(t+1):(Tsteps+1)] = Pf_new
 			t = Tsteps+1
 			}
 }
 Pm = apply(Pm,c(1,3),int)
-pop_dens = list(Pm=Pm[,(Tsteps-200):Tsteps],Pf=Pf[,(Tsteps-200):Tsteps])
+pop_dens = list(Pm=Pm[,store:Tsteps],Pf=Pf[,store:Tsteps])
 return(pop_dens)
 }
 
 ## ---- variance_sweep ---------------
-Tsteps = 10000
+Tsteps = 5000
+store = Tsteps-200
 pm = 0.6
 pf = 0.6
 

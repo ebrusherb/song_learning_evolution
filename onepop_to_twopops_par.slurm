@@ -2,7 +2,7 @@
 
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=20
-#SBATCH -t 50:00:00
+#SBATCH -t 20:00:00
 #SBATCH -J twopops
 #SBATCH -o twopops.out
 # #SBATCH --mail-type=begin

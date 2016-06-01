@@ -1,6 +1,6 @@
 #!/bin/tcsh
 
-#SBATCH --ntasks=2
+#SBATCH --ntasks=1
 #SBATCH --cpus-per-task=10
 #SBATCH -t 50:00:00
 #SBATCH -J malefath_femaleboth
