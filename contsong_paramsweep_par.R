@@ -11,36 +11,8 @@ registerDoParallel(cl)
 source('ind2sub.R')
 source('glue.R')
 source('int.R')
+source('range_setup.R')
 
-## ---- parameters ----------------
-step = 0.01 #step size of trait space
-int_step = step #step to use for integration function
-# alpha = 0.5 #if preference function is a step fx, strength of preference
-# sigma = #variance of female preference function
-# mut_prob =  #probability a male changes song to one on either side
-# mut_delta = #how to implement mutations of different sizes?
-# f_sigma = #variance of female distribution(s)
-# m_sigma = 0.1 #variance of male distribution(s)
-# Tsteps = #how many generations
-
-mrange = seq(-7.5,7.5,by=step) #range of male songs
-Nm = length(mrange) 
-mmin = -1
-mmax = 1
-m0 = which(mrange==mmin)
-m1 = which(mrange==mmax)
-mrange_orig = seq(mmin,mmax,by=step) 
-frange = seq(-7.5,7.5,by=step) #range of female preferences
-Nf = length(frange)
-fmin = -1
-fmax = 1
-f0 = which(frange==fmin)
-f1 = which(frange==fmax)
-frange_orig = seq(fmin,fmax,by=step)
-midpt = ceiling(Nf/2)
-
-nonzero_thresh = 1e-5
-perc_thresh = 1e-10
 
 ## ---- dynamics -----------------------
 
@@ -69,7 +41,7 @@ while(t <= Tsteps){
 		pull=sort(c(((Nf+1)+s)%%(Nf+1)+midpt-j,((Nf+1)-s)%%(Nf+1)))
 		weight[toreplace[1]:toreplace[2]] = fixed_weight[pull[1]:pull[2]]
 		z = sum(weight*Pm_adults) #normalization factor
-		if(z!=0){
+		if(z>z_thresh){
 			pxy[,j] = Pf_adults[j]*weight*Pm_adults/z
 			}
 	}
@@ -80,7 +52,6 @@ while(t <= Tsteps){
 	Pf_adults[apply(pxy,2,sum)==0]=0
 	Pm_beforemut = apply(pxy,1,sum)/sum(Pf_adults)
 	Pf_adults = Pf_adults/sum(Pf_adults)
-	Pm_aftermut = matrix(0,Nm)
 	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + 
 		mut_prob/2*c(0,Pm_beforemut[1:(Nm-1)]) #and then they change their songs
 	nonzero = which(Pm_adults>nonzero_thresh)
@@ -100,14 +71,14 @@ return(pop_dens)
 }
 
 ## ---- variance_sweep ---------------
-Tsteps = 5000
+Tsteps = 20000
 store = Tsteps - 100
 pm = 0.6
 pf = 0.6
 
-sigma_vals = c(0.01,0.1,0.2,0.3,0.5,0.75,1,1.25)
+sigma_vals = c(0.01,0.1,0.2,0.4,0.8,1,1.5)
 Ns = length(sigma_vals)
-f_sigma_vals = c(0.01,0.1,1)
+f_sigma_vals = c(0.001,0.01,0.05,0.1,0.5,0.75,1)
 Nfs = length(f_sigma_vals)
 m_sigma_vals = c(0.01,0.1)
 Nms = length(m_sigma_vals)

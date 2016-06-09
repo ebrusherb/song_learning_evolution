@@ -1,8 +1,8 @@
 #!/bin/tcsh
 
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=40
-#SBATCH -t 50:00:00
+#SBATCH --cpus-per-task=10
+#SBATCH -t 25:00:00
 #SBATCH -J malefath_femalefath
 #SBATCH -o malefath_femalefath.out
 # #SBATCH --mail-type=begin

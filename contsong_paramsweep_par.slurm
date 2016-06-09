@@ -2,7 +2,7 @@
 
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=10
-#SBATCH -t 25:00:00
+#SBATCH -t 60:00:00
 #SBATCH -J songlearning_paramsweep
 #SBATCH -o songlearning_paramsweep.out
 # #SBATCH --mail-type=begin

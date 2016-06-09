@@ -3,24 +3,24 @@ Ncol = 8
 mypal=(brewer.pal(Ncol,'Set1'))
 mypal=brewer.pal(Ncol,'Spectral')
 
-p=1
+p=2
 mvals=c(1,2)
 lm = length(mvals)
 # fvals = apply(matrix(c(0.01,0.1,1),nrow=1),2,function(x) which(is.element(f_sigma_vals,x)))
-fvals = apply(matrix(c(0.001,0.1,1),nrow=1),2,function(x) which(is.element(f_sigma_vals,x)))
+fvals = apply(matrix(c(0.001,0.1),nrow=1),2,function(x) which(is.element(f_sigma_vals,x)))
 # v=1:Ncol
 # v[fvals]=1:length(fvals)
 # v[setdiff(1:Ncol,fvals)]=(length(fvals)+1):Ncol
 # mypal=mypal[v]
 
-subset = (m0-300):(m0+300)
-ylim = c(0,0.01)
+subset = (m0-30):(m0+30)
+ylim = c(0,0.04)
 marg = c(0.25,0.1,0.25,0.1)
 
 examples = list()
 bubble = list()
 
-ms_toplot = cbind(rep(mvals,each=3),rep(c(1,3,Ns),2))
+ms_toplot = cbind(rep(mvals,each=3),rep(c(1,2,Ns),2))
 for(i in 1:dim(ms_toplot)[1]){
 	m = ms_toplot[i,1]
 	s = ms_toplot[i,2]
@@ -30,7 +30,7 @@ for(i in 1:dim(ms_toplot)[1]){
 	m_init = m_init / sum(m_init)
 	m_init[m_init>ylim[2]] = ylim[2]
 	dist = c(dist,m_init)
-	for(f in fvals){
+	for(f in rev(fvals)){
 		toadd =Pm_onepop[[s,f,m,p]][subset,Tend]
 		toadd[toadd>ylim[2]] = ylim[2]
 		dist = c(dist,toadd)
@@ -40,7 +40,7 @@ for(i in 1:dim(ms_toplot)[1]){
 examples[[i]] <- ggplot(dist,aes(x=mrange,y=dist,color=f_sigma)) + geom_line() + 
 	theme_bw() +
 	theme(text=element_text(family="Helvetica", size=10),plot.title=element_text(size=10) , plot.margin=unit(marg,"cm"),legend.position='none') + 
-	scale_color_manual(values=c('white',mypal[fvals]))+
+	scale_color_manual(values=c('white',rev(mypal[fvals])))+
 	scale_y_continuous(limits=ylim)  + xlab('') + ylab('')
 }
 
@@ -78,7 +78,7 @@ legend_bub <- get_legend(bubble[[2]])
 bubble[[2]] = bubble[[2]] + theme(legend.position='none') + xlab('Promiscuity') + ylab('Standard deviation')
 
 	
-pdf(file=paste('/Users/eleanorbrush/Documents/research/song_learning_evolution/examples_and_summary_malefath_femalemoth_s_p=',p,'.pdf',sep=''),width=6.83,height=5)
+# pdf(file=paste('/Users/eleanorbrush/Documents/research/song_learning_evolution/examples_and_summary_maleboth_femaleboth_s_p=',p,'.pdf',sep=''),width=6.83,height=5)
 grid.arrange(examples[[1]],examples[[2]],examples[[3]],bubble[[1]],legend_bub,examples[[4]],examples[[5]],examples[[6]],bubble[[2]],ncol=5,widths=c(1,1,1,1,.4))
-dev.off()
+# dev.off()
 

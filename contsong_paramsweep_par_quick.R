@@ -2,7 +2,6 @@
 library(parallel)
 library(foreach)
 library(doParallel)
-library(abind)
 
 # num_cores <- detectCores()-1
 num_cores <-10
@@ -14,28 +13,26 @@ source('glue.R')
 source('int.R')
 source('range_setup.R')
 
-
-
 ## ---- dynamics -----------------------
 
-dynamics_maleboth_femaleboth <-function(){
+dynamics <-function(){
+Pm = matrix(0,Nm,Tsteps+1) #probability of male songs over time
+Pm[,1] = m_init
 
 Pf = matrix(0,Nf,Tsteps+1) #probability of female preferences over time
 Pf[,1] = f_init
-
-Pm = array(0,dim=c(Nm,Tsteps+1)) #probability of male songs and preferences over time
-Pm[,1] = m_init
 
 t = 1
 perc = 0
 while(t <= Tsteps){
 	Pm_adults = Pm[,t]
 	Pf_adults = Pf[,t]
-	pxy = matrix(0,Nm,Nf) #probability of a (x,y) pair
 	fixed_weight = dnorm(mrange,mean=frange[midpt],sd=sigma) #female preference function
 	minweight = 10^max(floor(log(min(fixed_weight[which(fixed_weight>0)]),base=10)),-320)	
 	fixed_weight[fixed_weight==0] = minweight
 	fixed_weight = fixed_weight/sum(fixed_weight)
+	pxy = matrix(0,Nm,Nf) #probability of a (x,y) pair
+	### should I round Pm_adults?!? how?!? is that why I'm getting bumps?!?
 	for(j in 1:Nf){
 		s = sign(midpt-j+0.5)
 		weight = rep(minweight,Nf)
@@ -47,39 +44,44 @@ while(t <= Tsteps){
 			pxy[,j] = Pf_adults[j]*weight*Pm_adults/z
 			}
 	}
+	# Pm_beforemut = matrix(0,Nm)
+	# for(i in 1:Nm){
+		# Pm_beforemut[i] = int(pxy[i,]) #probability of males being born
+	# }
 	Pf_adults[apply(pxy,2,sum)==0]=0
-	Pm_beforemut = 1/2*(apply(pxy,1,sum)+apply(pxy,2,sum))/sum(Pf_adults)
-	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + mut_prob/2*c(0,Pm_beforemut[1:(Nm-1)]) #and then they change their songs
-	Pf_new = Pm_beforemut	
+	Pm_beforemut = apply(pxy,1,sum)/sum(Pf_adults)
+	Pf_adults = Pf_adults/sum(Pf_adults)
+	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + 
+		mut_prob/2*c(0,Pm_beforemut[1:(Nm-1)]) #and then they change their songs
 	nonzero = which(Pm_adults>nonzero_thresh)
 	perc = max(abs(range(Pm_aftermut[nonzero]/Pm_adults[nonzero],na.rm=TRUE)-c(1,1)))
 	if(perc>perc_thresh){	
 		Pm[,t+1] = Pm_aftermut
-		Pf[,t+1] = Pf_new
+		Pf[,t+1] = Pf_adults
 		t = t+1
 		} else{
 			Pm[,(t+1):(Tsteps+1)] = Pm_aftermut
-			Pf[,(t+1):(Tsteps+1)] = Pf_new
+			Pf[,(t+1):(Tsteps+1)] = Pf_adults
 			t = Tsteps+1
 			}
 }
-pop_dens = list(Pm=Pm[,store:Tsteps],Pf=Pf[,store:Tsteps])
+pop_dens = list(Pm=Pm[,(store):Tsteps],Pf=Pf[,(store):Tsteps])
 return(pop_dens)
 }
 
 ## ---- variance_sweep ---------------
-Tsteps = 5000
-store = Tsteps-200
+Tsteps = 2500
+store = 1
 pm = 0.6
 pf = 0.6
 
-sigma_vals = c(0.01,0.1,0.2,0.4,0.8,1,1.5)
+sigma_vals = c(0.01,0.1)
 Ns = length(sigma_vals)
-f_sigma_vals = c(0.001,0.01,0.05,0.1,0.5,0.75,1)
+f_sigma_vals = c(0.5,0.75,1)
 Nfs = length(f_sigma_vals)
-m_sigma_vals = c(0.01,0.1)
+m_sigma_vals = c(0.01)
 Nms = length(m_sigma_vals)
-mut_prob_vals = c(0,0.01)
+mut_prob_vals = c(0)
 Nmp = length(mut_prob_vals)
 P = Ns*Nfs*Nms*Nmp
 d = c(Ns,Nfs,Nms,Nmp)
@@ -101,7 +103,7 @@ d = c(Ns,Nfs,Nms,Nmp)
 	# m_sigma = m_sigma_vals[m]
 	# m_init = pm*dnorm(mrange,mmin,m_sigma)+(1-pm)*dnorm(mrange,mmax,m_sigma)
 	# mut_prob = mut_prob_vals[p]
-	# pop_dens = dynamics_malefath_femaleboth()
+	# pop_dens = dynamics()
 	# # pop_dens_last = list(pop_dens$Pm[,Tsteps],pop_dens$Pf[,Tsteps])
 # }
 
@@ -138,7 +140,7 @@ P_onepop<-foreach(ind = 1:P, .combine='glue', .multicombine = TRUE, .init=list(l
 	m_init = m_init / sum(m_init)
 	m_init = pf*m_init+(1-pf)*rev(m_init)
 	mut_prob = mut_prob_vals[p]
-	pop_dens = dynamics_maleboth_femaleboth()
+	pop_dens = dynamics()
 	# pop_dens_last = list(pop_dens$Pm[,Tsteps],pop_dens$Pf[,Tsteps])
 }
 
@@ -152,7 +154,7 @@ for(ind in 1:P){
 
 Date=Sys.Date()
 # save(Pm_keep=Pm_keep,Pf_keep=Pf_keep,Pm_onepop=Pm_onepop,Pf_onopop=Pf_onepop,sigma_vals=sigma_vals,f_sigma_vals,m_sigma_vals,mut_prob_vals=mut_prob_vals,file='/homes/ebrush/priv/song_learning_evolution/song_learning_paramsweep_par.Rdata')
-save(Pm_onepop=Pm_onepop,Pf_onepop=Pf_onepop,sigma_vals=sigma_vals,f_sigma_vals,m_sigma_vals,mut_prob_vals=mut_prob_vals,Tsteps=Tsteps,mrange,Nm,frange,Nf,step,int_step,file=paste('/homes/ebrush/priv/song_learning_evolution/song_learning_maleboth_femaleboth_',substr(Date,1,4),'_',substr(Date,6,7),'_',substr(Date,9,10),'.Rdata',sep=''))
+save(Pm_onepop=Pm_onepop,Pf_onepop=Pf_onepop,sigma_vals=sigma_vals,f_sigma_vals,m_sigma_vals,mut_prob_vals=mut_prob_vals,Tsteps=Tsteps,mrange,Nm,frange,Nf,step,int_step,file=paste('/homes/ebrush/priv/song_learning_evolution/song_learning_malefath_femalemoth_',substr(Date,1,4),'_',substr(Date,6,7),'_',substr(Date,9,10),'.Rdata',sep=''))
 
 
 stopCluster(cl)

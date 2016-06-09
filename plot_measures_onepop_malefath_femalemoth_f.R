@@ -15,16 +15,16 @@ P = prod(d)
 Tend=d[2]
 
 
-Ns = length(sigma2_vals)
-Nfs = length(fmix_sigma2_vals)
-Nms = length(mmix_sigma2_vals)
+Ns = length(sigma_vals)
+Nfs = length(f_sigma_vals)
+Nms = length(m_sigma_vals)
 Nmp = length(mut_prob_vals)
 
 subset = 601:1201;
 subset = 1:Nm;
 Tend = dim(Pm_onepop[[1]])[2]
 
-thresh = 1e-2
+thresh = 5e-4
 half = floor(Nm/2)
 
 four_freq = array(NA,dim(Pm_onepop))
@@ -51,11 +51,11 @@ for(i in 1:P){
 	l = length(m)
 	num_peaks[i] = l
 	sub = ind2sub(dim(Pm_onepop),i)
-	ex = int(mrange*Pm_onepop[[i]][,Tend])
-	vx = int((mrange-(ex))^2*Pm_onepop[[i]][,Tend])
+	ex = sum(mrange*Pm_onepop[[i]][,Tend])
+	vx = sum((mrange-(ex))^2*Pm_onepop[[i]][,Tend])
 	var_mat_m[i] = vx
-	ex = int(mrange*Pf_onepop[[i]][,Tend])
-	vx = int((mrange-(ex))^2*Pf_onepop[[i]][,Tend])
+	ex = sum(mrange*Pf_onepop[[i]][,Tend])
+	vx = sum((mrange-(ex))^2*Pf_onepop[[i]][,Tend])
 	var_mat_f[i] = vx
 	ent_mat[i] = ent(eq_pop)
 }
@@ -69,32 +69,32 @@ colmat = array(0,dim=dim(Pm_onepop))
 
 for(i in 1:P){
 	sub = ind2sub(dim(Pm_onepop),i)
-	smat[i] = sigma2_vals[sub[1]]
-	fmat[i] = fmix_sigma2_vals[sub[2]]
-	mmat[i] = mmix_sigma2_vals[sub[3]]
+	smat[i] = sigma_vals[sub[1]]
+	fmat[i] = f_sigma_vals[sub[2]]
+	mmat[i] = m_sigma_vals[sub[3]]
 	pmat[i] = mut_prob_vals[sub[4]]
 	colmat[i] = eightpal[sub[2]]
 }
 
 p=2
-mvals=c(2,3)
+mvals=c(1,2)
 lm = length(mvals)
-fvals = c(2,3,4,5)
-svals = 3:6
+fvals = c(1:3)
+svals = c(1,3,5,6)
 
-subset = (m0-180):(m0+180)
-ylim = c(0,1.5)
+subset = (m0-300):(m0+300)
+ylim = c(0,0.05)
 marg = c(0.25,0.1,0.25,0.1)
 
 examples = list()
 bubble = list()
 
-mf_toplot = cbind(rep(mvals,each=2),c(2,Nfs,4,Nfs))
+mf_toplot = cbind(rep(mvals,each=2),c(1,Nfs,2,Nfs))
 for(i in 1:dim(mf_toplot)[1]){
 	m = mf_toplot[i,1]
 	f = mf_toplot[i,2]
 	dist = c()
-	m_init = dnorm(mrange[subset],mmin,mmix_sigma2_vals[m])
+	m_init = dnorm(mrange[subset],mmin,m_sigma_vals[m])
 	m_init[m_init>ylim[2]] = ylim[2]
 	dist = c(dist,m_init)
 	for(s in svals){
@@ -102,12 +102,12 @@ for(i in 1:dim(mf_toplot)[1]){
 		toadd[toadd>ylim[2]] = ylim[2]
 		dist = c(dist,toadd)
 	}
-	dist = data.frame(dist = dist, mrange = rep(mrange[subset]+1,length(svals)+1),sigma2 = as.factor(rep(c(0,sigma2_vals[svals]),each=length(subset))))
+	dist = data.frame(dist = dist, mrange = rep(mrange[subset]+1,length(svals)+1),sigma = as.factor(rep(c(0,sigma_vals[svals]),each=length(subset))))
 	
-examples[[i]] <- ggplot(dist,aes(x=mrange,y=dist,color=sigma2)) + geom_line() + 
+examples[[i]] <- ggplot(dist,aes(x=mrange,y=dist,color=sigma)) + geom_line() + 
 	theme_bw() +
 	theme(text=element_text(family="Helvetica", size=10),plot.title=element_text(size=10) , plot.margin=unit(marg,"cm"),legend.position='none') + 
-	scale_color_manual(values=c('white',eightpal[1:length(svals)]))+
+	scale_color_manual(values=c('black',eightpal[1:length(svals)]))+
 	scale_y_continuous(limits=ylim)  + xlab('') + ylab('')
 }
 
@@ -121,24 +121,23 @@ eightpal2[setdiff(1:length(eightpal),svals)] = eightpal[(length(svals)+1):length
 for(i in 1:lm){
 	m = mvals[i]
 	
-	toplot = melt(log(sqrt(var_mat_m[rev(1:Ns),2:Nfs,m,p]),base=10),varnames = c('sigma2','f_sigma2'))
-	toplot$sigma2 = as.factor(rep(rev(sigma2_vals),times=(Nfs-1)))
-	toplot$f_sigma2 = log(rep(fmix_sigma2_vals[2:Nfs],each=Ns),base=10)
+	toplot = melt(log(sqrt(var_mat_m[(1:Ns),1:Nfs,m,p]),base=10),varnames = c('sigma','f_sigma'))
+	toplot$sigma = as.factor(rep((sigma_vals),times=(Nfs)))
+	toplot$f_sigma = log(rep(f_sigma_vals[1:Nfs],each=Ns),base=10)
 	colnames(toplot)[3] = 'y'
-	toplot$size = as.vector(num_peaks[rev(1:Ns),2:Nfs,m,p])
+	toplot$size = as.vector(num_peaks[(1:Ns),1:Nfs,m,p])
 
+	xbreaks = 10^(-3:0)
+	ybreaks = 10^(-10:0)
 	
-	xbreaks = fmix_sigma2_vals[2:Nfs]
-	ybreaks = fmix_sigma2_vals[2:Nfs]
-	
-	bubble[[i]] <- ggplot(toplot, aes(x=f_sigma2, y=y, size=size, color = sigma2),guide=FALSE)+
-		# geom_hline(yintercept = log(fmix_sigma2_vals[2:Nfs],base=10), color =eightpal[1:(Nfs-1)],size=.2) + 
-		geom_line(size=0.5) + geom_point()+ scale_size_area(max_size = 5,limits = c(0,max(num_peaks)))+
+	bubble[[i]] <- ggplot(toplot, aes(x=f_sigma, y=y, size=size, color = sigma),guide=FALSE)+
+		# geom_hline(yintercept = log(f_sigma_vals[1:Nfs],base=10), color =eightpal[1:(Nfs)],size=.2) + 
+		geom_line(size=0.5) + geom_point()+ scale_size_area(max_size = 10,limits = c(0,max(num_peaks)))+
 		theme_bw() +
 		theme(text=element_text(family="Helvetica", size=10),plot.title=element_text(size=10) , plot.margin=unit(marg,"cm")) + 
 		scale_color_manual(values=(eightpal2))+
 		labs(color=expression(sigma),size='# of peaks') +
-		 scale_x_continuous(limits=range(log(fmix_sigma2_vals[2:Nfs],base=10))+c(-.4,.1),breaks=log(xbreaks,base=10),labels=xbreaks)+
+		 scale_x_continuous(limits=range(log(f_sigma_vals[1:Nfs],base=10))+c(-.4,.1),breaks=log(xbreaks,base=10),labels=xbreaks)+
 		scale_y_continuous(limits=c(floor(min(toplot$y)),0.5),breaks=log(ybreaks,base=10),labels=ybreaks)+
 		 guides(size = FALSE) 
 }
