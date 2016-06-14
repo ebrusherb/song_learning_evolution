@@ -3,7 +3,7 @@ Ncol = 8
 mypal=(brewer.pal(Ncol,'Set1'))
 mypal=brewer.pal(Ncol,'Spectral')
 
-p=1
+p=2
 mvals=c(1,2)
 lm = length(mvals)
 fvals = apply(matrix(c(0.001,0.1,1),nrow=1),2,function(x) which(is.element(f_sigma_vals,x)))
@@ -17,7 +17,7 @@ contour_sd = list()
 contour_num = list()
 
 # ms_toplot = cbind(rep(mvals,each=2),c(1,4,4,Ns))
-s_toplot = c(1,3,Ns)
+s_toplot = c(1,4,Ns)
 for(i in c(1,3)){
 	s = s_toplot[i]
 	dist = c()
@@ -83,7 +83,7 @@ sdbreaks_toshow = seq(0,1,by=0.1)
 sdpal_toshow = sdpal_base[apply(matrix(sdbreaks_toshow,nrow=1),2,function(x) which(round(grad,2) == round(x,2)))]
 reds=brewer.pal(9, "Reds")[3:9]
 redPalette = colorRampPalette(reds)
-numbreaks = c(seq(2,20,by=4))
+numbreaks = c(seq(2,10,by=1))
 # numbreaks = 1:max(num_peaks)
 set = min(numbreaks):max(numbreaks)
 numpal = redPalette(length(set))
@@ -136,7 +136,7 @@ contour_num = contour_num + theme(legend.position='none')
 contour_tot = arrangeGrob(contour_sd,legend_sd,contour_num,legend_num,nrow=1,widths=c(1,0.3,1,0.3))
 
 	
-pdf(file=paste('/Users/eleanorbrush/Documents/research/song_learning_evolution/examples_and_summary_malefath_femalemoth_cont_p=',p,'.pdf',sep=''),width=6.83,height=5)
+# pdf(file=paste('/Users/eleanorbrush/Documents/research/song_learning_evolution/examples_and_summary_malefath_femalemoth_cont_p=',p,'.pdf',sep=''),width=6.83,height=5)
 grid.arrange(examples_tot,contour_tot,ncol=1)
-dev.off()
+# dev.off()
 # 

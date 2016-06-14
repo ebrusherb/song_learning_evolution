@@ -50,6 +50,8 @@ while(t <= Tsteps){
 	# }
 	Pf_adults[apply(pxy,2,sum)==0]=0
 	Pm_beforemut = apply(pxy,1,sum)/sum(Pf_adults)
+	# Pm_beforemut[Pm_beforemut==0] = 10^max(floor(log(min(Pm_beforemut[which(Pm_beforemut>0)]),base=10)),-320)
+	# Pm_beforemut = Pm_beforemut / sum(Pm_beforemut)
 	Pf_adults = Pf_adults/sum(Pf_adults)
 	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + 
 		mut_prob/2*c(0,Pm_beforemut[1:(Nm-1)]) #and then they change their songs

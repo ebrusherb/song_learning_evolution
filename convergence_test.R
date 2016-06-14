@@ -9,7 +9,7 @@ for(i in 1:P){
 	sub = ind2sub(d,i)
 	f = sub[2]
 	m = sub[3]
-	if(perc[i]>1e-4){w=c(w,i)}
+	if(perc[i]>5e-4){w=c(w,i)}
 }
 
 # w = which(perc>=1e-4)
