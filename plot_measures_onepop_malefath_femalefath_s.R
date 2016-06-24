@@ -1,4 +1,4 @@
-# source('plot_setup.R')
+source('plot_setup.R')
 
 Ncol = 8 
 mypal=(brewer.pal(Ncol,'Set1'))
@@ -9,7 +9,7 @@ p=1
 
 mvals=c(1,2)
 lm = length(mvals)
-fvals = apply(matrix(c(0.001,1),nrow=1),2,function(x) which(is.element(f_sigma_vals,x)))
+fvals = apply(matrix(c(0.1,1),nrow=1),2,function(x) which(is.element(f_sigma_vals,x)))
 
 subset = (m0-250):(m0+250)
 ylim = c(0,0.05)
@@ -76,7 +76,7 @@ legend_bub <- get_legend(bubble[[2]])
 bubble[[2]] = bubble[[2]] + theme(legend.position='none') + xlab('Promiscuity') + ylab('Standard deviation')
 
 	
-pdf(file=paste('/Users/eleanorbrush/Documents/research/song_learning_evolution/examples_and_summary_malefath_femalefath_s_p=',p,'.pdf',sep=''),width=6.83,height=5)
+# pdf(file=paste('/Users/eleanorbrush/Documents/research/song_learning_evolution/examples_and_summary_malefath_femalefath_s_p=',p,'.pdf',sep=''),width=6.83,height=5)
 grid.arrange(examples[[1]],examples[[2]],examples[[3]],bubble[[1]],legend_bub,examples[[4]],examples[[5]],examples[[6]],bubble[[2]],ncol=5,widths=c(1,1,1,1,.4))
-dev.off()
+# dev.off()
 

@@ -148,7 +148,7 @@ legend_bub <- get_legend(bubble[[2]])
 bubble[[2]] = bubble[[2]] + theme(legend.position='none') + xlab('Female standard deviation') + ylab('Male standard deviation')
 
 	
-pdf(file=paste('/Users/eleanorbrush/Documents/research/song_learning_evolution/examples_and_summary_malefath_femalemoth_f_p=',p,'.pdf',sep=''),width=6.83,height=5)
+# pdf(file=paste('/Users/eleanorbrush/Documents/research/song_learning_evolution/examples_and_summary_malefath_femalemoth_f_p=',p,'.pdf',sep=''),width=6.83,height=5)
 grid.arrange(examples[[1]],examples[[2]],bubble[[1]],legend_bub,examples[[3]],examples[[4]],bubble[[2]],ncol=4,widths=c(1,1,1,.4))
-dev.off()
+# dev.off()
 

@@ -20,7 +20,7 @@ while(t <= Tsteps){
 	Pf_adults = Pf[,t]
 	pxy = matrix(0,Nm,Nf) #probability of a (x,y) pair
 	fixed_weight = dnorm(mrange,mean=frange[midpt],sd=sigma) #female preference function
-	minweight = 10^max(floor(log(min(fixed_weight[which(fixed_weight>0)]),base=10)),-320)	
+	minweight = 10^max(floor(log(min(fixed_weight[which(fixed_weight>0)]),base=10)),-320)
 	fixed_weight[fixed_weight==0] = minweight
 	fixed_weight = fixed_weight/sum(fixed_weight)
 	for(j in 1:Nf){
@@ -38,6 +38,8 @@ while(t <= Tsteps){
 	song_beforemut = apply(pxy,1,sum)/sum(Pf_adults)	
 	song_aftermut = (1-mut_prob)*song_beforemut + mut_prob/2*c(song_beforemut[2:Nm],0) + 
 		mut_prob/2*c(0,song_beforemut[1:Nm-1]) #and then they change their songs
+	song_aftermut[which(song_aftermut<=killthresh)] = 0
+	song_beforemut[which(song_beforemut<=killthresh)] = 0
 	nonzero = which(Pm_adults>nonzero_thresh)
 	perc = max(abs(range(song_aftermut[nonzero]/Pm_adults[nonzero],na.rm=TRUE)-c(1,1)))
 	if(perc>perc_thresh){	
@@ -149,9 +151,10 @@ return(pop_dens)
 # Pm = Pm_test[[i]]
 # Pf = Pf_test[[i]]
 
-Tsteps = 100
+killthresh=0
+Tsteps = 25
 store = 1
-sigma = 0.01
+sigma = 0.1
 f_sigma = 1
 m_sigma = 0.1
 mut_prob = 0.01
@@ -166,11 +169,11 @@ m_init[m_init==0] = 10^max(floor(log(min(m_init[which(m_init>0)]),base=10)),-320
 m_init = m_init / sum(m_init)
 m_init = pf*m_init+(1-pf)*rev(m_init)
 
-pop_dens = dynamics()
+pop_dens = dynamics_malefath_femalefath()
 Pm = pop_dens$Pm
 Pf = pop_dens$Pf
 
-Tmin = 100
+Tmin = Tsteps
 
 preferences = array(0,dim=c(Nm,Nf,Tmin))
 female_tots = matrix(0,Nf,Tmin)
@@ -209,3 +212,4 @@ for(t in 1:Tmin){
 # lines(Pm[,t],col='red')
 # lines(Pf[,t],col='green')
 
+t=2;plot(Pm[,t]);vars = sigma_malefath_femalefath(m_sigma^2,f_sigma^2);v=dnorm(mrange,mmin,sqrt(vars[t,1]));lines(v/sum(v),col='red')

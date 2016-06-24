@@ -73,13 +73,13 @@ store = Tsteps-200
 pm = 0.6
 pf = 0.6
 
-sigma_vals = c(0.01,0.1,0.2,0.4,0.8,1,1.5)
+sigma_vals = c(0.1,0.2,0.4,0.8,1,1.5)
 Ns = length(sigma_vals)
-f_sigma_vals = c(0.001,0.01,0.05,0.1,0.5,0.75,1)
+f_sigma_vals = c(0.1,0.25,0.5,0.75,1)
 Nfs = length(f_sigma_vals)
-m_sigma_vals = c(0.01,0.1)
+m_sigma_vals = c(0.1,0.5)
 Nms = length(m_sigma_vals)
-mut_prob_vals = c(0,0.01)
+mut_prob_vals = c(0.01)
 Nmp = length(mut_prob_vals)
 P = Ns*Nfs*Nms*Nmp
 d = c(Ns,Nfs,Nms,Nmp)

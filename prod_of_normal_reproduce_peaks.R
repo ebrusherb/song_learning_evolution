@@ -43,8 +43,8 @@ while(t <= Tsteps){
 	Pf_adults = Pf_adults/sum(Pf_adults)
 	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + 
 		mut_prob/2*c(0,Pm_beforemut[1:(Nm-1)]) #and then they change their songs
-	Pm_aftermut[which(Pm_aftermut<1e-100)] = 0
-	Pf_adults[which(Pf_adults<1e-100)] = 0
+	Pm_aftermut[which(Pm_aftermut<killthresh)] = 0
+	Pf_adults[which(Pf_adults<killthresh)] = 0
 	nonzero = which(Pm_adults>nonzero_thresh)
 	perc = max(abs(range(Pm_aftermut[nonzero]/Pm_adults[nonzero],na.rm=TRUE)-c(1,1)))
 	if(perc>perc_thresh){	
@@ -65,11 +65,12 @@ return(pop_dens)
 Tsteps = 100
 store = 1
 Tmin = Tsteps
+killthresh = 0
 
-sigma = 0.1
+sigma = 0.4
 f_sigma = 1
-m_sigma = .01
-mut_prob = 0.01
+m_sigma = 0.1
+mut_prob = 0.0
 pf = 1
 pm = 1
 f_init = dnorm(frange,fmin,f_sigma)

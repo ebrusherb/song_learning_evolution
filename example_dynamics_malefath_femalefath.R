@@ -15,7 +15,6 @@ source('range_setup.R')
 
 ## ---- dynamics -----------------------
 
-
 dynamics_malefath_femalefath <-function(){
 Pm = matrix(0,Nm,Tsteps+1) #probability of male songs over time
 Pm[,1] = m_init
@@ -64,7 +63,7 @@ pop_dens = list(Pm=Pm[,(store):Tsteps],Pf=Pf[,(store):Tsteps])
 return(pop_dens)
 }
 
-Tsteps = 1000
+Tsteps = 5000
 store = 1
 pf = 1
 pm = 1
@@ -77,9 +76,9 @@ store = 1
 # f_sigma = f_sigma_vals[f]
 # m_sigma = m_sigma_vals[m]
 # mut_prob = mut_prob_vals[p]
-sigma = 0.01
+sigma = 0.1
 f_sigma = 1
-m_sigma = 0.01
+m_sigma = 0.5
 mut_prob = 0.01
 f_init = dnorm(frange,fmin,f_sigma)
 f_init[f_init==0] = 10^max(floor(log(min(f_init[which(f_init>0)]),base=10)),-320)
@@ -93,5 +92,5 @@ m_init = pf*m_init+(1-pf)*rev(m_init)
 pop_dens = dynamics_malefath_femalefath()
 
 Date=Sys.Date()
-save(sigma,f_sigma,m_sigma,mut_prob,pop_dens,file=paste('/homes/ebrush/priv/song_learning_evolution/song_learning_example_',substr(Date,1,4),'_',substr(Date,6,7),'_',substr(Date,9,10),'.Rdata',sep=''))
+save(sigma,f_sigma,m_sigma,mut_prob,pop_dens,file=paste('/homes/ebrush/priv/song_learning_evolution/song_learning_malefath_femalefath_example_',substr(Date,1,4),'_',substr(Date,6,7),'_',substr(Date,9,10),'.Rdata',sep=''))
 

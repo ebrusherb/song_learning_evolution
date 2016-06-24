@@ -6,23 +6,24 @@ source('range_setup.R')
 
 ## ---- dynamics -----------------------
 
-dynamics <-function(){
-Pm = matrix(0,Nm,Tsteps+1) #probability of male songs over time
-Pm[,1] = m_init
+dynamics_maleboth_femaleboth <-function(){
 
 Pf = matrix(0,Nf,Tsteps+1) #probability of female preferences over time
 Pf[,1] = f_init
+
+Pm = array(0,dim=c(Nm,Tsteps+1)) #probability of male songs and preferences over time
+Pm[,1] = m_init
 
 t = 1
 perc = 0
 while(t <= Tsteps){
 	Pm_adults = Pm[,t]
 	Pf_adults = Pf[,t]
+	pxy = matrix(0,Nm,Nf) #probability of a (x,y) pair
 	fixed_weight = dnorm(mrange,mean=frange[midpt],sd=sigma) #female preference function
 	minweight = 10^max(floor(log(min(fixed_weight[which(fixed_weight>0)]),base=10)),-320)	
 	fixed_weight[fixed_weight==0] = minweight
 	fixed_weight = fixed_weight/sum(fixed_weight)
-	pxy = matrix(0,Nm,Nf) #probability of a (x,y) pair
 	for(j in 1:Nf){
 		s = sign(midpt-j+0.5)
 		weight = rep(minweight,Nf)
@@ -35,23 +36,22 @@ while(t <= Tsteps){
 			}
 	}
 	Pf_adults[apply(pxy,2,sum)==0]=0
-	Pm_beforemut = apply(pxy,1,sum)/sum(Pf_adults)
-	Pf_adults = Pf_adults/sum(Pf_adults)
-	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + 
-		mut_prob/2*c(0,Pm_beforemut[1:(Nm-1)]) #and then they change their songs
+	Pm_beforemut = 1/2*(apply(pxy,1,sum)+apply(pxy,2,sum))/sum(Pf_adults)
+	Pm_aftermut = (1-mut_prob)*Pm_beforemut + mut_prob/2*c(Pm_beforemut[2:Nm],0) + mut_prob/2*c(0,Pm_beforemut[1:(Nm-1)]) #and then they change their songs
+	Pf_new = Pm_beforemut	
 	nonzero = which(Pm_adults>nonzero_thresh)
 	perc = max(abs(range(Pm_aftermut[nonzero]/Pm_adults[nonzero],na.rm=TRUE)-c(1,1)))
 	if(perc>perc_thresh){	
 		Pm[,t+1] = Pm_aftermut
-		Pf[,t+1] = Pf_adults
+		Pf[,t+1] = Pf_new
 		t = t+1
 		} else{
 			Pm[,(t+1):(Tsteps+1)] = Pm_aftermut
-			Pf[,(t+1):(Tsteps+1)] = Pf_adults
+			Pf[,(t+1):(Tsteps+1)] = Pf_new
 			t = Tsteps+1
 			}
 }
-pop_dens = list(Pm=Pm[,(store):Tsteps],Pf=Pf[,(store):Tsteps])
+pop_dens = list(Pm=Pm[,store:Tsteps],Pf=Pf[,store:Tsteps])
 return(pop_dens)
 }
 
@@ -150,12 +150,13 @@ return(pop_dens)
 # Pm = Pm_test[[i]]
 # Pf = Pf_test[[i]]
 
-Tsteps = 10
+killthresh=0
+Tsteps = 200
 store = 1
-sigma = 0.01
-f_sigma = 0.5
-m_sigma = 0.01
-mut_prob = 0
+sigma = 0.1
+f_sigma = 1
+m_sigma = 0.5
+mut_prob = 0.01
 pf = 1
 pm = 1
 f_init = dnorm(frange,fmin,f_sigma)
@@ -167,7 +168,7 @@ m_init[m_init==0] = 10^max(floor(log(min(m_init[which(m_init>0)]),base=10)),-320
 m_init = m_init / sum(m_init)
 m_init = pf*m_init+(1-pf)*rev(m_init)
 
-pop_dens = dynamics()
+pop_dens = dynamics_maleboth_femaleboth()
 Pm = pop_dens$Pm
 Pf = pop_dens$Pf
 
@@ -176,7 +177,6 @@ Tmin = Tsteps
 preferences = array(0,dim=c(Nm,Nf,Tmin))
 female_tots = matrix(0,Nf,Tmin)
 pxy = array(0,dim=c(Nm,Nf,Tmin))
-pxy2 = array(0,dim=c(Nm,Nf,Tmin))
 growth = array(0,dim=c(Nm,Tmin))
 growth_desperate = array(0,dim=c(Nm,Tmin))
 
@@ -205,9 +205,4 @@ for(t in 1:Tmin){
 	growth_desperate[,t] = apply(preferences[,,t]/matrix(rep(female_tots[,t],times=Nm),nrow=Nm,byrow=TRUE),1,sum)
 	growth_desperate[zero,t] = 0
 }
-
-# t=1
-# plot(female_tots[,t],t='l',xlim=c(450,850),ylim=c(0,2))
-# lines(Pm[,t],col='red')
-# lines(Pf[,t],col='green')
 

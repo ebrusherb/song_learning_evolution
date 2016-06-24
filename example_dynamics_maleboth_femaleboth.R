@@ -64,7 +64,7 @@ return(pop_dens)
 }
 
 
-Tsteps = 1000
+Tsteps = 2500
 store = 1
 pf = 1
 pm = 1
@@ -77,10 +77,10 @@ store = 1
 # f_sigma = f_sigma_vals[f]
 # m_sigma = m_sigma_vals[m]
 # mut_prob = mut_prob_vals[p]
-sigma = 0.01
-f_sigma = 0.1
-m_sigma = 0.01
-mut_prob = 0
+sigma = 0.1
+f_sigma = 1
+m_sigma = 0.5
+mut_prob = 0.01
 f_init = dnorm(frange,fmin,f_sigma)
 f_init[f_init==0] = 10^max(floor(log(min(f_init[which(f_init>0)]),base=10)),-320)
 f_init = f_init/sum(f_init)
@@ -93,5 +93,5 @@ m_init = pf*m_init+(1-pf)*rev(m_init)
 pop_dens = dynamics_maleboth_femaleboth()
 
 Date=Sys.Date()
-save(sigma,f_sigma,m_sigma,mut_prob,file=paste('/homes/ebrush/priv/song_learning_evolution/song_learning_example_maleboth_femaleboth_',substr(Date,1,4),'_',substr(Date,6,7),'_',substr(Date,9,10),'.Rdata',sep=''))
+save(sigma,f_sigma,m_sigma,mut_prob,pop_dens,file=paste('/homes/ebrush/priv/song_learning_evolution/song_learning_maleboth_femaleboth_example_',substr(Date,1,4),'_',substr(Date,6,7),'_',substr(Date,9,10),'.Rdata',sep=''))
 

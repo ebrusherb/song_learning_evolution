@@ -99,9 +99,14 @@ print(sigma^2+1/(1/f_sigma^2-1/(m_sigma^2+sigma^2)))
 plot(log(growth[,t]),log(growth_analyt));abline(0,1,col='red')
 
 m = m_sigma
-for(T in 2:5000){
+for(T in 2:1000){
 	mnew = m[T-1]*(sigma^4+(sigma^2+f_sigma^2)*m[T-1])/(m[T-1]+sigma^2)^2
 	m = c(m,mnew)
+}
+m2 = m_sigma
+for(T in 2:1000){
+	mnew = m2[T-1]^4*(f_sigma^2+(m2[T-1]+sigma^2)*m2[T-1]*sigma^2)/(m2[T-1]+sigma^2)^2
+	m2 = c(m2,mnew)
 }
 # plot((m));abline(h=(f_sigma^2-sigma^2),col='red')
 
