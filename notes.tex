@@ -378,13 +378,83 @@ P_\text{mate}(x_1,y_1,x_2,y_2)\sim N\left(\left(\begin{array}{cc} \frac{\sigma^2
 \\ \hline 
 \end{tabular}
 }
+\section{Equilibrium for various modes of inheritance }
 \subsection{Song from father, pref genetic}
-\begin{align}
+\begin{align*}
 \sigma_{x}(t+1)^2&=\sigma_{x}^2\frac{\sigma^2(\sigma^2+\sigma_{x}^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}
-\\ \sigma_y(t+1)^2&=\frac{1}{4}\sigma_y^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+(1-\rho^2)\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{2}\frac{\rho\sigma_x\sigma_y^3}{\sigma^2+\sigma_x^2}+\frac{1}{4}\sigma_y^2
-\\ &=\frac{\sigma_y^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+(1-\rho^2)\sigma_x^2\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}\right)
-\\ \Cov_{x,y}(t+1)&=\frac{1}{2}\frac{\rho\sigma_x\sigma_y\left(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2\right)}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}
-\end{align}
+\\ \sigma_y(t+1)^2&=\frac{1}{4}\sigma_y^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+(1-\rho^2)\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{2}\frac{\rho\sigma_x\sigma_y^3}{\sigma^2+\sigma_x^2}+\frac{1}{4}\sigma_y^2 
+\\ &=\frac{\sigma_y^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+(1-\rho^2)\sigma_x^2\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)
+\\ \Cov_{x,y}(t+1)&=\frac{1}{2}\frac{\rho\sigma_x\sigma_y\left(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2\right)}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}
+\\\text{ equilibrium } \Rightarrow \sigma^2+\sigma_x^2=\sigma_y^2 \Rightarrow \sigma_x<\sigma_y
+\\ \Rightarrow \sigma_y(t+1)^2&=\frac{\sigma_y^2}{4}\left(1+\frac{2\rho\sigma_x}{\sigma_y}+1\right)
+\\ \Rightarrow \sigma_y(t+1)^2&<\sigma_y(t)^2
+\\ \Rightarrow \lim_{t\to\infty}\sigma_x(t)^2=\lim_{t\to\infty}\sigma_y(t)^2=0
+\end{align*}
+
+\begin{align*}
+\text{If $\sigma^2=0$, } \sigma_x(t+1)^2&=\sigma_y^2
+\\ \sigma_y(t+1)^2&=\frac{\sigma_y^2}{4}\left(\frac{\sigma_y^2}{\sigma_x^2}+(1-\rho^2)\frac{\sigma_x^2-\sigma_y^2}{\sigma_x^2}+\frac{2\rho\sigma_y}{\sigma_x}+1\right)
+\\\Cov(t+1)&=\frac{1}{2}\frac{\rho\sigma_x\sigma_y\sigma_y^2}{\sigma_x^2}+\frac{1}{2}\sigma_y^2
+\\ \text{ equilibrium } \Rightarrow \sigma_x^2&=\sigma_y^2
+\\ \Rightarrow 2+2\rho&=4
+\\ \Rightarrow \rho&=1
+\\ \text{YOU'RE HERE!!!}
+\end{align*}
+\subsection{Song learned from father, pref imprinted from father} 
+\begin{align*}
+\sigma_x(t+1)^2&=\sigma_x^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2} 
+\\ \sigma_y(t+1)^2&=\sigma_x^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}
+\end{align*}
+Cannot happen that both $\sigma_x^2=\sigma_y^2-\sigma^2$ and $\sigma_y^2=\sigma_x^2$ unless $\sigma^2=0$, in which case $\lim_{t\to\infty}\sigma_x(t)^2=\lim_{t\to\infty}\sigma_y(t)^2=\sigma_y(0)^2$.
+\subsection{Song learned from father, pref learned from mother}
+\begin{align*}
+\sigma_x(t+1)^2&=\sigma_x^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}
+\\ \sigma_x(t+1)^2&=\sigma_x^2 \Rightarrow \sigma^2+\sigma_x^2=\sigma_y^2
+\end{align*}
+\subsection{Song learned obliquely, pref genetic }
+\begin{align*}
+\sigma_x(t+1)^2&=\sigma_x^2
+\\ \sigma_y(t+1)^2&=\frac{1}{4}\sigma_y^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+(1-\rho^2)\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{2}\frac{\rho\sigma_x\sigma_y^3}{\sigma^2+\sigma_x^2}+\frac{1}{4}\sigma_y^2 
+\\&=\frac{1}{4}\sigma_y^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2(\sigma^2+\sigma_x^2)}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{4}\sigma_y^2  \text{ since in this case $\rho=0$}
+\\&=\frac{1}{2}\sigma_y^2
+\\ \Rightarrow \lim_{t\to\infty}\sigma_y(t)^2&=0
+\end{align*}
+\subsection{Song learned obliquely, pref imprinted from father}
+\begin{align*}
+\sigma_x(t+1)^2&=\sigma_x^2
+\\ \sigma_y(t+1)^2&= \sigma_x^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}
+\\ \sigma_y(t+1)^2&\geq\sigma_y^2 \Rightarrow \sigma_x^2(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2)\geq\sigma_y^2(\sigma^2+\sigma_x^2)^2
+\\ \Rightarrow \left(\sigma^4+2\sigma^2\sigma_x^2+\sigma_x^4-\sigma_x^4\right)\sigma_y^2&\leq\sigma_x^2\sigma^2(\sigma^2+\sigma_x^2)
+\\ \Rightarrow \sigma^2(\sigma^2+2\sigma_x^2)\sigma_y^2&\leq\sigma^2\sigma_x^2(\sigma^2+\sigma_x^2)
+\\ \Rightarrow \sigma_y^2&\leq\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{\sigma^2+2\sigma_x^2} 
+\end{align*}
+Stable equilibrium with $\sigma_x^2=\sigma_x(0)^2$ and $\sigma_y^2=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{2\sigma_x^2+\sigma^2}$.
+\subsection{Song obliquely, pref obliquely }
+Neither distribution changes.
+\subsection{Song genetic, pref genetic } 
+\begin{align*}
+\sigma_x(t+1)^2&=\frac{1}{4}\sigma_x^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{2}\frac{\rho\sigma_x^3\sigma_y}{\sigma^2+\sigma_x^2}+\frac{1}{4}\sigma_x^2
+\\&=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)
+\\\sigma_y(t+1)^2&=\frac{1}{4}\sigma_y^2\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+(1-\rho^2)\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)
+\\&=\frac{1}{4}\sigma_y^2\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)+\frac{1-\rho^2}{4}\frac{\sigma_x^2\sigma_y^2(\sigma^2+\sigma_x^2-\sigma_y^2)}{(\sigma^2+\sigma_x^2)^2}
+\\ \Cov(t+1)&=\frac{1}{4}\left(\rho\sigma_x\sigma_y\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\frac{\rho^2\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\rho\sigma_x\sigma_y\right)
+\\&=\frac{\Cov(t)}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)+\frac{1-\rho^2}{4}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}
+\end{align*}
+\begin{align*}
+\text{ Let } Q&=\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1
+\\ \Rightarrow \sigma_x(t+1)^2&=\frac{Q}{4}\sigma_x^2
+\\ \sigma_y(t+1)^2&=\frac{Q}{4}\sigma_y^2+\frac{1-\rho^2}{4}\frac{\sigma_x^2\sigma_y^2(\sigma^2+\sigma_x^2-\sigma_y^2)}{(\sigma^2+\sigma_x^2)^2}
+\\ \Cov(t+1)&=\frac{Q}{4}\Cov(t) +\frac{1-\rho^2}{4}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}
+\\\text{ equilibrium } \Rightarrow Q & = 4 
+\\ \Rightarrow \frac{1-\rho^2}{4}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2} & = 0
+\\ \Rightarrow \rho&=1 \text{ or }  \sigma_x^2=0 \text{ or } \sigma_y^2=0
+\\ \sigma_x^2&=0 \Rightarrow Q = 2 \text{ and } \sigma_y^2=0 \Rightarrow Q = \frac{\sigma^2}{\sigma^2+\sigma_x^2}+1\leq 2
+\\ \text{ so at equilibrium need both } \sigma_x^2&=0,\sigma_y^2=0 
+\\ \text{ or } \sigma_x^2&>0,\sigma_y^2>0, \text{ and } \rho=1
+\\ Q = 4 \Rightarrow \frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2} & = 3
+\\ \Rightarrow \sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2+2\rho\sigma_x\sigma_y(\sigma^2+\sigma_x^2) & = 3(\sigma^2+\sigma_x^2)^2
+\\ \Rightarrow 
+\end{align*}
 \end{landscape} 
 
 
