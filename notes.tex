@@ -140,7 +140,7 @@ P_\x{m}(x,y) & \sim N\left(\mu_\x{m},\Sigma_\x{m}\right) \text{ where } \ \ \mu_
 \\ |\bar{\Sigma}_\x{f}|&=|\Sigma_\x{f}|\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}
 \\\Rightarrow \frac{P_\x{f}(x_2,y_2)P_\x{m}(x_1,y_1)f_{y_2}(x_1)}{\int\int P_\x{m}(x_1,y_1)f_{y_2}(x_1)dx_1dy_1}&=\frac{1}{2\pi\sqrt{|\Sigma_{\x{f}}|\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}}}\exp\left(-\frac{1}{2}(\vec{x}_\x{f}-\bar{\mu}_{\x{f}})^T\bar{\Sigma}_\x{f}^{-1}(\vec{x}_\x{f}-\bar{\mu}_\x{f})\right)\exp\left(-\frac{\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)x_1-\mu_{\x{m}x}\sigma^2}{\sigma_{\x{m}x}^2}-\mu_{\x{f}y}\right)^2}{2\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma_{\x{m}x}^2}}\right)\times 
 \\&\frac{P_\x{m}(x_1,y_1)}{\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)}\sqrt{\frac{\sigma^2+\sigma_{\x{m}x}^2}{\sigma^2}}\sqrt{\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}}
-\\&=\frac{1}{2\pi\sqrt{|\bar{\Sigma}_{\x{f}}|}}\exp\left(-\frac{1}{2}(\vec{x}_\x{f}-\bar{\mu}_{\x{f}})^T\bar{\Sigma}_\x{f}^{-1}(\vec{x}_\x{f}-\bar{\mu}_\x{f})\right)\exp\left(-\frac{\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)x_1-\mu_{\x{m}x}\sigma^2}{\sigma_{\x{m}x}^2}-\mu_{\x{f}y}\right)^2}{2\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma_{\x{m}x}^2}}\right)\frac{P_\x{m}(x_1,y_1)}{\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)}\sqrt{\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}}
+%\\&=\frac{1}{2\pi\sqrt{|\bar{\Sigma}_{\x{f}}|}}\exp\left(-\frac{1}{2}(\vec{x}_\x{f}-\bar{\mu}_{\x{f}})^T\bar{\Sigma}_\x{f}^{-1}(\vec{x}_\x{f}-\bar{\mu}_\x{f})\right)\exp\left(-\frac{\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)x_1-\mu_{\x{m}x}\sigma^2}{\sigma_{\x{m}x}^2}-\mu_{\x{f}y}\right)^2}{2\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma_{\x{m}x}^2}}\right)\frac{P_\x{m}(x_1,y_1)}{\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)}\sqrt{\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}}
 \\&=\frac{1}{2\pi\sqrt{|\bar{\Sigma}_{\x{f}}|}}\exp\left(-\frac{1}{2}(\vec{x}_\x{f}-\bar{\mu}_{\x{f}})^T\bar{\Sigma}_\x{f}^{-1}(\vec{x}_\x{f}-\bar{\mu}_\x{f})\right)\exp\left(-\frac{\left(x_1-\frac{\mu_{\x{m}x}\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}-\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y}\right)^2}{2\frac{\sigma_{\x{m}x}^2(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}}\right)\frac{P_\x{m}(x_1,y_1)}{\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)}\sqrt{\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}} 
 \\&\text{ CAN INTEGRATE } y_1,x_2,y_2
 \end{align*}
@@ -193,11 +193,12 @@ P_\x{m}(x,y) & \sim N\left(\mu_\x{m},\Sigma_\x{m}\right) \text{ where } \ \ \mu_
 \\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}\right)\sigma_{\x{f}x}^2}} \exp\left(-\frac{\left(x_2-\left(\mu_{\x{f}x}+\frac{\rho_\x{f}\sigma_{\x{f}x}}{\sigma_{\x{f}y}}\frac{\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)x_1-\mu_{\x{m}x}\sigma^2}{\sigma_{\x{m}x}^2}-\mu_{\x{f}y}\right)\right)\right)^2}{2 \left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}\right)\sigma_{\x{f}x}^2}\right)\times 
 \\&\frac{1}{2\pi\sqrt{\sigma_{\x{m}x}'^2}}\exp\left(-\frac{\left(x_1-\left(\frac{\mu_{\x{m}x}\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y}\right)\right)^2}{2\frac{\sigma_{\x{m}x}^2(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}}\right)\frac{1}{\sqrt{2\pi(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}}\exp\left(-\frac{\left(y_1-\mu_{\x{m}y}-\frac{\rho_\x{m}\sigma_{\x{m}y}}{\sigma_{\x{m}x}}(x_1-\mu_{\x{m}x})\right)^2}{2(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}\right)
 \\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}\right)\sigma_{\x{f}x}^2}} \exp\left(-\frac{\left(x_2-\left(\mu_{\x{f}x}+\frac{\rho_\x{f}\sigma_{\x{f}x}}{\sigma_{\x{f}y}}\frac{\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)x_1-\mu_{\x{m}x}\sigma^2}{\sigma_{\x{m}x}^2}-\mu_{\x{f}y}\right)\right)\right)^2}{2 \left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}\right)\sigma_{\x{f}x}^2}\right)\times 
-\\&\frac{1}{\sqrt{2\pi\sigma_{\x{m}x}'^2}} \exp\left(-\frac{\left(x_1-\left(\frac{\mu_{\x{m}x}\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y}\right)\right)^2}{2\frac{\sigma_{\x{m}x}^2(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}}\right)\frac{1}{2\pi\sqrt{(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}}\exp\left(-\frac{(x_1-(\mu_{\x{m}x}+\frac{1}{\rho_\x{m}}\frac{\sigma_{\x{m}x}}{\sigma_{\x{m}y}}(y_1-\mu_{\x{m}y})))^2}{2\frac{1-\rho_\x{m}^2}{\rho_\x{m}^2}\sigma_{\x{m}x}^2}\right)\exp\left(-\frac{(y_1-\mu_{\x{m}y})^2}{2\sigma_{\x{m}y}^2}\right)
-\\&=\frac{1}{2\pi\sqrt{|\Sigma_{x_1,x_2}|}}\exp\left(-(v-\mu_{x_1,x_2})^T\Sigma_{x_1,x_2}^{-1}(v-\mu_{x_1,x_2})\right)\times
-\\&\frac{1}{\sqrt{2\pi(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}}\exp\left(-\frac{(x_1-(\mu_{\x{m}x}+\frac{1}{\rho_\x{m}}\frac{\sigma_{\x{m}x}}{\sigma_{\x{m}y}}(y_1-\mu_{\x{m}y})))^2}{2\frac{1-\rho_\x{m}^2}{\rho_\x{m}^2}\sigma_{\x{m}x}^2}\right)
+\\&\frac{1}{\sqrt{2\pi\sigma_{\x{m}x}'^2}} \exp\left(-\frac{\left(x_1-\left(\frac{\mu_{\x{m}x}\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y}\right)\right)^2}{2\frac{\sigma_{\x{m}x}^2(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}}\right)\frac{1}{2\pi\sqrt{(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}}\exp\left(-\frac{(x_1-(\mu_{\x{m}x}+\frac{1}{\rho_\x{m}}\frac{\sigma_{\x{m}x}}{\sigma_{\x{m}y}}(y_1-\mu_{\x{m}y})))^2}{2\frac{1-\rho_\x{m}^2}{\rho_\x{m}^2}\sigma_{\x{m}x}^2}\right)\red{\exp\left(-\frac{(y_1-\mu_{\x{m}y})^2}{2\sigma_{\x{m}y}^2}\right)}
+\\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}\right)\sigma_{\x{f}x}^2}} \exp\left(-\frac{\left(x_2-\left(\mu_{\x{f}x}+\rho_\x{f}\sigma_{\x{f}x}\sigma_{\x{f}y}\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2}{\sigma_{\x{m}x}^2(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2)}\left(x_1-\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}-\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y}\right)\right)\right)^2}{2 \left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}\right)\sigma_{\x{f}x}^2}\right)\times 
+\\&\frac{1}{\sqrt{2\pi\sigma_{\x{m}x}'^2}} \exp\left(-\frac{\left(x_1-\left(\frac{\mu_{\x{m}x}\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y}\right)\right)^2}{2\frac{\sigma_{\x{m}x}^2(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}}\right)\frac{1}{2\pi\sqrt{(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}}\exp\left(-\frac{(x_1-(\mu_{\x{m}x}+\frac{1}{\rho_\x{m}}\frac{\sigma_{\x{m}x}}{\sigma_{\x{m}y}}(y_1-\mu_{\x{m}y})))^2}{2\frac{1-\rho_\x{m}^2}{\rho_\x{m}^2}\sigma_{\x{m}x}^2}\right)
+\\&=\frac{1}{2\pi\sqrt{|\Sigma_{x_1,x_2}|}}\exp\left(-(v-\mu_{x_1,x_2})^T\Sigma_{x_1,x_2}^{-1}(v-\mu_{x_1,x_2})\right)\times\frac{1}{\sqrt{2\pi(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}}\exp\left(-\frac{(x_1-(\mu_{\x{m}x}+\frac{1}{\rho_\x{m}}\frac{\sigma_{\x{m}x}}{\sigma_{\x{m}y}}(y_1-\mu_{\x{m}y})))^2}{2\frac{1-\rho_\x{m}^2}{\rho_\x{m}^2}\sigma_{\x{m}x}^2}\right)
 \\ \text{ where }  v&=(x_1,x_2)^T, \ \mu_{x_1,x_2}=\left(\begin{array}{cc}\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y} \\ \mu_{\x{f}x} \end{array}\right)
-\\ \text{ and  } \Sigma_{x_1,x_2} &= \left(\begin{array}{cc}\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\sigma_{\x{m}x}^2 & \frac{\rho_\x{f}\sigma_{\x{f}y}\sigma_{\x{m}x}}{\sqrt{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}}\frac{\sigma_{\x{m}x}\sqrt{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}}{\sigma^2+\sigma_{\x{m}x}^2}\sigma_{\x{f}y} \\ \frac{\rho_\x{f}\sigma_{\x{f}y}\sigma_{\x{m}x}}{\sqrt{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}}\frac{\sigma_{\x{m}x}\sqrt{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}}{\sigma^2+\sigma_{\x{m}x}^2}\sigma_{\x{f}y} & \sigma_{\x{f}x}^2 \end{array}\right)
+\\ \text{ and  } \Sigma_{x_1,x_2} &= \left(\begin{array}{cc}\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\sigma_{\x{m}x}^2 & \frac{\rho_\x{f}\sigma_{\x{f}y}\sigma_{\x{m}x}}{\sqrt{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}}\frac{\sigma_{\x{m}x}\sqrt{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}}{\sigma^2+\sigma_{\x{m}x}^2}\sigma_{\x{f}y\red{x?}} \\ \frac{\rho_\x{f}\sigma_{\x{f}y}\sigma_{\x{m}x}}{\sqrt{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}}\frac{\sigma_{\x{m}x}\sqrt{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}}{\sigma^2+\sigma_{\x{m}x}^2}\sigma_{\x{f}y} & \sigma_{\x{f}x}^2 \end{array}\right)
 \\&=\frac{1}{2\pi\sqrt{|\Sigma_{x_1,x_2}|}}\exp\left(-(v-\nu)^TM^{-1}(v-\nu)\right)\frac{1}{\sqrt{2\pi(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}}\exp\left(-\frac{\left(\mu_{\x{m}x}+\frac{1}{\rho_\x{m}}\frac{\sigma_{\x{m}x}}{\sigma_{\x{m}y}}(y_1-\mu_{\x{m}y})-\left(\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y}\right)\right)^2}{2\left(\frac{1-\rho_\x{m}^2}{\rho_\x{m}^2}+\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}x}^2}\right)
 \end{align*}
 
@@ -372,14 +373,15 @@ P_\text{mate}(x_1,y_1,x_2,y_2)\sim N\left(\left(\begin{array}{cc} \frac{\sigma^2
 {\footnotesize 
 \begin{tabular}{|l|c|c|c|}
 \hline  &  song from father &  song obliquely learned &  song genetic
-\\ \hline  pref genetic & $\lim_{t\to\infty}\sigma_{y}^2=\lim_{t\to\infty}\sigma_{x}^2=0$ & $\lim_{t\to\infty}\sigma_{x}^2=\sigma_{x}(0)^2,\lim_{t\to\infty}\sigma_y^2=0$ & 
+\\ \hline  pref genetic & $\lim_{t\to\infty}\sigma_{y}^2=\lim_{t\to\infty}\sigma_{x}^2=0$  unless $\sigma=0$? & $\lim_{t\to\infty}\sigma_{x}^2=\sigma_{x}(0)^2,\lim_{t\to\infty}\sigma_y^2=0$ & $\sigma_x,\sigma_y$ such that $Q=4$ exists, but reachable?
 \\ \hline  pref imprinted from father & $\lim_{t\to\infty}\sigma_{y}^2=\lim_{t\to\infty}\sigma_{x}^2=0$ & $\lim_{t\to\infty}\sigma_{x}^2=\sigma_x^2(0),\lim_{t\to\infty}\sigma_y^2=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{2\sigma_x^2+\sigma^2}$ & 
 \\ \hline  pref learned from mother / obliquely & $\lim_{t\to\infty}\sigma_y^2=\sigma_y^2(0),\lim_{t\to\infty}\sigma_{x}^2=\sigma_y^2-\sigma^2$ & $\lim_{t\to\infty}\sigma_y^2=\sigma_y^2(0),\lim_{t\to\infty}\sigma_x^2=\sigma_x^2(0)$ & 
 \\ \hline 
 \end{tabular}
 }
 \section{Equilibrium for various modes of inheritance }
-\subsection{Song from father, pref genetic}
+\subsection{Song from father, pref genetic }
+$\rho = \rho_\x{m}$, $\rho_\x{f}=0$
 \begin{align*}
 \sigma_{x}(t+1)^2&=\sigma_{x}^2\frac{\sigma^2(\sigma^2+\sigma_{x}^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}
 \\ \sigma_y(t+1)^2&=\frac{1}{4}\sigma_y^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+(1-\rho^2)\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{2}\frac{\rho\sigma_x\sigma_y^3}{\sigma^2+\sigma_x^2}+\frac{1}{4}\sigma_y^2 
@@ -398,20 +400,24 @@ P_\text{mate}(x_1,y_1,x_2,y_2)\sim N\left(\left(\begin{array}{cc} \frac{\sigma^2
 \\ \text{ equilibrium } \Rightarrow \sigma_x^2&=\sigma_y^2
 \\ \Rightarrow 2+2\rho&=4
 \\ \Rightarrow \rho&=1
-\\ \text{YOU'RE HERE!!!}
 \end{align*}
-\subsection{Song learned from father, pref imprinted from father} 
+Need to show that this equilibrium can be reached!!!
+
+\subsection{Song learned from father, pref imprinted from father } 
+$\rho_\x{m}=\rho_\x{f}=0$
 \begin{align*}
 \sigma_x(t+1)^2&=\sigma_x^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2} 
 \\ \sigma_y(t+1)^2&=\sigma_x^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}
 \end{align*}
 Cannot happen that both $\sigma_x^2=\sigma_y^2-\sigma^2$ and $\sigma_y^2=\sigma_x^2$ unless $\sigma^2=0$, in which case $\lim_{t\to\infty}\sigma_x(t)^2=\lim_{t\to\infty}\sigma_y(t)^2=\sigma_y(0)^2$.
-\subsection{Song learned from father, pref learned from mother}
+\subsection{Song learned from father, pref learned from mother }
+$\rho_\x{m}=\rho_\x{f}=0$
 \begin{align*}
 \sigma_x(t+1)^2&=\sigma_x^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}
 \\ \sigma_x(t+1)^2&=\sigma_x^2 \Rightarrow \sigma^2+\sigma_x^2=\sigma_y^2
 \end{align*}
 \subsection{Song learned obliquely, pref genetic }
+$\rho=\rho_\x{m}$, $\rho_\x{f}=0$
 \begin{align*}
 \sigma_x(t+1)^2&=\sigma_x^2
 \\ \sigma_y(t+1)^2&=\frac{1}{4}\sigma_y^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+(1-\rho^2)\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{2}\frac{\rho\sigma_x\sigma_y^3}{\sigma^2+\sigma_x^2}+\frac{1}{4}\sigma_y^2 
@@ -419,7 +425,8 @@ Cannot happen that both $\sigma_x^2=\sigma_y^2-\sigma^2$ and $\sigma_y^2=\sigma_
 \\&=\frac{1}{2}\sigma_y^2
 \\ \Rightarrow \lim_{t\to\infty}\sigma_y(t)^2&=0
 \end{align*}
-\subsection{Song learned obliquely, pref imprinted from father}
+\subsection{Song learned obliquely, pref imprinted from father }
+$\rho_\x{m}=\rho_\x{f}=0$
 \begin{align*}
 \sigma_x(t+1)^2&=\sigma_x^2
 \\ \sigma_y(t+1)^2&= \sigma_x^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}
@@ -432,6 +439,7 @@ Stable equilibrium with $\sigma_x^2=\sigma_x(0)^2$ and $\sigma_y^2=\frac{\sigma_
 \subsection{Song obliquely, pref obliquely }
 Neither distribution changes.
 \subsection{Song genetic, pref genetic } 
+$\rho=\rho_\x{m}=\rho_\x{f}$
 \begin{align*}
 \sigma_x(t+1)^2&=\frac{1}{4}\sigma_x^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{2}\frac{\rho\sigma_x^3\sigma_y}{\sigma^2+\sigma_x^2}+\frac{1}{4}\sigma_x^2
 \\&=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_y^2\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)
@@ -455,9 +463,27 @@ Neither distribution changes.
 \\ \Rightarrow \sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2+2\rho\sigma_x\sigma_y(\sigma^2+\sigma_x^2) & = 3(\sigma^2+\sigma_x^2)^2
 \\ \Rightarrow 
 \end{align*}
+Assuming $\rho=1$, there's an unstable equilibrum: if $\sigma_x,\sigma_y$ are  above the equilibrium, $Q>4$ and they'll increase to $\infty$. If $\sigma_x,\sigma_y$ are below the equilibrium, $Q<4$ and they'll decrease to $0$. Figure \ref{Q_contour}.
+
+With $\rho$ evolving as well, it is possible for $\sigma_x,\sigma_y,\rho$ to change such that $Q=4$ is reached with $\sigma_x>0$, $\sigma_y>0$, and $\rho=1$, but presumably this is a $2$ dimensional subspace of $(\sigma_x,\sigma_y,\rho)$ initial conditions.
+
+
+What happens in this case if $\sigma=0$?
+
+\subsection{Song genetic, pref imprinted from father } 
+\subsection{Song genetic, pref learned from mother }
 \end{landscape} 
 
+\begin{figure}
+\includegraphics[width=3.4in]{Q_contour.pdf}
+\caption{\label{Q_contour} Contour of $Q$ with $\rho=1$.}
+\end{figure}
 
+\begin{figure}
+\includegraphics[width=3.4in]{rho_evolve.pdf}
+\includegraphics[width=3.4in]{rho_evolve_code.pdf}
+\caption{\label{rho_evolve} Dynamics of $\sigma_x$, $\sigma_y$, $\rho$, and $Q$. }
+\end{figure}
 
 
 This model was built to study whether song diversity can be maintained when two populations come back together. However, even within one population there are interesting dynamics.
