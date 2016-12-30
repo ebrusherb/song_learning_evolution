@@ -383,12 +383,16 @@ P_\text{mate}(x_1,y_1,x_2,y_2)\sim N\left(\left(\begin{array}{cc} \frac{\sigma^2
 \end{array}\right)&
 \end{align*}
 \end{landscape} 
-{\footnotesize 
+{\tiny 
 \begin{tabular}{|l|c|c|c|}
 \hline  &  song from father &  song obliquely learned &  song genetic
-\\ \hline  pref genetic & $\lim_{t\to\infty}\sigma_{y}^2=\lim_{t\to\infty}\sigma_{x}^2=0$  unless $\sigma=0$ & $\lim_{t\to\infty}\sigma_{x}^2=\sigma_{x}(0)^2,\lim_{t\to\infty}\sigma_y^2=0$ & $\sigma_x,\sigma_y$ such that $Q=4$ exists, but reachable?
-\\ \hline   from father & $\lim_{t\to\infty}\sigma_{y}^2=\lim_{t\to\infty}\sigma_{x}^2=0$ & $\lim_{t\to\infty}\sigma_{x}^2=\sigma_x^2(0),\lim_{t\to\infty}\sigma_y^2=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{2\sigma_x^2+\sigma^2}$ & 
-\\ \hline   from moth / obl & $\lim_{t\to\infty}\sigma_y^2=\sigma_y^2(0),\lim_{t\to\infty}\sigma_{x}^2=\sigma_y^2-\sigma^2$ & $\lim_{t\to\infty}\sigma_y^2=\sigma_y^2(0),\lim_{t\to\infty}\sigma_x^2=\sigma_x^2(0)$ & 
+\\ \hline  pref genetic & $\lim_{t\to\infty}\sigma_{x}^2=\lim_{t\to\infty}\sigma_{y}^2=0$  unless $\sigma=0$ & $\lim_{t\to\infty}\sigma_{x}^2=\sigma_{x}(0)^2,\lim_{t\to\infty}\sigma_y^2=0$ &  bistability: $\lim_{t\to\infty}\sigma_{x}^2=\lim_{t\to\infty}\sigma_{y}^2=0$ or \\ &&& $\lim_{t\to\infty}\sigma_{x}^2=\lim_{t\to\infty}\sigma_{y}^2=\infty$
+\\ \hline   from father & $\lim_{t\to\infty}\sigma_{x}^2=\lim_{t\to\infty}\sigma_{y}^2=0$ & $\lim_{t\to\infty}\sigma_{x}^2=\sigma_x^2(0),\lim_{t\to\infty}\sigma_y^2=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{2\sigma_x^2+\sigma^2}$ & 
+\\ & & & 
+\\ \hline   from moth & $\lim_{t\to\infty}\sigma_{x}^2=\sigma_y^2-\sigma^2,\lim_{t\to\infty}\sigma_y^2=\sigma_y^2(0)$ & $\lim_{t\to\infty}\sigma_x^2=\sigma_x^2(0),\lim_{t\to\infty}\sigma_y^2=\sigma_y^2(0)$ & as long as $\sigma_y^2>(\frac{30+\sqrt{864}}{18})\sigma^2$ bistability: 
+\\ & & & $\lim_{t\to\infty}\sigma_x^2=\lim_{t\to\infty}\Cov=0$
+\\ & & & or $\lim_{t\to\infty}\sigma_x^2=\sigma_x^{2*}=\frac{3\sigma_y^2-5\sigma^2+\sqrt{\sigma^4+\sigma_y^2(9\sigma_y^2-30\sigma^2)}}{6}$, 
+\\ & & & $\lim_{t\to\infty}\Cov=\frac{\sigma_x^{2*}\sigma_y^2}{\sigma^2+\sigma_x^{2*}}$
 \\ \hline 
 \end{tabular}
 }
@@ -415,7 +419,15 @@ $\rho = \rho_\x{m}$, $\rho_\x{f}=0$
 \\ \Rightarrow 2+2\rho&=4
 \\ \Rightarrow \rho&=1
 \end{align*}
-I have not been able to find an analytic solution to the equilibrium variance or to show \emph{why} there is non-zero equilibrium variance. But I can show in song\_learned\_pref\_genetic.R that there is non-zero equilibrium for every initial $\rho$ and ratio of $\sigma_{x}$ to $\sigma_y$, which must be stable because I find it numerically by running the above recursive equations.
+I have not been able to find an analytic solution to the equilibrium variance or to show \emph{why} there is non-zero equilibrium variance. But I can show in song\_learned\_pref\_genetic.R that there is non-zero equilibrium for every initial $\rho$ and ratio of $\sigma_{x}$ to $\sigma_y$, which must be stable because I find it numerically by running the above recursive equations. (As $\sigma^2$ decreases, the rate at which variance disappears slows down. It looks like, regardless of $\sigma^2$, points always move toward the one-to-one line and as $\sigma^2$ decreases movement along the line decreases.)
+
+\subsubsection*{Mathematical aside}
+There are three contributions to the distribution of preferences in the population:
+\begin{enumerate}
+\item from the male preferences $\frac{\sigma^2(\sigma^2+\sigma_x^2)+(1-\rho^2)\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}=1+\rho^2\sigma_x^2\frac{\sigma_y^2-(\sigma^2+\sigma_x^2)}{(\sigma^2+\sigma_x^2)^2}$: If $\sigma^2+\sigma_x^2>\sigma_y^2$, this is a concave-down quadratic minimized at $\rho=1$ (for $\rho\in[0,1]$) and maximized at $\rho=0$. In other words, if the preference distribution is sufficiently narrow, this contribution is highest when there is no correlation between male songs and preferences, because the male song distribution is being collapsed to be closer to the narrow preference distribution. If $\sigma^2+\sigma_x^2<\sigma_y^2$, this is is a concave-up quadratic, maximized at $\rho=1$ (for $\rho\in[0,1]$) and minimized at $\rho=0$. If the preference distribution is large, this contribution is highest when the male songs and preferences are perfectly correlated so the preference distribution can be swept along with the widening song distribution.
+\item from covariance between male preferences and female preferences $\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}$: This increases as $\rho$ increases because the correlation between male and female preferences only arises through the interaction between (a) the correlation between male song and female preferences and (b) the correlation between male song and male preferences ($\rho$).  When $\sigma^2+\sigma_x^2<\sigma_y^2$, the first and second factors interact such that their sum is maximized at an intermediate $\rho$. Their sum represents a tradeoff between avoiding getting swept along with the male distribution and increasing the correlation between male and female preferences.
+\item the female preference $1$
+\end{enumerate}
 
 \subsection{Song learned from father, pref imprinted from father } 
 $\rho_\x{m}=\rho_\x{f}=0$
@@ -477,16 +489,74 @@ $\rho=\rho_\x{m}=\rho_\x{f}$
 \\ \Rightarrow \sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2+2\rho\sigma_x\sigma_y(\sigma^2+\sigma_x^2) & = 3(\sigma^2+\sigma_x^2)^2
 \\ \Rightarrow 
 \end{align*}
-Assuming $\rho=1$, there's an unstable equilibrum: if $\sigma_x,\sigma_y$ are  above the equilibrium, $Q>4$ and they'll increase to $\infty$. If $\sigma_x,\sigma_y$ are below the equilibrium, $Q<4$ and they'll decrease to $0$. Figure \ref{Q_contour}.
+Assuming $\rho=1$, there's an unstable equilibrum: if $\sigma_x,\sigma_y$ are  above the equilibrium, $Q>4$ and they'll increase to $\infty$. If $\sigma_x,\sigma_y$ are below the equilibrium, $Q<4$ and they'll decrease to $0$. Figure \ref{Q_contour}. NEED TO SHOW THAT the slope of the $Q=4$ contour (on the right side) is less than $1$.
 
-With $\rho$ evolving as well, it is possible for $\sigma_x,\sigma_y,\rho$ to change such that $Q=4$ is reached with $\sigma_x>0$, $\sigma_y>0$, and $\rho=1$, but presumably this is a $2$ dimensional subspace of $(\sigma_x,\sigma_y,\rho)$ initial conditions.
+With $\rho$ evolving as well, it is possible for $\sigma_x,\sigma_y,\rho$ to change such that $Q=4$ is reached with $\sigma_x>0$, $\sigma_y>0$, and $\rho=1$, but this is a $1$ dimensional subspace of $(\sigma_x,\sigma_y)$ initial conditions, for given initial $\rho$.
 
+Points above the curve move off to $\infty$ and points below the curve collapse to $0,0$. If $\sigma^2=0$, the curve is the one-to-one line. As $\sigma^2$ increases, the curve moves up and becomes U-shaped.
 
-What happens in this case if $\sigma=0$?
+\subsection{Song genetic, pref imprinted from father }  $\rho=\rho_\x{m},\rho_\x{f}=0$
+\begin{align*}
+\sigma_x(t+1)^2&=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+1\right)
+\\ \sigma_y(t+1)^2&=\sigma_x^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}
+\end{align*}
+Let $F=\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}$. So 
+\begin{align*}
+\sigma_x(t+1)^2&=\sigma_x^2\frac{F+1}{4}
+\\ \sigma_y(t+1)^2&=F\sigma_x^2
+\end{align*}
+At  equilibrium, need $F=3$ and therefore $\sigma_y^2=3\sigma_x^2$.
+\begin{align*}
+F=3 \text{ and } \sigma_y^2=3\sigma_x^2 &\Rightarrow F=\frac{\sigma^2(\sigma^2+\sigma_x^2)+3\sigma_x^4}{(\sigma^2+\sigma_x^2)^2}=3
+\\ \Rightarrow \sigma^4+\sigma^2\sigma_x^2+3\sigma_x^4&=3\sigma_x^4+6\sigma^2\sigma_x^2+3\sigma^4
+\\ \Rightarrow 2\sigma^4+5\sigma^2\sigma_x^2&=0
+\\ \Rightarrow \sigma^2=0 \text{ or } 2\sigma^2+5\sigma_x^2&=0 
+\end{align*}
+So no such equilibrium is possible unless $\sigma^2=0$. If $\sigma^2=0$, $F=\frac{\sigma_y^2}{\sigma_x^2}$, so $\sigma_y(t+1)^2=\sigma_y(t)^2$. If $\sigma_x^2<\sigma_y^2/3$, $F>3$ and $\sigma_x^2$ will increase until $\sigma_x^2=\sigma_y^2/3$. If $\sigma_x^2>\sigma_y^2/3$, $F<3$ and $\sigma_x^2$ will decrease until $\sigma_x^2=\sigma_y^2/3$. If $\sigma^2>0$, 
+\begin{align*}
+\sigma_y(t+1)^2>\sigma_y(t)^2 \Leftrightarrow F(t)\sigma_x(t)^2&>\sigma_y(t)^2
+\\ \Rightarrow F(t)&> \frac{\sigma_y(t)^2}{\sigma_x(t)^2} 
+\end{align*}
+Suppose $\sigma_y(t)^2/\sigma_x(t)^2=c$.
+\begin{align*}
+F(t)&>c
+\\ \Leftrightarrow \frac{\sigma^2(\sigma^2+\sigma_x^2)+c\sigma_x(t)^4}{(\sigma^2+\sigma_x(t)^2)^2}&>c
+\\ \Leftrightarrow \sigma^2(\sigma^2+\sigma_x^2)+c\sigma_x^4&>c(\sigma^4+2\sigma^2\sigma_x^2+\sigma_x^4)
+\\ \Leftrightarrow (2c-1)\sigma^2\sigma_x^2+(c-1)\sigma^4&<0
+\\ \Leftrightarrow (2c-1)\sigma_x^2+(c-1)\sigma^2&<0
+\\ \Leftrightarrow \sigma_x^2&<\frac{(1-c)\sigma^2}{2c-1}
+\\\text{Note that } \frac{(1-c)\sigma^2}{2c-1}&>0 \Leftrightarrow c\in \left(\frac{1}{2},1\right)
+\end{align*}
+So the only $\sigma_x(t)^2,\sigma_y(t)^2$ such that $\sigma_y^2$ are those such that $\sigma_y(t)^2/\sigma_x(t)^2\in\left(1/2,1\right)$. In order for $\sigma_x^2$ to increase, $F$ must be greater than $3$. 
+\begin{align*}
+F=c \Rightarrow \frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}&=c
+\\ \Rightarrow c&>0 
+\\\Rightarrow \sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2&=c\sigma^4+2c\sigma^2\sigma_x^2+c\sigma_x^4
+\\ 0&\Rightarrow c\sigma_x^4+((2c-1)\sigma^2-\sigma_y^2)\sigma_x^4+(c-1)\sigma^4
+\\ \Rightarrow \sigma_x^2&=\frac{\sigma_y^2-(2c-1)\sigma^2\pm\sqrt{((2c-1)\sigma^2-\sigma_y^2)^2-4c(c-1)}}{2c}
+\end{align*}
+If $c=1$, $\sigma_x^2=\frac{\sigma_y^2-\sigma^2\pm|\sigma^2-\sigma_y^2|}{2}$. If $\sigma_y^2<\sigma^2$, $\sigma_x^2=0$ is the only solution. If $\sigma_y>\sigma^2$, $\sigma_x^2=0,\sigma_y^2-\sigma^2$. Suppose $c\neq1$. 
+\begin{align*}
+\text{sign}(\sigma_x^2)&=\text{sign}\left(\sigma_y^2-(2c-1)\sigma^2\pm\sqrt{((2c-1)\sigma^2-\sigma_y^2)^2-4c(c-1)}\right)
+\end{align*}
+Let $D=((2c-1)\sigma^2-\sigma_y^2)^2-4c(c-1)$. 
+Suppose $c< 1$. Then $D\geq 0$. Further, $D>((2c-1)\sigma^2-\sigma-y^2)^2$, so $|\sqrt{D}|>|\sigma_y^2-(2c-1)\sigma^2|$. Regardless of the sign of $\sigma_y^2-(2c-1)\sigma^2$, the only positive solution is $\sigma_x^2=\sigma_y^2-\sigma^2(2c-1)+\sqrt{D}$.
 
-November 18. I think that there is a curve through $\sigma_x^2$, $\sigma_y^2$ space such that, if $\rho$ starts at $0$, points on the curve move to an equilibrium at which $\sigma_x,\sigma_y>0$ and $\rho=1$; points above the curve move off to $\infty$ and points below the curve collapse to $0,0$. I think is $\sigma^2=0$, the curve is the one-to-one line.
+Suppose $c> 1$. Then 
+\begin{align*}
+D\geq 0 \Leftrightarrow |(2c-1)\sigma^2-\sigma_y^2|&>2\sqrt{c(c-1)}
+\\ \Leftrightarrow \sigma_y^2<(2c-1)\sigma^2-2\sqrt{c(c-1)} \text{ or } \sigma_y^2&>(2c-1)\sigma^2+2\sqrt{c(c-1)}
+\end{align*}
+If $D\geq 0$, $|\sqrt{D}|<|\sigma_y^2-(2c-1)\sigma^2|$. If $c>1$, $(2c-1)\sigma^2+2\sqrt{c(c-1)}>0$, so if $\sigma_y^2>(2c-1)\sigma^2+2\sqrt{c(c-1)}$,  there are two positive solutions to $\sigma_x^2$. 
+If  $\sigma_y^2<(2c-1)\sigma^2-2\sqrt{c(c-1)}$, there are two negative solutions to $\sigma_x^2$, which is not possible. % Let $f(c)=(2c-1)\sigma^2-2\sqrt{c(c-1)}$. By considering $f(c)=0$ for $c>1$ and $f'(c)=0$ for $c>1$, I can derive conditions for $(2c-1)\sigma^2-2\sqrt{c(c-1)}\geq 0$: $\sigma^2>1$ OR $\sigma^2<1$ and $c<1/2(1+\frac{1}{\sqrt{1+\sigma^4}})$. But I don't need to.
+So 
+\begin{itemize}
+\item For $c<1$, $\sigma_x^2=\sigma_y^2-\sigma^2(2c-1)+\sqrt{D}$
+\item For $c=1$, $\sigma_x^2=\sigma_y^2-\sigma^2$
+\item For $c>1$, $\sigma_x^2=\frac{\sigma_y^2-\sigma^2(2c-1)\pm\sqrt{D}}{2c}$ where
+\end{itemize}
+Therefore, there is an upward facing curve of $\sigma_x^2,\sigma_y^2$ such that $F=3$, above the line $\sigma_y^2=3\sigma_x^2$. In this region, $\sigma_x^2$ increases. Not only is there no equilibrium in this mode, but there is no region in which both $\sigma_x^2$ and $\sigma_y^2$ increase. If they start in a region where one increases, it will eventually leave the region. All points eventually go to $(0,0)$.
 
-\subsection{Song genetic, pref imprinted from father } 
 \subsection{Song genetic, pref learned from mother }
 
 
