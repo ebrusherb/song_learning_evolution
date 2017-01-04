@@ -1,5 +1,5 @@
 ## ---- parameters ----------------
-step = 0.9 #step size of trait space
+step = 0.01 #step size of trait space
 int_step = step #step to use for integration function
 # alpha = 0.5 #if preference function is a step fx, strength of preference
 # sigma = #variance of female preference function
@@ -12,13 +12,13 @@ int_step = step #step to use for integration function
 mrange = seq(-7.5,7.5,by=step) #range of male songs
 Nm = length(mrange) 
 mmin = -1
-mmax = 1
+mmax = 0
 m0 = which(mrange==mmin)
 m1 = which(mrange==mmax)
 mrange_orig = seq(mmin,mmax,by=step) 
 frange = seq(-7.5,7.5,by=step) #range of female preferences
 Nf = length(frange)
-fmin = -1
+fmin = 0
 fmax = 1
 f0 = which(frange==fmin)
 f1 = which(frange==fmax)

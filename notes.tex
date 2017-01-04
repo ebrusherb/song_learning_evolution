@@ -387,15 +387,17 @@ P_\text{mate}(x_1,y_1,x_2,y_2)\sim N\left(\left(\begin{array}{cc} \frac{\sigma^2
 \begin{tabular}{|l|c|c|c|}
 \hline  &  song from father &  song obliquely learned &  song genetic
 \\ \hline  pref genetic & $\lim_{t\to\infty}\sigma_{x}^2=\lim_{t\to\infty}\sigma_{y}^2=0$  unless $\sigma=0$ & $\lim_{t\to\infty}\sigma_{x}^2=\sigma_{x}(0)^2,\lim_{t\to\infty}\sigma_y^2=0$ &  bistability: $\lim_{t\to\infty}\sigma_{x}^2=\lim_{t\to\infty}\sigma_{y}^2=0$ or \\ &&& $\lim_{t\to\infty}\sigma_{x}^2=\lim_{t\to\infty}\sigma_{y}^2=\infty$
-\\ \hline   from father & $\lim_{t\to\infty}\sigma_{x}^2=\lim_{t\to\infty}\sigma_{y}^2=0$ & $\lim_{t\to\infty}\sigma_{x}^2=\sigma_x^2(0),\lim_{t\to\infty}\sigma_y^2=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{2\sigma_x^2+\sigma^2}$ & 
-\\ & & & 
+\\ \hline   from father & $\lim_{t\to\infty}\sigma_{x}^2=\lim_{t\to\infty}\sigma_{y}^2=0$ & $\lim_{t\to\infty}\sigma_{x}^2=\sigma_x^2(0),\lim_{t\to\infty}\sigma_y^2=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{2\sigma_x^2+\sigma^2}$ & $\lim_{t\to\infty}\sigma_{x}^2=\lim_{t\to\infty}\sigma_{y}^2=0$ \\ &unless $\sigma^2=0$ &unless $\sigma^2=0$ & 
+ unless $\sigma^2=0$ $\Rightarrow$ $\lim_{t\to\infty}\sigma_x^2=\lim_{t\to\infty}\sigma_y^2=\sigma_y^2(0)$
 \\ \hline   from moth & $\lim_{t\to\infty}\sigma_{x}^2=\sigma_y^2-\sigma^2,\lim_{t\to\infty}\sigma_y^2=\sigma_y^2(0)$ & $\lim_{t\to\infty}\sigma_x^2=\sigma_x^2(0),\lim_{t\to\infty}\sigma_y^2=\sigma_y^2(0)$ & as long as $\sigma_y^2>(\frac{30+\sqrt{864}}{18})\sigma^2$ bistability: 
 \\ & & & $\lim_{t\to\infty}\sigma_x^2=\lim_{t\to\infty}\Cov=0$
-\\ & & & or $\lim_{t\to\infty}\sigma_x^2=\sigma_x^{2*}=\frac{3\sigma_y^2-5\sigma^2+\sqrt{\sigma^4+\sigma_y^2(9\sigma_y^2-30\sigma^2)}}{6}$, 
+\\ & & & or $\lim_{t\to\infty}\sigma_x^2=\sigma_x^{2*}=\frac{3\sigma_y^2-5\sigma^2+\sqrt{\sigma^4+\sigma_y^2(9\sigma_y^2-30\sigma^2)}}{6}$
+\\ &&& ($\lim_{\sigma_y\to\infty}=$ something like $\sigma_y^2-\sigma^2$?) 
 \\ & & & $\lim_{t\to\infty}\Cov=\frac{\sigma_x^{2*}\sigma_y^2}{\sigma^2+\sigma_x^{2*}}$
 \\ \hline 
 \end{tabular}
 }
+Learning of songs can either destabilize or stabilize male song distribution and / or female preference distribution, depending on the learning set / imprinting set (what's Servedio's term?!?). Learning of preferences can stabilize female preference distribution but doesn't affect male song distribution. 
 
 \section{Equilibrium for various modes of inheritance }
 \subsection{Song from father, pref genetic }
@@ -447,7 +449,8 @@ $\rho=\rho_\x{m}$, $\rho_\x{f}=0$
 \begin{align*}
 \sigma_x(t+1)^2&=\sigma_x^2
 \\ \sigma_y(t+1)^2&=\frac{1}{4}\sigma_y^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+(1-\rho^2)\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{2}\frac{\rho\sigma_x\sigma_y^3}{\sigma^2+\sigma_x^2}+\frac{1}{4}\sigma_y^2 
-\\&=\frac{1}{4}\sigma_y^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2(\sigma^2+\sigma_x^2)}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{4}\sigma_y^2  \text{ since in this case $\rho=0$}
+\\&=\frac{1}{4}\sigma_y^2\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2(\sigma^2+\sigma_x^2)}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{4}\sigma_y^2  \text{ since after one generation $\rho$ disappears since}
+\\ & \text{ there can be no correlation between parents' traits and song model}
 \\&=\frac{1}{2}\sigma_y^2
 \\ \Rightarrow \lim_{t\to\infty}\sigma_y(t)^2&=0
 \end{align*}
