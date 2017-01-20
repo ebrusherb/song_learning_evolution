@@ -1,26 +1,24 @@
-## --- cluster set up
-library(parallel)
-library(foreach)
-library(doParallel)
-
-# # num_cores <- detectCores()-1
-# num_cores <-10
-# cl <-makeCluster(num_cores)
-# registerDoParallel(cl)
-
 setwd('/Users/eleanorbrush/Documents/research/song_learning_evolution')
 source('ind2sub.R')
 source('glue.R')
 source('int.R')
-source('range_setup.R')
+# source('range_setup.R')
 source('recursion_all.R')
 source('image.scale.R')
 library(RColorBrewer)
 
 discretize <- function(v,step_width=0.5){
 	center = which.max(v)
-	chunk_length = ceiling(step_width/step)
-	hold_vec = (c(rev(seq(center-floor(chunk_length/2),1,by=-chunk_length)),seq(center+ceiling(chunk_length/2)-1,Nf,by=chunk_length)))
+	chunk_length = c(ceiling(step_width/trait_step),floor(step_width/trait_step))
+	chunk_length[which(chunk_length%%2==0)] = chunk_length[which(chunk_length%%2==0)]+1
+	chunk_length = min(chunk_length)
+	# if(sum(chunk_length%%2)!=0){
+		# chunk_length = chunk_length[chunk_length%%2!=0]
+		# chunk_length = chunk_length[1]
+		# } else{
+			# chunk_length = chunk_length[1]+1
+		# }	
+	hold_vec = (c(rev(seq(center-floor(chunk_length/2),1,by=-chunk_length)),seq(center+floor(chunk_length/2),Nf,by=chunk_length)))
 	chunk_vec = c(rep(1,hold_vec[1]-1),rep(2:(length(hold_vec)),each=chunk_length),rep(length(hold_vec)+1,Nf-hold_vec[length(hold_vec)]))
 	chunk_vec = chunk_vec - min(chunk_vec)+1
 	chunk=list(chunk_vec)
@@ -48,8 +46,8 @@ while(t <= steps){
 	for(j in 1:Nf){
 		s = sign(midpt-j+0.5)
 		weight = rep(minweight,Nf)
-		toreplace=sort(c(((Nf+1)+s)%%(Nf+1),j+s*(midpt-1)))
-		pull=sort(c(((Nf+1)+s)%%(Nf+1)+midpt-j,((Nf+1)-s)%%(Nf+1)))
+		toreplace=sort(c((s)%%(Nf+1),j+s*(midpt-1)))
+		pull=sort(c((s)%%(Nf+1)+midpt-j,(-s)%%(Nf+1)))
 		weight[toreplace[1]:toreplace[2]] = fixed_weight[pull[1]:pull[2]]
 		z = sum(weight*Pm_adults) #normalization factor
 		if(z>z_thresh){
@@ -78,7 +76,7 @@ return(pop_dens)
 }
 
 #######
-steps = 1000
+steps = 500
 store = 1
 pm = 1
 pf = 1
@@ -87,24 +85,29 @@ rho_init = 0
 
 sigma2 = 0.01
 sigmay2_init = 2
-sigmax2_init = 0.01
+sigmax2_init = 0.5
 step_width = 1
 
-sigma2_vals = seq(0.01,sigmay2_init,length.out=10)
+sigma2_vals = seq(0.01,sigmay2_init,length.out=3)
 x_sigma2 = length(sigma2_vals)
-sigmax2_init_vals = 0.5
-x_sigmax2 = length(sigmax2_init_vals)
-step_width_vals = seq(step,2,length.out=10)
+trait_step_vals = seq(0.05,5,length.out=10)
+x_trait_step = length(trait_step_vals)
+step_width_vals = seq(0.05,5,length.out=10)
 x_step_width = length(step_width_vals)
 
-equilibrium = array(NA,dim=c(x_sigma2,x_sigmax2,x_step_width,2,Nm))
+# equilibrium = array(NA,dim=c(x_sigma2,x_trait_step,x_step_width,2,Nm))
+equilibrium = vector('list',x_sigma2*x_trait_step*x_step_width*2)
+dim(equilibrium) = c(x_sigma2,x_trait_step,x_step_width,2)
 
 for(i in 1:x_sigma2){
-	for(j in 1:x_sigmax2){
+	for(j in 1:x_trait_step){
 		for(k in 1:x_step_width){
 			sigma2 = sigma2_vals[i]
-			sigmax2_init = sigmax2_init_vals[j]
+			trait_step = trait_step_vals[j]
+			int_step = trait_step
 			step_width = step_width_vals[k]
+			if(step_width >= trait_step){
+			source("/Users/eleanorbrush/Documents/research/song_learning_evolution/range_setup.R")
 			
 			f_init = dnorm(frange,fmin,sqrt(sigmay2_init))
 			f_init[f_init==0] = 10^max(floor(log(min(f_init[which(f_init>0)]),base=10)),-320)
@@ -115,7 +118,7 @@ for(i in 1:x_sigma2){
 			m_init = m_init / sum(m_init)
 			m_init = pf*m_init+(1-pf)*rev(m_init)
 			
-			continuous_weight = dnorm(mrange,mean=frange[midpt],sd=sqrt(sigma2)) #female preference function
+			continuous_weight = dnorm(mrange,mean=mrange[midpt],sd=sqrt(sigma2)) #female preference function
 			minweight = 10^max(floor(log(min(continuous_weight[which(continuous_weight>0)]),base=10)),-320)	
 			continuous_weight[continuous_weight==0] = minweight
 			discrete_weight = discretize(continuous_weight,step_width)
@@ -130,68 +133,164 @@ for(i in 1:x_sigma2){
 			pop_dens = dynamics()
 			Pm = pop_dens$Pm[,t]
 			
-			equilibrium[i,j,k,1,]=recurs
-			equilibrium[i,j,k,2,]=Pm
-		}
-	}
-}
-
-# save(sigma2_vals,sigmax2_init_vals,step_width_vals,sigmay2_init,steps,equilibrium,file='/Users/eleanorbrush/Documents/research/song_learning_evolution/effect_of_sigma2_and_step_width.Rdata')
-
-
-ex_mat = array(NA,dim=c(x_sigma2,x_sigmax2,x_step_width,2))
-var_mat = array(NA,dim=c(x_sigma2,x_sigmax2,x_step_width,2))
-for(i in 1:x_sigma2){
-	for(j in 1:x_sigmax2){
-		for(k in 1:x_step_width){
-			for(l in 1:2){
-			ex = sum(mrange*equilibrium[i,j,k,l,])
-			vx = sum((mrange-(ex))^2*equilibrium[i,j,k,l,])
-			ex_mat[i,j,k,l] = ex
-			var_mat[i,j,k,l] = vx
+			equilibrium[[i,j,k,1]]=recurs
+			equilibrium[[i,j,k,2]]=Pm
 			}
 		}
 	}
 }
 
+save(sigma2_vals,trait_step_vals,step_width_vals,sigmay2_init,steps,equilibrium,file='/Users/eleanorbrush/Documents/research/song_learning_evolution/effect_of_trait_step_and_step_width.Rdata')
+
+
+ex_mat = array(NA,dim=c(x_sigma2,x_trait_step,x_step_width,2))
+var_mat = array(NA,dim=c(x_sigma2,x_trait_step,x_step_width,2))
+for(i in 1:x_sigma2){
+	for(j in 1:x_trait_step){
+		for(k in 1:x_step_width){
+			sigma2 = sigma2_vals[i]
+			trait_step = trait_step_vals[j]
+			int_step = trait_step
+			step_width = step_width_vals[k]
+			if(step_width>=trait_step){
+			source("/Users/eleanorbrush/Documents/research/song_learning_evolution/range_setup.R")
+			for(l in 1:2){
+			ex = sum(mrange*equilibrium[[i,j,k,l]])
+			vx = sum((mrange-(ex))^2*equilibrium[[i,j,k,l]])
+			ex_mat[i,j,k,l] = ex
+			var_mat[i,j,k,l] = vx
+			}
+			}
+		}
+	}
+}
+
+
+layout(matrix(1:4,ncol=2))
+i=1
+m=min(var_mat[,,,],na.rm=TRUE);
+M=max(var_mat[,,,],na.rm=TRUE);
+breaks=seq(m,M,length.out=50);
+breaks= c(m,10^seq(-5,log(M,base=10),length.out=30))
+cols=heat.colors(length(breaks)-1);
+image(trait_step_vals,step_width_vals,var_mat[i,,,1],breaks=breaks,col=cols,xlab='Trait chunk length',ylab='Pref fun chunk length');
+abline(v=3)
+image.scale(var_mat[i,,,1],horiz=FALSE,breaks=breaks,col=cols);
+# # m=min(var_mat[i,,,2],na.rm=TRUE);
+# M=max(var_mat[i,,,2],na.rm=TRUE);
+# breaks=seq(m,M,length.out=50);
+# cols=heat.colors(length(breaks)-1);
+image(trait_step_vals,step_width_vals,var_mat[i,,,2],breaks=breaks,col=cols,xlab='Trait chunk length',ylab='Pref fun chunk length');
+abline(v=3)
+image.scale(var_mat[i,,,2],horiz=FALSE,breaks=breaks,col=cols)
+
 layout(matrix(1:2,ncol=2))
-m = min(var_mat[,j,,1]-var_mat[,j,,2])
-M = max(var_mat[,j,,1]-var_mat[,j,,2])
+i=1
+to_plot = (var_mat[i,,,1]-var_mat[i,,,2])/var_mat[i,,,1]
+m = min(to_plot,na.rm=TRUE)
+M = max(to_plot,na.rm=TRUE)
 M = max(abs(m),M)
 breaks = seq(-M,M,length.out=21)
 cols = colorRampPalette(brewer.pal(9, "RdBu"))(length(breaks)-1)
-image(sigma2_vals,step_width_vals,var_mat[,j,,1]-var_mat[,j,,2],breaks=breaks,col=cols)
-image.scale(var_mat[,j,,1]-var_mat[,j,,2],breaks=breaks,col=cols,horiz=FALSE)
+image(trait_step_vals,step_width_vals,to_plot,breaks=breaks,col=cols)
+image.scale(to_plot,breaks=breaks,col=cols,horiz=FALSE)
 
-#####
-steps = 20000
-sigma2 = sigma2_vals[1]
-sigmay2_init = 2
-sigmax2_init = sigmax2_init_vals[5]
-step_width = 4
+# # 
+# load("/Users/eleanorbrush/Documents/research/song_learning_evolution/effect_of_sigma2_and_step_width_01_05_2016.Rdata")
+# x_sigma2 = length(sigma2_vals)
+# x_sigmax2 = length(sigmax2_init_vals)
+# x_step_width = length(step_width_vals)
+# ex_mat = array(NA,dim=c(x_sigma2,x_sigmax2,x_step_width,2))
+# var_mat = array(NA,dim=c(x_sigma2,x_sigmax2,x_step_width,2))
+# trait_step = 0.1
+# int_step = trait_step		
+# source("/Users/eleanorbrush/Documents/research/song_learning_evolution/range_setup.R")
+# for(i in 1:x_sigma2){
+	# for(j in 1:x_sigmax2){
+		# for(k in 1:x_step_width){			
+			# for(l in 1:2){
+			# ex = sum(mrange*equilibrium[i,j,k,l,])
+			# vx = sum((mrange-(ex))^2*equilibrium[i,j,k,l,])
+			# ex_mat[i,j,k,l] = ex
+			# var_mat[i,j,k,l] = vx
+			# }
+		# }
+	# }
+# }
+
+# layout(matrix(1:2,ncol=2))
+# m = min(var_mat[,j,,1]-var_mat[,j,,2])
+# M = max(var_mat[,j,,1]-var_mat[,j,,2])
+# M = max(abs(m),M)
+# breaks = seq(-M,M,length.out=21)
+# cols = colorRampPalette(brewer.pal(9, "RdBu"))(length(breaks)-1)
+# image(sigma2_vals,step_width_vals,var_mat[,j,,1]-var_mat[,j,,2],breaks=breaks,col=cols)
+# image.scale(var_mat[,j,,1]-var_mat[,j,,2],breaks=breaks,col=cols,horiz=FALSE)
+
+# #####
+# steps = 20000
+# sigma2 = sigma2_vals[1]
+# sigmay2_init = 2
+# sigmax2_init = sigmax2_init_vals[5]
+# step_width = 4
+
+# f_init = dnorm(frange,fmin,sqrt(sigmay2_init))
+# f_init[f_init==0] = 10^max(floor(log(min(f_init[which(f_init>0)]),base=10)),-320)
+# f_init = f_init/sum(f_init)
+# f_init = pf*f_init+(1-pf)*rev(f_init)
+# m_init = dnorm(mrange,mmin,sqrt(sigmax2_init))
+# m_init[m_init==0] = 10^max(floor(log(min(m_init[which(m_init>0)]),base=10)),-320)
+# m_init = m_init / sum(m_init)
+# m_init = pf*m_init+(1-pf)*rev(m_init)
+
+# continuous_weight = dnorm(mrange,mean=mrange[midpt],sd=sqrt(sigma2)) #female preference function
+# minweight = 10^max(floor(log(min(continuous_weight[which(continuous_weight>0)]),base=10)),-320)	
+# continuous_weight[continuous_weight==0] = minweight
+# discrete_weight = discretize(continuous_weight,step_width)
+
+# # fixed_weight = continuous_weight/sum(continuous_weight)
+# fixed_weight = discrete_weight/sum(discrete_weight)
+
+# recurs = recursion_all(sigmax2_init,sigmay2_init,sigma2,rho_init)
+# recurs = dnorm(mrange,mean=-1,sd=sqrt(recurs[3,1,t]))
+# recurs = recurs / sum(recurs)
+# pop_dens = dynamics()
+
+# t=steps
+# plot(recurs,col='red',t='l')
+# lines(pop_dens$Pm[,t],t='l')
+
+#######
+sigmax2_init = 2
+sigma2 = 1.8
+steps = 2000
+
+trait_step = 3.5
+source("/Users/eleanorbrush/Documents/research/song_learning_evolution/range_setup.R")
+
+continuous_weight = dnorm(mrange,mean=mrange[midpt],sd=sqrt(sigma2)) #female preference function
+minweight = 10^max(floor(log(min(continuous_weight[which(continuous_weight>0)]),base=10)),-320)	
+continuous_weight[continuous_weight==0] = minweight
+
+fixed_weight = continuous_weight/sum(continuous_weight)		
 
 f_init = dnorm(frange,fmin,sqrt(sigmay2_init))
 f_init[f_init==0] = 10^max(floor(log(min(f_init[which(f_init>0)]),base=10)),-320)
 f_init = f_init/sum(f_init)
 f_init = pf*f_init+(1-pf)*rev(f_init)
+j = midpt
+s = sign(midpt-j+0.5)
+toreplace=sort(c((s)%%(Nf+1),j+s*(midpt-1)))
+pull=sort(c((s)%%(Nf+1)+midpt-j,(-s)%%(Nf+1)))
+hold = f_init
+hold[toreplace[1]:toreplace[2]] = f_init[pull[1]:pull[2]]
+if(toreplace[1]>1){
+	hold[1:(toreplace[1]-1)] = f_init[(pull[2]+1):Nf]}
+f_init = hold
 m_init = dnorm(mrange,mmin,sqrt(sigmax2_init))
 m_init[m_init==0] = 10^max(floor(log(min(m_init[which(m_init>0)]),base=10)),-320)
 m_init = m_init / sum(m_init)
 m_init = pf*m_init+(1-pf)*rev(m_init)
 
-continuous_weight = dnorm(mrange,mean=frange[midpt],sd=sqrt(sigma2)) #female preference function
-minweight = 10^max(floor(log(min(continuous_weight[which(continuous_weight>0)]),base=10)),-320)	
-continuous_weight[continuous_weight==0] = minweight
-discrete_weight = discretize(continuous_weight,step_width)
-
-# fixed_weight = continuous_weight/sum(continuous_weight)
-fixed_weight = discrete_weight/sum(discrete_weight)
-
-recurs = recursion_all(sigmax2_init,sigmay2_init,sigma2,rho_init)
-recurs = dnorm(mrange,mean=-1,sd=sqrt(recurs[3,1,t]))
-recurs = recurs / sum(recurs)
 pop_dens = dynamics()
-
-t=steps
-plot(recurs,col='red',t='l')
-lines(pop_dens$Pm[,t],t='l')
+print(round(pop_dens$Pm[,steps],5))
