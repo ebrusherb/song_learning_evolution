@@ -1,4 +1,4 @@
-source('/Users/eleanorbrush/Desktop/image.scale.R')
+source('image.scale.R')
 ### # # # song learned from father, preference genetic:
 # sigma2 = 0.1
 # steps = 50
@@ -279,64 +279,72 @@ image.scale(final_rho_v2,horiz=FALSE,breaks=rhobreaks,col=c('black',heat.colors(
 
 
 
-# ### # # # song genetic, preference from mother
-# ### plot contour of Q, plot slow manifold of rho / cov and sigamx2
-# steps = 100
-# sigma2 = 1.2
-# # sigmay2 = ((30+sqrt(864))/18)*sigma2
-# sigmay2 = 5.5
-# poss=polyroot(c(2*sigma2^2,5*sigma2-3*sigmay2,3))
+### # # # song genetic, preference from mother
+### plot contour of Q, plot slow manifold of rho / cov and sigamx2
+steps = 100
+sigma2 = 1
+# sigmay2 = ((30+sqrt(864))/18)*sigma2
+sigmay2_init = 8.3
+poss=polyroot(c(2*sigma2^2,5*sigma2-3*sigmay2,3))
 
-# # par(mfrow=c(2,1))
+# par(mfrow=c(2,1))
 
-# vec=seq(0,5,length.out=100)
-# covvec = seq(0,5,length.out = 100)
-# Qmat = array(NA,dim=c(length(vec),length(rhovec)))
-# Dmat = array(NA,dim=c(length(vec),length(rhovec)))
-# testmat = array(NA,dim=c(length(vec),length(rhovec)))
-# sigmay2 = sigmay2_init
-# for(i in 1:length(vec)){
-	# for(j in 1:length(covvec)){
-		# sigmax2 = vec[i]
-		# cov = covvec[j]
-		# rho = cov/sqrt(sigmax2*sigmay2)
-		# Q = (sigma2*(sigma2+sigmax2)+sigmax2*sigmay2)/(sigma2+sigmax2)^2+2*rho*sqrt(sigmax2*sigmay2)/(sigma2+sigmax2)+1
-		# Qmat[i,j] = Q
-		# Dmat[i,j] = sqrt(sigmax2*sigmay2)/(sigma2+sigmax2)+(1-sqrt(Q))*rho
-		# # testmat[i,j] = (sqrt(sigmax2*sigmay2)/(sigma2+sigmax2)+rho)-(Q)*sqrt(sigmax2*sigmay2)/(sigma2+Q*sigmax2)
-		# testmat[i,j] =sigmax2*sigmay2/(sigma2+Q*sigmax2)
-		# # testmat[i,j] = 3*sigmax2^2+sigma2*(4*sigma2-3*sigmay2+sigma2)+2*sigma2^2
-		# # testmat[i,j] = (1-rho^2)*(Q)+sigma2/(sigma2+sigmax2)
-		# # testmat[i,j] = (rho+sqrt(sigmax2*sigmay2)/(sigma2+sigmax2))/sqrt(Q)
-	# }
-# }
-# contour(vec,covvec,Qmat)
+vec=seq(0,10,length.out=100)
+covvec = seq(0,10,length.out = 100)
+Qmat = array(NA,dim=c(length(vec),length(covvec)))
+Dmat = array(NA,dim=c(length(vec),length(covvec)))
+testmat = array(NA,dim=c(length(vec),length(covvec)))
+sigmay2 = sigmay2_init
+for(i in 1:length(vec)){
+	for(j in 1:length(covvec)){
+		sigmax2 = vec[i]
+		cov = covvec[j]
+		rho = cov/sqrt(sigmax2*sigmay2)
+		Q = (sigma2*(sigma2+sigmax2)+sigmax2*sigmay2)/(sigma2+sigmax2)^2+2*rho*sqrt(sigmax2*sigmay2)/(sigma2+sigmax2)+1
+		Qmat[i,j] = Q
+		Dmat[i,j] = sqrt(sigmax2*sigmay2)/(sigma2+sigmax2)+(1-sqrt(Q))*rho
+		# testmat[i,j] = (sqrt(sigmax2*sigmay2)/(sigma2+sigmax2)+rho)-(Q)*sqrt(sigmax2*sigmay2)/(sigma2+Q*sigmax2)
+		testmat[i,j] =sigmax2*sigmay2/(sigma2+Q*sigmax2)
+		# testmat[i,j] = 3*sigmax2^2+sigma2*(4*sigma2-3*sigmay2+sigma2)+2*sigma2^2
+		# testmat[i,j] = (1-rho^2)*(Q)+sigma2/(sigma2+sigmax2)
+		# testmat[i,j] = (rho+sqrt(sigmax2*sigmay2)/(sigma2+sigmax2))/sqrt(Q)
+	}
+}
+contour(vec,covvec,Qmat,xlab='Male song variance',ylab='Covariance between song and preference')
 
-# keep = c()
+keep = c()
 
-# for(rho in seq(0,1,length.out=10)){
-# for(sigmax2_init in seq(0,10,length.out=20)){
+for(rho in seq(0,1,length.out=10)){
+for(sigmax2_init in seq(0,2,length.out=20)){
 
-# sigmax2=sigmax2_init
-# cov = rho*sqrt(sigmay2*sigmax2)
+sigmax2=sigmax2_init
+cov = rho*sqrt(sigmay2*sigmax2)
 
-# for(t in 1:steps){
-	# sigmax2[t+1]=sigmax2[t]/4*((sigma2*(sigma2+sigmax2[t])+sigmax2[t]*sigmay2)/(sigma2+sigmax2[t])^2+2*rho[t]*sqrt(sigmax2[t]*sigmay2)/(sigma2+sigmax2[t])+1)
-	# cov[t+1]=1/2*(sigmax2[t]*sigmay2/(sigma2+sigmax2[t])+rho[t]*sqrt(sigmax2[t]*sigmay2))
-	# rho[t+1]=cov[t+1]/sqrt(sigmax2[t+1]*sigmay2)
-# }
+for(t in 1:steps){
+	sigmax2[t+1]=sigmax2[t]/4*((sigma2*(sigma2+sigmax2[t])+sigmax2[t]*sigmay2)/(sigma2+sigmax2[t])^2+2*rho[t]*sqrt(sigmax2[t]*sigmay2)/(sigma2+sigmax2[t])+1)
+	cov[t+1]=1/2*(sigmax2[t]*sigmay2/(sigma2+sigmax2[t])+rho[t]*sqrt(sigmax2[t]*sigmay2))
+	rho[t+1]=cov[t+1]/sqrt(sigmax2[t+1]*sigmay2)
+}
 
-# Q = (sigma2*(sigma2+sigmax2)+sigmax2*sigmay2)/(sigma2+sigmax2)^2+2*rho*sqrt(sigmax2*sigmay2)/(sigma2+sigmax2)+1
-# start = 10
-# end = 50
-# lines(sigmax2[start:end],cov[start:end],col='red')
-# points(sigmax2[steps],cov[steps],col='red')
-# keep = rbind(keep,cbind(sigmax2[start:end],rho[start:end],cov[start:end]))
-# }
-# }
+Q = (sigma2*(sigma2+sigmax2)+sigmax2*sigmay2)/(sigma2+sigmax2)^2+2*rho*sqrt(sigmax2*sigmay2)/(sigma2+sigmax2)+1
+start = 10
+end = 50
+lines(sigmax2[start:end],cov[start:end],col='red')
+points(sigmax2[steps],cov[steps],col='red')
+keep = rbind(keep,cbind(sigmax2[start:end],rho[start:end],cov[start:end]))
+}
+}
 
-# # lines(vec,sqrt(vec*sigmay2)/(sigma2+vec),col='blue')
-# lines(vec,(vec*sigmay2)/(sigma2+vec),col='blue')
+# lines(vec,sqrt(vec*sigmay2)/(sigma2+vec),col='blue')
+lines(vec,(vec*sigmay2)/(sigma2+vec),col='blue')
+sigmax2=(3*sigmay2-5*sigma2+sqrt(9*sigmay2^2-30*sigma2*sigmay2+sigma2^2))/6;
+cov=sigmax2*sigmay2/(sigma2+sigmax2);
+Jstab=matrix(c(1+sigmax2/4*(sigmay2-sigma2-4*cov)/(sigma2+sigmax2)^2,sigmax2/2/(sigma2+sigmax2),sigma2*sigmay2/2/(sigma2+sigmax2)^2,1/2),nrow=2,byrow=TRUE)
+points(sigmax2,cov,col='green',cex=3)
+sigmax2=(3*sigmay2-5*sigma2-sqrt(9*sigmay2^2-30*sigma2*sigmay2+sigma2^2))/6;
+cov=sigmax2*sigmay2/(sigma2+sigmax2);
+Junstab=matrix(c(1+sigmax2/4*(sigmay2-sigma2-4*cov)/(sigma2+sigmax2)^2,sigmax2/2/(sigma2+sigmax2),sigma2*sigmay2/2/(sigma2+sigmax2)^2,1/2),nrow=2,byrow=TRUE)
+points(sigmax2,cov,col='green',cex=3)
 
 # keep = data.frame(keep[-which(is.na(keep[,1])),])
 # names(keep)=c('sigmax2','rho','cov')

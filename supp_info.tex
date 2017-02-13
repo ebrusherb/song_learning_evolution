@@ -1,0 +1,385 @@
+\documentclass{article}
+
+\usepackage[textwidth=7in,textheight=10in]{geometry}
+\usepackage{graphicx}
+\usepackage{/Users/eleanorbrush/Documents/custom2}
+\usepackage{wasysym}
+\usepackage{color}
+\usepackage[numbers,sort&compress]{natbib}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\newcommand{\x}[1]{\text{#1}}
+\newcommand{\Cov}{\text{Cov}}
+\usepackage{lscape} 
+
+\usepackage{tocloft}% http://ctan.org/pkg/tocloft
+\setlength{\cftsecnumwidth}{2em}% Set length of number width in ToC for \subsection
+\cftsetindents{subsection}{3em}{2em}
+\setcounter{tocdepth}{2}% Allow only \chapter in ToC
+
+\begin{document}
+\tableofcontents
+
+
+CORRELATIONS
+\begin{align*}
+\Sigma'=\left(\begin{array}{cccc}\sigma_{\x{m}x}^2\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2} & \frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}\left(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2\right)}{(\sigma^2+\sigma_{\x{m}x}^2)^2} & \frac{\rho_{\x{f}}\sigma_{\x{m}x}^2\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2} & \frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2+\sigma_{\x{m}x}^2} 
+\\ & \sigma_{\x{m}y}^2\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2} & \frac{\rho_\x{m}\rho_\x{f}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2} & \frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}y}^2}{\sigma^2+\sigma_{\x{m}x}^2}
+\\ & & \sigma_{\x{f}x}^2 & \rho_\x{f}\sigma_{\x{f}x}\sigma_{\x{f}y}
+\\ & & & \sigma_{\x{f}y}^2
+\end{array}\right)&
+\end{align*}
+
+EQUILIBRIUM VARIANCE
+
+\begin{tabular}{|c|c|c|c|}
+\hline& song from father & song genetic & song obliquely learned
+\\\hline pref from father  & $\lim_{t\to\infty}\sigma_\text{s}^2=0$                       & $\lim_{t\to\infty}\sigma_\text{s}^2=0$ & $\lim_{t\to\infty}\sigma_\text{s}^2=\sigma_\x{s}^2(0)$
+\\  				  & $\lim_{t\to\infty}\sigma_\text{p}^2=0$                       & $\lim_{t\to\infty}\sigma_\text{p}^2=0$ & $\lim_{t\to\infty}\sigma_\text{p}^2=\frac{\sigma_\x{s}^2(\sigma^2+\sigma_\x{s}^2)}{2\sigma_\x{s}^2+\sigma^2}$
+\\\hline pref genetic & $\lim_{t\to\infty}\sigma_\text{s}^2=0$                       & $\sigma_\x{s}^2$ bistable: $0$ or $\infty$ &  $\lim_{t\to\infty}\sigma_\text{s}^2=\sigma_\x{s}^2(0)$
+\\  				  & $\lim_{t\to\infty}\sigma_\text{p}^2=0$                       & $\sigma_\x{p}^2$ bistable: $0$ or $\infty$ &  $\lim_{t\to\infty}\sigma_\text{p}^2=0$
+\\\hline pref from mother  & $\lim_{t\to\infty}\sigma_\text{s}^2=\sigma_\x{p}^2-\sigma^2$ & $\sigma_\x{s}^2$ bistable: $0$ or $\frac{3\sigma_y^2-5\sigma^2+\sqrt{\sigma^4+\sigma_y^2(9\sigma_y^2-30\sigma^2)}}{6}$ & $\lim_{t\to\infty}\sigma_\text{s}^2=\sigma_\x{s}^2(0)$
+\\ 					  & $\lim_{t\to\infty}\sigma_\text{p}^2=\sigma_\x{p}^2(0)$       & $\lim_{t\to\infty}\sigma_\text{p}^2=\sigma_\x{p}^2(0)$ & $\lim_{t\to\infty}\sigma_\text{p}^2=\sigma_\x{p}^2(0)$ 
+\\\hline
+\end{tabular}
+
+
+
+\section{Derivation of covariance between male song and female preference in mating pairs}
+We will write $v=(x,y)^T\in\R^2$ for a vector whose first element is a song and whose second element is a preference. A numerical subscript, for example $x_1$, refers to the gender of the birds under consideration: $1$ is for males and $2$ is for females. The subscripts $\x{m}$ and $\x{f}$ are also used to denote male and female. We will write $\mu_\x{m}=(\mu_{\x{m}x},\mu_{\x{m}y})^T$ for the mean trait values of all adult males and similarly $\mu_\x{f}$ for females. We will write $\rho_\x{m}$ for the correlation between songs and preferences  and $\Sigma_\x{m}=\left(\begin{array}{cc} \sigma_{\x{m}x}^2 & \rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y} \\ \rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y} & \sigma_{\x{m}y}^2\end{array}\right)$ for the covariance matrix between the traits among male birds; similarly $\rho_\x{f}$ and $\Sigma_{\x{f}}$ for females. We will switch to using $\mu_{x_1}$ for the mean song of mating males, $\sigma_{x_1}^2$ for the variance of the songs of mating males, and similarly for $y_1$ (male preferences), $x_2$ (female songs), and $y_2$ (female preferences).
+\begin{align*}
+P_\x{m}(v)&=\frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v-\mu_\x{m})^T\Sigma_\x{m}^{-1}(v-\mu_\x{m})\right)
+\\P_\x{f}(v)&=\frac{1}{2\pi\sqrt{|\Sigma_\x{f}|}}\exp\left(-\frac{1}{2}(v-\mu_\x{f})^T\Sigma_\x{f}^{-1}(v-\mu_\x{f})\right)
+\\f_y(x)&=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{(x-y)^2}{2\sigma^2}\right)
+\\ P_\x{mate}(v_\x{m},v_\x{f})&=\frac{P_\x{m}(v_\x{m})P_\x{f}(v_\x{f})f_{y_2}(x_1)}{\int\int P_\x{m}(v_\x{m})f_{y_2}(x_1)dx_1dy_1 }
+\end{align*}
+
+
+First we rewrite $P_\x{mate}(v_\x{m},v_\x{f})$ so that we can integrate any combination of $x_1$, $y_1$, or $x_2$ easily.
+\begin{align*}
+P_\x{m}(v_\x{m})f_{y_2}(x_1)&=\frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v_\x{m}-c)^TC^{-1}(v_\x{m}-c)\right)\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(\mu_{\x{m}x}-y_2)^2}{2(\sigma_{\x{m}x}+\sigma^2)}\right) \text{by Fact \ref{sum_of_normal}}
+\\ \text{ where } C&=\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\Sigma_\x{m}+\left(\begin{array}{cc} 0 & 0 \\ 0 & \frac{(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2\sigma_{\x{m}y}^2}{\sigma^2+\sigma_{\x{m}x}^2}\end{array}\right) 
+\\ \text{ and } c&= \left(\begin{array}{cc}\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}y_2 
+\\ \mu_{\x{m}y}+\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}{\sigma^2+\sigma_{\x{m}x}^2}(y_2-\mu_{\x{m}x}) \end{array}\right) \text{by Fact \ref{rewrite_inverse}}
+\end{align*}
+In Fact \ref{sum_of_normal} we show that $|C|=\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}|\Sigma_\x{m}|$. Therefore 
+\begin{align}
+P_\x{m}(v_\x{m})f_{y_2}(x_1)&=\frac{1}{2\pi\sqrt{|C|}}\exp\left(-\frac{1}{2}(v_\x{m}-c)^TC^{-1}(v_\x{m}-c)\right)\frac{1}{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2)}}\exp\left(-\frac{(\mu_{\x{m}x}-y_2)^2}{2(\sigma_{\x{m}x}^2+\sigma^2)}\right) \notag
+\\ \Rightarrow \int\int P_\x{m}(v_\x{m})f_{y_2}(x_1)dx_1dy_1&=\frac{1}{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2)}}\exp\left(-\frac{(\mu_{\x{m}x}-y_2)^2}{2(\sigma_{\x{m}x}^2+\sigma^2)}\right) \label{Z}
+\end{align}
+\begin{equation} \label{one}
+\Rightarrow P_\x{mate}(v_\x{m},v_\x{f})=\frac{1}{2\pi\sqrt{|C|}}\exp\left(-\frac{1}{2}(v_\x{m}-c)^TC^{-1}(v_\x{m}-c)\right)\frac{1}{2\pi\sqrt{|\Sigma_\x{f}|}}\exp\left(-\frac{1}{2}(v_\x{f}-\mu_\x{f})^T\Sigma_\x{f}^{-1}(v_\x{f}-\mu_\x{f})\right)
+\end{equation}
+Note that in Equation \ref{one}, $y_2$ appears in $c$. This makes it difficult to integrate over $y_2$. However, $x_1$ and $y_1$ only appear in the left Gaussian function and $x_2$ only appears in the right Gaussian function, so that it is easy to integrate over any three of these variables.
+
+Next we rewrite $P_\text{mate}(v_\x{m},v_\x{f})$ so that we can integrate any combination of $y_1$, $x_2$, or $y_2$ easily. According to Equation \ref{Z}, 
+\begin{align*}
+\frac{f_{y_2}(x_1)}{\int\int P_\x{m}(v_\x{m})f_{y_2}(x_1)dx_1dy_1}&=\frac{\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x_1-y_2)^2}{2\sigma^2}\right)}{\frac{1}{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2)}}\exp\left(-\frac{(\mu_{\x{m}x}-y_2)^2}{2(\sigma_{\x{m}x}^2+\sigma^2)}\right)}
+\\&=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x_1-y_2)^2}{2\sigma^2}\right)\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2)}\exp\left(-\frac{(\mu_{\x{m}x}-y_2)^2}{2(-\sigma_{\x{m}x}^2-\sigma^2)}\right)
+\\&=\frac{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2})}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(y_2-d)^2}{2D}\right)\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{-2\sigma_{\x{m}x}^2}\right)\text{ by Fact \ref{univariate}}
+\\ \text{ where } D&=\frac{-\sigma^2(-\sigma_{\x{m}x}^2-\sigma^2)}{-\sigma_{\x{m}x}^2}=\frac{\sigma^2(\sigma_{\x{m}x}^2+\sigma^2)}{\sigma_{\x{m}x}^2} 
+\\\text{ and } d&=\frac{(-\sigma_{\x{m}x}^2-\sigma^2)x_1+\sigma^2\mu_{\x{m}x}}{-\sigma_{\x{m}x}^2}=\frac{(\sigma_{\x{m}x}^2+\sigma^2)x_1-\sigma^2\mu_{\x{m}x}}{\sigma_{\x{m}x}^2}
+\\ \Rightarrow \frac{f_{y_2}(x_1)}{\int\int P_\x{m}(v_\x{m})f_{y_2}(x_1)dx_1dy_1}&=\frac{1}{\sqrt{2\pi \sigma^2(\sigma_{\x{m}x}^2+\sigma^2)/\sigma_{\x{m}x}^2}}\exp\left(-\frac{(y_2-d)^2}{2D}\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2})^2}{\sqrt{\sigma_{\x{m}x}^2}\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)}
+\\&=\frac{1}{\sqrt{2\pi D}}\exp\left(-\frac{(y_2-d)^2}{2D}\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2})^2}{\sqrt{\sigma_{\x{m}x}^2}\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)}
+\\\Rightarrow \frac{P_\x{f}(v_\x{f})f_{y_2}(x_1)}{\int\int P_\x{m}(v_\x{m})f_{y_2}(x_1)dx_1dy_1}&=\frac{1}{2\pi\sqrt{|G|}}\exp\left(-\frac{1}{2}(v_\x{f}-g)^TG^{-1}(v_\x{f}-g)\right)\frac{1}{\sqrt{2\pi(\sigma_{\x{f}y}^2+D)}}\exp\left(-\frac{(\mu_{\x{f}y}-d)^2}{2(\sigma_{\x{f}y}^2+D)}\right)\times
+\\&\frac{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2})^2}{\sqrt{\sigma_{\x{m}x}^2}\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)} \text{by Fact \ref{sum_of_normal}}
+\\ \text{ where } G &= \frac{D}{D+\sigma_{\x{f}y}^2}\Sigma_\x{f}+\left(\begin{array}{cc} \frac{(1-\rho_\x{f}^2)\sigma_{\x{f}x}^2\sigma_{\x{f}y}^2}{D+\sigma_{\x{f}y}^2} & 0  \\ 0 & 0 \end{array}\right) = \frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\Sigma_\x{f}+\left(\begin{array}{cc} \frac{(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2} & 0  \\ 0 & 0 \end{array}\right)
+\\ \text{ and } g & = \left(\begin{array}{cc}\mu_{\x{f}x}+\frac{\rho_\x{f}\sigma_{\x{f}x}\sigma_{\x{f}y}}{D+\sigma_{\x{f}y}^2}(d-\mu_{\x{f}y})
+\\ \frac{D}{D+\sigma_{\x{f}y}^2}\mu_{\x{f}y}+\frac{\sigma_{\x{f}y}^2}{D+\sigma_{\x{f}y}^2}d \end{array} \right) 
+\\&=\left(\begin{array}{cc}\mu_{\x{f}x}+\frac{\rho_\x{f}\sigma_{\x{m}x}^2\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}(d-\mu_{\x{f}x})
+\\ \frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\mu_{\x{f}y}+\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}d \end{array} \right)
+\end{align*}
+\begin{align} 
+\Rightarrow P_\x{mate}(v_\x{m},v_\x{f})&=\frac{1}{2\pi\sqrt{|G|}}\exp\left(-\frac{1}{2}(v_\x{f}-g)^TG^{-1}(v_\x{f}-g)\right)\frac{1}{\sqrt{2\pi(\sigma_{\x{f}y}^2+D)}}\exp\left(-\frac{(\mu_{\x{f}y}-d)^2}{2(\sigma_{\x{f}y}^2+D)}\right) \notag
+\\&\times \frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v_\x{m}-\mu_\x{m})^T\Sigma_\x{m}^{-1}(v_\x{m}-\mu_\x{m})\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2})^2}{\sqrt{\sigma_{\x{m}x}^2}\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)}\label{two}
+\end{align}
+Note that in Equation \ref{two}, $x_1$ appears in $d$ and $g$. This makes it difficult to integrate over $x_1$. However, $x_2$ and $y_2$ only appear in the left-most Gaussian function and $y_1$ only appears in the right Gaussian function, so that it is easy to integrate over any three of these variables.
+
+\begin{align*}
+\text{Equation \ref{one} } \Rightarrow P_\text{mate}(x_2,y_2)&=\int \int P_\text{mate}(v_\x{m},v_\x{f})dx_1dy_1
+\\&=\frac{1}{2\pi\sqrt{|\Sigma_\x{f}|}}\exp\left(-\frac{1}{2}(v_\x{f}-\mu_\x{f})^T\Sigma_\x{f}^{-1}(v_\x{f}-\mu_\x{f}\right)
+\\&=P_\x{f}(v_\x{f}).
+\end{align*}
+This makes sense because every female has equal mating success so there is no difference between the distribution of female songs and preferences among the female adults of a generation and those that get to mate.
+
+\begin{align*}
+\text{Equation \ref{one} } \Rightarrow P_\text{mate}(y_1,y_2)&=\int \int P_\text{mate}(v_\x{m},v_\x{f})dx_1dx_2
+\\&=\frac{1}{\sqrt{2\pi C_{22}}}\exp\left(-\frac{(y_1-c_2)^2}{2C_{22}}\right)\frac{1}{\sqrt{2\pi\sigma_{\x{f}y}^2}}\exp\left(-\frac{(y_2-\mu_{\x{f}y})^2}{2\sigma_{\x{f}y}^2}\right)
+\\C_{22}&=\left(\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\right)\sigma_{\x{m}y}^2
+\\&=\left(1-\frac{\rho_\x{m}^2\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\right)\sigma_{\x{m}y}^2
+\\ \text{ and } c_2&=\mu_{\x{m}y}+\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}{\sigma^2+\sigma_{\x{m}x}^2}(y_2-\mu_{\x{m}x})
+\\ \text{If } \sigma_{y_1}^2&=\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2
+\\ \text{ and } \rho_{y_1,y_2}&=\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}y}}{(\sigma^2+\sigma_{\x{m}x}^2)\sigma_{y_1}}
+\\ \text{ then } (1-\rho_{y_1,y_2}^2)\sigma_{y_1}^2&=\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2\sigma_{y_1}^2-\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{m}y}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2\sigma_{y_1}^2} \right)\sigma_{y_1}^2
+\\&=\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2\sigma_{y_1}^2-\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{m}y}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}
+\\&=\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2-\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2
+\\&=\left(\frac{\sigma^2+\sigma_{\x{m}x}^2-\rho_\x{m}^2\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\right)\sigma_{\x{m}y}^2=C_{22}
+\\ \text{ and } \frac{\rho_{y_1,y_2}\sigma_{y_1}}{\sigma_{\x{f}y}}&=\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}{\sigma^2+\sigma_{\x{m}x}^2}
+\\ \Rightarrow c_2&=\mu_{\x{m}y}+\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}{\sigma^2+\sigma_{\x{m}x}^2}(\mu_{\x{f}y}-\mu_{\x{m}x})+\frac{\rho_{y_1,y_2}\sigma_{y_1}}{\sigma_{\x{f}y}}(y_2-\mu_{\x{f}y})
+\\ \text{Fact \ref{multivariate_reduce} } \Rightarrow P_\text{mate}(y_1,y_2)&\sim N((\mu_{y_1},\mu_{y_2})^T,\Sigma_{y_1,y_2})
+\\ \text{ where } \left(\begin{array}{cc}\mu_{y_1} \\ \mu_{y_2} \end{array}\right)&=\left(\begin{array}{cc}\mu_{\x{m}y}+\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}{\sigma^2+\sigma_{\x{m}x}^2}(\mu_{\x{f}y}-\mu_{\x{m}x}) \\ \mu_{\x{f}y}
+ \end{array}\right)
+ \\\text{ and } \Sigma_{y_1,y_2}&=\left(\begin{array}{cc}\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2 & \frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}y}^2}{\sigma^2+\sigma_{\x{m}x}^2}
+ \\\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}y}^2}{\sigma^2+\sigma_{\x{m}x}^2} & \sigma_{\x{f}y}^2 \end{array}\right)
+\end{align*}
+
+\begin{align*}
+\text{Equation \ref{one} } \Rightarrow P_\text{mate}(x_1,y_2)&=\int \int P_\text{mate}(v_\x{m},v_\x{f})dy_1dx_2
+\\&=\frac{1}{\sqrt{2\pi C_{11}}}\exp\left(-\frac{(x_1-c_1)^2}{2C_{11}}\right)\frac{1}{\sqrt{2\pi \sigma_{\x{f}y}^2}}\exp\left(-\frac{(y_2-\mu_{\x{f}y})^2}{2\sigma_{\x{f}y}^2}\right)
+\\ C_{11}&=\frac{\sigma^2\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}
+\\ \text{ and } c_1&=\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}y_2
+\\ \text{ If } \sigma_{x_1}^2&=\left(\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}x}^2
+\\ \text{ and } \rho_{x_1,y_2}&=\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}}{\sigma_{x_1}(\sigma^2+\sigma_{\x{m}x}^2)}
+\\ \text{ then } (1-\rho_{x_1,y_2}^2)\sigma_{x_1}^2&=\left(\frac{\sigma_{x_1}^2(\sigma^2+\sigma_{\x{m}x}^2)^2-\sigma_{\x{m}x}^4\sigma_{\x{f}y}^2}{\sigma_{x_1}^2(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{x_1}^2
+\\&=\frac{(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)\sigma_{\x{m}x}^2-\sigma_{\x{m}x}^4\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}
+\\&=\frac{\sigma^2\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}=C_{11}
+\\\text{ and } \frac{\rho_{x_1,y_2}\sigma_{x_1}}{\sigma_{\x{f}y}}&=\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}
+\\ \Rightarrow c_1&=\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y}+\frac{\rho_{x_1,y_2}\sigma_{x_1}}{\sigma_{\x{f}y}}(y_2-\mu_{\x{f}y})
+\end{align*}
+\begin{align*}
+\text{Fact \ref{multivariate_reduce} } \Rightarrow P_\text{mate}(x_1,y_2)&\sim N((\mu_{x_1},\mu_{y_2})^T,\Sigma_{x_1,y_2})
+\\ \text{ where } \left(\begin{array}{c}\mu_{x_1} \\ \mu_{y_2} \end{array}\right)&=\left(\begin{array}{c}\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y} \\ \mu_{\x{f}y} \end{array}\right)
+\\ \text{ and } \Sigma_{x_1,y_2}&=\left(\begin{array}{cc}\left(\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}x}^2 & \frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2+\sigma_{\x{m}x}^2} \\ \frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2+\sigma_{\x{m}x}^2} & \sigma_{\x{f}y}^2 \end{array}\right)
+\end{align*}
+
+\begin{align*}
+\hspace{-20pt}\text{Eq. \ref{two}}\Rightarrow P_\text{mate}(x_1,x_2)&=\int \int P_\text{mate}(v_\x{m},v_\x{f})dy_1dy_2
+\\&=\frac{1}{\sqrt{2\pi G_{11}}}\exp\left(-\frac{(x_2-g_1)^2}{2G_{11}}\right)\frac{1}{\sqrt{2\pi(\sigma_{\x{f}y}^2+D)}}\exp\left(-\frac{(\mu_{\x{f}y}-d)^2}{2(\sigma_{\x{f}y}^2+D)}\right)\times
+\\&\frac{1}{\sqrt{2\pi\sigma_{\x{m}x}^2}}\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2)^2}}{\sqrt{\sigma_{\x{m}x}^2}\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)}
+\\&=\frac{1}{\sqrt{2\pi G_{11}}}\exp\left(-\frac{(x_2-g_1)^2}{2G_{11}}\right)\frac{1}{\sqrt{2\pi(\sigma_{\x{f}y}^2+D)}}\exp\left(-\frac{(\mu_{\x{f}y}-d)^2}{2(\sigma_{\x{f}y}^2+D)}\right)\frac{\sqrt{(\sigma^2+\sigma_{\x{m}x}^2)^2}}{\sqrt{\sigma_{\x{m}x}^4}}
+\\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\right)\sigma_{\x{f}x}^2}}\exp\left(-\frac{\left(x_2-\mu_{\x{f}x}-\frac{\rho_\x{f}\sigma_{\x{m}x}^2\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma_{\x{m}x}^2+\sigma^2)}\left(\frac{(\sigma_{\x{m}x}^2+\sigma^2)x_1-\sigma^2\mu_{\x{m}x}}{\sigma_{\x{m}x}^2}-\mu_{\x{f}y}\right)\right)^2}{2\left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\right)\sigma_{\x{f}x}^2}\right)\times
+\\&\frac{\sqrt{\sigma_{\x{m}x}^2}}{\sqrt{2\pi(\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma_{\x{m}x}^2+\sigma^2))}}\exp\left(-\frac{\left(\mu_{\x{f}y}-\frac{(\sigma_{\x{m}x}^2+\sigma^2)x_1-\sigma^2\mu_{\x{m}x}}{\sigma_{\x{m}x}^2}\right)^2}{2\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma_{\x{m}x}^2+\sigma^2)}{\sigma_{\x{m}x}^2}}\right)\frac{\sqrt{(\sigma^2+\sigma_{\x{m}x}^2)^2}}{\sqrt{\sigma_{\x{m}x}^4}}
+\\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\right)\sigma_{\x{f}x}^2}}\exp\left(-\frac{\left(x_2-\mu_{\x{f}x}-\frac{\rho_\x{f}\sigma_{\x{f}x}\sigma_{\x{f}y}(\sigma_{\x{m}x}^2+\sigma^2)}{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma_{\x{m}x}^2+\sigma^2)}\left(x_1-\frac{\sigma^2\mu_{\x{m}x}}{\sigma_{\x{m}x}^2+\sigma^2}-\frac{\sigma_{\x{m}x}^2}{\sigma_{\x{m}x}^2+\sigma^2}\mu_{\x{f}y}\right)\right)^2}{2\left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\right)\sigma_{\x{f}x}^2}\right)\times
+\\&\frac{\sqrt{(\sigma^2+\sigma_{\x{m}x}^2)^2}}{\sqrt{2\pi(\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma_{\x{m}x}^2+\sigma^2))\sigma_{\x{m}x}^2}}\exp\left(-\frac{\left(x_1-\frac{\sigma^2\mu_{\x{m}x}}{\sigma_{\x{m}x}^2+\sigma^2}-\frac{\sigma_{\x{m}x}^2\mu_{\x{f}y}}{\sigma_{\x{m}x}^2+\sigma^2}\right)^2}{2\left(\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma_{\x{m}x}^2+\sigma^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}x}^2}\right)
+\end{align*}
+\begin{align*}
+\text{ We know } \sigma_{x_1}^2&=\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2} \text{ and } \mu_{x_1}=\frac{\sigma^2\mu_{\x{m}x}}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{\sigma_{\x{m}x}^2\mu_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2}
+\\\Rightarrow P_\text{mate}(x_1,x_2)&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\right)\sigma_{\x{f}x}^2}}\exp\left(-\frac{\left(x_2-\mu_{\x{f}x}-\frac{\rho_\x{f}\sigma_{\x{f}x}\sigma_{\x{f}y}(\sigma_{\x{m}x}^2+\sigma^2)}{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma_{\x{m}x}^2+\sigma^2)}\left(x_1-\mu_{x_1}\right)\right)^2}{2\left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\right)\sigma_{\x{f}x}^2}\right)\times
+\\&\frac{1}{\sqrt{2\pi\sigma_{x_1}^2}}\exp\left(-\frac{\left(x_1-\mu_{x_1}\right)^2}{2\sigma_{x_1}^2}\right)
+\\ \text{ If } \rho_{x_1,x_2}&=\frac{\rho_\x{f}\sigma_{\x{m}x}^2\sigma_{\x{f}y}}{(\sigma^2+\sigma_{\x{m}x}^2)\sigma_{x_1}}
+\\ \text{ then } (1-\rho_{x_1,x_2}^2)\sigma_{\x{f}x}^2&=\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2\sigma_{x_1}^2-\rho_\x{f}^2\sigma_{\x{m}x}^4\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}}^2)^2\sigma_{x_1}^2}\sigma_{\x{f}x}^2
+\\&=\left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\right)\sigma_{\x{f}x}^2
+\\ \text{ and } \frac{\rho_{x_1,x_2}\sigma_{\x{f}x}}{\sigma_{x_1}}&=\frac{\rho_\x{f}\sigma_{\x{m}x}^2\sigma_{\x{f}x}\sigma_{\x{f}y}}{(\sigma^2+\sigma_{\x{m}x}^2)\sigma_{x_1}^2}
+\\&=\frac{\rho_\x{f}\sigma_{\x{m}x}^2\sigma_{\x{f}x}\sigma_{\x{f}y}(\sigma^2+\sigma_{\x{m}x}^2)}{(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)\sigma_{\x{m}x}^2}
+\\&=\frac{\rho_\x{f}\sigma_{\x{f}x}\sigma_{\x{f}y}(\sigma^2+\sigma_{\x{m}x}^2)}{(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)}
+\\ \text{ Fact \ref{multivariate_reduce} } \Rightarrow P_\text{mate}(x_1,x_2)&\sim N((\mu_{x_1},\mu_{x_2})^T,\Sigma_{x_1,x_2})
+\\ \text{ where } \left(\begin{array}{c}\mu_{x_1} \\ \mu_{x_2} \end{array}\right)&=\left(\begin{array}{c}\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y} \\ \mu_{\x{f}x} \end{array}\right)
+\\\text{ and } \Sigma_{x_1,x_2}&=\left(\begin{array}{cc}\left(\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}x}^2 & \frac{\rho_\x{f}\sigma_{\x{m}x}^2\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2}
+\\\frac{\rho_\x{f}\sigma_{\x{m}x}^2\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2}& \sigma_{\x{f}x}^2 \end{array}\right)
+\end{align*}
+
+\begin{align*}
+\text{Eq. \ref{two} }\Rightarrow P_\text{mate}(x_1,y_1)&=\int\int P_\text{mate}(v_\x{m},v_\x{f})dx_2dy_2
+\\&=\frac{1}{\sqrt{2\pi(\sigma_{\x{f}y}^2+D)}}\exp\left(-\frac{(\mu_{\x{f}y}-d)^2}{2(\sigma_{\x{f}y}^2+D)}\right) 
+\\&\times \frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v_\x{m}-\mu_\x{m})^T\Sigma_\x{m}^{-1}(v_\x{m}-\mu_\x{m})\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2})^2}{\sqrt{\sigma_{\x{m}x}^2}\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)}
+\\&=\frac{1}{\sqrt{2\pi(\sigma_{\x{f}y}^2+D)}}\exp\left(-\frac{(\mu_{\x{f}y}-d)^2}{2(\sigma_{\x{f}y}^2+D)}\right)\frac{\sqrt{(\sigma^2+\sigma_{\x{m}x}^2)^2}}{\sqrt{2\pi (1-\rho_\x{m}^2)\sigma_{\x{m}x}^4\sigma_{\x{m}y}^2}}\exp\left(-\frac{(y_1-\mu_{\x{m}y}-\frac{\rho_\x{m}\sigma_{\x{m}y}}{\sigma_{\x{m}x}}\left(x_1-\mu_{\x{m}x}\right))^2}{2(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}\right)
+\\&=\frac{\sqrt{\sigma_{\x{m}x}^2}}{\sqrt{2\pi(\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma^2+\sigma_{\x{m}x}^2))}}\exp\left(-\frac{\left(\mu_{\x{f}y}-\frac{(\sigma^2+\sigma_{\x{m}x}^2)x_1-\sigma^2\mu_{\x{m}x}}{\sigma_{\x{m}x}^2}\right)^2}{2\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma_{\x{m}x}^2}}\right)
+\\&\times\frac{\sqrt{(\sigma^2+\sigma_{\x{m}x}^2)^2}}{\sqrt{2\pi (1-\rho_\x{m}^2)\sigma_{\x{m}x}^4\sigma_{\x{m}y}^2}}\exp\left(-\frac{(y_1-\mu_{\x{m}y}-\frac{\rho_\x{m}\sigma_{\x{m}y}}{\sigma_{\x{m}x}}\left(x_1-\mu_{\x{m}x}\right))^2}{2(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}\right)
+\\&=\frac{\sqrt{(\sigma^2+\sigma_{\x{m}x}^2)^2}}{\sqrt{2\pi(\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma^2+\sigma_{\x{m}x}^2))\sigma_{\x{m}x}^2}}\exp\left(-\frac{\left(x_1-\frac{\sigma^2\mu_{\x{m}x}+\sigma_{\x{m}x}^2\mu_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2}\right)^2}{2\left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}x}^2}\right)
+\\&\times\frac{1}{\sqrt{2\pi (1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}}\exp\left(-\frac{\left(y_1-\mu_{\x{m}y}+\frac{\rho_\x{m}\sigma_{\x{m}y}}{\sigma_{\x{m}x}}(\mu_{\x{m}x}-\frac{\sigma^2\mu_{\x{m}x}+\sigma_{\x{m}x}^2\mu_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2})-\frac{\rho_\x{m}\sigma_{\x{m}y}}{\sigma_{\x{m}x}}\left(x_1-\frac{\sigma^2\mu_{\x{m}x}+\sigma_{\x{m}x}^2\mu_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2}\right)\right)^2}{2(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}\right)
+\\&=\frac{1}{\sqrt{2\pi\sigma_{x_1}^2}}\exp\left(-\frac{(x_1-\mu_{x_1})^2}{2\sigma_{x_1}^2}\right)\times
+\\&\frac{1}{\sqrt{2\pi(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}}\exp\left(-\frac{\left(y_1-\mu_{\x{m}y}-\frac{\rho_\x{m}\sigma_{\x{m}y}\sigma_{\x{m}x}}{\sigma^2+\sigma_{\x{m}x}^2}(\mu_{\x{f}y}-\mu_{\x{m}x})-\frac{\rho_\x{m}\sigma_{\x{m}y}}{\sigma_{\x{m}x}}(x_1-\mu_{x_1})\right)^2}{2(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}\right)
+\\ \text{ If } \sigma_{y_1}^2&=\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2
+\\\text{ and } \rho_{x_1,y_1}&=\frac{\rho_\x{m}\sigma_{\x{m}y}\sigma_{x_1}}{\sigma_{\x{m}x}\sigma_{y_1}}
+\\ \text{ then } (1-\rho_{x_1,y_1}^2)\sigma_{y_1}^2&=\left(\frac{\sigma_{\x{m}x}^2\sigma_{y_1}^2-\rho_\x{m}^2\sigma_{\x{m}y}^2\sigma_{x_1}^2}{\sigma_{\x{m}x}^2\sigma_{y_1}^2}\right)\sigma_{y_1}^2
+\\&=\sigma_{y_1}^2-\rho_\x{m}^2\sigma_{\x{m}y}^2\left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)
+\\&=\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2-\rho_\x{m}^2(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2
+\\&=(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2
+\\ \text{ and } \frac{\rho_{x_1,y_1}\sigma_{y_1}}{\sigma_{x_1}}&=\frac{\rho_\x{m}\sigma_{\x{m}y}}{\sigma_{\x{m}x}}
+\end{align*}
+\begin{align*}
+\text{ Fact \ref{multivariate_reduce}}\Rightarrow P_\text{mate}(x_1,y_1)&\sim N((\mu_{x_1},\mu_{y_1})^T,\Sigma_{x_1,y_1}) 
+\\ \text{ where } \left(\begin{array}{c}\mu_{x_1} \\ \mu_{y_1} \end{array}\right)&=\left(\begin{array}{c}\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y} \\ \mu_{\x{m}y}+\frac{\rho_\x{m}\sigma_{\x{m}y}\sigma_{\x{m}x}}{\sigma^2+\sigma_{\x{m}x}^2}(\mu_{\x{f}y}-\mu_{\x{m}x}) \end{array}\right)
+\\ \text{ and } \Sigma_{x_1,y_1}&=\left(\begin{array}{cc}\left(\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}x}^2 & \frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2} \\ \frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2} & \left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2 \end{array}\right)
+\end{align*}
+
+ \begin{align*}
+ \text{ Eq. \ref{one} } \Rightarrow \int P_\text{mate}(v_\x{m},v_\x{f})dx_1&=\frac{1}{\sqrt{2\pi C_{22}}}\exp\left(-\frac{(y_1-c_2)^2}{2C_{22}}\right)\frac{1}{\sqrt{2\pi(1-\rho_\x{f})^2\sigma_{\x{f}y}^2}}\exp\left(-\frac{\left(y_2-\mu_{\x{f}y}-\frac{\rho_\x{f}\sigma_{\x{f}y}}{\sigma_{\x{f}x}}(x_2-\mu_{\x{f}x})\right)^2}{2(1-\rho_\x{f}^2)\sigma_{\x{f}y}^2}\right)\times
+\\&\frac{1}{\sqrt{2\pi\sigma_{\x{f}x}^2}}\exp\left(-\frac{(x_2-\mu_{\x{f}x})^2}{2\sigma_{\x{f}x}^2}\right)
+\\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\right)\sigma_{\x{m}y}^2}}\exp\left(-\frac{(y_1-\mu_{\x{m}y}-\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}{\sigma^2+\sigma_{\x{m}x}^2}(y_2-\mu_{\x{m}x}))^2}{2\left(\frac{\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x^2}}\right)\sigma_{\x{m}y}^2}\right)\times
+\\&\frac{1}{\sqrt{2\pi(1-\rho_\x{f})^2\sigma_{\x{f}y}^2}}\exp\left(-\frac{\left(y_2-\mu_{\x{f}y}-\frac{\rho_\x{f}\sigma_{\x{f}y}}{\sigma_{\x{f}x}}(x_2-\mu_{\x{f}x})\right)^2}{2(1-\rho_\x{f}^2)\sigma_{\x{f}y}^2}\right)\frac{1}{\sqrt{2\pi\sigma_{\x{f}x}^2}}\exp\left(-\frac{(x_2-\mu_{\x{f}x})^2}{2\sigma_{\x{f}x}^2}\right)
+\\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\right)\sigma_{\x{m}y}^2}}\exp\left(-\frac{(y_2-\mu_{\x{m}x}-\frac{\sigma^2+\sigma_{\x{m}x}^2}{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}(y_1-\mu_{\x{m}y}))^2}{2\left(\frac{(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)(\sigma^2+\sigma_{\x{m}x}^2)}{\rho_\x{m}^2\sigma_{\x{m}x}^2}\right)}\right)\times
+\\&\frac{1}{\sqrt{2\pi(1-\rho_\x{f})^2\sigma_{\x{f}y}^2}}\exp\left(-\frac{\left(y_2-\mu_{\x{f}y}-\frac{\rho_\x{f}\sigma_{\x{f}y}}{\sigma_{\x{f}x}}(x_2-\mu_{\x{f}x})\right)^2}{2(1-\rho_\x{f}^2)\sigma_{\x{f}y}^2}\right)\frac{1}{\sqrt{2\pi\sigma_{\x{f}x}^2}}\exp\left(-\frac{(x_2-\mu_{\x{f}x})^2}{2\sigma_{\x{f}x}^2}\right)
+\\&=\frac{1}{\sqrt{\frac{\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{m}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}}}\frac{1}{\sqrt{2\pi \left(\frac{(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)(\sigma^2+\sigma_{\x{m}x}^2)}{\rho_\x{m}^2\sigma_{\x{m}x}^2}\right)}}\exp\left(-\frac{(y_2-\mu_{\x{m}x}-\frac{\sigma^2+\sigma_{\x{m}x}^2}{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}(y_1-\mu_{\x{m}y}))^2}{2\left(\frac{(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)(\sigma^2+\sigma_{\x{m}x}^2)}{\rho_\x{m}^2\sigma_{\x{m}x}^2}\right)}\right)\times
+\\&\frac{1}{\sqrt{2\pi(1-\rho_\x{f})^2\sigma_{\x{f}y}^2}}\exp\left(-\frac{\left(y_2-\mu_{\x{f}y}-\frac{\rho_\x{f}\sigma_{\x{f}y}}{\sigma_{\x{f}x}}(x_2-\mu_{\x{f}x})\right)^2}{2(1-\rho_\x{f}^2)\sigma_{\x{f}y}^2}\right)\frac{1}{\sqrt{2\pi\sigma_{\x{f}x}^2}}\exp\left(-\frac{(x_2-\mu_{\x{f}x})^2}{2\sigma_{\x{f}x}^2}\right)
+\\\Rightarrow \int P_\text{mate}(v_\x{m},v_\x{f})dx_1dy_2&=\frac{1}{\sqrt{\frac{\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{m}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}}}\frac{\sqrt{\rho_\x{m}^2\sigma_{\x{m}x}^2}}{\sqrt{2\pi\left(\rho_\x{m}^2(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)(\sigma^2+\sigma_{\x{m}x}^2)\right)}}\times
+\\&\exp\left(-\frac{\left(\frac{\sigma^2+\sigma_{\x{m}x}^2}{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}(y_1-\mu_{\x{m}y})+\mu_{\x{m}x}-\mu_{\x{f}y}-\frac{\rho_\x{f}\sigma_{\x{f}y}}{\sigma_{\x{f}x}}(x_2-\mu_{\x{f}x})\right)^2}{2\frac{\rho_\x{m}^2(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)(\sigma^2+\sigma_{\x{m}x}^2)}{\rho_{\x{m}}^2\sigma_{\x{m}x}^2}}\right)\frac{1}{\sqrt{2\pi\sigma_{\x{f}x}^2}}\exp\left(-\frac{(x_2-\mu_{\x{f}x})^2}{2\sigma_{\x{f}x}^2}\right)
+\\&=\frac{1}{\sqrt{2\pi\left(\frac{\rho_\x{m}^2(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)(\sigma^2+\sigma_{\x{m}x}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2}}\times
+\\&\exp\left(-\frac{y_1-\mu_{y_1}-\frac{\rho_\x{m}\rho_\x{f}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}y}}{(\sigma^2+\sigma_{\x{m}x}^2)\sigma_{\x{f}x}}(x_2-\mu_{\x{f}x})}{2\left(\frac{\rho_\x{m}^2(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)(\sigma^2+\sigma_{\x{m}x}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2}\right)\frac{1}{\sqrt{2\pi\sigma_{\x{f}x}^2}}\exp\left(-\frac{(x_2-\mu_{\x{f}x})^2}{2\sigma_{\x{f}x}^2}\right)
+\\ \text{ If } \rho_{y_1,x_2}&=\frac{\rho_\x{m}\rho_\x{f}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}y}}{(\sigma^2+\sigma_{\x{m}x}^2)\sigma_{y_1}}
+\\ \text{ then } (1-\rho_{y_1,x_2}^2)\sigma_{y_1}^2&=\frac{(\sigma^2+\sigma_{\x{m}x}^2)\sigma_{y_1}^2-\rho_\x{m}^2\rho_\x{f}^2\sigma_{\x{m}x}^2\sigma_{\x{m}y}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}
+\\&=\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2-\rho_\x{m}^2\rho_\x{f}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2
+\\&=\left(\frac{(1-\rho_\x{f}^2)\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+(\sigma^2+\sigma_{\x{m}x}^2)(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2
+\\ \text { and } \frac{\rho_{y_1,x_2}\sigma_{y_1}}{\sigma_{x_2}}&=\frac{\rho_\x{m}\rho_\x{f}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}y}}{(\sigma^2+\sigma_{\x{m}x}^2)\sigma_{\x{f}x}}
+\end{align*}
+
+\begin{align*}
+\text{ Fact \ref{multivariate_reduce} } \Rightarrow P_\text{mate}(y_1,x_2)&\sim N((\mu_{y_1},\mu_{x_2})^2,\Sigma_{y_1,x_2}) 
+\\ \text{ where } \left(\begin{array}{c}\mu_{y_1} \\  \mu_{x_2} \end{array}\right)&=\left(\begin{array}{c}\mu_{\x{m}y}+\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}{\sigma^2+\sigma_{\x{m}x}^2}(\mu_{\x{f}y}-\mu_{\x{m}x}) \\ \mu_{\x{f}x} \end{array}\right)
+\\ \text{ and } \Sigma_{y_1,x_2}&=\left(\begin{array}{cc}\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2 & \frac{\rho_\x{m}\rho_\x{f}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2} \\ \frac{\rho_\x{m}\rho_\x{f}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2}& \sigma_{\x{f}x}^2 \end{array}\right)
+\end{align*}
+\section{Helpful (linear) algebra}
+
+\begin{fact} \label{univariate}
+\begin{align*}
+\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)\frac{1}{\sqrt{2\pi\rho^2}}\exp\left(-\frac{(x-\nu)^2}{2\rho^2}\right)&=\frac{1}{\sqrt{2\pi\frac{\sigma^2\rho^2}{\sigma^2+\rho^2}}}\exp\left(-\frac{\left(x-\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2}{2\frac{\sigma^2\rho^2}{\sigma^2+\rho^2}}\right)\times
+\\&\frac{1}{\sqrt{2\pi(\sigma^2+\rho^2)}}\exp\left(-\frac{(\mu-\nu)^2}{2(\sigma^2+\rho^2)}\right)
+\end{align*}
+\end{fact}
+
+\begin{pf}
+\begin{align*}
+\frac{(x-\mu)^2}{\sigma^2}+\frac{(x-\nu)^2}{\rho^2}&=\left(\frac{1}{\sigma^2}+\frac{1}{\rho^2}\right)x^2-2\left(\frac{\mu}{\sigma^2}+\frac{\nu}{\rho^2}\right)x+\frac{\mu^2}{\sigma^2}+\frac{\nu^2}{\rho^2}
+\\&=\left(\frac{1}{\sigma^2}+\frac{1}{\rho^2}\right)\left(x^2-2\frac{\left(\frac{\mu}{\sigma^2}+\frac{\nu}{\rho^2}\right)}{\frac{1}{\sigma^2}+\frac{1}{\rho^2}}x\right)+\frac{\mu^2}{\sigma^2}+\frac{\nu^2}{\rho^2}
+\\&=\left(\frac{1}{\sigma^2}+\frac{1}{\rho^2}\right)\left(x^2-2\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}x\right)+\frac{\mu^2}{\sigma^2}+\frac{\nu^2}{\rho^2}
+\\&=\left(\frac{1}{\sigma^2}+\frac{1}{\rho^2}\right)\left(x^2-2\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}x+\left(\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2\right)-\left(\frac{1}{\sigma^2}+\frac{1}{\rho^2}\right)\left(\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2+\frac{\mu^2}{\sigma^2}+\frac{\nu^2}{\rho^2}
+\\&=\left(\frac{1}{\sigma^2}+\frac{1}{\rho^2}\right)\left(x-\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2-\frac{(\mu\rho^2+\nu\sigma^2)^2}{\sigma^2\rho^2(\sigma^2+\rho^2)}+\frac{\mu^2}{\sigma^2}+\frac{\nu^2}{\rho^2}
+\\&=\frac{\left(x-\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2}{\frac{\sigma^2\rho^2}{\sigma^2+\rho^2}}-\frac{\mu^2\rho^4}{\sigma^2\rho^2(\sigma^2+\rho^2)}-\frac{2\mu\nu\rho^2\sigma^2}{\sigma^2\rho^2(\sigma^2+\rho^2)}-\frac{\nu^2\sigma^4}{\sigma^2\rho^2(\sigma^2+\rho^2)}+\frac{\mu^2}{\sigma^2}+\frac{\nu^2}{\rho^2}
+\\&=\frac{\left(x-\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2}{\frac{\sigma^2\rho^2}{\sigma^2+\rho^2}}+\left(-\frac{\rho^2}{\sigma^2(\sigma^2+\rho^2)}+\frac{1}{\sigma^2}\right)\mu^2-\frac{2\mu\nu}{\sigma^2+\rho^2}+\left(-\frac{\sigma^2}{\rho^2(\sigma^2+\rho^2)}+\frac{1}{\rho^2}\right)\nu^2
+\\&=\frac{\left(x-\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2}{\frac{\sigma^2\rho^2}{\sigma^2+\rho^2}}+\frac{(\mu-\nu)^2}{\sigma^2+\rho^2}
+\end{align*}
+\begin{align*}
+\Rightarrow \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)\frac{1}{\sqrt{2\pi\rho^2}}\exp\left(-\frac{(x-\nu)^2}{2\rho^2}\right)&=\frac{1}{\sqrt{2\pi\frac{\sigma^2\rho^2}{\sigma^2+\rho^2}}}\exp\left(-\frac{\left(x-\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2}{2\frac{\sigma^2\rho^2}{\sigma^2+\rho^2}}\right)\times
+\\&\frac{1}{\sqrt{2\pi(\sigma^2+\rho^2)}}\exp\left(-\frac{(\mu-\nu)^2}{2(\sigma^2+\rho^2)}\right)
+\end{align*}
+\end{pf}
+
+\begin{fact} \label{multivariate_reduce}
+Suppose $\Sigma$ is a symmetric $2\times 2$ matrix, $\Sigma=\left(\begin{array}{cc}\sigma_x^2 & \rho\sigma_x\sigma_y \\ \rho\sigma_x\sigma_y& \sigma_y^2 \end{array}\right)$.
+\begin{equation*}
+\frac{1}{2\pi\sqrt{|\Sigma|}}\exp\left(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right)=\frac{1}{\sqrt{2\pi \sigma_x^2}}\exp\left(-\frac{(x_1-\mu_1)^2}{2 \sigma_x^2}\right)\frac{1}{\sqrt{2\pi (1-\rho^2)\sigma_y^2}}\exp\left(-\frac{(x_2-\mu_2-\frac{\rho\sigma_y}{\sigma_x}(x_1-\mu_1))^2}{2(1-\rho^2)\sigma_y^2}\right)
+\end{equation*}
+\end{fact}
+
+\begin{pf} 
+$|\Sigma|=(1-\rho^2)\sigma_x^2\sigma_y^2\Rightarrow\Sigma^{-1}=\frac{1}{(1-\rho^2)\sigma_x^2\sigma_y2}\left(\begin{array}{cc} \sigma_y^2 & -\rho\sigma_x\sigma_y \\ -\rho\sigma_x\sigma_y & \sigma_x^2\end{array}\right)=\left(\begin{array}{cc} \frac{1}{(1-\rho^2)\sigma_x^2} & \frac{-\rho}{(1-\rho^2)\sigma_x\sigma_y} \\ \frac{-\rho}{(1-\rho^2)\sigma_x\sigma_y} & \frac{1}{(1-\rho^2)\sigma_y^2}\end{array}\right)$.
+\begin{align*}
+(x-\mu)^T\Sigma^{-1}(x-\mu)&=(x_1-\mu_1, \ x_2-\mu_2)\left(\begin{array}{c} \frac{1}{(1-\rho^2)\sigma_x^2}(x_1-\mu_1)-\frac{\rho}{(1-\rho^2)\sigma_x\sigma_y}(x_2-\mu_2) \\ -\frac{\rho}{(1-\rho^2)\sigma_x\sigma_y}(x_1-\mu_1)+\frac{1}{(1-\rho^2)\sigma_y^2}(x_2-\mu_2)\end{array}\right)
+\\&=\frac{1}{(1-\rho^2)\sigma_x^2}(x_1-\mu_1)^2-2\frac{\rho}{(1-\rho^2)\sigma_x\sigma_y}(x_1-\mu_1)(x_2-\mu_2)+\frac{1}{(1-\rho^2)\sigma_y^2}(x_2-\mu_2)^2
+\\&=\frac{1}{\sigma_x^2}(x_1-\mu_1)^2+\frac{\rho^2}{(1-\rho^2)\sigma_x^2}(x_1-\mu_1)^2-2\frac{\rho}{(1-\rho^2)\sigma_x\sigma_y}(x_1-\mu_1)(x_2-\mu_2)+\frac{1}{(1-\rho^2)\sigma_y^2}(x_2-\mu_2)^2
+\\&=\frac{1}{\sigma_x^2}(x_1-\mu_1)^2+\frac{1}{(1-\rho^2)}\left(\frac{x_2-\mu_2}{\sigma_y}-\frac{\rho(x_1-\mu_1)}{\sigma_x} \right)^2
+\\&=\frac{(x_1-\mu_1)^2}{\sigma_x^2}+\frac{\left(x_2-\mu_2-\frac{\rho\sigma_y}{\sigma_x}(x_1-\mu_1) \right)^2}{(1-\rho^2)\sigma_y^2}
+\end{align*}
+\begin{align*}
+\Rightarrow \frac{1}{2\pi\sqrt{|\Sigma|}}\exp\left(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right)&=\frac{1}{\sqrt{2\pi\sigma_x^2}}\exp\left(-\frac{(x_1-\mu_1)^2}{2\sigma_x^2}\right)\frac{1}{\sqrt{2\pi (1-\rho^2)\sigma_y^2}}\exp\left(-\frac{\left(x_2-\mu_2-\frac{\rho\sigma_y}{\sigma_x}(x_1-\mu_1) \right)^2}{2(1-\rho^2)\sigma_y^2}\right)
+\end{align*}
+\end{pf}
+
+\begin{fact} \label{rewrite_inverse}
+Suppose $A=\left(\begin{array}{cc}a & b \\ b & c \end{array}\right)$ and $B^\dagger = \left(\begin{array}{cc} \frac{1}{s} & 0 \\ 0 & 0 \end{array}\right)$. Then 
+\begin{equation}
+(A^{-1}+B^\dagger)^{-1}=\frac{s}{s+a}A+\left(\begin{array}{cc}0 & 0 \\ 0 & \frac{|A|}{s+a}\end{array}\right)
+\end{equation}
+and
+\begin{equation}
+A^{-1}(A^{-1}+B^\dagger)^{-1}B^\dagger=\left(\begin{array}{cc}\frac{1}{s+a} & 0 \\ 0 & 0 \end{array}\right).
+\end{equation}
+\end{fact}
+
+\begin{pf} 
+Suppose $A=\left(\begin{array}{cc}a & b \\ b & c \end{array}\right)$ so that $A^{-1}=\frac{1}{|A|}\left(\begin{array}{cc}c & -b \\ -b & a \end{array}\right)$. Suppose $B^\dagger = \left(\begin{array}{cc} \frac{1}{s} & 0 \\ 0 & 0 \end{array}\right)$.
+\begin{align*}
+A^{-1}+B^\dagger & =\left(\begin{array}{cc}\frac{c}{|A|}+\frac{1}{s} & \frac{-b}{|A|} \\  \frac{-b}{|A|} & \frac{a}{|A|} \end{array}\right)
+\\ \Rightarrow |A^{-1}+B^\dagger|&=\frac{1}{|A|}+\frac{a}{s|A|}=\frac{s+a}{s|A|}
+\\ \Rightarrow (A^{-1}+B^\dagger)^{-1}&=\left(\begin{array}{cc}\frac{as}{s+a} & \frac{bs}{s+a} \\ \frac{bs}{s+a} & \frac{cs}{s+a}+\frac{|A|}{s+a} \end{array}\right)
+\\ &=\frac{s}{s+a}A+\left(\begin{array}{cc}0 & 0 \\ 0 & \frac{|A|}{s+a}\end{array}\right)
+\\\Rightarrow A^{-1}(A^{-1}+B^\dagger)^{-1}B^\dagger & = \frac{s}{s+a}B^\dagger
+\\&=\left(\begin{array}{cc}\frac{1}{s+a} & 0 \\ 0 & 0 \end{array}\right)
+\end{align*}
+\end{pf}
+
+\begin{fact} 
+If $x,\mu,\nu\in\R^2$, and $A,B$ are symmetric invertible $2\times 2$ matrices, then 
+\begin{equation}
+(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{-1}(x-\nu)=(x-\rho)^TC^{-1}(x-\rho)+(\mu-\nu)^T(A+B)^{-1}(\mu-\nu)
+\end{equation}
+where $\rho=(A^{-1}+B^{-1})^{-1}(A^{-1}\mu+B^{-1}\nu)$ and $C=(A^{-1}+B^{-1})^{-1}$.
+\end{fact}
+
+\begin{pf}
+\begin{align*}
+(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{-1}(x-\nu)
+&=x^TA^{-1}x-x^TA^{-1}\mu-\mu^TA^{-1}x+\mu^TA^{-1}\mu
+\\&+x^TB^{-1}x-x^TB^{-1}\nu-x^TB^{-1}\nu-\nu^TB^{-1}\nu+\nu^TB^{-1}\nu
+\\&=x^T(A^{-1}+B^{-1})x-2x^T(A^{-1}\mu+B^{-1}\nu)+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu 
+\\ &\text{ since $A$ and $B$ are symmetric}
+\\&=x^T(A^{-1}+B^{-1})x-2x^T(A^{-1}+B^{-1})(A^{-1}+B^{-1})^{-1}(A^{-1}\mu+B^{-1}\nu)
+\\&+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu 
+\\ \text{ Let } \rho&=(A^{-1}+B^{-1})^{-1}(A^{-1}\mu+B^{-1}\nu)\text{ and $C=(A^{-1}+B^{-1})^{-1}$. Then }
+\\\Rightarrow(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{-1}(x-\nu)&=x^TC^{-1}x-2x^TC^{-1}\rho+\rho^TC^{-1}\rho-\rho^TC^{-1}\rho+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu
+\\&=(x-\rho)^TC^{-1}(x-\rho)
+\\&-(A^{-1}\mu+B^{-1}\nu)^T(A^{-1}+B^{-1}) (A^{-1}\mu+B^{-1}\nu)+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu
+\end{align*}
+Note that $A(A^{-1}+B^{-1})B=A+B$ so that $A^{-1}(A^{-1}+B^{-1})^{-1}B^{-1}=B^{-1}(A^{-1}+B^{-1})^{-1}A^{-1}=(A+B)^{-1}$.
+Note further that 
+\begin{align*}
+A^{-1}(A^{-1}+B^{-1})^{-1}A^{-1}&=(A^{-1}+B^{-1})(A^{-1}+B^{-1})^{-1}A^{-1}-B^{-1}(A^{-1}+B^{-1})^{-1}A^{-1}
+\\&=A^{-1}-(A+B)^{-1}
+\\\text{ and similarly } B^{-1}(A^{-1}+B^{-1})^{-1}B^{-1} &=B^{-1}-(A+B)^{-1}
+\end{align*}
+Therefore 
+\begin{align*}
+(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{-1}(x-\nu)&=(x-\rho)^TC^{-1}(x-\rho)
+\\&-\mu^TA^{-1}\mu+\mu^T(A+B)^{-1}\mu-2\mu^T(A+B)^{-1}\nu-\nu^TB^{-1}\nu+\nu^T(A+B)^{-1}\nu
+\\&+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu
+\\&=(x-\rho)^TC^{-1}(x-\rho)+(\mu-\nu)^T(A+B)^{-1}(\mu-\nu)
+\end{align*}
+\end{pf}
+
+\begin{fact} \label{sum_of_normal}
+Suppose $x,\mu,\nu\in\R^2$, and $A$ is a symmetric invertible $2\times 2$ matrix. Suppose further that $s\in\R$ and $B^\dagger = \left(\begin{array}{cc} \frac{1}{s} & 0 \\ 0 & 0 \end{array}\right)$. Then 
+\begin{equation}
+(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{\dagger}(x-\nu)=(x-\rho)^TC^{-1}(x-\rho)+\frac{(\mu_1-\nu_1)^2}{A_{11}+s}
+\end{equation}
+where $C=(A^{-1}+B^{\dagger})^{-1}=\frac{s}{s+a}A+\left(\begin{array}{cc} 0 & 0 \\ 0 & \frac{|A|}{s+a}\end{array}\right)$ and $\rho=C(A^{-1}\mu+B^\dagger\nu)=\left(\begin{array}{c}\frac{s}{s+a}\mu_1+\frac{a}{s+a}\nu_1 \\ \mu_2+\frac{b}{s+a}(\nu_1-\mu_1) \end{array}\right)$.
+\end{fact}
+
+\begin{pf}
+\begin{align*}
+(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{\dagger}(x-\nu)
+&=x^TA^{-1}x-x^TA^{-1}\mu-\mu^TA^{-1}x+\mu^TA^{-1}\mu
+\\&+x^TB^{\dagger}x-x^TB^{\dagger}\nu-x^TB^{\dagger}\nu-\nu^TB^{\dagger}\nu+\nu^TB^{\dagger}\nu
+\\&=x^T(A^{-1}+B^{\dagger})x-2x^T(A^{-1}\mu+B^{\dagger}\nu)+\mu^TA^{-1}\mu+\nu^TB^{\dagger}\nu 
+\\ &\text{ since $A$ and $B$ are symmetric}
+\\&=x^T(A^{-1}+B^{\dagger})x-2x^T(A^{-1}+B^{\dagger})(A^{-1}+B^{\dagger})^{-1}(A^{-1}\mu+B^{\dagger}\nu)
+\\&+\mu^TA^{-1}\mu+\nu^TB^{\dagger}\nu 
+\\ \text{ Let } C&=(A^{-1}+B^{\dagger})^{-1}\text{ and $\rho=C(A^{-1}\mu+B^{\dagger}\nu)$. Then }
+\\\Rightarrow(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{\dagger}(x-\nu)&=x^TC^{-1}x-2x^TC^{-1}\rho+\rho^TC^{-1}\rho-\rho^TC^{-1}\rho+\mu^TA^{-1}\mu+\nu^TB^{\dagger}\nu
+\\&=(x-\rho)^TC^{-1}(x-\rho)
+\\&-(A^{-1}\mu+B^{\dagger}\nu)^T(A^{-1}+B^{\dagger}) (A^{-1}\mu+B^{\dagger}\nu)+\mu^TA^{-1}\mu+\nu^TB^{\dagger}\nu
+\end{align*}
+Let $D^\dagger=\left(\begin{array}{cc} \frac{1}{A_{11}+s} & 0 \\ 0 & 0 \end{array} \right)$. By Fact \ref{rewrite_inverse} $A^{-1}(A^{-1}+B^{\dagger})^{-1}B^{\dagger}=B^{\dagger}(A^{-1}+B^{\dagger})^{-1}A^{-1}=D^\dagger$. Note further that 
+\begin{align*}
+A^{-1}(A^{-1}+B^{\dagger})^{-1}A^{-1}&=(A^{-1}+B^{\dagger})(A^{-1}+B^{\dagger})^{-1}A^{-1}-B^{\dagger}(A^{-1}+B^{\dagger})^{-1}A^{-1}
+\\&=A^{-1}-D^\dagger
+\\\text{ and similarly } B^{\dagger}(A^{-1}+B^{\dagger})^{-1}B^{\dagger} &=B^{\dagger}-D^\dagger
+\end{align*}
+Therefore 
+\begin{align*}
+(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{\dagger}(x-\nu)&=(x-\rho)^TC^{-1}(x-\rho)
+\\&-\mu^TA^{-1}\mu+\mu^TD^\dagger\mu-2\mu^TD^\dagger\nu-\nu^TB^{-1}\nu+\nu^TD^\dagger\nu
+\\&+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu
+\\&=(x-\rho)^TC^{-1}(x-\rho)+(\mu-\nu)^TD^\dagger(\mu-\nu)
+\\&=(x-\rho)^TC^{-1}(x-\rho)+\frac{(\mu_1-\nu_1)^2}{A_{11}+s}
+\end{align*}
+By Fact \ref{rewrite_inverse}, $C=\frac{s}{s+a}A+\left(\begin{array}{cc}0 & 0 \\ 0 & \frac{|A|}{s+a} \end{array}\right)$. Then
+\begin{align*}
+\rho&=C(A^{-1}\mu+B^\dagger\nu)
+\\&=\left(\frac{s}{s+a}A+\left(\begin{array}{cc}0 & 0 \\ 0 & \frac{|A|}{s+a} \end{array}\right)\right)(A^{-1}\mu+B^\dagger\nu)
+\\&=\frac{s}{s+a}\mu+\frac{s}{s+a}AB^\dagger\nu+\left(\begin{array}{cc}0 & 0 \\ 0 & \frac{|A|}{s+a} \end{array}\right)A^{-1}\mu
+\\&=\frac{s}{s+a}\mu+\frac{s}{s+a}\left(\begin{array}{cc}\frac{a}{s} & 0 \\ \frac{b}{s} & 0 \end{array}\right)\nu+\left(\begin{array}{cc}0 & 0 \\ \frac{-b}{s+a} & \frac{a}{s+a} \end{array}\right)\mu
+\\&=\left(\begin{array}{c}\frac{s}{s+a}\mu_1+\frac{a}{s+a}\nu_1 
+\\\frac{s}{s+a}\mu_2+\frac{b}{s+a}\nu_1+\frac{-b}{s+a}\mu_1+\frac{a}{s+a}\mu_2
+\end{array}\right)
+\\&=\left(\begin{array}{c}\frac{s}{s+a}\mu_1+\frac{a}{s+a}\nu_1 
+\\\mu_2+\frac{b}{s+a}(\nu_1-\mu_1)
+\end{array}\right)
+\end{align*}
+Note that $|C|=(\frac{s}{s+a})^2|A|+\frac{sa|A|}{(s+a)^2}=\frac{s(s+a)}{(s+a)^2}|A|=\frac{s}{s+a}|A|$.
+\end{pf}
+
+
+\bibliographystyle{plainnat}
+\bibliography{song_learning_evolution}
+
+
+\end{document}
