@@ -1,4 +1,4 @@
-Q_fun <- function(sigmax2,sigmay2,cov){
+Q_fun <- function(sigmax2,sigmay2,cov=rho*sqrt(sigmax2*sigmay2)){
 	Q = sigma2/(sigma2+sigmax2)+sigmax2*sigmay2/(sigma2+sigmax2)^2+2*cov/(sigma2+sigmax2)+1
 	return(Q)
 }
@@ -29,7 +29,7 @@ recursion_all <- function(sigmax2_init,sigmay2_init,sigma2,rho_init){
 		Q_pref = Q_fun_pref(sigmax2,sigmay2,cov)
 		sigmax2_new = sigmax2*(sigma2/(sigma2+sigmax2)+sigmax2*sigmay2/(sigma2+sigmax2)^2)
 		sigmay2_new = 1/4*sigmay2*Q_pref
-		cov_new = 1/2*cov*(sigma2*(sigma2+sigmax2)+sigmax2*sigmay2)/(sigma2+sigmax2)^2+1/2*sigma2*sigmay2/(sigma2+sigmax2)
+		cov_new = 1/2*cov*(sigma2*(sigma2+sigmax2)+sigmax2*sigmay2)/(sigma2+sigmax2)^2+1/2*sigmax2*sigmay2/(sigma2+sigmax2)
 		if(is.nan(cov_new) || (round(cov_new,10)==0 && is.nan(cov_new/sqrt(sigmax2_new*sigmay2_new)))){
 			rho_new = 0
 		} else {

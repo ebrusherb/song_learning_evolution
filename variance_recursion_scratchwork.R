@@ -284,13 +284,13 @@ image.scale(final_rho_v2,horiz=FALSE,breaks=rhobreaks,col=c('black',heat.colors(
 steps = 100
 sigma2 = 1
 # sigmay2 = ((30+sqrt(864))/18)*sigma2
-sigmay2_init = 8.3
+sigmay2_init = 5
 poss=polyroot(c(2*sigma2^2,5*sigma2-3*sigmay2,3))
 
 # par(mfrow=c(2,1))
 
-vec=seq(0,10,length.out=100)
-covvec = seq(0,10,length.out = 100)
+vec=seq(0,5,length.out=100)
+covvec = seq(0,5,length.out = 100)
 Qmat = array(NA,dim=c(length(vec),length(covvec)))
 Dmat = array(NA,dim=c(length(vec),length(covvec)))
 testmat = array(NA,dim=c(length(vec),length(covvec)))
@@ -337,14 +337,15 @@ keep = rbind(keep,cbind(sigmax2[start:end],rho[start:end],cov[start:end]))
 
 # lines(vec,sqrt(vec*sigmay2)/(sigma2+vec),col='blue')
 lines(vec,(vec*sigmay2)/(sigma2+vec),col='blue')
-sigmax2=(3*sigmay2-5*sigma2+sqrt(9*sigmay2^2-30*sigma2*sigmay2+sigma2^2))/6;
-cov=sigmax2*sigmay2/(sigma2+sigmax2);
-Jstab=matrix(c(1+sigmax2/4*(sigmay2-sigma2-4*cov)/(sigma2+sigmax2)^2,sigmax2/2/(sigma2+sigmax2),sigma2*sigmay2/2/(sigma2+sigmax2)^2,1/2),nrow=2,byrow=TRUE)
-points(sigmax2,cov,col='green',cex=3)
 sigmax2=(3*sigmay2-5*sigma2-sqrt(9*sigmay2^2-30*sigma2*sigmay2+sigma2^2))/6;
 cov=sigmax2*sigmay2/(sigma2+sigmax2);
 Junstab=matrix(c(1+sigmax2/4*(sigmay2-sigma2-4*cov)/(sigma2+sigmax2)^2,sigmax2/2/(sigma2+sigmax2),sigma2*sigmay2/2/(sigma2+sigmax2)^2,1/2),nrow=2,byrow=TRUE)
 points(sigmax2,cov,col='green',cex=3)
+sigmax2=(3*sigmay2-5*sigma2+sqrt(9*sigmay2^2-30*sigma2*sigmay2+sigma2^2))/6;
+cov=sigmax2*sigmay2/(sigma2+sigmax2);
+Jstab=matrix(c(1+sigmax2/4*(sigmay2-sigma2-4*cov)/(sigma2+sigmax2)^2,sigmax2/2/(sigma2+sigmax2),sigma2*sigmay2/2/(sigma2+sigmax2)^2,1/2),nrow=2,byrow=TRUE)
+points(sigmax2,cov,col='green',cex=3)
+
 
 # keep = data.frame(keep[-which(is.na(keep[,1])),])
 # names(keep)=c('sigmax2','rho','cov')

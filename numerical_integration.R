@@ -96,12 +96,13 @@ sigmay2_init = 1.1
 sigmax2_init = 0.5
 
 sigma2_vals = c(0.005,0.01,1)
-x_sigma2 = length(sigma2_vals)
 trait_chunk_num_vals = (round(c(3,3^seq(2,5.3,length.out=20))))
 trait_chunk_num_vals[which(trait_chunk_num_vals%%2==0)] = trait_chunk_num_vals[which(trait_chunk_num_vals%%2==0)]+1 
 trait_chunk_num_vals = unique(trait_chunk_num_vals)
-x_trait = length(trait_chunk_num_vals)
 pref_chunk_num_vals = trait_chunk_num_vals
+
+x_sigma2 = length(sigma2_vals)
+x_trait = length(trait_chunk_num_vals)
 x_pref = length(pref_chunk_num_vals)
 
 # equilibrium = array(NA,dim=c(x_sigma2,x_trait_step,x_step_width,2,Nm))
@@ -375,8 +376,13 @@ for(i in 1:x_sigma2){
 	}		
 }
 
-layout(matrix(1:4,ncol=4))
-i=1
+layout(matrix(1:8,ncol=4,byrow=TRUE))
+i=2
+image(pref_var_mat[i,,])
+image(y_var_mat)
+image(x_var_mat)
+image(var_mat[i,,,2])
+i=3
 image(pref_var_mat[i,,])
 image(y_var_mat)
 image(x_var_mat)

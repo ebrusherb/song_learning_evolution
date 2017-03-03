@@ -2,6 +2,7 @@
 
 \usepackage[textwidth=7in,textheight=10in]{geometry}
 \usepackage{graphicx}
+\usepackage{enumerate}
 \usepackage{/Users/eleanorbrush/Documents/custom2}
 \usepackage{wasysym}
 \usepackage{color}
@@ -10,6 +11,7 @@
 \newcommand{\x}[1]{\text{#1}}
 \newcommand{\Cov}{\text{Cov}}
 \usepackage{lscape} 
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 
 \usepackage{tocloft}% http://ctan.org/pkg/tocloft
 \setlength{\cftsecnumwidth}{2em}% Set length of number width in ToC for \subsection
@@ -20,205 +22,683 @@
 \tableofcontents
 
 
-CORRELATIONS
+
+\section{Derivation of covariance between traits in mating pairs \label{cov_derivation}}
+In this section, we derive the distribution of traits, songs and preferences, among mating pairs, so that we can then derive the distribution of traits among the offspring of these pairs. 
+
+In the following $x$ will be used for song and $y$ will be used for preference. When we need to consider the two as a two-dimensional vector, we will use $v=(x,y)^T\in\R^2$. A subscript of m or f indicates the gender of the birds under consideration. By assumption, in a particular generation, song and preference are bivariate normally distributed among adults of each gender. We show below that if this is the case for one generation it will also be the case for the subsequent generation. Specifically, we assume that among all adult males
 \begin{align*}
-\Sigma'=\left(\begin{array}{cccc}\sigma_{\x{m}x}^2\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2} & \frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}\left(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2\right)}{(\sigma^2+\sigma_{\x{m}x}^2)^2} & \frac{\rho_{\x{f}}\sigma_{\x{m}x}^2\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2} & \frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2+\sigma_{\x{m}x}^2} 
-\\ & \sigma_{\x{m}y}^2\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{f}y}^2\sigma_{\x{m}x}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2} & \frac{\rho_\x{m}\rho_\x{f}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2} & \frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}y}^2}{\sigma^2+\sigma_{\x{m}x}^2}
-\\ & & \sigma_{\x{f}x}^2 & \rho_\x{f}\sigma_{\x{f}x}\sigma_{\x{f}y}
-\\ & & & \sigma_{\x{f}y}^2
-\end{array}\right)&
-\end{align*}
-
-EQUILIBRIUM VARIANCE
-
-\begin{tabular}{|c|c|c|c|}
-\hline& song from father & song genetic & song obliquely learned
-\\\hline pref from father  & $\lim_{t\to\infty}\sigma_\text{s}^2=0$                       & $\lim_{t\to\infty}\sigma_\text{s}^2=0$ & $\lim_{t\to\infty}\sigma_\text{s}^2=\sigma_\x{s}^2(0)$
-\\  				  & $\lim_{t\to\infty}\sigma_\text{p}^2=0$                       & $\lim_{t\to\infty}\sigma_\text{p}^2=0$ & $\lim_{t\to\infty}\sigma_\text{p}^2=\frac{\sigma_\x{s}^2(\sigma^2+\sigma_\x{s}^2)}{2\sigma_\x{s}^2+\sigma^2}$
-\\\hline pref genetic & $\lim_{t\to\infty}\sigma_\text{s}^2=0$                       & $\sigma_\x{s}^2$ bistable: $0$ or $\infty$ &  $\lim_{t\to\infty}\sigma_\text{s}^2=\sigma_\x{s}^2(0)$
-\\  				  & $\lim_{t\to\infty}\sigma_\text{p}^2=0$                       & $\sigma_\x{p}^2$ bistable: $0$ or $\infty$ &  $\lim_{t\to\infty}\sigma_\text{p}^2=0$
-\\\hline pref from mother  & $\lim_{t\to\infty}\sigma_\text{s}^2=\sigma_\x{p}^2-\sigma^2$ & $\sigma_\x{s}^2$ bistable: $0$ or $\frac{3\sigma_y^2-5\sigma^2+\sqrt{\sigma^4+\sigma_y^2(9\sigma_y^2-30\sigma^2)}}{6}$ & $\lim_{t\to\infty}\sigma_\text{s}^2=\sigma_\x{s}^2(0)$
-\\ 					  & $\lim_{t\to\infty}\sigma_\text{p}^2=\sigma_\x{p}^2(0)$       & $\lim_{t\to\infty}\sigma_\text{p}^2=\sigma_\x{p}^2(0)$ & $\lim_{t\to\infty}\sigma_\text{p}^2=\sigma_\x{p}^2(0)$ 
-\\\hline
-\end{tabular}
-
-
-
-\section{Derivation of covariance between male song and female preference in mating pairs}
-We will write $v=(x,y)^T\in\R^2$ for a vector whose first element is a song and whose second element is a preference. A numerical subscript, for example $x_1$, refers to the gender of the birds under consideration: $1$ is for males and $2$ is for females. The subscripts $\x{m}$ and $\x{f}$ are also used to denote male and female. We will write $\mu_\x{m}=(\mu_{\x{m}x},\mu_{\x{m}y})^T$ for the mean trait values of all adult males and similarly $\mu_\x{f}$ for females. We will write $\rho_\x{m}$ for the correlation between songs and preferences  and $\Sigma_\x{m}=\left(\begin{array}{cc} \sigma_{\x{m}x}^2 & \rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y} \\ \rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y} & \sigma_{\x{m}y}^2\end{array}\right)$ for the covariance matrix between the traits among male birds; similarly $\rho_\x{f}$ and $\Sigma_{\x{f}}$ for females. We will switch to using $\mu_{x_1}$ for the mean song of mating males, $\sigma_{x_1}^2$ for the variance of the songs of mating males, and similarly for $y_1$ (male preferences), $x_2$ (female songs), and $y_2$ (female preferences).
+P_\x{m}(v)&=\frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v-\mu_\x{m})^T\Sigma_\x{m}^{-1}(v-\mu_\x{m})\right),
+\end{align*} where $\mu_\x{m}=(\mu_{x\x{m}},\mu_{y\x{m}})^T$ gives the expected values of songs and preferences among adult males and 
 \begin{align*}
-P_\x{m}(v)&=\frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v-\mu_\x{m})^T\Sigma_\x{m}^{-1}(v-\mu_\x{m})\right)
-\\P_\x{f}(v)&=\frac{1}{2\pi\sqrt{|\Sigma_\x{f}|}}\exp\left(-\frac{1}{2}(v-\mu_\x{f})^T\Sigma_\x{f}^{-1}(v-\mu_\x{f})\right)
-\\f_y(x)&=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{(x-y)^2}{2\sigma^2}\right)
-\\ P_\x{mate}(v_\x{m},v_\x{f})&=\frac{P_\x{m}(v_\x{m})P_\x{f}(v_\x{f})f_{y_2}(x_1)}{\int\int P_\x{m}(v_\x{m})f_{y_2}(x_1)dx_1dy_1 }
+\Sigma_{\x{m}}=\left(\begin{array}{cc}\sigma_{x\x{m}}^2 & \rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}} \\ \rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}} & \sigma_{y\x{m}}^2 \end{array}\right),
 \end{align*}
-
-
-First we rewrite $P_\x{mate}(v_\x{m},v_\x{f})$ so that we can integrate any combination of $x_1$, $y_1$, or $x_2$ easily.
+so that $\rho_\x{m}$ is the correlation between songs and preferences among adult males. Similarly, we assume that among all adult females 
 \begin{align*}
-P_\x{m}(v_\x{m})f_{y_2}(x_1)&=\frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v_\x{m}-c)^TC^{-1}(v_\x{m}-c)\right)\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(\mu_{\x{m}x}-y_2)^2}{2(\sigma_{\x{m}x}+\sigma^2)}\right) \text{by Fact \ref{sum_of_normal}}
-\\ \text{ where } C&=\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\Sigma_\x{m}+\left(\begin{array}{cc} 0 & 0 \\ 0 & \frac{(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2\sigma_{\x{m}y}^2}{\sigma^2+\sigma_{\x{m}x}^2}\end{array}\right) 
-\\ \text{ and } c&= \left(\begin{array}{cc}\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}y_2 
-\\ \mu_{\x{m}y}+\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}{\sigma^2+\sigma_{\x{m}x}^2}(y_2-\mu_{\x{m}x}) \end{array}\right) \text{by Fact \ref{rewrite_inverse}}
+P_\x{f}(v)&=\frac{1}{2\pi\sqrt{|\Sigma_\x{f}|}}\exp\left(-\frac{1}{2}(v-\mu_\x{f})^T\Sigma_\x{f}^{-1}(v-\mu_\x{f})\right), 
 \end{align*}
-In Fact \ref{sum_of_normal} we show that $|C|=\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}|\Sigma_\x{m}|$. Therefore 
+where $\mu_\x{f}$ gives the expected values of songs and preferences among adult females and $\Sigma_\x{f}$ is the covariance matrix of these traits among adult females. We finally assume that each female uses a Gaussian preference function, centered at her preference $y$ with a variance $\sigma^2$:
+\begin{align*}
+f_y(x)&=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{(x-y)^2}{2\sigma^2}\right).
+\end{align*}
+The probability of a male with traits $v_\x{m}$ and a female with traits $v_\x{f}$ mating is proportional to the product of the probabilities of finding such a male and such a female, with an additional factor describing the likelihood of such a female mating with such a male:
+\begin{equation} \label{model}
+P_\x{mate}(v_\x{m},v_\x{f})=\frac{P_\x{f}(v_\x{f})P_\x{m}(v_\x{m})f_{y_\x{f}}(x_\x{m})}{\int_{\R^2} P_\x{m}(v_\x{m})f_{y_\x{f}}(x_\x{m})dv_\x{m} }.
+\end{equation}
+In order to find the distribution of the traits in the offspring generation, we need to know this distribution precisely.
+
+\begin{claim} \label{covariance}
+Given the assumptions above, if $u=(x_\x{m},y_\x{m},x_\x{f},y_\x{f})^T$ the distribution $P_\text{mate}(u)$ is a multivariate Gaussian with expectation 
+\begin{align*}
+\mu_\text{mate}&=\left(\begin{array}{cc} \frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{x\x{m}}+\frac{\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{y\x{f}} 
+\\ \mu_{y\x{m}}+\frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}}{\sigma^2+\sigma_{x\x{m}}^2}(\mu_{y\x{f}}-\mu_{x\x{m}})
+\\ \mu_{x\x{f}}
+\\ \mu_{y\x{f}}
+ \end{array}\right)
+\end{align*}
+and covariance 
+\begin{align*}
+\Sigma_\text{mate}&=\left(\begin{array}{cccc}\left(\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{x\x{m}}^2 & \frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}(\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2)}{(\sigma^2+\sigma_{x\x{m}}^2)^2} & \frac{\rho_\x{f}\sigma_{x\x{m}}^2\sigma_{x\x{f}}\sigma_{y\x{f}}}{\sigma^2+\sigma_{x\x{m}}^2} &  \frac{\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{\sigma^2+\sigma_{x\x{m}}^2}
+\\ & \left(\frac{(\sigma^2+\sigma_{x\x{m}}^2)^2-\rho_\x{m}^2\sigma_{x\x{m}}^2(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{y\x{m}}^2 & \frac{\rho_\x{m}\rho_\x{f}\sigma_{x\x{m}}\sigma_{y\x{m}}\sigma_{x\x{f}}\sigma_{y\x{f}}}{\sigma^2+\sigma_{x\x{m}}^2}& \frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}\sigma_{y\x{f}}^2}{\sigma^2+\sigma_{x\x{m}}^2}
+\\ & & \sigma_{x\x{f}}^2 & \rho_\x{f}\sigma_{x\x{f}}\sigma_{y\x{f}}
+\\ & & & \sigma_{y\x{f}}^2
+\end{array}\right).
+\end{align*}
+Note that both the expected values and the covariance structure of the traits among females is the same within successfully mating individuals as within all adult females. This is because of our assumption that all females have equal reproductive success. Among mating males, however, the expected song becomes a weighted average of the expected male song and expected female preference. The expected male preference increases by an amount that depends on the correlation between male song and male preference and on whether the expected female preference is greater than or less than the expected male song. 
+\end{claim}
+
+\begin{pf}
+We will show that the distribution of mating pairs follows the above distribution by considering each pair of traits, $(x_\x{m},y_\x{m})$, $(x_\x{m},x_\x{f})$, $(x_\x{m},y_\x{f})$, $(y_\x{m},x_\x{f})$, and so forth, and showing that each pair is distributed according to a bivariate Gaussian distribution with mean and covariance given by the appropriate elements of $\mu_\text{mate}$ and $\Sigma_\text{mate}$. To do this, we will integrate Eq. \ref{model} over each possible pair of traits.
+
+First we rewrite $P_\x{mate}(v_\x{m},v_\x{f})$ so that we can easily integrate over any combination of $x_\x{m}$, $y_\x{m}$, or $x_\x{f}$.
 \begin{align}
-P_\x{m}(v_\x{m})f_{y_2}(x_1)&=\frac{1}{2\pi\sqrt{|C|}}\exp\left(-\frac{1}{2}(v_\x{m}-c)^TC^{-1}(v_\x{m}-c)\right)\frac{1}{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2)}}\exp\left(-\frac{(\mu_{\x{m}x}-y_2)^2}{2(\sigma_{\x{m}x}^2+\sigma^2)}\right) \notag
-\\ \Rightarrow \int\int P_\x{m}(v_\x{m})f_{y_2}(x_1)dx_1dy_1&=\frac{1}{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2)}}\exp\left(-\frac{(\mu_{\x{m}x}-y_2)^2}{2(\sigma_{\x{m}x}^2+\sigma^2)}\right) \label{Z}
+\text{Fact \ref{sum_of_normal}} \Rightarrow P_\x{m}(v_\x{m})f_{y_\x{f}}(x_\x{m})&=\frac{1}{2\pi\sqrt{|C|}}\exp\left(-\frac{1}{2}(v_\x{m}-c)^TC^{-1}(v_\x{m}-c)\right)\frac{1}{\sqrt{2\pi(\sigma^2+\sigma_{x\x{m}x}^2)}}\exp\left(-\frac{(y_\x{f}-\mu_{x\x{m}})^2}{2(\sigma_{x\x{m}}+\sigma^2)}\right) \notag
+\\ \text{ where } C&=\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}\Sigma_\x{m}+\left(\begin{array}{cc} 0 & 0 \\ 0 & \frac{(1-\rho_\x{m}^2)\sigma_{x\x{m}}^2\sigma_{y\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}\end{array}\right)  \label{C}
+\\ \text{ and } c&= \left(\begin{array}{cc}\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{x\x{m}}+\frac{\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}y_\x{f}  
+\\ \mu_{y\x{m}}+\frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}}{\sigma^2+\sigma_{x\x{m}}^2}(y_\x{f}-\mu_{x\x{m}}) \end{array}\right).  \notag
+\end{align}
+Therefore 
+\begin{align}
+\int_{\R^2}P_\x{m}(v_\x{m})f_{y_\x{f}}(x_\x{m})dv_\x{m}&=\frac{1}{\sqrt{2\pi(\sigma^2+\sigma_{x\x{m}}^2)}}\exp\left(-\frac{(y_\x{f}-\mu_{x\x{m}})^2}{2(\sigma_{x\x{m}}^2+\sigma^2)}\right) \label{Z}
+\\ \Rightarrow \frac{P_\x{m}(v_\x{m})f_{y_\x{f}}(x_\x{m})}{\int_{\R^2} P_\x{m}(v_\x{m})f_{y_\x{f}}(x_\x{m})dv_\x{m} }&=\frac{1}{2\pi\sqrt{|C|}}\exp\left(-\frac{1}{2}(v_\x{m}-c)^TC^{-1}(v_\x{m}-c)\right) \notag
 \end{align}
 \begin{equation} \label{one}
 \Rightarrow P_\x{mate}(v_\x{m},v_\x{f})=\frac{1}{2\pi\sqrt{|C|}}\exp\left(-\frac{1}{2}(v_\x{m}-c)^TC^{-1}(v_\x{m}-c)\right)\frac{1}{2\pi\sqrt{|\Sigma_\x{f}|}}\exp\left(-\frac{1}{2}(v_\x{f}-\mu_\x{f})^T\Sigma_\x{f}^{-1}(v_\x{f}-\mu_\x{f})\right)
 \end{equation}
-Note that in Equation \ref{one}, $y_2$ appears in $c$. This makes it difficult to integrate over $y_2$. However, $x_1$ and $y_1$ only appear in the left Gaussian function and $x_2$ only appears in the right Gaussian function, so that it is easy to integrate over any three of these variables.
+Note that in Eq. \ref{one} $y_\x{f}$ appears in $c$. This makes it difficult to integrate over $y_\x{f}$. However, $x_\x{m}$ and $y_\x{m}$ only appear in the left Gaussian function and $x_\x{f}$ only appears in the right Gaussian function, so it is easy to integrate over any three of these variables.
 
-Next we rewrite $P_\text{mate}(v_\x{m},v_\x{f})$ so that we can integrate any combination of $y_1$, $x_2$, or $y_2$ easily. According to Equation \ref{Z}, 
-\begin{align*}
-\frac{f_{y_2}(x_1)}{\int\int P_\x{m}(v_\x{m})f_{y_2}(x_1)dx_1dy_1}&=\frac{\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x_1-y_2)^2}{2\sigma^2}\right)}{\frac{1}{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2)}}\exp\left(-\frac{(\mu_{\x{m}x}-y_2)^2}{2(\sigma_{\x{m}x}^2+\sigma^2)}\right)}
-\\&=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x_1-y_2)^2}{2\sigma^2}\right)\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2)}\exp\left(-\frac{(\mu_{\x{m}x}-y_2)^2}{2(-\sigma_{\x{m}x}^2-\sigma^2)}\right)
-\\&=\frac{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2})}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(y_2-d)^2}{2D}\right)\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{-2\sigma_{\x{m}x}^2}\right)\text{ by Fact \ref{univariate}}
-\\ \text{ where } D&=\frac{-\sigma^2(-\sigma_{\x{m}x}^2-\sigma^2)}{-\sigma_{\x{m}x}^2}=\frac{\sigma^2(\sigma_{\x{m}x}^2+\sigma^2)}{\sigma_{\x{m}x}^2} 
-\\\text{ and } d&=\frac{(-\sigma_{\x{m}x}^2-\sigma^2)x_1+\sigma^2\mu_{\x{m}x}}{-\sigma_{\x{m}x}^2}=\frac{(\sigma_{\x{m}x}^2+\sigma^2)x_1-\sigma^2\mu_{\x{m}x}}{\sigma_{\x{m}x}^2}
-\\ \Rightarrow \frac{f_{y_2}(x_1)}{\int\int P_\x{m}(v_\x{m})f_{y_2}(x_1)dx_1dy_1}&=\frac{1}{\sqrt{2\pi \sigma^2(\sigma_{\x{m}x}^2+\sigma^2)/\sigma_{\x{m}x}^2}}\exp\left(-\frac{(y_2-d)^2}{2D}\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2})^2}{\sqrt{\sigma_{\x{m}x}^2}\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)}
-\\&=\frac{1}{\sqrt{2\pi D}}\exp\left(-\frac{(y_2-d)^2}{2D}\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2})^2}{\sqrt{\sigma_{\x{m}x}^2}\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)}
-\\\Rightarrow \frac{P_\x{f}(v_\x{f})f_{y_2}(x_1)}{\int\int P_\x{m}(v_\x{m})f_{y_2}(x_1)dx_1dy_1}&=\frac{1}{2\pi\sqrt{|G|}}\exp\left(-\frac{1}{2}(v_\x{f}-g)^TG^{-1}(v_\x{f}-g)\right)\frac{1}{\sqrt{2\pi(\sigma_{\x{f}y}^2+D)}}\exp\left(-\frac{(\mu_{\x{f}y}-d)^2}{2(\sigma_{\x{f}y}^2+D)}\right)\times
-\\&\frac{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2})^2}{\sqrt{\sigma_{\x{m}x}^2}\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)} \text{by Fact \ref{sum_of_normal}}
-\\ \text{ where } G &= \frac{D}{D+\sigma_{\x{f}y}^2}\Sigma_\x{f}+\left(\begin{array}{cc} \frac{(1-\rho_\x{f}^2)\sigma_{\x{f}x}^2\sigma_{\x{f}y}^2}{D+\sigma_{\x{f}y}^2} & 0  \\ 0 & 0 \end{array}\right) = \frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\Sigma_\x{f}+\left(\begin{array}{cc} \frac{(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2} & 0  \\ 0 & 0 \end{array}\right)
-\\ \text{ and } g & = \left(\begin{array}{cc}\mu_{\x{f}x}+\frac{\rho_\x{f}\sigma_{\x{f}x}\sigma_{\x{f}y}}{D+\sigma_{\x{f}y}^2}(d-\mu_{\x{f}y})
-\\ \frac{D}{D+\sigma_{\x{f}y}^2}\mu_{\x{f}y}+\frac{\sigma_{\x{f}y}^2}{D+\sigma_{\x{f}y}^2}d \end{array} \right) 
-\\&=\left(\begin{array}{cc}\mu_{\x{f}x}+\frac{\rho_\x{f}\sigma_{\x{m}x}^2\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}(d-\mu_{\x{f}x})
-\\ \frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\mu_{\x{f}y}+\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}d \end{array} \right)
-\end{align*}
-\begin{align} 
-\Rightarrow P_\x{mate}(v_\x{m},v_\x{f})&=\frac{1}{2\pi\sqrt{|G|}}\exp\left(-\frac{1}{2}(v_\x{f}-g)^TG^{-1}(v_\x{f}-g)\right)\frac{1}{\sqrt{2\pi(\sigma_{\x{f}y}^2+D)}}\exp\left(-\frac{(\mu_{\x{f}y}-d)^2}{2(\sigma_{\x{f}y}^2+D)}\right) \notag
-\\&\times \frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v_\x{m}-\mu_\x{m})^T\Sigma_\x{m}^{-1}(v_\x{m}-\mu_\x{m})\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2})^2}{\sqrt{\sigma_{\x{m}x}^2}\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)}\label{two}
+Next we rewrite $P_\text{mate}(v_\x{m},v_\x{f})$ so that we can easily integrate any combination of $y_\x{m}$, $x_\x{f}$, or $y_\x{f}$. Using Eq. \ref{Z}, 
+\begin{align}
+\frac{f_{y_\x{f}}(x_\x{m})}{\int_{\R^2}P_\x{m}(v_\x{m})f_{y_\x{f}}(x_\x{m})dv_\x{m}}&=\frac{\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x_\x{m}-y_\x{f})^2}{2\sigma^2}\right)}{\frac{1}{\sqrt{2\pi(\sigma^2+\sigma_{x\x{m}}^2)}}\exp\left(-\frac{(\mu_{x\x{m}}-y_\x{f})^2}{2(\sigma_{x\x{m}}^2+\sigma^2)}\right)} \notag
+\\&=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x_\x{m}-y_\x{f})^2}{2\sigma^2}\right)\sqrt{2\pi(\sigma^2+\sigma_{x\x{m}}^2)}\exp\left(-\frac{(\mu_{x\x{m}}-y_\x{f})^2}{2(-\sigma_{x\x{m}}^2-\sigma^2)}\right)
+\notag\\&=\frac{\sqrt{2\pi(\sigma^2+\sigma_{x\x{m}}^2})}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(y_\x{f}-d)^2}{2D}\right)\exp\left(-\frac{(x_\x{m}-\mu_{x\x{m}})^2}{-2\sigma_{x\x{m}}^2}\right)\text{ by Fact \ref{univariate}}
+\notag\\ \text{ where } D&=\frac{-\sigma^2(-\sigma_{x\x{m}}^2-\sigma^2)}{-\sigma_{x\x{m}}^2}=\frac{\sigma^2(\sigma_{x\x{m}}^2+\sigma^2)}{\sigma_{x\x{m}}^2}  \label{D}
+\\\text{ and } d&=\frac{(-\sigma_{x\x{m}}^2-\sigma^2)x_\x{m}+\sigma^2\mu_{x\x{m}}}{-\sigma_{x\x{m}}^2}=\frac{(\sigma_{x\x{m}}^2+\sigma^2)x_\x{m}-\sigma^2\mu_{x\x{m}}}{\sigma_{x\x{m}}^2}
+\notag\\ \Rightarrow \frac{f_{y_\x{f}}(x_\x{m})}{\int_{\R^2}P_\x{m}(v_\x{m})f_{y_\x{f}}(x_\x{m})dv_\x{m}v}&=\frac{1}{\sqrt{2\pi \sigma^2(\sigma_{x\x{m}}^2+\sigma^2)/\sigma_{x\x{m}}^2}}\exp\left(-\frac{(y_\x{f}-d)^2}{2D}\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{x\x{m}}^2})^2}{\sqrt{\sigma_{x\x{m}}^2}\exp\left(-\frac{(x_\x{m}-\mu_{x\x{m}})^2}{2\sigma_{x\x{m}}^2}\right)}
+\notag\\&=\frac{1}{\sqrt{2\pi D}}\exp\left(-\frac{(y_\x{f}-d)^2}{2D}\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{x\x{m}}^2})^2}{\sqrt{\sigma_{x\x{m}}^2}\exp\left(-\frac{(x_\x{m}-\mu_{x\x{m}})^2}{2\sigma_{x\x{m}}^2}\right)}
+\notag\\\text{Fact \ref{sum_of_normal}}\Rightarrow \frac{P_\x{f}(v_\x{f})f_{y_\x{f}}(x_\x{m})}{\int\int P_\x{m}(v_\x{m})f_{y_\x{f}}(x_\x{m})dx_\x{m}dy_\x{m}}&=\frac{1}{2\pi\sqrt{|G|}}\exp\left(-\frac{1}{2}(v_\x{f}-g)^TG^{-1}(v_\x{f}-g)\right)\frac{1}{\sqrt{2\pi(\sigma_{y\x{f}}^2+D)}}\exp\left(-\frac{(\mu_{y\x{f}}-d)^2}{2(\sigma_{y\x{f}}^2+D)}\right)\times
+\notag\\&\frac{\sqrt{2\pi(\sigma^2+\sigma_{x\x{m}}^2})^2}{\sqrt{\sigma_{x\x{m}}^2}\exp\left(-\frac{(x_\x{m}-\mu_{x\x{m}})^2}{2\sigma_{x\x{m}}^2}\right)} 
+\notag\\ \text{ where } G &= \frac{D}{D+\sigma_{y\x{f}}^2}\Sigma_\x{f}+\left(\begin{array}{cc} \frac{(1-\rho_\x{f}^2)\sigma_{x\x{f}}^2\sigma_{y\x{f}}^2}{D+\sigma_{y\x{f}}^2} & 0  \\ 0 & 0 \end{array}\right)  
+\notag \\&= \frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)}{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}\Sigma_\x{f}+\left(\begin{array}{cc} \frac{(1-\rho_\x{f}^2)\sigma_{x\x{m}}^2\sigma_{x\x{f}}^2\sigma_{y\x{f}}^2}{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2} & 0  \\ 0 & 0 \end{array}\right) \label{G}
+\\ \text{ and } g & = \left(\begin{array}{cc}\mu_{x\x{f}}+\frac{\rho_\x{f}\sigma_{x\x{f}}\sigma_{y\x{f}}}{D+\sigma_{y\x{f}}^2}(d-\mu_{y\x{f}})
+\notag\\ \frac{D}{D+\sigma_{y\x{f}}^2}\mu_{y\x{f}}+\frac{\sigma_{y\x{f}}^2}{D+\sigma_{y\x{f}}^2}d \end{array} \right) 
+\notag\\&=\left(\begin{array}{cc}\mu_{x\x{f}}+\frac{\rho_\x{f}\sigma_{x\x{m}}^2\sigma_{x\x{f}}\sigma_{y\x{f}}}{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}(d-\mu_{x\x{f}})
+\notag\\ \frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)}{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}\mu_{y\x{f}}+\frac{\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}d \end{array} \right) \notag
 \end{align}
-Note that in Equation \ref{two}, $x_1$ appears in $d$ and $g$. This makes it difficult to integrate over $x_1$. However, $x_2$ and $y_2$ only appear in the left-most Gaussian function and $y_1$ only appears in the right Gaussian function, so that it is easy to integrate over any three of these variables.
+\begin{align} 
+\Rightarrow P_\x{mate}(v_\x{m},v_\x{f})&=\frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v_\x{m}-\mu_\x{m})^T\Sigma_\x{m}^{-1}(v_\x{m}-\mu_\x{m})\right)\frac{1}{2\pi\sqrt{|G|}}\exp\left(-\frac{1}{2}(v_\x{f}-g)^TG^{-1}(v_\x{f}-g)\right) \notag
+\\&\times \frac{1}{\sqrt{2\pi(\sigma_{y\x{f}}^2+D)}}\exp\left(-\frac{(\mu_{y\x{f}}-d)^2}{2(\sigma_{y\x{f}}^2+D)}\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{x\x{m}}^2})^2}{\sqrt{\sigma_{x\x{m}}^2}\exp\left(-\frac{(x_\x{m}-\mu_{x\x{m}})^2}{2\sigma_{x\x{m}}^2}\right)}\label{two}
+\end{align}
+Note that in Eq. \ref{two}, $x_\x{m}$ appears in $d$ and $g$. This makes it difficult to integrate over $x_\x{m}$. However, $x_\x{f}$ and $y_\x{f}$ only appear in the second Gaussian function and $y_\x{m}$ only appears in the first, so that it is easy to integrate over any three of these variables.
 
+\begin{enumerate}
+\item First we integrate over both male traits, $x_\x{m}$ and $y_\x{m}$. Using Eq. \ref{one},
 \begin{align*}
-\text{Equation \ref{one} } \Rightarrow P_\text{mate}(x_2,y_2)&=\int \int P_\text{mate}(v_\x{m},v_\x{f})dx_1dy_1
+P_\text{mate}(x_\x{f},y_\x{f})&=\int \int P_\text{mate}(v_\x{m},v_\x{f})dx_\x{m}dy_\x{m}
 \\&=\frac{1}{2\pi\sqrt{|\Sigma_\x{f}|}}\exp\left(-\frac{1}{2}(v_\x{f}-\mu_\x{f})^T\Sigma_\x{f}^{-1}(v_\x{f}-\mu_\x{f}\right)
 \\&=P_\x{f}(v_\x{f}).
 \end{align*}
 This makes sense because every female has equal mating success so there is no difference between the distribution of female songs and preferences among the female adults of a generation and those that get to mate.
+\item Second we integrate over both male and female songs, $x_\x{m}$ and $x_\x{f}$. Using Eq. \ref{one},
 
 \begin{align*}
-\text{Equation \ref{one} } \Rightarrow P_\text{mate}(y_1,y_2)&=\int \int P_\text{mate}(v_\x{m},v_\x{f})dx_1dx_2
-\\&=\frac{1}{\sqrt{2\pi C_{22}}}\exp\left(-\frac{(y_1-c_2)^2}{2C_{22}}\right)\frac{1}{\sqrt{2\pi\sigma_{\x{f}y}^2}}\exp\left(-\frac{(y_2-\mu_{\x{f}y})^2}{2\sigma_{\x{f}y}^2}\right)
-\\C_{22}&=\left(\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\right)\sigma_{\x{m}y}^2
-\\&=\left(1-\frac{\rho_\x{m}^2\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\right)\sigma_{\x{m}y}^2
-\\ \text{ and } c_2&=\mu_{\x{m}y}+\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}{\sigma^2+\sigma_{\x{m}x}^2}(y_2-\mu_{\x{m}x})
-\\ \text{If } \sigma_{y_1}^2&=\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2
-\\ \text{ and } \rho_{y_1,y_2}&=\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}y}}{(\sigma^2+\sigma_{\x{m}x}^2)\sigma_{y_1}}
-\\ \text{ then } (1-\rho_{y_1,y_2}^2)\sigma_{y_1}^2&=\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2\sigma_{y_1}^2-\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{m}y}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2\sigma_{y_1}^2} \right)\sigma_{y_1}^2
-\\&=\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2\sigma_{y_1}^2-\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{m}y}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}
-\\&=\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2-\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2
-\\&=\left(\frac{\sigma^2+\sigma_{\x{m}x}^2-\rho_\x{m}^2\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\right)\sigma_{\x{m}y}^2=C_{22}
-\\ \text{ and } \frac{\rho_{y_1,y_2}\sigma_{y_1}}{\sigma_{\x{f}y}}&=\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}{\sigma^2+\sigma_{\x{m}x}^2}
-\\ \Rightarrow c_2&=\mu_{\x{m}y}+\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}{\sigma^2+\sigma_{\x{m}x}^2}(\mu_{\x{f}y}-\mu_{\x{m}x})+\frac{\rho_{y_1,y_2}\sigma_{y_1}}{\sigma_{\x{f}y}}(y_2-\mu_{\x{f}y})
-\\ \text{Fact \ref{multivariate_reduce} } \Rightarrow P_\text{mate}(y_1,y_2)&\sim N((\mu_{y_1},\mu_{y_2})^T,\Sigma_{y_1,y_2})
-\\ \text{ where } \left(\begin{array}{cc}\mu_{y_1} \\ \mu_{y_2} \end{array}\right)&=\left(\begin{array}{cc}\mu_{\x{m}y}+\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}{\sigma^2+\sigma_{\x{m}x}^2}(\mu_{\x{f}y}-\mu_{\x{m}x}) \\ \mu_{\x{f}y}
+P_\text{mate}(y_\x{m},y_\x{f})&=\int \int P_\text{mate}(v_\x{m},v_\x{f})dx_\x{m}dx_\x{f}
+\\&=\frac{1}{\sqrt{2\pi C_{22}}}\exp\left(-\frac{\left(y_\x{m}-\mu_{y\x{m}}-\frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}}{\sigma^2+\sigma_{x\x{m}}^2}(y_\x{f}-\mu_{x\x{m}})\right)^2}{2C_{22}}\right)\frac{1}{\sqrt{2\pi\sigma_{y\x{f}}^2}}\exp\left(-\frac{(y_\x{f}-\mu_{y\x{f}})^2}{2\sigma_{y\x{f}}^2}\right).
+\\\text{By Eq. \ref{C}, }C_{22}&=\left(\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}+\frac{(1-\rho_\x{m}^2)\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}\right)\sigma_{y\x{m}}^2
+\\&=\left(1-\frac{\rho_\x{m}^2\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}\right)\sigma_{y\x{m}}^2.
+\\ \text{Let } s_{y\x{m}}^2&=\left(\frac{(\sigma^2+\sigma_{x\x{m}}^2)^2-\rho_\x{m}^2\sigma_{x\x{m}}^2(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{y\x{m}}^2
+\\ \text{ and } r_{y\x{m},y\x{f}}&=\frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}\sigma_{y\x{f}}}{(\sigma^2+\sigma_{x\x{m}}^2)s_{y\x{m}}}
+\\ \text{ then } (1-r_{y\x{m},y\x{f}}^2)s_{y\x{m}}^2&=
+\\&=\frac{(\sigma^2+\sigma_{x\x{m}}^2)^2s_{y\x{m}}^2-\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}
+\\&=\left(\frac{(\sigma^2+\sigma_{x\x{m}}^2)^2-\rho_\x{m}^2\sigma_{x\x{m}}^2(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2-\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{y\x{m}}^2
+\\&=\left(\frac{\sigma^2+\sigma_{x\x{m}}^2-\rho_\x{m}^2\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}\right)\sigma_{y\x{m}}^2=C_{22}
+\\ \text{ and } \frac{r_{y\x{m},y\x{f}}s_{y\x{m}}}{\sigma_{y\x{f}}}&=\frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}}{\sigma^2+\sigma_{x\x{m}}^2}.
+\\ \text{So Fact \ref{multivariate_reduce} } \Rightarrow P_\text{mate}(y_\x{m},y_\x{f})&\sim N((m_{y\x{m}},m_{y\x{f}})^T,\Sigma_{y\x{m},y\x{f}})
+\\ \text{ where } \left(\begin{array}{cc}m_{y\x{m}} \\ m_{y\x{f}} \end{array}\right)&=\left(\begin{array}{cc}\mu_{y\x{m}}+\frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}}{\sigma^2+\sigma_{x\x{m}}^2}(\mu_{y\x{f}}-\mu_{x\x{m}}) \\ \mu_{y\x{f}}
  \end{array}\right)
- \\\text{ and } \Sigma_{y_1,y_2}&=\left(\begin{array}{cc}\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2 & \frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}y}^2}{\sigma^2+\sigma_{\x{m}x}^2}
- \\\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}y}^2}{\sigma^2+\sigma_{\x{m}x}^2} & \sigma_{\x{f}y}^2 \end{array}\right)
+ \\\text{ and } \Sigma_{y\x{m},y\x{f}}&=\left(\begin{array}{cc}\left(\frac{(\sigma^2+\sigma_{x\x{m}}^2)^2-\rho_\x{m}^2\sigma_{x\x{m}}^2(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{y\x{m}}^2 & \frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}\sigma_{y\x{f}}^2}{\sigma^2+\sigma_{x\x{m}}^2}
+ \\\frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}\sigma_{y\x{f}}^2}{\sigma^2+\sigma_{x\x{m}}^2} & \sigma_{y\x{f}}^2 \end{array}\right).
 \end{align*}
 
-\begin{align*}
-\text{Equation \ref{one} } \Rightarrow P_\text{mate}(x_1,y_2)&=\int \int P_\text{mate}(v_\x{m},v_\x{f})dy_1dx_2
-\\&=\frac{1}{\sqrt{2\pi C_{11}}}\exp\left(-\frac{(x_1-c_1)^2}{2C_{11}}\right)\frac{1}{\sqrt{2\pi \sigma_{\x{f}y}^2}}\exp\left(-\frac{(y_2-\mu_{\x{f}y})^2}{2\sigma_{\x{f}y}^2}\right)
-\\ C_{11}&=\frac{\sigma^2\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}
-\\ \text{ and } c_1&=\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}y_2
-\\ \text{ If } \sigma_{x_1}^2&=\left(\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}x}^2
-\\ \text{ and } \rho_{x_1,y_2}&=\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}}{\sigma_{x_1}(\sigma^2+\sigma_{\x{m}x}^2)}
-\\ \text{ then } (1-\rho_{x_1,y_2}^2)\sigma_{x_1}^2&=\left(\frac{\sigma_{x_1}^2(\sigma^2+\sigma_{\x{m}x}^2)^2-\sigma_{\x{m}x}^4\sigma_{\x{f}y}^2}{\sigma_{x_1}^2(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{x_1}^2
-\\&=\frac{(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)\sigma_{\x{m}x}^2-\sigma_{\x{m}x}^4\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}
-\\&=\frac{\sigma^2\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}=C_{11}
-\\\text{ and } \frac{\rho_{x_1,y_2}\sigma_{x_1}}{\sigma_{\x{f}y}}&=\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}
-\\ \Rightarrow c_1&=\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y}+\frac{\rho_{x_1,y_2}\sigma_{x_1}}{\sigma_{\x{f}y}}(y_2-\mu_{\x{f}y})
-\end{align*}
-\begin{align*}
-\text{Fact \ref{multivariate_reduce} } \Rightarrow P_\text{mate}(x_1,y_2)&\sim N((\mu_{x_1},\mu_{y_2})^T,\Sigma_{x_1,y_2})
-\\ \text{ where } \left(\begin{array}{c}\mu_{x_1} \\ \mu_{y_2} \end{array}\right)&=\left(\begin{array}{c}\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y} \\ \mu_{\x{f}y} \end{array}\right)
-\\ \text{ and } \Sigma_{x_1,y_2}&=\left(\begin{array}{cc}\left(\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}x}^2 & \frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2+\sigma_{\x{m}x}^2} \\ \frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2+\sigma_{\x{m}x}^2} & \sigma_{\x{f}y}^2 \end{array}\right)
-\end{align*}
-
-\begin{align*}
-\hspace{-20pt}\text{Eq. \ref{two}}\Rightarrow P_\text{mate}(x_1,x_2)&=\int \int P_\text{mate}(v_\x{m},v_\x{f})dy_1dy_2
-\\&=\frac{1}{\sqrt{2\pi G_{11}}}\exp\left(-\frac{(x_2-g_1)^2}{2G_{11}}\right)\frac{1}{\sqrt{2\pi(\sigma_{\x{f}y}^2+D)}}\exp\left(-\frac{(\mu_{\x{f}y}-d)^2}{2(\sigma_{\x{f}y}^2+D)}\right)\times
-\\&\frac{1}{\sqrt{2\pi\sigma_{\x{m}x}^2}}\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2)^2}}{\sqrt{\sigma_{\x{m}x}^2}\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)}
-\\&=\frac{1}{\sqrt{2\pi G_{11}}}\exp\left(-\frac{(x_2-g_1)^2}{2G_{11}}\right)\frac{1}{\sqrt{2\pi(\sigma_{\x{f}y}^2+D)}}\exp\left(-\frac{(\mu_{\x{f}y}-d)^2}{2(\sigma_{\x{f}y}^2+D)}\right)\frac{\sqrt{(\sigma^2+\sigma_{\x{m}x}^2)^2}}{\sqrt{\sigma_{\x{m}x}^4}}
-\\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\right)\sigma_{\x{f}x}^2}}\exp\left(-\frac{\left(x_2-\mu_{\x{f}x}-\frac{\rho_\x{f}\sigma_{\x{m}x}^2\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma_{\x{m}x}^2+\sigma^2)}\left(\frac{(\sigma_{\x{m}x}^2+\sigma^2)x_1-\sigma^2\mu_{\x{m}x}}{\sigma_{\x{m}x}^2}-\mu_{\x{f}y}\right)\right)^2}{2\left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\right)\sigma_{\x{f}x}^2}\right)\times
-\\&\frac{\sqrt{\sigma_{\x{m}x}^2}}{\sqrt{2\pi(\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma_{\x{m}x}^2+\sigma^2))}}\exp\left(-\frac{\left(\mu_{\x{f}y}-\frac{(\sigma_{\x{m}x}^2+\sigma^2)x_1-\sigma^2\mu_{\x{m}x}}{\sigma_{\x{m}x}^2}\right)^2}{2\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma_{\x{m}x}^2+\sigma^2)}{\sigma_{\x{m}x}^2}}\right)\frac{\sqrt{(\sigma^2+\sigma_{\x{m}x}^2)^2}}{\sqrt{\sigma_{\x{m}x}^4}}
-\\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\right)\sigma_{\x{f}x}^2}}\exp\left(-\frac{\left(x_2-\mu_{\x{f}x}-\frac{\rho_\x{f}\sigma_{\x{f}x}\sigma_{\x{f}y}(\sigma_{\x{m}x}^2+\sigma^2)}{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma_{\x{m}x}^2+\sigma^2)}\left(x_1-\frac{\sigma^2\mu_{\x{m}x}}{\sigma_{\x{m}x}^2+\sigma^2}-\frac{\sigma_{\x{m}x}^2}{\sigma_{\x{m}x}^2+\sigma^2}\mu_{\x{f}y}\right)\right)^2}{2\left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\right)\sigma_{\x{f}x}^2}\right)\times
-\\&\frac{\sqrt{(\sigma^2+\sigma_{\x{m}x}^2)^2}}{\sqrt{2\pi(\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma_{\x{m}x}^2+\sigma^2))\sigma_{\x{m}x}^2}}\exp\left(-\frac{\left(x_1-\frac{\sigma^2\mu_{\x{m}x}}{\sigma_{\x{m}x}^2+\sigma^2}-\frac{\sigma_{\x{m}x}^2\mu_{\x{f}y}}{\sigma_{\x{m}x}^2+\sigma^2}\right)^2}{2\left(\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma_{\x{m}x}^2+\sigma^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}x}^2}\right)
-\end{align*}
-\begin{align*}
-\text{ We know } \sigma_{x_1}^2&=\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2} \text{ and } \mu_{x_1}=\frac{\sigma^2\mu_{\x{m}x}}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{\sigma_{\x{m}x}^2\mu_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2}
-\\\Rightarrow P_\text{mate}(x_1,x_2)&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\right)\sigma_{\x{f}x}^2}}\exp\left(-\frac{\left(x_2-\mu_{\x{f}x}-\frac{\rho_\x{f}\sigma_{\x{f}x}\sigma_{\x{f}y}(\sigma_{\x{m}x}^2+\sigma^2)}{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma_{\x{m}x}^2+\sigma^2)}\left(x_1-\mu_{x_1}\right)\right)^2}{2\left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\right)\sigma_{\x{f}x}^2}\right)\times
-\\&\frac{1}{\sqrt{2\pi\sigma_{x_1}^2}}\exp\left(-\frac{\left(x_1-\mu_{x_1}\right)^2}{2\sigma_{x_1}^2}\right)
-\\ \text{ If } \rho_{x_1,x_2}&=\frac{\rho_\x{f}\sigma_{\x{m}x}^2\sigma_{\x{f}y}}{(\sigma^2+\sigma_{\x{m}x}^2)\sigma_{x_1}}
-\\ \text{ then } (1-\rho_{x_1,x_2}^2)\sigma_{\x{f}x}^2&=\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2\sigma_{x_1}^2-\rho_\x{f}^2\sigma_{\x{m}x}^4\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}}^2)^2\sigma_{x_1}^2}\sigma_{\x{f}x}^2
-\\&=\left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}\right)\sigma_{\x{f}x}^2
-\\ \text{ and } \frac{\rho_{x_1,x_2}\sigma_{\x{f}x}}{\sigma_{x_1}}&=\frac{\rho_\x{f}\sigma_{\x{m}x}^2\sigma_{\x{f}x}\sigma_{\x{f}y}}{(\sigma^2+\sigma_{\x{m}x}^2)\sigma_{x_1}^2}
-\\&=\frac{\rho_\x{f}\sigma_{\x{m}x}^2\sigma_{\x{f}x}\sigma_{\x{f}y}(\sigma^2+\sigma_{\x{m}x}^2)}{(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)\sigma_{\x{m}x}^2}
-\\&=\frac{\rho_\x{f}\sigma_{\x{f}x}\sigma_{\x{f}y}(\sigma^2+\sigma_{\x{m}x}^2)}{(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)}
-\\ \text{ Fact \ref{multivariate_reduce} } \Rightarrow P_\text{mate}(x_1,x_2)&\sim N((\mu_{x_1},\mu_{x_2})^T,\Sigma_{x_1,x_2})
-\\ \text{ where } \left(\begin{array}{c}\mu_{x_1} \\ \mu_{x_2} \end{array}\right)&=\left(\begin{array}{c}\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y} \\ \mu_{\x{f}x} \end{array}\right)
-\\\text{ and } \Sigma_{x_1,x_2}&=\left(\begin{array}{cc}\left(\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}x}^2 & \frac{\rho_\x{f}\sigma_{\x{m}x}^2\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2}
-\\\frac{\rho_\x{f}\sigma_{\x{m}x}^2\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2}& \sigma_{\x{f}x}^2 \end{array}\right)
-\end{align*}
-
-\begin{align*}
-\text{Eq. \ref{two} }\Rightarrow P_\text{mate}(x_1,y_1)&=\int\int P_\text{mate}(v_\x{m},v_\x{f})dx_2dy_2
-\\&=\frac{1}{\sqrt{2\pi(\sigma_{\x{f}y}^2+D)}}\exp\left(-\frac{(\mu_{\x{f}y}-d)^2}{2(\sigma_{\x{f}y}^2+D)}\right) 
-\\&\times \frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v_\x{m}-\mu_\x{m})^T\Sigma_\x{m}^{-1}(v_\x{m}-\mu_\x{m})\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{\x{m}x}^2})^2}{\sqrt{\sigma_{\x{m}x}^2}\exp\left(-\frac{(x_1-\mu_{\x{m}x})^2}{2\sigma_{\x{m}x}^2}\right)}
-\\&=\frac{1}{\sqrt{2\pi(\sigma_{\x{f}y}^2+D)}}\exp\left(-\frac{(\mu_{\x{f}y}-d)^2}{2(\sigma_{\x{f}y}^2+D)}\right)\frac{\sqrt{(\sigma^2+\sigma_{\x{m}x}^2)^2}}{\sqrt{2\pi (1-\rho_\x{m}^2)\sigma_{\x{m}x}^4\sigma_{\x{m}y}^2}}\exp\left(-\frac{(y_1-\mu_{\x{m}y}-\frac{\rho_\x{m}\sigma_{\x{m}y}}{\sigma_{\x{m}x}}\left(x_1-\mu_{\x{m}x}\right))^2}{2(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}\right)
-\\&=\frac{\sqrt{\sigma_{\x{m}x}^2}}{\sqrt{2\pi(\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma^2+\sigma_{\x{m}x}^2))}}\exp\left(-\frac{\left(\mu_{\x{f}y}-\frac{(\sigma^2+\sigma_{\x{m}x}^2)x_1-\sigma^2\mu_{\x{m}x}}{\sigma_{\x{m}x}^2}\right)^2}{2\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{\sigma_{\x{m}x}^2}}\right)
-\\&\times\frac{\sqrt{(\sigma^2+\sigma_{\x{m}x}^2)^2}}{\sqrt{2\pi (1-\rho_\x{m}^2)\sigma_{\x{m}x}^4\sigma_{\x{m}y}^2}}\exp\left(-\frac{(y_1-\mu_{\x{m}y}-\frac{\rho_\x{m}\sigma_{\x{m}y}}{\sigma_{\x{m}x}}\left(x_1-\mu_{\x{m}x}\right))^2}{2(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}\right)
-\\&=\frac{\sqrt{(\sigma^2+\sigma_{\x{m}x}^2)^2}}{\sqrt{2\pi(\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+\sigma^2(\sigma^2+\sigma_{\x{m}x}^2))\sigma_{\x{m}x}^2}}\exp\left(-\frac{\left(x_1-\frac{\sigma^2\mu_{\x{m}x}+\sigma_{\x{m}x}^2\mu_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2}\right)^2}{2\left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}x}^2}\right)
-\\&\times\frac{1}{\sqrt{2\pi (1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}}\exp\left(-\frac{\left(y_1-\mu_{\x{m}y}+\frac{\rho_\x{m}\sigma_{\x{m}y}}{\sigma_{\x{m}x}}(\mu_{\x{m}x}-\frac{\sigma^2\mu_{\x{m}x}+\sigma_{\x{m}x}^2\mu_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2})-\frac{\rho_\x{m}\sigma_{\x{m}y}}{\sigma_{\x{m}x}}\left(x_1-\frac{\sigma^2\mu_{\x{m}x}+\sigma_{\x{m}x}^2\mu_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2}\right)\right)^2}{2(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}\right)
-\\&=\frac{1}{\sqrt{2\pi\sigma_{x_1}^2}}\exp\left(-\frac{(x_1-\mu_{x_1})^2}{2\sigma_{x_1}^2}\right)\times
-\\&\frac{1}{\sqrt{2\pi(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}}\exp\left(-\frac{\left(y_1-\mu_{\x{m}y}-\frac{\rho_\x{m}\sigma_{\x{m}y}\sigma_{\x{m}x}}{\sigma^2+\sigma_{\x{m}x}^2}(\mu_{\x{f}y}-\mu_{\x{m}x})-\frac{\rho_\x{m}\sigma_{\x{m}y}}{\sigma_{\x{m}x}}(x_1-\mu_{x_1})\right)^2}{2(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2}\right)
-\\ \text{ If } \sigma_{y_1}^2&=\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2
-\\\text{ and } \rho_{x_1,y_1}&=\frac{\rho_\x{m}\sigma_{\x{m}y}\sigma_{x_1}}{\sigma_{\x{m}x}\sigma_{y_1}}
-\\ \text{ then } (1-\rho_{x_1,y_1}^2)\sigma_{y_1}^2&=\left(\frac{\sigma_{\x{m}x}^2\sigma_{y_1}^2-\rho_\x{m}^2\sigma_{\x{m}y}^2\sigma_{x_1}^2}{\sigma_{\x{m}x}^2\sigma_{y_1}^2}\right)\sigma_{y_1}^2
-\\&=\sigma_{y_1}^2-\rho_\x{m}^2\sigma_{\x{m}y}^2\left(\frac{\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)
-\\&=\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2-\rho_\x{m}^2(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2
-\\&=(1-\rho_\x{m}^2)\sigma_{\x{m}y}^2
-\\ \text{ and } \frac{\rho_{x_1,y_1}\sigma_{y_1}}{\sigma_{x_1}}&=\frac{\rho_\x{m}\sigma_{\x{m}y}}{\sigma_{\x{m}x}}
-\end{align*}
-\begin{align*}
-\text{ Fact \ref{multivariate_reduce}}\Rightarrow P_\text{mate}(x_1,y_1)&\sim N((\mu_{x_1},\mu_{y_1})^T,\Sigma_{x_1,y_1}) 
-\\ \text{ where } \left(\begin{array}{c}\mu_{x_1} \\ \mu_{y_1} \end{array}\right)&=\left(\begin{array}{c}\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{m}x}+\frac{\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\mu_{\x{f}y} \\ \mu_{\x{m}y}+\frac{\rho_\x{m}\sigma_{\x{m}y}\sigma_{\x{m}x}}{\sigma^2+\sigma_{\x{m}x}^2}(\mu_{\x{f}y}-\mu_{\x{m}x}) \end{array}\right)
-\\ \text{ and } \Sigma_{x_1,y_1}&=\left(\begin{array}{cc}\left(\frac{\sigma^2}{\sigma^2+\sigma_{\x{m}x}^2}+\frac{\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}x}^2 & \frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2} \\ \frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}(\sigma^2(\sigma^2+\sigma_{\x{m}x}^2)+\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2} & \left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2 \end{array}\right)
-\end{align*}
+\item Next we integrate over male song and female preference, $x_\x{m}$ and $y_\x{f}$. Using Eq. \ref{one},
 
  \begin{align*}
- \text{ Eq. \ref{one} } \Rightarrow \int P_\text{mate}(v_\x{m},v_\x{f})dx_1&=\frac{1}{\sqrt{2\pi C_{22}}}\exp\left(-\frac{(y_1-c_2)^2}{2C_{22}}\right)\frac{1}{\sqrt{2\pi(1-\rho_\x{f})^2\sigma_{\x{f}y}^2}}\exp\left(-\frac{\left(y_2-\mu_{\x{f}y}-\frac{\rho_\x{f}\sigma_{\x{f}y}}{\sigma_{\x{f}x}}(x_2-\mu_{\x{f}x})\right)^2}{2(1-\rho_\x{f}^2)\sigma_{\x{f}y}^2}\right)\times
-\\&\frac{1}{\sqrt{2\pi\sigma_{\x{f}x}^2}}\exp\left(-\frac{(x_2-\mu_{\x{f}x})^2}{2\sigma_{\x{f}x}^2}\right)
-\\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\right)\sigma_{\x{m}y}^2}}\exp\left(-\frac{(y_1-\mu_{\x{m}y}-\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}{\sigma^2+\sigma_{\x{m}x}^2}(y_2-\mu_{\x{m}x}))^2}{2\left(\frac{\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x^2}}\right)\sigma_{\x{m}y}^2}\right)\times
-\\&\frac{1}{\sqrt{2\pi(1-\rho_\x{f})^2\sigma_{\x{f}y}^2}}\exp\left(-\frac{\left(y_2-\mu_{\x{f}y}-\frac{\rho_\x{f}\sigma_{\x{f}y}}{\sigma_{\x{f}x}}(x_2-\mu_{\x{f}x})\right)^2}{2(1-\rho_\x{f}^2)\sigma_{\x{f}y}^2}\right)\frac{1}{\sqrt{2\pi\sigma_{\x{f}x}^2}}\exp\left(-\frac{(x_2-\mu_{\x{f}x})^2}{2\sigma_{\x{f}x}^2}\right)
-\\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2}{\sigma^2+\sigma_{\x{m}x}^2}\right)\sigma_{\x{m}y}^2}}\exp\left(-\frac{(y_2-\mu_{\x{m}x}-\frac{\sigma^2+\sigma_{\x{m}x}^2}{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}(y_1-\mu_{\x{m}y}))^2}{2\left(\frac{(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)(\sigma^2+\sigma_{\x{m}x}^2)}{\rho_\x{m}^2\sigma_{\x{m}x}^2}\right)}\right)\times
-\\&\frac{1}{\sqrt{2\pi(1-\rho_\x{f})^2\sigma_{\x{f}y}^2}}\exp\left(-\frac{\left(y_2-\mu_{\x{f}y}-\frac{\rho_\x{f}\sigma_{\x{f}y}}{\sigma_{\x{f}x}}(x_2-\mu_{\x{f}x})\right)^2}{2(1-\rho_\x{f}^2)\sigma_{\x{f}y}^2}\right)\frac{1}{\sqrt{2\pi\sigma_{\x{f}x}^2}}\exp\left(-\frac{(x_2-\mu_{\x{f}x})^2}{2\sigma_{\x{f}x}^2}\right)
-\\&=\frac{1}{\sqrt{\frac{\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{m}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}}}\frac{1}{\sqrt{2\pi \left(\frac{(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)(\sigma^2+\sigma_{\x{m}x}^2)}{\rho_\x{m}^2\sigma_{\x{m}x}^2}\right)}}\exp\left(-\frac{(y_2-\mu_{\x{m}x}-\frac{\sigma^2+\sigma_{\x{m}x}^2}{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}(y_1-\mu_{\x{m}y}))^2}{2\left(\frac{(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)(\sigma^2+\sigma_{\x{m}x}^2)}{\rho_\x{m}^2\sigma_{\x{m}x}^2}\right)}\right)\times
-\\&\frac{1}{\sqrt{2\pi(1-\rho_\x{f})^2\sigma_{\x{f}y}^2}}\exp\left(-\frac{\left(y_2-\mu_{\x{f}y}-\frac{\rho_\x{f}\sigma_{\x{f}y}}{\sigma_{\x{f}x}}(x_2-\mu_{\x{f}x})\right)^2}{2(1-\rho_\x{f}^2)\sigma_{\x{f}y}^2}\right)\frac{1}{\sqrt{2\pi\sigma_{\x{f}x}^2}}\exp\left(-\frac{(x_2-\mu_{\x{f}x})^2}{2\sigma_{\x{f}x}^2}\right)
-\\\Rightarrow \int P_\text{mate}(v_\x{m},v_\x{f})dx_1dy_2&=\frac{1}{\sqrt{\frac{\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{m}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}}}\frac{\sqrt{\rho_\x{m}^2\sigma_{\x{m}x}^2}}{\sqrt{2\pi\left(\rho_\x{m}^2(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)(\sigma^2+\sigma_{\x{m}x}^2)\right)}}\times
-\\&\exp\left(-\frac{\left(\frac{\sigma^2+\sigma_{\x{m}x}^2}{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}(y_1-\mu_{\x{m}y})+\mu_{\x{m}x}-\mu_{\x{f}y}-\frac{\rho_\x{f}\sigma_{\x{f}y}}{\sigma_{\x{f}x}}(x_2-\mu_{\x{f}x})\right)^2}{2\frac{\rho_\x{m}^2(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)(\sigma^2+\sigma_{\x{m}x}^2)}{\rho_{\x{m}}^2\sigma_{\x{m}x}^2}}\right)\frac{1}{\sqrt{2\pi\sigma_{\x{f}x}^2}}\exp\left(-\frac{(x_2-\mu_{\x{f}x})^2}{2\sigma_{\x{f}x}^2}\right)
-\\&=\frac{1}{\sqrt{2\pi\left(\frac{\rho_\x{m}^2(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)(\sigma^2+\sigma_{\x{m}x}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2}}\times
-\\&\exp\left(-\frac{y_1-\mu_{y_1}-\frac{\rho_\x{m}\rho_\x{f}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}y}}{(\sigma^2+\sigma_{\x{m}x}^2)\sigma_{\x{f}x}}(x_2-\mu_{\x{f}x})}{2\left(\frac{\rho_\x{m}^2(1-\rho_\x{f}^2)\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)(\sigma^2+\sigma_{\x{m}x}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2}\right)\frac{1}{\sqrt{2\pi\sigma_{\x{f}x}^2}}\exp\left(-\frac{(x_2-\mu_{\x{f}x})^2}{2\sigma_{\x{f}x}^2}\right)
-\\ \text{ If } \rho_{y_1,x_2}&=\frac{\rho_\x{m}\rho_\x{f}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}y}}{(\sigma^2+\sigma_{\x{m}x}^2)\sigma_{y_1}}
-\\ \text{ then } (1-\rho_{y_1,x_2}^2)\sigma_{y_1}^2&=\frac{(\sigma^2+\sigma_{\x{m}x}^2)\sigma_{y_1}^2-\rho_\x{m}^2\rho_\x{f}^2\sigma_{\x{m}x}^2\sigma_{\x{m}y}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}
-\\&=\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2-\rho_\x{m}^2\rho_\x{f}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2
-\\&=\left(\frac{(1-\rho_\x{f}^2)\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2+(\sigma^2+\sigma_{\x{m}x}^2)(\sigma^2+(1-\rho_\x{m}^2)\sigma_{\x{m}x}^2)}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2
-\\ \text { and } \frac{\rho_{y_1,x_2}\sigma_{y_1}}{\sigma_{x_2}}&=\frac{\rho_\x{m}\rho_\x{f}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}y}}{(\sigma^2+\sigma_{\x{m}x}^2)\sigma_{\x{f}x}}
+\int P_\text{mate}(v_\x{m},v_\x{f})dx_\x{m}&=\frac{1}{\sqrt{2\pi C_{22}}}\exp\left(-\frac{(y_\x{m}-c_2)^2}{2C_{22}}\right)\frac{1}{\sqrt{2\pi(1-\rho_\x{f})^2\sigma_{y\x{f}}^2}}\exp\left(-\frac{\left(y_\x{f}-\mu_{y\x{f}}-\frac{\rho_\x{f}\sigma_{y\x{f}}}{\sigma_{x\x{f}}}(x_\x{f}-\mu_{x\x{f}})\right)^2}{2(1-\rho_\x{f}^2)\sigma_{y\x{f}}^2}\right)\times
+\\&\frac{1}{\sqrt{2\pi\sigma_{x\x{f}}^2}}\exp\left(-\frac{(x_\x{f}-\mu_{x\x{f}})^2}{2\sigma_{x\x{f}}^2}\right)
+\\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2+(1-\rho_\x{m}^2)\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}\right)\sigma_{y\x{m}}^2}}\exp\left(-\frac{(y_\x{m}-\mu_{y\x{m}}-\frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}}{\sigma^2+\sigma_{x\x{m}}^2}(y_\x{f}-\mu_{x\x{m}}))^2}{2\left(\frac{\sigma^2+(1-\rho_\x{m}^2)\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}^2}}\right)\sigma_{y\x{m}}^2}\right)\times
+\\&\frac{1}{\sqrt{2\pi(1-\rho_\x{f})^2\sigma_{y\x{f}}^2}}\exp\left(-\frac{\left(y_\x{f}-\mu_{y\x{f}}-\frac{\rho_\x{f}\sigma_{y\x{f}}}{\sigma_{x\x{f}}}(x_\x{f}-\mu_{x\x{f}})\right)^2}{2(1-\rho_\x{f}^2)\sigma_{y\x{f}}^2}\right)\frac{1}{\sqrt{2\pi\sigma_{x\x{f}}^2}}\exp\left(-\frac{(x_\x{f}-\mu_{x\x{f}})^2}{2\sigma_{x\x{f}}^2}\right) \text{ by Eq. \ref{C}}
+\\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2+(1-\rho_\x{m}^2)\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}\right)\sigma_{y\x{m}}^2}}\exp\left(-\frac{(y_\x{f}-\mu_{x\x{m}}-\frac{\sigma^2+\sigma_{x\x{m}}^2}{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}}(y_\x{m}-\mu_{y\x{m}}))^2}{2\left(\frac{(\sigma^2+(1-\rho_\x{m}^2)\sigma_{x\x{m}}^2)(\sigma^2+\sigma_{x\x{m}}^2)}{\rho_\x{m}^2\sigma_{x\x{m}}^2}\right)}\right)\times
+\\&\frac{1}{\sqrt{2\pi(1-\rho_\x{f})^2\sigma_{y\x{f}}^2}}\exp\left(-\frac{\left(y_\x{f}-\mu_{y\x{f}}-\frac{\rho_\x{f}\sigma_{y\x{f}}}{\sigma_{x\x{f}}}(x_\x{f}-\mu_{x\x{f}})\right)^2}{2(1-\rho_\x{f}^2)\sigma_{y\x{f}}^2}\right)\frac{1}{\sqrt{2\pi\sigma_{x\x{f}}^2}}\exp\left(-\frac{(x_\x{f}-\mu_{x\x{f}})^2}{2\sigma_{x\x{f}}^2}\right)
+\\&=\frac{1}{\sqrt{\frac{\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{m}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}}}\frac{1}{\sqrt{2\pi \left(\frac{(\sigma^2+(1-\rho_\x{m}^2)\sigma_{x\x{m}}^2)(\sigma^2+\sigma_{x\x{m}}^2)}{\rho_\x{m}^2\sigma_{x\x{m}}^2}\right)}}\exp\left(-\frac{(y_\x{f}-\mu_{x\x{m}}-\frac{\sigma^2+\sigma_{x\x{m}}^2}{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}}(y_\x{m}-\mu_{y\x{m}}))^2}{2\left(\frac{(\sigma^2+(1-\rho_\x{m}^2)\sigma_{x\x{m}}^2)(\sigma^2+\sigma_{x\x{m}}^2)}{\rho_\x{m}^2\sigma_{x\x{m}}^2}\right)}\right)\times
+\\&\frac{1}{\sqrt{2\pi(1-\rho_\x{f})^2\sigma_{y\x{f}}^2}}\exp\left(-\frac{\left(y_\x{f}-\mu_{y\x{f}}-\frac{\rho_\x{f}\sigma_{y\x{f}}}{\sigma_{x\x{f}}}(x_\x{f}-\mu_{x\x{f}})\right)^2}{2(1-\rho_\x{f}^2)\sigma_{y\x{f}}^2}\right)\frac{1}{\sqrt{2\pi\sigma_{x\x{f}}^2}}\exp\left(-\frac{(x_\x{f}-\mu_{x\x{f}})^2}{2\sigma_{x\x{f}}^2}\right)
+\end{align*}
+\begin{align*}
+\Rightarrow \int\int P_\text{mate}(v_\x{m},v_\x{f})dx_\x{m}dy_\x{f}&=\frac{1}{\sqrt{\frac{\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{m}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}}}\frac{\sqrt{\rho_\x{m}^2\sigma_{x\x{m}}^2}}{\sqrt{2\pi\left((\sigma^2+(1-\rho_\x{m}^2)\sigma_{x\x{m}}^2)(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2(1-\rho_\x{f}^2)\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2\right)}}\times
+\\&\exp\left(-\frac{\left(\frac{\sigma^2+\sigma_{x\x{m}}^2}{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}}(y_\x{m}-\mu_{y\x{m}})+\mu_{x\x{m}}-\mu_{y\x{f}}-\frac{\rho_\x{f}\sigma_{y\x{f}}}{\sigma_{x\x{f}}}(x_\x{f}-\mu_{x\x{f}})\right)^2}{2\frac{(\sigma^2+(1-\rho_\x{m}^2)\sigma_{x\x{m}}^2)(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2(1-\rho_\x{f}^2)\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{\rho_{\x{m}}^2\sigma_{x\x{m}}^2}}\right)\times
+\\&\frac{1}{\sqrt{2\pi\sigma_{x\x{f}}^2}}\exp\left(-\frac{(x_\x{f}-\mu_{x\x{f}})^2}{2\sigma_{x\x{f}}^2}\right) \text{ by Eq. \ref{univariate}}
+\\&=\frac{1}{\sqrt{2\pi\left(\frac{(\sigma^2+(1-\rho_\x{m}^2)\sigma_{x\x{m}}^2)(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2(1-\rho_\x{f}^2)\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}x}^2)^2}\right)\sigma_{y\x{m}}^2}}\times
+\\&\exp\left(-\frac{y_\x{m}-\mu_{y_\x{m}}-\frac{\rho_\x{m}\rho_\x{f}\sigma_{x\x{m}}\sigma_{y\x{m}}\sigma_{y\x{f}}}{(\sigma^2+\sigma_{x\x{m}}^2)\sigma_{x\x{f}}}(x_\x{f}-\mu_{x\x{f}})}{2\left(\frac{(\sigma^2+(1-\rho_\x{m}^2)\sigma_{x\x{m}}^2)(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2(1-\rho_\x{f}^2)\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}x}^2)^2}\right)\sigma_{y\x{m}}^2}\right)\frac{1}{\sqrt{2\pi\sigma_{x\x{f}}^2}}\exp\left(-\frac{(x_\x{f}-\mu_{x\x{f}})^2}{2\sigma_{x\x{f}}^2}\right).
+\\\text{ We know } s_{y\x{m}}^2&=\left(\frac{(\sigma^2+\sigma_{x\x{m}}^2)^2-\rho_\x{m}^2\sigma_{x\x{m}}^2(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{y\x{m}}^2.
+\\ \text{ Let } r_{y\x{m},x\x{f}}&=\frac{\rho_\x{m}\rho_\x{f}\sigma_{x\x{m}}\sigma_{y\x{m}}\sigma_{y\x{f}}}{(\sigma^2+\sigma_{x\x{m}}^2)s_{y\x{m}}}
+\\ \text{ then } (1-r_{y\x{m},x\x{f}}^2)s_{y\x{m}}^2&=\frac{(\sigma^2+\sigma_{x\x{m}}^2)^2s_{y\x{m}}^2-\rho_\x{m}^2\rho_\x{f}^2\sigma_{x\x{m}}^2\sigma_{y\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}
+\\&=\left(\frac{(\sigma^2+\sigma_{x\x{m}}^2)^2-\rho_\x{m}^2\sigma_{x\x{m}}^2(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2-\rho_\x{m}^2\rho_\x{f}^2\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{y\x{m}}^2
+\\&=\left(\frac{(\sigma^2+\sigma_{x\x{m}}^2)(\sigma^2+(1-\rho_\x{m}^2)\sigma_{x\x{m}}^2)(1-\rho_\x{f}^2)\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{y\x{m}}^2
+\\ \text { and } \frac{r_{y\x{m},x\x{f}}s_{y\x{m}}}{\sigma_{x\x{f}}}&=\frac{\rho_\x{m}\rho_\x{f}\sigma_{x\x{m}}\sigma_{y\x{m}}\sigma_{y\x{f}}}{(\sigma^2+\sigma_{x\x{m}}^2)\sigma_{x\x{f}}}.
 \end{align*}
 
 \begin{align*}
-\text{ Fact \ref{multivariate_reduce} } \Rightarrow P_\text{mate}(y_1,x_2)&\sim N((\mu_{y_1},\mu_{x_2})^2,\Sigma_{y_1,x_2}) 
-\\ \text{ where } \left(\begin{array}{c}\mu_{y_1} \\  \mu_{x_2} \end{array}\right)&=\left(\begin{array}{c}\mu_{\x{m}y}+\frac{\rho_\x{m}\sigma_{\x{m}x}\sigma_{\x{m}y}}{\sigma^2+\sigma_{\x{m}x}^2}(\mu_{\x{f}y}-\mu_{\x{m}x}) \\ \mu_{\x{f}x} \end{array}\right)
-\\ \text{ and } \Sigma_{y_1,x_2}&=\left(\begin{array}{cc}\left(\frac{(\sigma^2+\sigma_{\x{m}x}^2)^2-\rho_\x{m}^2\sigma_{\x{m}x}^2(\sigma^2+\sigma_{\x{m}x}^2)+\rho_\x{m}^2\sigma_{\x{m}x}^2\sigma_{\x{f}y}^2}{(\sigma^2+\sigma_{\x{m}x}^2)^2}\right)\sigma_{\x{m}y}^2 & \frac{\rho_\x{m}\rho_\x{f}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2} \\ \frac{\rho_\x{m}\rho_\x{f}\sigma_{\x{m}x}\sigma_{\x{m}y}\sigma_{\x{f}x}\sigma_{\x{f}y}}{\sigma^2+\sigma_{\x{m}x}^2}& \sigma_{\x{f}x}^2 \end{array}\right)
+\text{So Fact \ref{multivariate_reduce} } \Rightarrow P_\text{mate}(y_\x{m},x_\x{f})&\sim N((m_{y\x{m}},m_{x\x{f}})^2,\Sigma_{y\x{m},x\x{f}}) 
+\\ \text{ where } \left(\begin{array}{c}m_{y\x{m}} \\  m_{x\x{f}} \end{array}\right)&=\left(\begin{array}{c}\mu_{y\x{m}}+\frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}}{\sigma^2+\sigma_{x\x{m}}^2}(\mu_{y\x{f}}-\mu_{x\x{m}}) \\ \mu_{x\x{f}} \end{array}\right)
+\\ \text{ and } \Sigma_{y\x{m},x\x{f}}&=\left(\begin{array}{cc}\left(\frac{(\sigma^2+\sigma_{x\x{m}}^2)^2-\rho_\x{m}^2\sigma_{x\x{m}}^2(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{y\x{m}}^2 & \frac{\rho_\x{m}\rho_\x{f}\sigma_{x\x{m}}\sigma_{y\x{m}}\sigma_{x\x{f}}\sigma_{y\x{f}}}{\sigma^2+\sigma_{x\x{m}}^2} \\ \frac{\rho_\x{m}\rho_\x{f}\sigma_{x\x{m}}\sigma_{y\x{m}}\sigma_{x\x{f}}\sigma_{y\x{f}}}{\sigma^2+\sigma_{x\x{m}}^2}& \sigma_{x\x{f}}^2 \end{array}\right)
 \end{align*}
-\section{Helpful (linear) algebra}
 
+\item Next we integrate over male preference and female song, $y_\x{m}$ and $x_\x{f}$. Using Eq. \ref{one},
+
+\begin{align*}
+P_\text{mate}(x_\x{m},y_\x{f})&=\int \int P_\text{mate}(v_\x{m},v_\x{f})dy_\x{m}dx_\x{f}
+\\&=\frac{1}{\sqrt{2\pi C_{11}}}\exp\left(-\frac{(x_\x{m}-c_1)^2}{2C_{11}}\right)\frac{1}{\sqrt{2\pi \sigma_{y\x{f}}^2}}\exp\left(-\frac{(y_\x{f}-\mu_{y\x{f}})^2}{2\sigma_{y\x{f}}^2}\right).
+\end{align*}
+\begin{align*}
+\text{By Eq. \ref{C}, } C_{11}&=\frac{\sigma^2\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}
+\\ \text{ and } c_1&=\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{x\x{m}}+\frac{\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}y_\x{f}.
+\\ \text{ Let } s_{x\x{m}}^2&=\left(\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}+\frac{\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{x\x{m}}^2
+\\ \text{ and } r_{x\x{m},y\x{f}}&=\frac{\sigma_{x\x{m}}^2\sigma_{y\x{f}}}{s_{x_\x{m}}(\sigma^2+\sigma_{x\x{m}}^2)}
+\\ \text{ then } (1-r_{x\x{m},y\x{f}}^2)s_{x_\x{m}}^2&=\frac{s_{x\x{m}}^2(\sigma^2+\sigma_{x\x{m}}^2)^2-(\sigma_{x\x{m}}^2)^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}
+\\&=\frac{(\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2)\sigma_{x\x{m}}^2-(\sigma_{x\x{m}})^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}
+\\&=\frac{\sigma^2\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}=C_{11}.
+\\\text{ Further, } \frac{r_{x\x{m},y\x{f}}s_{x_\x{m}}}{\sigma_{y\x{f}}}&=\frac{\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}
+\\ \Rightarrow c_1&=\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{x\x{m}}+\frac{\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{y\x{f}}+\frac{r_{x\x{m},y\x{f}}s_{x_\x{m}}}{\sigma_{y\x{f}}}(y_\x{f}-\mu_{y\x{f}}).
+\end{align*}
+\begin{align*}
+\text{So Fact \ref{multivariate_reduce} } \Rightarrow P_\text{mate}(x_\x{m},y_\x{f})&\sim N((m_{x\x{m}},m_{y\x{f}})^T,\Sigma_{x\x{m},y\x{f}})
+\\ \text{ where } \left(\begin{array}{c}m_{x\x{m}} \\ m_{y\x{f}} \end{array}\right)&=\left(\begin{array}{c}\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{x\x{m}}+\frac{\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{y\x{f}} \\ \mu_{y\x{f}} \end{array}\right)
+\\ \text{ and } \Sigma_{x\x{m},y\x{f}}&=\left(\begin{array}{cc}\left(\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}+\frac{\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{x\x{m}}^2 & \frac{\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{\sigma^2+\sigma_{x\x{m}}^2} \\ \frac{\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{\sigma^2+\sigma_{x\x{m}}^2} & \sigma_{y\x{f}}^2 \end{array}\right).
+\end{align*}
+\item Next we integrate over both male and female preferences, $y_\x{m}$ and $y_\x{f}$. Using Eq. \ref{two},
+\begin{align*}
+\hspace{-20pt}P_\text{mate}(x_\x{m},x_\x{f})&=\int \int P_\text{mate}(v_\x{m},v_\x{f})dy_\x{m}dy_\x{f}
+\\&=\frac{1}{\sqrt{2\pi G_{11}}}\exp\left(-\frac{(x_\x{f}-g_1)^2}{2G_{11}}\right)\frac{1}{\sqrt{2\pi(\sigma_{y\x{f}}^2+D)}}\exp\left(-\frac{(\mu_{y\x{f}}-d)^2}{2(\sigma_{y\x{f}}^2+D)}\right)\times
+\\&\frac{1}{\sqrt{2\pi\sigma_{x\x{m}}^2}}\exp\left(-\frac{(x_\x{m}-\mu_{x\x{m}})^2}{2\sigma_{x\x{m}}^2}\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{x\x{m}}^2)^2}}{\sqrt{\sigma_{x\x{m}}^2}\exp\left(-\frac{(x_\x{m}-\mu_{x\x{m}})^2}{2\sigma_{x\x{m}}^2}\right)}
+\\&=\frac{1}{\sqrt{2\pi G_{11}}}\exp\left(-\frac{(x_\x{f}-g_1)^2}{2G_{11}}\right)\frac{1}{\sqrt{2\pi(\sigma_{y\x{f}}^2+D)}}\exp\left(-\frac{(\mu_{y\x{f}}-d)^2}{2(\sigma_{y\x{f}}^2+D)}\right)\frac{\sqrt{(\sigma^2+\sigma_{x\x{m}}^2)^2}}{\sqrt{(\sigma_{x\x{m}}^2)^2}}.
+\\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+(1-\rho_\x{f}^2)\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}\right)\sigma_{x\x{f}}^2}}\exp\left(-\frac{\left(x_\x{f}-\mu_{x\x{f}}-\frac{\rho_\x{f}\sigma_{x\x{m}}^2\sigma_{x\x{f}}\sigma_{y\x{f}}}{\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2+\sigma^2(\sigma_{x\x{m}}^2+\sigma^2)}\left(\frac{(\sigma_{x\x{m}}^2+\sigma^2)x_\x{m}-\sigma^2\mu_{x\x{m}}}{\sigma_{x\x{m}}^2}-\mu_{y\x{f}}\right)\right)^2}{2\left(\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+(1-\rho_\x{f}^2)\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}\right)\sigma_{x\x{f}}^2}\right)\times
+\\&\frac{\sqrt{\sigma_{x\x{m}}^2}}{\sqrt{2\pi(\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2+\sigma^2(\sigma_{x\x{m}}^2+\sigma^2))}}\exp\left(-\frac{\left(\mu_{y\x{f}}-\frac{(\sigma_{x\x{m}}^2+\sigma^2)x_\x{m}-\sigma^2\mu_{x\x{m}}}{\sigma_{x\x{m}}^2}\right)^2}{2\frac{\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2+\sigma^2(\sigma_{x\x{m}}^2+\sigma^2)}{\sigma_{x\x{m}}^2}}\right)\frac{\sqrt{(\sigma^2+\sigma_{x\x{m}}^2)^2}}{\sqrt{(\sigma_{x\x{m}}^2)^2}} \text{ using Eqs. \ref{D} and \ref{G}}
+\\&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+(1-\rho_\x{f}^2)\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}\right)\sigma_{x\x{f}}^2}}\exp\left(-\frac{\left(x_\x{f}-\mu_{x\x{f}}-\frac{\rho_\x{f}\sigma_{x\x{f}}\sigma_{y\x{f}}(\sigma_{x\x{m}}^2+\sigma^2)}{\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2+\sigma^2(\sigma_{x\x{m}}^2+\sigma^2)}\left(x_\x{m}-\frac{\sigma^2\mu_{x\x{m}}}{\sigma_{x\x{m}}^2+\sigma^2}-\frac{\sigma_{x\x{m}}^2}{\sigma_{x\x{m}}^2+\sigma^2}\mu_{y\x{f}}\right)\right)^2}{2\left(\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+(1-\rho_\x{f}^2)\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}\right)\sigma_{x\x{f}}^2}\right)\times
+\\&\frac{\sqrt{(\sigma^2+\sigma_{x\x{m}}^2)^2}}{\sqrt{2\pi(\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2+\sigma^2(\sigma_{x\x{m}}^2+\sigma^2))\sigma_{x\x{m}}^2}}\exp\left(-\frac{\left(x_\x{m}-\frac{\sigma^2\mu_{x\x{m}}}{\sigma_{x\x{m}}^2+\sigma^2}-\frac{\sigma_{x\x{m}}^2\mu_{y\x{f}}}{\sigma_{x\x{m}}^2+\sigma^2}\right)^2}{2\left(\frac{\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2+\sigma^2(\sigma_{x\x{m}}^2+\sigma^2)}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{x\x{m}}^2}\right).
+\end{align*}
+\begin{align*}
+\text{ We know } s_{x\x{m}}^2&=\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2} \text{ and } m_{x\x{m}}=\frac{\sigma^2\mu_{x\x{m}}}{\sigma^2+\sigma_{x\x{m}}^2}+\frac{\sigma_{x\x{m}}^2\mu_{y\x{f}}}{\sigma^2+\sigma_{x\x{m}}^2}
+\\\Rightarrow P_\text{mate}(x_\x{m},x_\x{f})&=\frac{1}{\sqrt{2\pi \left(\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+(1-\rho_\x{f}^2)\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}\right)\sigma_{x\x{f}}^2}}\exp\left(-\frac{\left(x_\x{f}-\mu_{x\x{f}}-\frac{\rho_\x{f}\sigma_{x\x{f}}\sigma_{y\x{f}}(\sigma_{x\x{m}}^2+\sigma^2)}{\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2+\sigma^2(\sigma_{x\x{m}}^2+\sigma^2)}\left(x_\x{m}-\mu_{x_\x{m}}\right)\right)^2}{2\left(\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+(1-\rho_\x{f}^2)\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}\right)\sigma_{x\x{f}}^2}\right)\times
+\\&\frac{1}{\sqrt{2\pi s_{x\x{m}}^2}}\exp\left(-\frac{\left(x_\x{m}-m_{x\x{m}}\right)^2}{2s_{x\x{m}}^2}\right).
+\\ \text{ Let } r_{x\x{m},x\x{f}}&=\frac{\rho_\x{f}\sigma_{x\x{m}}^2\sigma_{y\x{f}}}{(\sigma^2+\sigma_{x\x{m}}^2)s_{x\x{m}}}
+\\ \text{ then } (1-r_{x\x{m},x\x{f}}^2)\sigma_{x\x{f}}^2&=\frac{(\sigma^2+\sigma_{x\x{m}}^2)^2s_{x_\x{m}}^2-\rho_\x{f}^2(\sigma_{x\x{m}}^2)^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{\x{m}}^2)^2s_{x_\x{m}}^2}\sigma_{x\x{f}}^2
+\\&=\left(\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+(1-\rho_\x{f}^2)\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}\right)\sigma_{x\x{f}}^2
+\\ \text{ and } \frac{r_{x\x{m},x\x{f}}\sigma_{x\x{f}}}{s_{x_\x{m}}}&=\frac{\rho_\x{f}\sigma_{x\x{m}}^2\sigma_{x\x{f}}\sigma_{y\x{f}}}{(\sigma^2+\sigma_{x\x{m}}^2)s_{x_\x{m}}^2}
+\\&=\frac{\rho_\x{f}\sigma_{x\x{m}}^2\sigma_{x\x{f}}\sigma_{y\x{f}}(\sigma^2+\sigma_{x\x{m}}^2)}{(\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2)\sigma_{x\x{m}}^2}
+\\&=\frac{\rho_\x{f}\sigma_{x\x{f}}\sigma_{y\x{f}}(\sigma^2+\sigma_{x\x{m}}^2)}{(\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2)}.
+\\ \text{So Fact \ref{multivariate_reduce} } \Rightarrow P_\text{mate}(x_\x{m},x_\x{f})&\sim N((m_{x\x{m}},m_{x\x{f}})^T,\Sigma_{x\x{m},x\x{f}})
+\\ \text{ where } \left(\begin{array}{c}m_{x\x{m}} \\ m_{x\x{f}} \end{array}\right)&=\left(\begin{array}{c}\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{x\x{m}}+\frac{\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{y\x{f}} \\ \mu_{x\x{f}} \end{array}\right)
+\\\text{ and } \Sigma_{x\x{m},x\x{f}}&=\left(\begin{array}{cc}\left(\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}+\frac{\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{x\x{m}}^2 & \frac{\rho_\x{f}\sigma_{x\x{m}}^2\sigma_{x\x{f}}\sigma_{y\x{f}}}{\sigma^2+\sigma_{x\x{m}}^2}
+\\\frac{\rho_\x{f}\sigma_{x\x{m}}^2\sigma_{x\x{f}}\sigma_{y\x{f}}}{\sigma^2+\sigma_{x\x{m}}^2}& \sigma_{x\x{f}}^2 \end{array}\right).
+\end{align*}
+\item Next we integrate over both female traits, $x_\x{f}$ and $y_\x{f}$. Using Eq. \ref{two},
+
+\begin{align*}
+\hspace{-20pt}P_\text{mate}(x_\x{m},y_\x{m})&=\int\int P_\text{mate}(v_\x{m},v_\x{f})dx_\x{f}dy_\x{f}
+\\&=\frac{1}{\sqrt{2\pi(\sigma_{y\x{f}}^2+D)}}\exp\left(-\frac{(\mu_{y\x{f}}-d)^2}{2(\sigma_{y\x{f}}^2+D)}\right) 
+\\&\times \frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v_\x{m}-\mu_\x{m})^T\Sigma_\x{m}^{-1}(v_\x{m}-\mu_\x{m})\right)\frac{\sqrt{2\pi(\sigma^2+\sigma_{x\x{m}}^2})^2}{\sqrt{\sigma_{x\x{m}}^2}\exp\left(-\frac{(x_\x{m}-\mu_{x\x{m}})^2}{2\sigma_{x\x{m}}^2}\right)}
+\\&=\frac{1}{\sqrt{2\pi(\sigma_{y\x{f}}^2+D)}}\exp\left(-\frac{(\mu_{y\x{f}}-d)^2}{2(\sigma_{y\x{f}}^2+D)}\right)\times
+\\ &\frac{\sqrt{(\sigma^2+\sigma_{x\x{m}}^2)^2}}{\sqrt{2\pi (1-\rho_\x{m}^2)(\sigma_{x\x{m}}^2)^2\sigma_{y\x{m}}^2}}\exp\left(-\frac{(y_\x{m}-\mu_{y\x{m}}-\frac{\rho_\x{m}\sigma_{y\x{m}}}{\sigma_{x\x{m}}}\left(x_\x{m}-\mu_{x\x{m}}\right))^2}{2(1-\rho_\x{m}^2)\sigma_{y\x{m}}^2}\right) \text{ using Fact \ref{univariate}}
+\\&=\frac{\sqrt{\sigma_{x\x{m}}^2}}{\sqrt{2\pi(\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2+\sigma^2(\sigma^2+\sigma_{x\x{m}}^2))}}\exp\left(-\frac{\left(\mu_{y\x{f}}-\frac{(\sigma^2+\sigma_{x\x{m}}^2)x_\x{m}-\sigma^2\mu_{x\x{m}}}{\sigma_{x\x{m}}^2}\right)^2}{2\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{\sigma_{x\x{m}}^2}}\right)
+\\&\times\exp\left(-\frac{(y_\x{m}-\mu_{y\x{m}}-\frac{\rho_\x{m}\sigma_{y\x{m}}}{\sigma_{x\x{m}}}\left(x_\x{m}-\mu_{x\x{m}}\right))^2}{2(1-\rho_\x{m}^2)\sigma_{y\x{m}}^2}\right) \text{ using Eq. \ref{D}}
+\\&=\frac{\sqrt{(\sigma^2+\sigma_{x\x{m}}^2)^2}}{\sqrt{2\pi(\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2+\sigma^2(\sigma^2+\sigma_{x\x{m}}^2))\sigma_{x\x{m}}^2}}\exp\left(-\frac{\left(x_\x{m}-\frac{\sigma^2\mu_{x\x{m}}+\sigma_{x\x{m}}^2\mu_{y\x{f}}}{\sigma^2+\sigma_{x\x{m}}^2}\right)^2}{2\left(\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{x\x{m}}^2}\right)\frac{1}{\sqrt{2\pi (1-\rho_\x{m}^2)\sigma_{y\x{m}}^2}}
+\\&\times\exp\left(-\frac{\left(y_\x{m}-\mu_{y\x{m}}+\frac{\rho_\x{m}\sigma_{y\x{m}}}{\sigma_{x\x{m}}}(\mu_{x\x{m}}-\frac{\sigma^2\mu_{x\x{m}}+\sigma_{x\x{m}}^2\mu_{y\x{f}}}{\sigma^2+\sigma_{x\x{m}}^2})-\frac{\rho_\x{m}\sigma_{y\x{m}}}{\sigma_{x\x{m}}}\left(x_\x{m}-\frac{\sigma^2\mu_{x\x{m}}+\sigma_{x\x{m}}^2\mu_{y\x{f}}}{\sigma^2+\sigma_{x\x{m}}^2}\right)\right)^2}{2(1-\rho_\x{m}^2)\sigma_{y\x{m}}^2}\right)
+\\&=\frac{1}{\sqrt{2\pi s_{x\x{m}}^2}}\exp\left(-\frac{(x_\x{m}-m_{x\x{m}})^2}{2s_{x\x{m}}^2}\right)\times
+\\&\frac{1}{\sqrt{2\pi(1-\rho_\x{m}^2)\sigma_{y\x{m}}^2}}\exp\left(-\frac{\left(y_\x{m}-\mu_{y\x{m}}-\frac{\rho_\x{m}\sigma_{y\x{m}}\sigma_{x\x{m}}}{\sigma^2+\sigma_{x\x{m}}^2}(\mu_{y\x{f}}-\mu_{x\x{m}})-\frac{\rho_\x{m}\sigma_{y\x{m}}}{\sigma_{x\x{m}}}(x_\x{m}-m_{x\x{m}})\right)^2}{2(1-\rho_\x{m}^2)\sigma_{y\x{m}}^2}\right)
+\\ \text{ We know } s_{y\x{m}}^2&=\left(\frac{(\sigma^2+\sigma_{x\x{m}}^2)^2-\rho_\x{m}^2\sigma_{x\x{m}}^2(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{y\x{m}}^2
+\\ \text{ and } s_{x\x{m}}^2&=\left(\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}+\frac{\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{x\x{m}}^2.
+\\\text{ Let } r_{x\x{m},y\x{m}}&=\frac{\rho_\x{m}\sigma_{y\x{m}}s_{x\x{m}}}{\sigma_{x\x{m}}s_{y\x{m}}}
+\\ \text{ then } (1-r_{x\x{m},y\x{m}}^2)s_{y\x{m}}^2&=\frac{\sigma_{x\x{m}}^2s_{y\x{m}}^2-\rho_\x{m}^2\sigma_{y\x{m}}^2s_{x\x{m}}^2}{\sigma_{x\x{m}}^2}
+\\&=s_{y\x{m}}^2-\rho_\x{m}^2\sigma_{y\x{m}}^2\left(\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)
+\\&=\left(\frac{(\sigma^2+\sigma_{x\x{m}}^2)^2-\rho_\x{m}^2\sigma_{x\x{m}}^2(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2-\rho_\x{m}^2(\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2)}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{y\x{m}}^2
+\\&=(1-\rho_\x{m}^2)\sigma_{y\x{m}}^2
+\\ \text{ and } \frac{r_{x\x{m},y\x{m}}s_{y\x{m}}}{s_{x\x{m}}}&=\frac{\rho_\x{m}\sigma_{y\x{m}}}{\sigma_{x\x{m}}}.
+\end{align*}
+\begin{align*}
+\text{So Fact \ref{multivariate_reduce}}\Rightarrow P_\text{mate}(x_\x{m},y_\x{m})&\sim N((m_{x\x{m}},m_{y\x{m}})^T,\Sigma_{x\x{m},y\x{m}}) 
+\\ \text{ where } \left(\begin{array}{c}m_{x\x{m}} \\ m_{y\x{m}} \end{array}\right)&=\left(\begin{array}{c}\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{x\x{m}}+\frac{\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{y\x{f}} \\ \mu_{y\x{m}}+\frac{\rho_\x{m}\sigma_{y\x{m}}\sigma_{x\x{m}}}{\sigma^2+\sigma_{x\x{m}}^2}(\mu_{y\x{f}}-\mu_{x\x{m}}) \end{array}\right)
+\\ \text{ and } \Sigma_{x\x{m},y\x{m}}&=\left(\begin{array}{cc}\left(\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}+\frac{\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{x\x{m}}^2 & \frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}(\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2)}{(\sigma^2+\sigma_{x\x{m}}^2)^2} \\ \frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}(\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2)}{(\sigma^2+\sigma_{x\x{m}}^2)^2} & \left(\frac{(\sigma^2+\sigma_{x\x{m}}^2)^2-\rho_\x{m}^2\sigma_{x\x{m}}^2(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)\sigma_{y\x{m}}^2 \end{array}\right).
+\end{align*}
+\end{enumerate}
+
+We have just found that each pair of variables from $(x_\x{m},y_\x{m},x_\x{f},y_\x{f})$ is bivariate normal with individual means and variances, and pairwise covariances as desired. 
+
+\end{pf}
+
+\section{Stable equilibria for nine possible modes of acquisition}
+In this section, we will find the equilibrium values of the variance of the two traits, songs and preferences, and the covariance between the traits for each of nine different ``modes" of acquisition. In the above, it was convenient to keep track of the correlation between the traits in a particular gender, using $\rho$. In deriving the distribution of the traits in offspring, it will be convenient to keep track of the covariance of the traits, using $\Cov=\rho\sigma_x\sigma_y$.  In Table \ref{equilibrium}, we show the stable equilibrium values of $\sigma_x^2$, $\sigma_y^2$, and $\Cov$.
+\begin{table}
+\caption{\label{equilibrium}In this table, a superscript ${}^\star$ indicates a stable equilibrium and $(0)$ indicates the initial conditions. For example $\sigma_x^2(0)$ is the initial value of $\sigma_x^2$.}
+\begin{tabular}{|r|l|l|l|}
+\hline & song learned obliquely  & song genetic & song from father
+\\\hline pref from mother  & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0, \ \frac{3\sigma_y^2-5\sigma^2+\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}}{6}$ & $\sigma_x^{2\star}=\min\{0,\sigma_y^2-\sigma^2\}$  
+\\ 	& 	$\sigma_y^{2\star}=\sigma_y^2(0)$ 	& $\sigma_y^{2\star}=\sigma_y^2(0)$ 		  & $\sigma_y^{2\star}=\sigma_y^2(0)$   
+\\ & $\Cov^\star=\Cov(0)$ &   $\Cov^\star=\frac{\sigma_x^{2\star}\sigma_y^{2\star}}{\sigma^2+\sigma_x^{2\star}}$  & $\Cov^\star=0$
+\\\hline pref genetic &  $\sigma_x^{2\star}=\sigma_x^2(0)$  & $\sigma_x^{2\star}=0,\ \infty$  & $\sigma_x^{2\star}=0$                      
+\\  		&  $\sigma_y^{2\star}=0$	& $\sigma_y^{2\star}= 0 , \ \infty$ 	  & $\sigma_y^{2\star}=0$  
+\\ & $\Cov^\star=0$   & $\Cov^\star=0, \ \infty$        & $\Cov^\star=0$          
+\\\hline pref from father & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0$  & $\sigma_x^{2\star}=0$                       
+\\  			& $\sigma_y^{2\star}=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{2\sigma_x^2+\sigma^2}$	  & $\sigma_y^{2\star}=0$  & $\sigma_y^{2\star}=0$                       
+\\ & $\Cov^\star=0$ & $\Cov^\star=0$ & $\Cov^\star=0$
+\\\hline
+\end{tabular}
+\end{table} 
+
+\begin{enumerate}
+\item Song is learned from a random adult male, preference is imprinted from mother. In this case, neither the distribution of songs nor the distribution of preferences every changes. 
+
+\item Song is learned from a random adult male, preference is genetic. In this case, females do not have a song trait so $\rho_\x{f}=0$. Since only males have songs, we can drop the m subscript and use $\rho$ for $\rho_\x{m}$ and $\sigma_x^2$ for $\sigma_{x\x{m}}^2$. Since both genders acquire preference in the same way, $\sigma_{y\x{m}}^2=\sigma_{y\x{f}}^2$, and we can use $\sigma_y^2$ for both $\sigma_{y\x{m}}^2$ and $\sigma_{y\x{f}}^2$. Then Using Claim \ref{covariance}, the variance and covariance of the traits in the offspring of mating adults will be 
+\begin{align}
+\sigma_x^2(t+1)&=\sigma_x^2 \label{sigmax4}
+\\ \sigma_y^2(t+1)&=\frac{\sigma_y^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)^2-\rho^2\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right) \notag
+\\&=\frac{\sigma_y^2}{4}\left(\frac{-\rho^2\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+2\right)  \notag
+\\&=\frac{1}{4}\frac{-\Cov}{\sigma^2+\sigma_x^2}+\frac{\sigma_y^2}{4}\left(\left(\frac{\Cov}{\sigma^2+\sigma_x^2}+1\right)^2+1\right) \label{sigmay4}
+\\ \Cov(t+1)&=0
+\end{align}
+Note that, after the first generation, any correlation between song and preference will be lost because there is no relationship between the adult male a young male happens to learn from and the preferences genes he inherits from his parents. Therefore, after the first generation,
+\begin{align*}
+\sigma_y^2(t+1)&=\frac{\sigma_y^2}{2}
+\end{align*}
+Therefore, $\sigma_x^2$ remains constant and $\sigma_y^2=0$ is the only stable equilibrium.
+
+
+\item Song is learned from a random adult male, preference is learned / imprinted from father. 
+In this case, females do not have a song trait, so $\rho_\x{f}=0$, and males do not have a preference trait so $\rho_\x{m}=0$. Since only males have songs, we can drop the m subscript and use and $\sigma_x^2$ for $\sigma_{x\x{m}}^2$. Since only females have preferences, we can drop the f subscript and use $\sigma_y^2$ for $\sigma_{y\x{f}}^2$. Then, using Claim \ref{covariance}, the variance and covariance of the traits in the offspring of mating adults will be 
+\begin{align}
+\sigma_x^2(t+1)&=\sigma_x^2 \label{sigmax5}
+\\ \sigma_y^2(t+1)&=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) \label{sigmay5}
+\\ \Cov(t+1)&=0
+\end{align}
+There is one equilibrium where $\sigma_x^2=\sigma_y^2=0$. According to Eq. \ref{sigmay5}, if $\sigma_x^2>0$,
+\begin{align*}
+\sigma_y^2(t+1)>\sigma_y^2 \Leftrightarrow \sigma_y^2&<\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)
+\\ \Leftrightarrow \sigma_y^2(\sigma^2+\sigma_x^2)^2&<\sigma_x^2(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2)
+\\\Leftrightarrow (\sigma^2)^2\sigma_y^2+2\sigma^2\sigma_x^2\sigma_y^2+(\sigma_x^2)^2\sigma_y^2&<\sigma_x^2\sigma^2(\sigma^2+\sigma_x^2)+(\sigma_x^2)^2\sigma_y^2
+\\ \Leftrightarrow ((\sigma^2)^2+2\sigma^2\sigma_x^2)\sigma_y^2&<\sigma_x^2\sigma^2(\sigma^2+\sigma_x^2)
+\\ \Leftrightarrow \sigma_y^2&<\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{\sigma^2+2\sigma_x^2}.
+\end{align*}
+Therefore $\sigma_y^2=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{\sigma^2+2\sigma_x^2}$ is a stable equilibrium.
+
+
+
+\item Song is genetic, preference is imprinted from mother. Since both genders acquire song in the same way, $\sigma_{x\x{m}}^2=\sigma_{x\x{f}}^2$, so we can drop the subscripts and use $\sigma_x^2$ for both $\sigma_{x\x{m}}^2$ and $\sigma_{x\x{f}}^2$. In this case, males do not have a preference trait, so $\rho_\x{m}=0$. Since only females have preferences, we can drop the f subscript and use $\rho$ for $\rho_\x{f}$ and $\sigma_y^2$ for $\sigma_{y\x{f}}^2$. Then, using Claim \ref{covariance}, the variance and covariance of the traits in the offspring of mating adults will be
+\begin{align}
+\sigma_x^2(t+1)&=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov }{\sigma^2+\sigma_x^2}+1\right) \label{sigmax9}
+\\ \sigma_y^2(t+1)&=\sigma_y^2
+\\ \Cov (t+1)&=\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\frac{1}{2}\rho\sigma_x\sigma_y=\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\frac{1}{2}\Cov  \label{cov9}
+\end{align}
+One equilibrium occurs when $\sigma_x^2=\Cov=0$. If $\sigma_x^2,\Cov>0$, 
+\begin{align*}
+\Cov (t+1)=\Cov \Rightarrow \Cov& =\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2} \numberthis \label{cov_eq9}
+\\ \text{ and } \sigma_x^2(t+1)=\sigma_x^2\Rightarrow 4&=\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov }{\sigma^2+\sigma_x^2}+1.
+\\ \text{Combined with Eq. \ref{cov_eq9}} \Rightarrow 4&=\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+1
+\\\Rightarrow 3(\sigma^2+\sigma_x^2)^2&=\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2+2\sigma_x^2\sigma_y^2
+\\\Rightarrow 3(\sigma^2)^2+6\sigma^2\sigma_x^2+3(\sigma_x^2)^2&=\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2+2\sigma_x^2\sigma_y^2
+\\ \Rightarrow 0&=3(\sigma_x^2)^2+(5\sigma^2-3\sigma_y^2)\sigma_x^2+2(\sigma^2)^2
+\end{align*}
+Let $p(\sigma_x^2)=3(\sigma_x^2)^2+(5\sigma^2-3\sigma_y^2)\sigma_x^2+2(\sigma^2)^2$ The zeros of $p(\sigma_x^2)$ give two possible equilibrium values for $\sigma_x^2$:
+\begin{align*}
+\sigma_x^2&=\frac{3\sigma_y^2-5\sigma^2\pm\sqrt{(5\sigma^2-3\sigma_y^2)^2-24(\sigma^2)^2}}{6}
+\\&=\frac{3\sigma_y^2-5\sigma^2\pm\sqrt{25(\sigma^2)^2-30\sigma^2\sigma_y^2+9(\sigma_y^2)^2-24(\sigma^2)^2}}{6}
+\\&=\frac{3\sigma_y^2-5\sigma^2\pm\sqrt{(\sigma^2)^2-30\sigma^2\sigma_y^2+9(\sigma_y^2)^2}}{6}
+\end{align*}
+Using $D$ for the quantity under the square root, the possible two values of $\sigma_x^2$ are real as long as 
+\begin{align*}
+D=9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2&\geq 0. \numberthis \label{y_ineq}
+\\\text{ If } 9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2&=0
+\\ \Rightarrow \sigma_y^2&=\frac{30\sigma^2\pm\sqrt{900(\sigma^2)^2-36(\sigma^2)^2}}{18}
+\\ &=\left(\frac{30\pm\sqrt{864}}{18}\right)\sigma^2
+\\&=\left(\frac{5\pm 2 \sqrt{6}}{3}\right)\sigma^2
+\end{align*}
+Therefore $9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2\geq 0$ when (A) $\sigma_y^2\leq \left(\frac{5-2\sqrt{6}}{3}\right)\sigma^2$ or (B) $\sigma_y^2\geq \left(\frac{5+2\sqrt{6}}{3}\right)\sigma^2$. If (A), then $3\sigma_y^2-5\sigma^2\leq -2\sqrt{6}<0$. Since $D=(5\sigma^2-3\sigma_y^2)-24(\sigma^2)^2<(5\sigma^2-3\sigma_y^2)^2$, $\sqrt{D}<(5\sigma^2-3\sigma_y^2)$ so that both values of $\sigma_x^2$ will be negative, which is not meaningful. If (B), then $3\sigma_y^2-5\sigma^2>0$ and $\sqrt{D}<5\sigma^2-3\sigma_y^2$ so that both values of $\sigma_x^2$ will be real and positive.  This gives us three equilibria:
+\begin{enumerate}[1.]
+\item $s_1^2=0$, $\Cov_1=0$
+\item $s_2^{2}=\frac{3\sigma_y^2-5\sigma^2-\sqrt{(\sigma^2)^2-30\sigma^2\sigma_y^2+9(\sigma_y^2)^2}}{6}$ and $\Cov_2=\frac{s_2^{2}\sigma_y^2}{\sigma^2+s_2^2}$
+\item $s_3^{2}=\frac{3\sigma_y^2-5\sigma^2+\sqrt{(\sigma^2)^2-30\sigma^2\sigma_y^2+9(\sigma_y^2)^2}}{6}$ and $\Cov_3=\frac{s_3^3\sigma_y^2}{\sigma^2+s_3^2}$
+\end{enumerate}
+The first and third equilibria are stable. The second is unstable. We will show this using the Jacobian of the dynamics in Eqs. \ref{sigmax9}-\ref{cov9}. Let 
+\begin{align*}
+f(\sigma_x^2,\Cov)&=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}+1\right)
+\\ \text{ and } g(\sigma_x^2,\Cov)&=\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\frac{1}{2}\Cov.
+\end{align*}
+We will construct a Jacobian matrix for each equilibrium:
+\begin{align*}
+J_i&=\left.\left(\begin{array}{cc} \frac{\partial f}{\partial \sigma_x^2} & \frac{\partial f }{\partial \Cov} \\ \frac{\partial g}{\partial \sigma_x^2} & \frac{\partial g}{\partial \Cov}\end{array}\right)\right|_{(s_i^2,\Cov_i^2)}
+\end{align*}
+Equilibrium $i$ is stable if and only if all eigenvalues of $J_i$ have absolute value less than $1$. 
+\begin{align*}
+\frac{\partial f}{\partial \sigma_x^2}&=\frac{1}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}+1\right)+
+\\&\frac{\sigma_x^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)^2(\sigma^2+\sigma_y^2)-2(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2)(\sigma^2+\sigma_x^2)}{(\sigma^2+\sigma_x^2)^4}-\frac{2\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
+\\&=\frac{1}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}+1\right)+
+\\&\frac{\sigma_x^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)(\sigma^2+\sigma_y^2)-2(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2)}{(\sigma^2+\sigma_x^2)^3}-\frac{2\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
+\\&=\frac{1}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}+1\right)+
+\\&\frac{\sigma_x^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)(\sigma_y^2-\sigma^2)-2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}-\frac{2\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
+\\ \frac{\partial f}{\partial \Cov}&=\frac{2\sigma_x^2}{4(\sigma^2+\sigma_x^2)}=\frac{\sigma_x^2}{2(\sigma^2+\sigma_x^2)}
+\\ \frac{\partial g}{\partial \sigma_x^2}&=\frac{1}{2}\frac{(\sigma^2+\sigma_x^2)\sigma_y^2-\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}=\frac{1}{2}\frac{\sigma^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}
+\\ \frac{\partial g}{\partial \Cov}&=\frac{1}{2}
+\end{align*}
+We can now evaluate these derivatives to find each $J_i$:
+\begin{align*}
+J_1&=\left(\begin{array}{cc}\frac{1}{2} & 0 \\ \frac{1}{2}\frac{\sigma_y^2}{\sigma^2} & \frac{1}{2} \end{array}\right)
+\end{align*}
+$J_1$ has two eigenvalues equal to $1/2$, so equilibrium $1$ is stable. 
+
+
+According to the Perron-Frobenius Theorem, if all entries of $J$ are positive, there is an eigenvalue $\lambda>0$ of $J$ such that the absolute value of any other eigenvalue is less than $\lambda$. Further, $\min_j\sum_k J_{jk}\leq \lambda\leq \max_j\sum_k J_{jk}$. We will use this theorem to evaluate the stability of the non-zero equilibria. We first have to show that all entries of $J_2$ and $J_2$ are positive. It is easy to see that as long as $\sigma_x^2>0$ $J_{12}$, $J_{21}$, and $J_{22}$ are positive. At both non-zero equilibria,
+\begin{align*}
+4&=\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}+1
+\\ \text{ and } \Cov &=\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}.
+\end{align*}
+Therefore, at both these equilibria, 
+\begin{align*}
+J_{11}=\frac{\partial f}{\partial \sigma_x^2}&= 1 + \frac{\sigma_x^2}{4}\left(\frac{\sigma_y^2-\sigma^2-4\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
+\\&=\frac{4(\sigma^2+\sigma_x^2)^2+\sigma_x^2\left(\sigma_y^2-\sigma^2-4\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}\right)}{4(\sigma^2+\sigma_x^2)^2}
+\\&=\frac{4(\sigma^2+\sigma_x^2)^3+\sigma_x^2\sigma_y^2(\sigma^2+\sigma_x^2)-\sigma_x^2\sigma^2(\sigma^2+\sigma_x^2)-4(\sigma_x^2)^2\sigma_y^2}{4(\sigma^2+\sigma_x^2)^3}
+\\&=\frac{4(\sigma_x^2)^3+12(\sigma_x^2)^2\sigma^2+12\sigma_x^2(\sigma^2)^2+4(\sigma^2)^3+\sigma_x^2\sigma_y^2\sigma^2+(\sigma_x^2)^2\sigma_y^2-\sigma_x^2(\sigma^2)^2-(\sigma_x^2)^2\sigma^2-4(\sigma_x^2)^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}
+\\&=\frac{4(\sigma_x^2)^3+(11\sigma^2-3\sigma_y^2)(\sigma_x^2)^2+(11(\sigma^2)^2+\sigma_y^2\sigma^2)\sigma_x^2+4(\sigma^2)^3}{(\sigma^2+\sigma_x^2)^3}
+\\&=\frac{\sigma_x^2\big(4(\sigma_x^2)^2+(11\sigma^2-3\sigma_y^2)\sigma_x^2+(11(\sigma^2)^2+\sigma_y^2\sigma^2)\big)+4(\sigma^2)^3}{(\sigma^2+\sigma_x^2)^3}
+\end{align*}
+Let
+$n(\sigma_x^2)=4(\sigma_x^2)^2+(11\sigma^2-3\sigma_y^2)\sigma_x^2+(11(\sigma^2)^2+\sigma_y^2\sigma^2)$. Then 
+\begin{align*}
+J_{11}&=\frac{\sigma_x^2n(\sigma_x^2)+4(\sigma^2)^3}{(\sigma^2+\sigma_x^2)^3}.
+\end{align*}
+Remember that the zeros of $p(\sigma_x^2)$ gave the equilibrium values of $\sigma_x^2$. Now consider $n-q:$
+\begin{align*}
+n(\sigma_x^2)-p(\sigma_x^2)&=4(\sigma_x^2)^2+(11\sigma^2-3\sigma_y^2)\sigma_x^2+(11(\sigma^2)^2+\sigma_y^2\sigma^2)-\big(3(\sigma_x^2)^2+(5\sigma^2-3\sigma_y^2)\sigma_x^2+2(\sigma^2)^2\big)
+\\&=(\sigma_x^2)^2+6\sigma^2\sigma_x^2+9(\sigma^2)^2+\sigma_y^2\sigma^2
+\\&=(\sigma_x^2+3\sigma^2)^2+\sigma_y^2\sigma^2>0
+\end{align*}
+Since $n-p$ is always positive and $p=0$ at the equilibrium values of $\sigma_x^2$, it follows that $n$ is positive at the equilibrium values of $\sigma_x^2$. Therefore $J_{11}>0$, so that we can apply the Perron-Frobenius theorem.
+
+We will now find the sum of each row of $J$ at both non-zero equilibria: 
+\begin{align*}
+J_{11}+J_{12}&=1 + \frac{\sigma_x^2}{4}\left(\frac{\sigma_y^2-\sigma^2-4\Cov}{(\sigma^2+\sigma_x^2)^2}\right)+\frac{\sigma_x^2}{2(\sigma^2+\sigma_x^2)}
+\\&=1 + \frac{\sigma_x^2}{4}\left(\frac{\sigma_y^2-\sigma^2-4\Cov+2(\sigma^2+\sigma_x^2)}{(\sigma^2+\sigma_x^2)^2}\right)
+\\&=1 + \frac{\sigma_x^2}{4}\left(\frac{2\sigma_x^2+\sigma^2+\sigma_y^2-4\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
+\\ \Rightarrow J_{11}+J_{12}-1&=\frac{\sigma_x^2}{4}\left(\frac{2\sigma_x^2+\sigma^2+\sigma_y^2-4\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
+\\ \Rightarrow \sgn(J_{11}+J_{12}-1)&=\sgn\left(\frac{\sigma_x^2}{4}\left(\frac{2\sigma_x^2+\sigma^2+\sigma_y^2-4\Cov}{(\sigma^2+\sigma_x^2)^2}\right)\right)
+\\&=\sgn\left(\frac{2\sigma_x^2+\sigma^2+\sigma_y^2-4\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
+\\&=\sgn\left(2\sigma_x^2+\sigma^2+\sigma_y^2-4\Cov\right)
+\\&=\sgn\left((2\sigma_x^2+\sigma^2+\sigma_y^2)(\sigma^2+\sigma_x^2)-4\sigma_x^2\sigma_y^2\right)
+\end{align*}
+\begin{align*}
+\text{ Let } q(\sigma_x^2)&=(2\sigma_x^2+\sigma^2+\sigma_y^2)(\sigma^2+\sigma_x^2)-4\sigma_x^2\sigma_y^2
+\\&=2(\sigma_x^2)^2+(3\sigma^2-3\sigma_y^2)\sigma_x^2+\sigma^2(\sigma^2+\sigma_y^2).
+\end{align*}
+The sign of $q(\sigma_x^2)$ gives the sign of $J_{11}+J_{12}-1$ at a particular $\sigma_x^2$, fixing $\Cov=\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}$. The zeros of $q(\sigma_x^2)$ are 
+\begin{align*}
+v_1^2,v_2^2&=\frac{(3\sigma_y^2-3\sigma^2)\pm\sqrt{9(\sigma_y^2)^2-26\sigma^2\sigma_y^2+(\sigma^2)^2}}{4}.
+\end{align*}
+Since $q$ is concave up, $q$ is positive for $\sigma_x^2<v_1^2$ and for $\sigma_x^2>v_2^2$. If we can show that $s_2^2<v_1^2<s_3^2<v_2^2$ then we would know that $J_{11}+J_{12}>1$ at equilibrium $2$ and $J_{11}+J_{12}<1$ at equilibrium $3$. We will do so by evaluating $p$ at $v_1^2,v_2^2$. Let $Y=9(\sigma_y^2)^2-26\sigma^2\sigma_y^2+(\sigma^2)^2$.
+\begin{align*}
+p(v_1^2)&=p(v_1^2)-q(v_1^2) \text{ since } q(v_1^2)=0
+\\ &=(v_1^2)^2+2\sigma^2v_1^2+\sigma^2(\sigma^2-\sigma_y^2)
+\\ &= \frac{(3\sigma_y^2-3\sigma^2)^2}{16}-\frac{2(3\sigma_y^2-3\sigma^2)\sqrt{Y}}{16}+\frac{Y}{16}+\frac{2\sigma^2(3\sigma_y^2-3\sigma^2)}{4}-\frac{2\sigma^2\sqrt{Y}}{4}+\sigma^2(\sigma^2-\sigma_y^2)
+\\ &=\frac{9(\sigma_y^2)^2-18\sigma_y^2\sigma^2+9(\sigma^2)^2+24\sigma_y^2\sigma^2-24(\sigma^2)^2+16(\sigma^2)^2-16\sigma_y^2\sigma^2}{16}-\frac{(6\sigma_y^2-6\sigma^2+8\sigma^2)\sqrt{Y}}{16}+\frac{Y}{16}
+\\&=\frac{9(\sigma_y^2)^2-10\sigma_y^2\sigma^2+(\sigma^2)^2}{16}-\frac{(6\sigma_y^2+2\sigma^2)\sqrt{Y}}{16}+\frac{Y}{16}
+\\&=\frac{9(\sigma_y^2)^2+6\sigma_y^2\sigma^2+(\sigma^2)^2}{16}-\frac{2(3\sigma_y^2+\sigma^2)\sqrt{Y}}{16}+\frac{Y}{16}-\sigma_y^2\sigma^2
+\\&=\frac{(3\sigma_y^2+\sigma^2-\sqrt{Y})^2}{16}-\sigma_y^2\sigma^2.
+\end{align*}
+By the condition that $\sigma_y^2>\left(\frac{5+2\sqrt{6}}{3}\right)\sigma^2$, we know that $3\sigma_y^2-\sigma^2>0$. Further, since $Y<(3\sigma_y^2+\sigma^2)^2$, $3\sigma_y^2+\sigma^2-\sqrt{Y}>0$. Therefore, $p(v_1^2)<0$ if and only if 
+\begin{align*}
+3\sigma_y^2+\sigma^2-\sqrt{Y}&<4\sigma_y\sigma
+\\ \Leftrightarrow 3\sigma_y^2-4\sigma_y\sigma+\sigma^2&<\sqrt{Y}
+\\ \Leftrightarrow (3\sigma_y^2-4\sigma_y\sigma+\sigma^2)(3\sigma_y^2-4\sigma_y\sigma+\sigma^2)&< Y \tag{*} \label{star_tag}
+\\ \Leftrightarrow 9(\sigma_y^2)^2-12\sigma_y^3\sigma+3\sigma_y^2\sigma^2-12\sigma_y^3\sigma+16\sigma_y^2\sigma^2-4\sigma_y\sigma^3+3\sigma_y^2\sigma^2-4\sigma_y\sigma^3+(\sigma^2)^2&< Y
+\\ \Leftrightarrow 9(\sigma_y^2)^2-24\sigma_y^3\sigma+22\sigma_y^2\sigma^2-8\sigma_y\sigma^3+(\sigma^2)^2&<9(\sigma_y^2)^2-26\sigma^2\sigma_y^2+(\sigma^2)^2
+\\ \Leftrightarrow 24\sigma_y^3\sigma-48\sigma_y^2\sigma^2+8\sigma_y\sigma^3&>0
+\\ \Leftrightarrow 24\sigma_y^2-48\sigma_y\sigma+8\sigma^2&>0.
+\\ \Leftrightarrow 3\sigma_y^2-6\sigma_y\sigma+\sigma^2&>0. \numberthis \label{inequality_first}
+\end{align*}
+If $\sigma_y> (1+\frac{\sqrt{6}}{3})\sigma$ then condition \ref{inequality_first} is satisfied. Since $(1+\frac{\sqrt{6}}{3})^2=1+\frac{2\sqrt{6}}{3}+\frac{6}{9}=\frac{5+2\sqrt{6}}{3}$, as long as $\sigma_y^2>\left(\frac{5+2\sqrt{6}}{3}\right)\sigma^2$ condition \ref{inequality_first} is satisfied and $p(v_1^2)<0$. Therefore it must be that $s_2^2<v_1^2<s_3^2$ since $p$ is concave up. Note that to get to line (\ref{star_tag}) we needed to know that $3\sigma_y^2-4\sigma_y\sigma+\sigma2\geq0$. Since $\sigma_y^2-4\sigma_y\sigma+\sigma^2>\sigma_y^2-6\sigma_y\sigma+\sigma^2$, we just showed that this is guaranteed by $\sigma_y^2>\left(\frac{5+2\sqrt{6}}{3}\right)\sigma^2$. Now we evaluate $p$ at $v_2^2$:
+\begin{align*}
+p(v_2^2)&=p(v_2^2)-q(v_2^2) \text{ since } q(v_2^2)=0
+\\ &=(v_2^2)^2+2\sigma^2v_2^2+\sigma^2(\sigma^2-\sigma_y^2)
+\\ &= \frac{(3\sigma_y^2-3\sigma^2)^2}{16}+\frac{2(3\sigma_y^2-3\sigma^2)\sqrt{Y}}{16}+\frac{Y}{16}+\frac{2\sigma^2(3\sigma_y^2-3\sigma^2)}{4}+\frac{2\sigma^2\sqrt{Y}}{4}+\sigma^2(\sigma^2-\sigma_y^2)
+\\&=\frac{9(\sigma_y^2)^2+6\sigma_y^2\sigma^2+(\sigma^2)^2}{16}+\frac{2(3\sigma_y^2+\sigma^2)\sqrt{Y}}{16}+\frac{Y}{16}-\sigma_y^2\sigma^2
+\\&=\frac{(3\sigma_y^2+\sigma^2+\sqrt{Y})^2}{16}-\sigma_y^2\sigma^2.
+\end{align*}
+Therefore $p(v_2^2)>0$ if and only if 
+\begin{align*}
+3\sigma_y^2+\sigma^2+\sqrt{Y}&>4\sigma_y\sigma
+\\ \Leftrightarrow 3\sigma_y^2-4\sigma_y\sigma+\sigma^2&>-\sqrt{Y}
+\end{align*}
+We showed above that if $\sigma_y^2>\left(\frac{5+2\sqrt{6}}{3}\right)\sigma^2$ then $3\sigma_y^2-4\sigma_y\sigma+\sigma^2>3\sigma_y^2-6\sigma_y\sigma+\sigma^2>0\geq-\sqrt{Y}$. Therefore it must be that $s_3^2<v_2^2$ since $p$ is concave up and $v_2^2\geq v_1^2$. 
+
+
+In sum we have found that $s_2^2<v_1^2<s_3^2<v_2^2$. We can finally conclude that $q(s_2^2)> 0$ and $q(s_3^2)< 0$. Therefore $J_{11}+J_{12}> 1$ at equilibrium $2$ and $J_{11}+J_{12}< 1$ at equilibrium $3$. At both non-zero equilibria,
+\begin{align*}
+J_{21}+J_{22}-1&=\frac{1}{2}\frac{\sigma^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{2}-1
+\\&=\frac{1}{2}\left(\frac{\sigma^2\sigma_y^2-(\sigma^2+\sigma_x^2)^2}{(\sigma^2+\sigma_x^2)^2}\right)
+\\&=\frac{1}{2}\left(\frac{-(\sigma_x^2)^2-2\sigma^2\sigma_x^2+\sigma^2(\sigma_y^2-\sigma^2)}{(\sigma^2+\sigma_x^2)^2}\right)
+\\ \Rightarrow \sgn(J_{21}+J_{22}-1)&=\sgn(-(\sigma_x^2)^2-2\sigma^2\sigma_x^2+\sigma^2(\sigma_y^2-\sigma^2))
+\end{align*}
+Let $n(\sigma_x^2)=-(\sigma_x^2)^2-2\sigma^2\sigma_x^2-\sigma^2(\sigma^2-\sigma_y^2)$. The sign of $n(\sigma_x^2)$ is equal to the sign of $J_{21}+J_{22}-1$ at a particular $\sigma_x^2$, fixing $\Cov=\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}$. The zeros of $n(\sigma_x^2)$ are $z_1^2,z_2^2=-\sigma^2\pm\sigma_y\sigma$. If we can show that $z_1^2<s_2^2<z_2^2<s_3^2$ then we would know that $J_{21}+J_{22}>1$ at equilibrium $2$ and $J_{21}+J_{22}<1$ at equilibrium $3$. We will do so by evaluating $p$ at $z_1^2,z_2^2$:
+\begin{align*}
+p(z_1^2)&=3(z_1^2)^2+(5\sigma^2-3\sigma_y^2)z_1^2+2(\sigma^2)^2
+\\&=3(-\sigma^2-\sigma_y\sigma)^2+(5\sigma^2-3\sigma_y^2)(-\sigma^2-\sigma_y\sigma)+2(\sigma^2)^2
+\\&=3(\sigma^2)^2+6\sigma_y\sigma^3+3\sigma_y^2\sigma^2-5(\sigma^2)^2-5\sigma_y\sigma^3+3\sigma_y^2\sigma^2+3\sigma_y^3\sigma+2(\sigma^2)^2
+\\&=\sigma_y\sigma^3+6\sigma_y^2\sigma^2+3\sigma_y^3\sigma
+\\&=\sigma_y\sigma(\sigma^2+6\sigma_y^2\sigma^2+3\sigma_y^2)>0
+\end{align*}
+Therefore it must be that $z_1^2<s_2^2$. Now we evaluate $p$ at $z_2^2$:
+\begin{align*}
+p(z_2^2)&=3(z_2^2)^2+(5\sigma^2-3\sigma_y^2)z_2^2+2(\sigma^2)^2
+\\&=3(-\sigma^2+\sigma_y\sigma)^2+(5\sigma^2-3\sigma_y^2)(-\sigma^2+\sigma_y\sigma)+2(\sigma^2)^2
+\\&=3(\sigma^2)^2-6\sigma_y\sigma^3+3\sigma_y^2\sigma^2-5(\sigma^2)^2+5\sigma_y\sigma^3+3\sigma_y^2\sigma^2-3\sigma_y^3\sigma+2(\sigma^2)^2
+\\&=-\sigma_y\sigma^3+6\sigma_y^2\sigma^2-3\sigma_y^3\sigma
+\\&=-\sigma_y\sigma(3\sigma_y^2-6\sigma_y\sigma+\sigma^2)
+\end{align*}
+Above we showed that as long as $\sigma_y^2>\left(\frac{5+2\sqrt{6}}{3}\right)\sigma^2$ then $3\sigma_y^2-6\sigma_y\sigma+\sigma^2>0$. Therefore $p(z_2^2)<0$. Therefore it must be that $s_2^2<z_2^2<s_3^2$. 
+
+In sum we have found that $z_1^2<s_2^2<z_2^2<s_3^2$. We can finally conclude that $n(s_2^2)>0$ and $n(s_3^2)<0$. Therefore $J_{21}+J_{22}>1$ at equilibrium $2$ and $J_{21}+J_{22}<1$ at equilibrium $3$. 
+
+To summarize,
+\begin{align*}
+J_{11}+J_{12}&\left\{\begin{array}{cc}>1 & \text{at equilibrium $2$}
+\\<1 & \text{at equilibrium $3$}
+ \end{array}\right.
+ \\\text{ and }J_{21}+J_{22}&\left\{\begin{array}{cc}>1 & \text{at equilibrium $2$}
+\\<1 & \text{at equilibrium $3$}
+ \end{array}\right.
+\end{align*}
+Therefore at equilibrium $2$ $\min_j\sum_k J_{jk}>1$, which means that there is at least one eigenvalue of $J_2$ that is greater than $1$ in absolute value, so equilibrium $2$ is unstable. At equilibrium $3$, $\max_j\sum_k J_{jk}<1$, which means that the Perron eigenvalue is less than $1$ and therefore that all eigenvalues of $J_3$ have absolute value less than $1$, so equilibrium $3$ is stable.
+
+\item Song is genetic, preference is genetic. Since both genders acquire both traits in the same way, $\sigma_{x\x{m}}^2=\sigma_{x\x{f}}^2$,  $\sigma_{y\x{m}}^2=\sigma_{y\x{f}}^2$ and $\rho_\x{m}=\rho_\x{f}$, so we can drop all the m and f subscripts. Using Claim \ref{covariance}, the variance and covariance in the traits in the offspring of mating adults will be 
+\begin{align*}
+\sigma_x^2(t+1)&=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right) 
+\\\sigma_y^2(t+1)&=\frac{\sigma_y^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)^2-\rho^2\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right) 
+\notag
+\\&=\frac{\sigma_y^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right) +\frac{1}{4}\frac{(1-\rho^2)\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}\frac{(\sigma^2+\sigma_x^2-\sigma_y^2)}{\sigma^2+\sigma_x^2}
+\\\Cov(t+1)&=\frac{1}{4}\left(\frac{\rho\sigma_x\sigma_y(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2)}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\frac{\rho^2\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\rho\sigma_x\sigma_y\right)  \notag
+\\&=\frac{\rho\sigma_x\sigma_y}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right) +\frac{1}{4}\frac{(1-\rho^2)\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}
+\end{align*}
+Let 
+\begin{align*}Q(\sigma_x^2,\sigma_y^2,\Cov)&=\frac{1}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)
+\\\text{ and } g(\sigma_x^2,\sigma_y^2,\Cov)&=\frac{1}{4}\frac{(1-\rho^2)\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}
+\\&=\frac{1}{4}\frac{\sigma_x^2\sigma_y^2-\Cov^2}{\sigma^2+\sigma_x^2},
+\end{align*}
+where we have used the fact that $\Cov=\rho\sigma_x\sigma_y$. 
+Then we can rewrite the dynamics as 
+\begin{align}
+\sigma_x^2(t+1)&=Q(\sigma_x^2,\sigma_y^2,\Cov)\sigma_x^2  \label{sigmax7}
+\\\sigma_y^2(t+1)&=Q\sigma_y^2+g(\sigma_x^2,\sigma_y^2,\Cov)\left(\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2}\right) \label{sigmay7}
+\\\Cov(t+1)&=Q(\sigma_x^2,\sigma_y^2,\Cov)\Cov+g(\sigma_x^2,\sigma_y^2,\Cov)\label{cov7}
+\end{align}
+Since $g(0,0,0)=0$, there is one equilibrium where $\sigma_x^2=\sigma_y^2=\Cov=0$.  For there to be an equilibrium at which $\sigma_x^2>0$, it must be that $Q=1$. If $Q=1$, then for $\Cov$ to reach equilibrium it must be that $g=0$ and therefore that $\rho=1$, which also ensures that $\sigma_y^2$ reaches equilibrium.  We will now show that $\sigma_x^2=\sigma_y^2=\Cov=0$ is a stable equilibrium and the surface in $(\sigma_x^2,\sigma_y^2,\Cov)$ space that satisfies $Q=1$ and $\Cov=\sigma_x\sigma_y$ is a manifold of unstable equilibria. To do so we will use the Jacobian of the dynamics in Eqs. \ref{sigmax7}-\ref{cov7},
+\begin{align*}
+\hspace{-60pt}
+J&=\left.\left(\begin{array}{ccc}\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+Q & \sigma_x^2\frac{\partial Q}{\partial \sigma_y^2} &\sigma_x^2\frac{\partial Q}{\partial \Cov}
+\\ \sigma_y^2\frac{\partial Q}{\partial \sigma_x^2}+g\times\left(\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)+\frac{\partial g}{\partial \sigma_x^2}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2} & \sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+Q+g\times\left(-\frac{1}{\sigma^2+\sigma_x^2}\right)+ \frac{\partial g}{\partial \sigma_y^2}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2} & \sigma_y^2\frac{\partial Q}{\partial \Cov}+\frac{\partial g}{\partial \Cov}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2}
+\\ \Cov\frac{\partial Q}{\partial \sigma_x^2}+\frac{\partial g}{\partial \sigma_x^2}  & \Cov\frac{\partial Q}{\partial \sigma_y^2}+\frac{\partial g}{\partial\sigma_y^2} & \Cov\frac{\partial Q}{\partial \Cov}+Q+\frac{\partial g}{\partial \Cov}
+\end{array}\right)\right |_\text{equilibrium}
+\\\hspace{-60pt}&=\left.\left(\begin{array}{ccc}\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+Q & \sigma_x^2\frac{\partial Q}{\partial \sigma_y^2} &\sigma_x^2\frac{\partial Q}{\partial \Cov}
+\\ \sigma_y^2\frac{\partial Q}{\partial \sigma_x^2}+\frac{\partial g}{\partial \sigma_x^2}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2} & \sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+Q+ \frac{\partial g}{\partial \sigma_y^2}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2} & \sigma_y^2\frac{\partial Q}{\partial \Cov}+\frac{\partial g}{\partial \Cov}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2}
+\\ \Cov\frac{\partial Q}{\partial \sigma_x^2}+\frac{\partial g}{\partial \sigma_x^2}  & \Cov\frac{\partial Q}{\partial \sigma_y^2}+\frac{\partial g}{\partial\sigma_y^2} & \Cov\frac{\partial Q}{\partial \Cov}+Q+\frac{\partial g}{\partial \Cov}
+\end{array}\right)\right |_\text{equilibrium}
+\end{align*}
+since $g=0$ at all equilibria.
+To simplify $J$, we need to know the derivatives of $g$:
+\begin{align*}
+\frac{\partial g}{\partial \sigma_x^2}&=\frac{1}{4}\frac{\sigma_y^2}{\sigma^2+\sigma_x^2}-\frac{1}{4}\frac{\sigma_x^2\sigma_y^2-\Cov^2}{(\sigma^2+\sigma_x^2)^2}
+\\ \frac{\partial g}{\partial \sigma_y^2}&=\frac{1}{4}\frac{\sigma_x^2}{\sigma^2+\sigma_x^2}
+\\ \frac{\partial g}{\partial \Cov}&=\frac{1}{4}\frac{-2\Cov}{\sigma^2+\sigma_x^2}
+\end{align*}
+We first consider the $(0,0,0)$ equilibrium. Since $Q(0,0,0)=1/2$ and $g(0,0,0)=\frac{\partial g}{\partial \sigma_x^2}=\frac{\partial g}{\partial \sigma_y^2}=\frac{\partial g}{\partial \Cov}=0$, at this equilibrium,
+\begin{align*}
+J&=\left(\begin{array}{ccc}
+\frac{1}{2} & 0 & 0
+\\ 0 & \frac{1}{2} & 0
+\\ 0 & 0 & \frac{1}{2}
+\end{array}\right).
+\end{align*}
+Therefore, all three eigenvalues of $J$ are equal to $1/2$. Since there is no eigenvalue with absolute value greater than $1$ the $(0,0,0)$ equilibrium is stable. 
+
+Next consider any point $(\sigma_x^2,\sigma_y^2,\Cov)$ such that $Q(\sigma_x^2,\sigma_y^2,\Cov)=1$ and $\Cov=\sigma_x\sigma_y$ and let $J$ be the Jacobian evaluated at this point. Let $v=(\sigma_x^2,\sigma_y^2,\Cov)^T$. Then
+\begin{align*}
+Jv&=\left(\begin{array}{c}\sigma_x^2 \\ \sigma_y^2 \\ \Cov \end{array}\right)+
+\left(\begin{array}{c}
+\sigma_x^2\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}\right) 
+\\ \sigma_y^2\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}\right)
+\\ \Cov\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}\right) \end{array}\right)
++ \left(\begin{array}{c} 
+0 
+\\ \frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2}\left(\sigma_x^2\frac{\partial g}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial g}{\partial \sigma_y^2}+\Cov\frac{\partial g}{\partial \Cov}\right)
+\\ \sigma_x^2\frac{\partial g}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial g}{\partial \sigma_y^2}+\Cov\frac{\partial g}{\partial \Cov}
+\end{array}\right) \text{ since $Q=1$}.
+\end{align*}
+At this equilibrium $\sigma_x^2\sigma_y^2-\Cov^2=0$ so 
+\begin{align*}
+\sigma_x^2\frac{\partial g}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial g}{\partial \sigma_y^2}+\Cov\frac{\partial g}{\partial \Cov}&=\frac{1}{4(\sigma^2+\sigma_x^2)}(\sigma_x^2\sigma_y^2+\sigma_x^2\sigma_y^2-2\Cov^2)
+\\&=\frac{1}{2(\sigma^2+\sigma_x^2)}(\sigma_x^2\sigma_y^2-\Cov^2)=0.
+\end{align*}
+Therefore,
+\begin{align*}
+Jv&=\left(\begin{array}{c}\sigma_x^2 \\ \sigma_y^2 \\ \Cov \end{array}\right)+
+\left(\begin{array}{c}
+\sigma_x^2\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}\right) 
+\\ \sigma_y^2\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}\right)
+\\ \Cov\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}\right) \end{array}\right)
+\\&=\left(1+\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}\right)v,
+\end{align*}
+so $v$ is an eigenvector of $J$ with eigenvalue $\lambda = 1+\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}$. We will now show that $\lambda>1$:
+\begin{align*}
+\frac{\partial Q}{\partial \sigma_x^2}&=\frac{1}{4}\left(-\frac{\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}-\frac{2\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
+\\&=\frac{1}{4}\left(\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}-\frac{3}{\sigma^2+\sigma_x^2}\right) 
+\\&\text{ since $\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}=3$ at this equilibrium }
+\\&=\frac{1}{4}\left(\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\frac{\sigma^2}{\sigma^2+\sigma_x^2}-\frac{3}{\sigma^2+\sigma_x^2}\right)
+\\ \Rightarrow \sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}&=\frac{1}{4}\left(\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\frac{\sigma^2}{\sigma^2+\sigma_x^2}-\frac{3\sigma_x^2}{\sigma^2+\sigma_x^2}\right).
+\\\frac{\partial Q}{\partial \sigma_y^2}&=\frac{1}{4}\frac{\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}
+\\ \Rightarrow \sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}&=\frac{1}{4}\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}.
+\\ \frac{\partial Q}{\partial \Cov}&=\frac{1}{4}\frac{2}{\sigma^2+\sigma_x^2}
+\\ \Rightarrow \Cov\frac{\partial Q}{\partial \Cov}&=\frac{1}{4}\frac{2\Cov}{\sigma^2+\sigma_x^2}.
+\\ \Rightarrow \sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}&=\frac{1}{4}\left(\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\frac{\sigma^2}{\sigma^2+\sigma_x^2}-\frac{3\sigma_x^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}\right)
+\\ &=\frac{1}{4}\left(\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\frac{\sigma^2}{\sigma^2+\sigma_x^2}-\frac{3\sigma_x^2}{\sigma^2+\sigma_x^2}+3-\frac{\sigma^2}{\sigma^2+\sigma_x^2}\right)
+\\&=\frac{1}{4}\left(\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{3\sigma^2}{\sigma^2+\sigma_x^2}-\frac{\sigma^2}{\sigma^2+\sigma_x^2}\right)
+\\&=\frac{1}{4}\left(\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{2\sigma^2}{\sigma^2+\sigma_x^2}\right)
+\\&=\frac{1}{4}\frac{\sigma^2}{\sigma^2+\sigma_x^2}\left(\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+2\right)>0.
+\\ \Rightarrow \lambda &=1+\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}>1.
+\end{align*}
+Since there is an eigenvalue of $J$ that is greater than $1$, the equilibrium is unstable.
+
+\item Song is genetic, preference is learned / imprinted from father. Since both genders acquire song in the same way, $\sigma_{x\x{m}}^2=\sigma_{x\x{f}}^2$, so we can drop the 
+subscripts and use $\sigma_x^2$ for both $\sigma_{x\x{m}}^2$ and $\sigma_{x\x{f}}^2$. In this case, males do not have a preference trait, so $\rho_\x{m}=0$. Since only females have preferences, we can drop the f subscript and use $\rho$ for $\rho_\x{f}$ and $\sigma_y^2$ for $\sigma_{y\x{f}}^2$. Then, using Claim 1.1, the variance and covariance o the traits in the offspring of mating adults will be 
+\begin{align}
+\sigma_x^2(t+1)&=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov }{\sigma^2+\sigma_x^2}+1\right) \label{sigmax8}
+\\ \sigma_y^2(t+1)&=\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)\sigma_x^2 \label{sigmay8}
+\\ \Cov(t+1)&=\frac{1}{2}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)\sigma_x^2+\frac{1}{2}\frac{\rho\sigma_x^2\sigma_x\sigma_y}{\sigma^2+\sigma_x^2} \notag
+\\&=\frac{\sigma_x^2}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\Cov}{\sigma^2+\sigma_x^2}\right) \label{cov8}
+\end{align}
+There is one equilibrium at which $\sigma_x^2=\sigma_y^2=\Cov=0$. If there is to be an equilibrium at which $\sigma_x^2\neq 0$, it must be that
+\begin{align*}
+4&=\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov }{\sigma^2+\sigma_x^2}+1 \numberthis \label{first} 
+\\  \sigma_y^2&=\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)\sigma_x^2 \numberthis \label{second}
+\\ \text{ and } \Cov&=\frac{\sigma_x^2}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\Cov}{\sigma^2+\sigma_x^2}\right).\numberthis  \label{third} 
+\\ \text{Eq. \ref{second} } \Leftrightarrow \left(1-\frac{(\sigma_x^2)^2}{(\sigma^2+\sigma_x^2)^2}\right)\sigma_y^2&=\frac{\sigma^2\sigma_x^2}{\sigma^2+\sigma_x^2}
+\\\Leftrightarrow \left(\frac{(\sigma^2)^2+2\sigma^2\sigma_x^2+(\sigma_x^2)^2-(\sigma_x^2)^2}{(\sigma^2+\sigma_x^2)^2}\right)\sigma_y^2&=\frac{\sigma^2\sigma_x^2}{\sigma^2+\sigma_x^2}
+\\ \Leftrightarrow \sigma_y^2&=\frac{\sigma^2\sigma_x^2(\sigma^2+\sigma_x^2)}{\sigma^2(\sigma^2+2\sigma_x^2)}
+\\&=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{\sigma^2+2\sigma_x^2}.  \numberthis \label{sigmayeq8}
+\\ \text{Eq. \ref{third} } \Leftrightarrow \frac{2\sigma^2+\sigma_x^2}{\sigma^2+\sigma_x^2}\Cov&=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)
+\\ &=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{(\sigma_x^2)^2}{(\sigma^2+\sigma_x^2)(\sigma^2+2\sigma_x^2)}\right)  \text{ using Eq. \ref{sigmayeq8}}
+\\&=\sigma_x^2\left(\frac{(\sigma^2)^2+2\sigma^2\sigma_x^2+(\sigma_x^2)^2}{(\sigma^2+\sigma_x^2)(\sigma^2+2\sigma_x^2)}\right)
+\\&=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{\sigma^2+2\sigma_x^2}
+\\ \Leftrightarrow \Cov&=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)^2}{(\sigma^2+2\sigma_x^2)(2\sigma^2+\sigma_x^2)}.  \numberthis \label{coveq8}
+\\\text{Eqs. \ref{first}, \ref{sigmayeq8}, \ref{coveq8} } \Rightarrow 3&=\frac{\sigma^2+\sigma_x^2}{\sigma^2+2\sigma_x^2}+\frac{2\sigma_x^2(\sigma^2+\sigma_x^2)}{(\sigma^2+2\sigma_x^2)(2\sigma^2+\sigma_x^2)}
+\\&=\frac{(\sigma^2+\sigma_x^2)(2\sigma^2+\sigma_x^2)+2\sigma_x^2(\sigma^2+\sigma_x^2)}{(\sigma^2+2\sigma_x^2)(2\sigma^2+\sigma_x^2)}
+\\\Leftrightarrow 6(\sigma^2)^2+15\sigma^2\sigma_x^2+6(\sigma_x^2)^2&=2(\sigma^2)^2+3\sigma^2\sigma_x^2+(\sigma_x^2)^2+2\sigma^2\sigma_x^2+2(\sigma_x^2)^2
+\\ \Leftrightarrow 0&=3(\sigma_x^2)^2+10\sigma^2\sigma_x^2+4(\sigma^2)^2
+\\ \Leftrightarrow \sigma_x^2&=\frac{-10\sigma^2\pm\sqrt{100(\sigma^2)^2-48(\sigma^2)^2}}{6}
+\\& = \left(\frac{-10\pm\sqrt{52}}{6}\right)\sigma^2
+\\&=\left(\frac{-10\pm 2\sqrt{13}}{6}\right)\sigma^2.
+\end{align*}
+Both of these values are negative, and thus are not possible values of $\sigma_x^2$. Therefore there are no equilibria other than the one at which $\sigma_x^2=\sigma_y^2=\Cov=0$. We will now show that this equilibrium is stable by finding the Jacobian of the dynamics in Eqs.  \ref{sigmax8}-\ref{cov8}:
+\begin{align*}
+\hspace{-60pt}J&=\left.\left(\begin{array}{lll} 
+\frac{\sigma_x^2}{4}\left(\frac{-\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}-\frac{2\Cov}{(\sigma^2+\sigma_x^2)^2}\right)+\frac{1}{4}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}+1\right) & \frac{(\sigma_x^2)^2}{4(\sigma^2+\sigma_x^2)^2} & \frac{2\sigma_x^2}{\sigma^2+\sigma_x^2}
+\\ \sigma_x^2\left(\frac{-\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}\right)+\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) & \frac{(\sigma_x^2)^2}{(\sigma^2+\sigma_x^2)^2} & 0 
+\\ \frac{\sigma_x^2}{2}\left(\frac{-\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}-\frac{\Cov}{(\sigma^2+\sigma_x^2)^2}\right)+\frac{1}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\Cov}{\sigma^2+\sigma_x^2}\right) & \frac{(\sigma_x^2)^2}{2(\sigma^2+\sigma_x^2)^2} & \frac{\sigma_x^2}{2(\sigma^2+\sigma_x^2)}
+\end{array}\right)\right|_\text{equilibrium}
+\\\hspace{-20pt}&=\left(\begin{array}{lll} 
+\frac{1}{2} & 0 & 0 
+\\ 1 & 0 & 0 
+\\ \frac{1}{2} & 0 & 0 
+\end{array}\right).
+\end{align*}
+The eigenvalues of $J$ are $1/2$, $0$, and $0$. Since none of these are greater than $1$ in absolute value, the equilibrium is stable.
+
+\item Song is learned from father, preference is imprinted from mother. In this case, females do not have a song trait, so $\rho_\x{f}=0$, and males do not have a preference trait so $\rho_\x{m}=0$. Since only males have songs, we can drop the m subscript and use  $\sigma_x^2$ for $\sigma_{x\x{m}}^2$. Since only females have preferences, we can drop the f subscript and use $\sigma_y^2$ for $\sigma_{y\x{f}}^2$. Then, using Claim \ref{covariance}, the variance and covariance of the traits in the offspring of mating adults will be 
+\begin{align}
+\sigma_x^2(t+1)&=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) \label{sigmax3}
+\\ \sigma_y^2(t+1)&=\sigma_y^2 \label{sigmay3}
+\\ \Cov(t+1)&=0
+\end{align}
+In this case, $\sigma_y^2$ never changes. Eq. \ref{sigmax3} shows that $\sigma_x^2(t+1)>\sigma_x^2$ when $\sigma_x^2>0$ and $\sigma_x^2>\sigma_y^2-\sigma^2$ and $\sigma_x^2(t+1)<\sigma_x^2$ when $\sigma_x^2>0$ and $\sigma_x^2>\sigma_y^2-\sigma^2$. Therefore, if $\sigma_y^2-\sigma^2<0$, then $\sigma_x^2$ will always decrease, so $\sigma_x^2=0$ is the only equilibrium and it is stable. On the other hand, if $\sigma_y^2-\sigma^2>0$, then $\sigma_x^2=0$ is an unstable equilibrium and $\sigma_x^2=\sigma_y^2-\sigma^2$ is a stable equilibrium. In summary, $\sigma_x^2=\min\{0,\sigma_y^2-\sigma^2\}$ is always a stable equilibrium.
+ 
+\item Song is learned from father, preference is genetic. In this case, females do not have a song trait, so $\rho_\x{f}=0$. Since only males have songs, we can drop the m subscript and use $\rho$ for $\rho_\x{m}$ and $\sigma_x^2$ for $\sigma_{x\x{m}}^2$. Since both genders acquire preference in the same way, $\sigma_{y\x{m}}^2=\sigma_{y\x{f}}^2$, and we can drop the subscripts and use $\sigma_y^2$ for both $\sigma_{y\x{m}}^2$ and $\sigma_{y\x{f}}^2$. Then, using Claim \ref{covariance}, the variance and covariance of the traits in the offspring of mating adults will be 
+\begin{align}
+\sigma_x^2(t+1)&=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) \label{sigmax1}
+\\ \sigma_y^2(t+1)&=\frac{\sigma_y^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)^2-\rho^2\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right) \notag
+\\&=\frac{\sigma_y^2}{4}\left(\frac{-\rho^2\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+2\right) \label{sigmay1}
+\\ \Cov(t+1)&=\frac{1}{2}\frac{\rho\sigma_x\sigma_y(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2)}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2} \notag
+\\&=\frac{1}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)\Cov+\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}. \label{cov1}
+\end{align}
+One equilibrium occurs when $\sigma_x^2=\sigma_y^2=\Cov=0$. For there to be an equilibrium at which $\sigma_x^2>0$, it must be that 
+\begin{align*}
+\sigma_x^2&=\sigma_y^2-\sigma^2 \numberthis \label{sigmax_condition} \text{ using Eq. \ref{sigmax1}}
+\\ \text{ and }
+\Cov&=\frac{1}{2}\Cov+\frac{1}{2}\sigma_x^2 \text{ using Eq. \ref{cov1}}
+\\ \Leftrightarrow \Cov&=\sigma_x^2=\sigma_y^2-\sigma^2 \numberthis \label{cov_condition}
+\\ \Leftrightarrow  \rho\sigma_x\sigma_y&=\sigma_x^2
+\\ \Leftrightarrow \rho & = \frac{\sigma_x}{\sigma_y}  \numberthis \label{rho_condition}
+\\ \text{and  }  4&=\frac{-\rho^2\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+2 \text{ using Eq. \ref{sigmay1}}
+\\\Leftrightarrow 2&=\frac{-\rho^2\sigma_x^2\sigma_y^2+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}
+\\ \Leftrightarrow \rho\sigma_x\sigma_y&=\sigma^2+\sigma_x^2
+\\ \Leftrightarrow \sigma_x^2&=\sigma^2+\sigma_x^2 \text{ using Eq. \ref{rho_condition} } 
+\end{align*}
+This is only possible if $\sigma^2=0$. If $\sigma^2>0$, then there can be no equilibrium at which $\sigma_x^2>0$. We will now show that the equilibrium at which $\sigma_x^2=\sigma_y^2=\Cov=0$ is stable by finding the Jacobian of the dynamics in Eqs. \ref{sigmax1}-\ref{cov1}. To do so, it will be useful to rewrite Eq. \ref{sigmay1} as 
+\begin{align*}
+\sigma_y^2(t+1)&=\frac{1}{4}\frac{-\Cov}{\sigma^2+\sigma_x^2}+\frac{\sigma_y^2}{4}\left(\left(\frac{\Cov}{\sigma^2+\sigma_x^2}+1\right)^2+1\right). 
+\end{align*}
+Now, 
+\begin{align*}
+\hspace{-73pt}J&\hspace{-2pt}=\hspace{-5pt}\left.\left(\hspace{-5pt}\begin{array}{ccc} 
+\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\sigma_x^2\left(-\frac{\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}\right)
+& \frac{(\sigma_x^2)^2}{(\sigma^2+\sigma_x^2)^2} & 0 
+\\ \frac{\Cov}{4(\sigma^2+\sigma_x^2)^2}+\frac{2\sigma_y^2}{4}\left(\frac{\Cov}{\sigma^2+\sigma_x^2}+1\right)\frac{-\Cov}{(\sigma^2+\sigma_x^2)^2} & \frac{1}{4}\left(\left(\frac{\Cov}{\sigma^2+\sigma_x^2}+1\right)^2+1\right) & \frac{1}{4}\frac{-1}{\sigma^2+\sigma_x^2}+\frac{2\sigma_y^2}{4(\sigma^2+\sigma_x^2)}\left(\frac{\Cov}{\sigma^2+\sigma_x^2}+1\right)
+\\ \frac{1}{2}\left(\Cov\left(-\frac{\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}\right)+\frac{\sigma_y^2}{\sigma^2+\sigma_x^2}-\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) & \frac{\sigma_x^2\Cov}{2(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_x^2}{2(\sigma^2+\sigma_x^2)} & \frac{1}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)
+\end{array}\hspace{-9pt}\right)\hspace{-2.8pt}\right|_\text{equilibrium}
+\\\hspace{-73pt} &=\left(\begin{array}{ccc} 
+1 & 0 & 0 
+\\ 0 & \frac{1}{2} & -\frac{1}{4\sigma^2}
+\\ 0 & 0 & \frac{1}{2}
+\end{array}\right)
+\end{align*}
+This linearization shows that small perturbations from equilibrium in either the $\sigma_y^2$ or $\Cov$ directions will shrink. However, since $(1,0,0)^T$ is an eigenvector of $J$ with eigenvalue $1$, the linearization cannot tell us what happens to a small perturbation in the $\sigma_x^2$ direction. However, Eq. \ref{sigmax1} shows that, as long as $\sigma_x^2>\sigma_y^2-\sigma_y^2$ then $\sigma_x^2(t+1)<\sigma_x^2(t)$. In particular, if $\sigma_y^2=0$ then any perturbation in the $\sigma_x^2$ direction will shrink. Therefore, the equilibrium with $\sigma_x^2=\sigma_y^2=\Cov=0$ is stable.
+
+
+\item Song is learned from father, preference is learned / imprinted from father.  In this case, females do not have a song trait, so $\rho_\x{f}=0$, and males do not have a preference trait so $\rho_\x{m}=0$. Since only males have songs, we can drop the m subscript and use and $\sigma_x^2$ for $\sigma_{x\x{m}}^2$. Since only females have preferences, we can drop the f subscript and use $\sigma_y^2$ for $\sigma_{y\x{f}}^2$. Then, using Claim \ref{covariance}, the variance and covariance of the traits in the offspring of mating adults will be 
+\begin{align}
+\sigma_x^2(t+1)&=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) \label{sigmax2}
+\\ \sigma_y^2(t+1)&=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) \label{sigmay2}
+\\ \Cov(t+1)&=0
+\end{align}
+There is one equilibrium where $\sigma_x^2=\sigma_y^2=0$. Using Eq. \ref{sigmax2}, 
+$\sigma_x^2(t+1)=\sigma_x^2$ when $$ \frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}=1 \Leftrightarrow \sigma_x^2=\sigma_y^2-\sigma^2.$$ However, if $\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}=1$ then $\sigma_y^2(t+1)=\sigma_x^2=\sigma_y^2-\sigma^2<\sigma_y^2$, as long as $\sigma^2>0$. Therefore, $\sigma_x^2=\sigma_y^2=0$ is the only equilibrium. Note that, regardless of the initial conditions, after one generation, it will be the case that $\sigma_x^2=\sigma_y^2$. As long as $\sigma^2>0$, this means that $\sigma_x^2>\sigma_y^2-\sigma^2$, so that according to Eqs. \ref{sigmax2} and \ref{sigmay2}, $\sigma_x^2(t+1)=\sigma_y^2(t+1)<\sigma_x^2=\sigma_y^2$. Therefore, after the first generation, both $\sigma_x^2$ and $\sigma_y^2$ shrink every generation, so $\sigma_x^2=\sigma_y^2=0$ is a stable equilibrium.
+
+\end{enumerate}
+
+\section{Helpful algebra, linear and otherwise}
+In this section, we provide a few mathematical facts. These are not original to this paper, but it is useful to have them stated here for the derivation in Section \ref{cov_derivation}.
 \begin{fact} \label{univariate}
 \begin{align*}
 \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)\frac{1}{\sqrt{2\pi\rho^2}}\exp\left(-\frac{(x-\nu)^2}{2\rho^2}\right)&=\frac{1}{\sqrt{2\pi\frac{\sigma^2\rho^2}{\sigma^2+\rho^2}}}\exp\left(-\frac{\left(x-\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2}{2\frac{\sigma^2\rho^2}{\sigma^2+\rho^2}}\right)\times
@@ -233,7 +713,7 @@ This makes sense because every female has equal mating success so there is no di
 \\&=\left(\frac{1}{\sigma^2}+\frac{1}{\rho^2}\right)\left(x^2-2\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}x\right)+\frac{\mu^2}{\sigma^2}+\frac{\nu^2}{\rho^2}
 \\&=\left(\frac{1}{\sigma^2}+\frac{1}{\rho^2}\right)\left(x^2-2\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}x+\left(\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2\right)-\left(\frac{1}{\sigma^2}+\frac{1}{\rho^2}\right)\left(\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2+\frac{\mu^2}{\sigma^2}+\frac{\nu^2}{\rho^2}
 \\&=\left(\frac{1}{\sigma^2}+\frac{1}{\rho^2}\right)\left(x-\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2-\frac{(\mu\rho^2+\nu\sigma^2)^2}{\sigma^2\rho^2(\sigma^2+\rho^2)}+\frac{\mu^2}{\sigma^2}+\frac{\nu^2}{\rho^2}
-\\&=\frac{\left(x-\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2}{\frac{\sigma^2\rho^2}{\sigma^2+\rho^2}}-\frac{\mu^2\rho^4}{\sigma^2\rho^2(\sigma^2+\rho^2)}-\frac{2\mu\nu\rho^2\sigma^2}{\sigma^2\rho^2(\sigma^2+\rho^2)}-\frac{\nu^2\sigma^4}{\sigma^2\rho^2(\sigma^2+\rho^2)}+\frac{\mu^2}{\sigma^2}+\frac{\nu^2}{\rho^2}
+\\&=\frac{\left(x-\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2}{\frac{\sigma^2\rho^2}{\sigma^2+\rho^2}}-\frac{\mu^2\rho^4}{\sigma^2\rho^2(\sigma^2+\rho^2)}-\frac{2\mu\nu\rho^2\sigma^2}{\sigma^2\rho^2(\sigma^2+\rho^2)}-\frac{\nu^2(\sigma^2)^2}{\sigma^2\rho^2(\sigma^2+\rho^2)}+\frac{\mu^2}{\sigma^2}+\frac{\nu^2}{\rho^2}
 \\&=\frac{\left(x-\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2}{\frac{\sigma^2\rho^2}{\sigma^2+\rho^2}}+\left(-\frac{\rho^2}{\sigma^2(\sigma^2+\rho^2)}+\frac{1}{\sigma^2}\right)\mu^2-\frac{2\mu\nu}{\sigma^2+\rho^2}+\left(-\frac{\sigma^2}{\rho^2(\sigma^2+\rho^2)}+\frac{1}{\rho^2}\right)\nu^2
 \\&=\frac{\left(x-\frac{\mu\rho^2+\nu\sigma^2}{\sigma^2+\rho^2}\right)^2}{\frac{\sigma^2\rho^2}{\sigma^2+\rho^2}}+\frac{(\mu-\nu)^2}{\sigma^2+\rho^2}
 \end{align*}
@@ -246,21 +726,21 @@ This makes sense because every female has equal mating success so there is no di
 \begin{fact} \label{multivariate_reduce}
 Suppose $\Sigma$ is a symmetric $2\times 2$ matrix, $\Sigma=\left(\begin{array}{cc}\sigma_x^2 & \rho\sigma_x\sigma_y \\ \rho\sigma_x\sigma_y& \sigma_y^2 \end{array}\right)$.
 \begin{equation*}
-\frac{1}{2\pi\sqrt{|\Sigma|}}\exp\left(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right)=\frac{1}{\sqrt{2\pi \sigma_x^2}}\exp\left(-\frac{(x_1-\mu_1)^2}{2 \sigma_x^2}\right)\frac{1}{\sqrt{2\pi (1-\rho^2)\sigma_y^2}}\exp\left(-\frac{(x_2-\mu_2-\frac{\rho\sigma_y}{\sigma_x}(x_1-\mu_1))^2}{2(1-\rho^2)\sigma_y^2}\right)
+\frac{1}{2\pi\sqrt{|\Sigma|}}\exp\left(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right)=\frac{1}{\sqrt{2\pi \sigma_x^2}}\exp\left(-\frac{(x_\x{m}-\mu_1)^2}{2 \sigma_x^2}\right)\frac{1}{\sqrt{2\pi (1-\rho^2)\sigma_y^2}}\exp\left(-\frac{(x_\x{f}-\mu_2-\frac{\rho\sigma_y}{\sigma_x}(x_\x{m}-\mu_1))^2}{2(1-\rho^2)\sigma_y^2}\right)
 \end{equation*}
 \end{fact}
 
 \begin{pf} 
 $|\Sigma|=(1-\rho^2)\sigma_x^2\sigma_y^2\Rightarrow\Sigma^{-1}=\frac{1}{(1-\rho^2)\sigma_x^2\sigma_y2}\left(\begin{array}{cc} \sigma_y^2 & -\rho\sigma_x\sigma_y \\ -\rho\sigma_x\sigma_y & \sigma_x^2\end{array}\right)=\left(\begin{array}{cc} \frac{1}{(1-\rho^2)\sigma_x^2} & \frac{-\rho}{(1-\rho^2)\sigma_x\sigma_y} \\ \frac{-\rho}{(1-\rho^2)\sigma_x\sigma_y} & \frac{1}{(1-\rho^2)\sigma_y^2}\end{array}\right)$.
 \begin{align*}
-(x-\mu)^T\Sigma^{-1}(x-\mu)&=(x_1-\mu_1, \ x_2-\mu_2)\left(\begin{array}{c} \frac{1}{(1-\rho^2)\sigma_x^2}(x_1-\mu_1)-\frac{\rho}{(1-\rho^2)\sigma_x\sigma_y}(x_2-\mu_2) \\ -\frac{\rho}{(1-\rho^2)\sigma_x\sigma_y}(x_1-\mu_1)+\frac{1}{(1-\rho^2)\sigma_y^2}(x_2-\mu_2)\end{array}\right)
-\\&=\frac{1}{(1-\rho^2)\sigma_x^2}(x_1-\mu_1)^2-2\frac{\rho}{(1-\rho^2)\sigma_x\sigma_y}(x_1-\mu_1)(x_2-\mu_2)+\frac{1}{(1-\rho^2)\sigma_y^2}(x_2-\mu_2)^2
-\\&=\frac{1}{\sigma_x^2}(x_1-\mu_1)^2+\frac{\rho^2}{(1-\rho^2)\sigma_x^2}(x_1-\mu_1)^2-2\frac{\rho}{(1-\rho^2)\sigma_x\sigma_y}(x_1-\mu_1)(x_2-\mu_2)+\frac{1}{(1-\rho^2)\sigma_y^2}(x_2-\mu_2)^2
-\\&=\frac{1}{\sigma_x^2}(x_1-\mu_1)^2+\frac{1}{(1-\rho^2)}\left(\frac{x_2-\mu_2}{\sigma_y}-\frac{\rho(x_1-\mu_1)}{\sigma_x} \right)^2
-\\&=\frac{(x_1-\mu_1)^2}{\sigma_x^2}+\frac{\left(x_2-\mu_2-\frac{\rho\sigma_y}{\sigma_x}(x_1-\mu_1) \right)^2}{(1-\rho^2)\sigma_y^2}
+(x-\mu)^T\Sigma^{-1}(x-\mu)&=(x_\x{m}-\mu_1, \ x_\x{f}-\mu_2)\left(\begin{array}{c} \frac{1}{(1-\rho^2)\sigma_x^2}(x_\x{m}-\mu_1)-\frac{\rho}{(1-\rho^2)\sigma_x\sigma_y}(x_\x{f}-\mu_2) \\ -\frac{\rho}{(1-\rho^2)\sigma_x\sigma_y}(x_\x{m}-\mu_1)+\frac{1}{(1-\rho^2)\sigma_y^2}(x_\x{f}-\mu_2)\end{array}\right)
+\\&=\frac{1}{(1-\rho^2)\sigma_x^2}(x_\x{m}-\mu_1)^2-2\frac{\rho}{(1-\rho^2)\sigma_x\sigma_y}(x_\x{m}-\mu_1)(x_\x{f}-\mu_2)+\frac{1}{(1-\rho^2)\sigma_y^2}(x_\x{f}-\mu_2)^2
+\\&=\frac{1}{\sigma_x^2}(x_\x{m}-\mu_1)^2+\frac{\rho^2}{(1-\rho^2)\sigma_x^2}(x_\x{m}-\mu_1)^2-2\frac{\rho}{(1-\rho^2)\sigma_x\sigma_y}(x_\x{m}-\mu_1)(x_\x{f}-\mu_2)+\frac{1}{(1-\rho^2)\sigma_y^2}(x_\x{f}-\mu_2)^2
+\\&=\frac{1}{\sigma_x^2}(x_\x{m}-\mu_1)^2+\frac{1}{(1-\rho^2)}\left(\frac{x_\x{f}-\mu_2}{\sigma_y}-\frac{\rho(x_\x{m}-\mu_1)}{\sigma_x} \right)^2
+\\&=\frac{(x_\x{m}-\mu_1)^2}{\sigma_x^2}+\frac{\left(x_\x{f}-\mu_2-\frac{\rho\sigma_y}{\sigma_x}(x_\x{m}-\mu_1) \right)^2}{(1-\rho^2)\sigma_y^2}
 \end{align*}
 \begin{align*}
-\Rightarrow \frac{1}{2\pi\sqrt{|\Sigma|}}\exp\left(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right)&=\frac{1}{\sqrt{2\pi\sigma_x^2}}\exp\left(-\frac{(x_1-\mu_1)^2}{2\sigma_x^2}\right)\frac{1}{\sqrt{2\pi (1-\rho^2)\sigma_y^2}}\exp\left(-\frac{\left(x_2-\mu_2-\frac{\rho\sigma_y}{\sigma_x}(x_1-\mu_1) \right)^2}{2(1-\rho^2)\sigma_y^2}\right)
+\Rightarrow \frac{1}{2\pi\sqrt{|\Sigma|}}\exp\left(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right)&=\frac{1}{\sqrt{2\pi\sigma_x^2}}\exp\left(-\frac{(x_\x{m}-\mu_1)^2}{2\sigma_x^2}\right)\frac{1}{\sqrt{2\pi (1-\rho^2)\sigma_y^2}}\exp\left(-\frac{\left(x_\x{f}-\mu_2-\frac{\rho\sigma_y}{\sigma_x}(x_\x{m}-\mu_1) \right)^2}{2(1-\rho^2)\sigma_y^2}\right)
 \end{align*}
 \end{pf}
 
@@ -276,7 +756,7 @@ A^{-1}(A^{-1}+B^\dagger)^{-1}B^\dagger=\left(\begin{array}{cc}\frac{1}{s+a} & 0 
 \end{fact}
 
 \begin{pf} 
-Suppose $A=\left(\begin{array}{cc}a & b \\ b & c \end{array}\right)$ so that $A^{-1}=\frac{1}{|A|}\left(\begin{array}{cc}c & -b \\ -b & a \end{array}\right)$. Suppose $B^\dagger = \left(\begin{array}{cc} \frac{1}{s} & 0 \\ 0 & 0 \end{array}\right)$.
+Note that $A^{-1}=\frac{1}{|A|}\left(\begin{array}{cc}c & -b \\ -b & a \end{array}\right)$. Therefore
 \begin{align*}
 A^{-1}+B^\dagger & =\left(\begin{array}{cc}\frac{c}{|A|}+\frac{1}{s} & \frac{-b}{|A|} \\  \frac{-b}{|A|} & \frac{a}{|A|} \end{array}\right)
 \\ \Rightarrow |A^{-1}+B^\dagger|&=\frac{1}{|A|}+\frac{a}{s|A|}=\frac{s+a}{s|A|}
@@ -287,50 +767,54 @@ A^{-1}+B^\dagger & =\left(\begin{array}{cc}\frac{c}{|A|}+\frac{1}{s} & \frac{-b}
 \end{align*}
 \end{pf}
 
-\begin{fact} 
-If $x,\mu,\nu\in\R^2$, and $A,B$ are symmetric invertible $2\times 2$ matrices, then 
-\begin{equation}
-(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{-1}(x-\nu)=(x-\rho)^TC^{-1}(x-\rho)+(\mu-\nu)^T(A+B)^{-1}(\mu-\nu)
-\end{equation}
-where $\rho=(A^{-1}+B^{-1})^{-1}(A^{-1}\mu+B^{-1}\nu)$ and $C=(A^{-1}+B^{-1})^{-1}$.
-\end{fact}
+%\begin{fact} 
+%If $x,\mu,\nu\in\R^2$, and $A,B$ are symmetric invertible $2\times 2$ matrices, then 
+%\begin{equation}
+%(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{-1}(x-\nu)=(x-\rho)^TC^{-1}(x-\rho)+(\mu-\nu)^T(A+B)^{-%1}(\mu-\nu)
+%\end{equation}
+%where $\rho=(A^{-1}+B^{-1})^{-1}(A^{-1}\mu+B^{-1}\nu)$ and $C=(A^{-1}+B^{-1})^{-1}$.
+%\end{fact}
 
-\begin{pf}
-\begin{align*}
-(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{-1}(x-\nu)
-&=x^TA^{-1}x-x^TA^{-1}\mu-\mu^TA^{-1}x+\mu^TA^{-1}\mu
-\\&+x^TB^{-1}x-x^TB^{-1}\nu-x^TB^{-1}\nu-\nu^TB^{-1}\nu+\nu^TB^{-1}\nu
-\\&=x^T(A^{-1}+B^{-1})x-2x^T(A^{-1}\mu+B^{-1}\nu)+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu 
-\\ &\text{ since $A$ and $B$ are symmetric}
-\\&=x^T(A^{-1}+B^{-1})x-2x^T(A^{-1}+B^{-1})(A^{-1}+B^{-1})^{-1}(A^{-1}\mu+B^{-1}\nu)
-\\&+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu 
-\\ \text{ Let } \rho&=(A^{-1}+B^{-1})^{-1}(A^{-1}\mu+B^{-1}\nu)\text{ and $C=(A^{-1}+B^{-1})^{-1}$. Then }
-\\\Rightarrow(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{-1}(x-\nu)&=x^TC^{-1}x-2x^TC^{-1}\rho+\rho^TC^{-1}\rho-\rho^TC^{-1}\rho+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu
-\\&=(x-\rho)^TC^{-1}(x-\rho)
-\\&-(A^{-1}\mu+B^{-1}\nu)^T(A^{-1}+B^{-1}) (A^{-1}\mu+B^{-1}\nu)+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu
-\end{align*}
-Note that $A(A^{-1}+B^{-1})B=A+B$ so that $A^{-1}(A^{-1}+B^{-1})^{-1}B^{-1}=B^{-1}(A^{-1}+B^{-1})^{-1}A^{-1}=(A+B)^{-1}$.
-Note further that 
-\begin{align*}
-A^{-1}(A^{-1}+B^{-1})^{-1}A^{-1}&=(A^{-1}+B^{-1})(A^{-1}+B^{-1})^{-1}A^{-1}-B^{-1}(A^{-1}+B^{-1})^{-1}A^{-1}
-\\&=A^{-1}-(A+B)^{-1}
-\\\text{ and similarly } B^{-1}(A^{-1}+B^{-1})^{-1}B^{-1} &=B^{-1}-(A+B)^{-1}
-\end{align*}
-Therefore 
-\begin{align*}
-(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{-1}(x-\nu)&=(x-\rho)^TC^{-1}(x-\rho)
-\\&-\mu^TA^{-1}\mu+\mu^T(A+B)^{-1}\mu-2\mu^T(A+B)^{-1}\nu-\nu^TB^{-1}\nu+\nu^T(A+B)^{-1}\nu
-\\&+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu
-\\&=(x-\rho)^TC^{-1}(x-\rho)+(\mu-\nu)^T(A+B)^{-1}(\mu-\nu)
-\end{align*}
-\end{pf}
+%\begin{pf}
+%\begin{align*}
+%(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{-1}(x-\nu)
+%&=x^TA^{-1}x-x^TA^{-1}\mu-\mu^TA^{-1}x+\mu^TA^{-1}\mu
+%\\&+x^TB^{-1}x-x^TB^{-1}\nu-x^TB^{-1}\nu-\nu^TB^{-1}\nu+\nu^TB^{-1}\nu
+%\\&=x^T(A^{-1}+B^{-1})x-2x^T(A^{-1}\mu+B^{-1}\nu)+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu 
+%\\ &\text{ since $A$ and $B$ are symmetric}
+%\\&=x^T(A^{-1}+B^{-1})x-2x^T(A^{-1}+B^{-1})(A^{-1}+B^{-1})^{-1}(A^{-1}\mu+B^{-1}\nu)
+%\\&+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu 
+%\\ \text{ Let } \rho&=(A^{-1}+B^{-1})^{-1}(A^{-1}\mu+B^{-1}\nu)\text{ and %$C=(A^{-1}+B^{-1})^{-1}$. Then }
+%\\\Rightarrow(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{-1}(x-\nu)&=x^TC^{-1}x-2x^TC^{-1}\rho+\rho%^TC^{-1}\rho-\rho^TC^{-1}\rho+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu
+%\\&=(x-\rho)^TC^{-1}(x-\rho)
+%\\&-(A^{-1}\mu+B^{-1}\nu)^T(A^{-1}+B^{-1}) %(A^{-1}\mu+B^{-1}\nu)+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu
+%\end{align*}
+%Note that $A(A^{-1}+B^{-1})B=A+B$ so that %$A^{-1}(A^{-1}+B^{-1})^{-1}B^{-1}=B^{-1}(A^{-1}+B^{-1})^{-1}A^{-1}=(A+B)^{-1}$.
+%Note further that 
+%\begin{align*}
+%A^{-1}(A^{-1}+B^{-1})^{-1}A^{-1}&=(A^{-1}+B^{-1})(A^{-1}+B^{-1})^{-1}A^{-1}-B^{-1}(A^{-1}+%B^{-1})^{-1}A^{-1}
+%\\&=A^{-1}-(A+B)^{-1}
+%\\\text{ and similarly } B^{-1}(A^{-1}+B^{-1})^{-1}B^{-1} &=B^{-1}-(A+B)^{-1}
+%\end{align*}
+%Therefore 
+%\begin{align*}
+%(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{-1}(x-\nu)&=(x-\rho)^TC^{-1}(x-\rho)
+%\\&-\mu^TA^{-1}\mu+\mu^T(A+B)^{-1}\mu-2\mu^T(A+B)^{-1}\nu-\nu^TB^{-1}\nu+\nu^T(A+B)^{-1}\nu
+%\\&+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu
+%\\&=(x-\rho)^TC^{-1}(x-\rho)+(\mu-\nu)^T(A+B)^{-1}(\mu-\nu)
+%\end{align*}
+%\end{pf}
 
 \begin{fact} \label{sum_of_normal}
-Suppose $x,\mu,\nu\in\R^2$, and $A$ is a symmetric invertible $2\times 2$ matrix. Suppose further that $s\in\R$ and $B^\dagger = \left(\begin{array}{cc} \frac{1}{s} & 0 \\ 0 & 0 \end{array}\right)$. Then 
-\begin{equation}
-(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{\dagger}(x-\nu)=(x-\rho)^TC^{-1}(x-\rho)+\frac{(\mu_1-\nu_1)^2}{A_{11}+s}
-\end{equation}
-where $C=(A^{-1}+B^{\dagger})^{-1}=\frac{s}{s+a}A+\left(\begin{array}{cc} 0 & 0 \\ 0 & \frac{|A|}{s+a}\end{array}\right)$ and $\rho=C(A^{-1}\mu+B^\dagger\nu)=\left(\begin{array}{c}\frac{s}{s+a}\mu_1+\frac{a}{s+a}\nu_1 \\ \mu_2+\frac{b}{s+a}(\nu_1-\mu_1) \end{array}\right)$.
+Suppose $x,\mu,\nu\in\R^2$, and $A=\left(\begin{array}{cc} a & b \\ b & c \end{array}\right)$ is a symmetric invertible $2\times 2$ matrix. Suppose further that $s\in\R$ and $B^\dagger = \left(\begin{array}{cc} \frac{1}{s} & 0 \\ 0 & 0 \end{array}\right)$. Then 
+\begin{align}
+\frac{1}{2\pi\sqrt{|A|}}\exp\left(-\frac{1}{2}(x-\mu)^TA^{-1}(x-\mu)\right)&\frac{1}{\sqrt{2\pi s}}\exp\left(-\frac{(x-\nu)^TB^\dagger(x-\nu)}{2s}\right)= \notag
+\\&\frac{1}{2\pi\sqrt{|C|}}\exp\left(-\frac{1}{2}(x-c)^TC^{-1}(x-c)\right)\frac{1}{\sqrt{2\pi(a+s)}}\exp\left(-\frac{(\mu_1-\nu_1)^2}{2(a+s)}\right)
+\end{align}
+%\begin{equation}
+%(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{\dagger}(x-\nu)=(x-\rho)^TC^{-1}(x-\rho)+\frac{(\mu_1-\nu_1)^2}{a+s}
+%\end{equation}
+where $C=(A^{-1}+B^{\dagger})^{-1}=\frac{s}{s+a}A+\left(\begin{array}{cc} 0 & 0 \\ 0 & \frac{|A|}{s+a}\end{array}\right)$ and $c=C(A^{-1}\mu+B^\dagger\nu)=\left(\begin{array}{c}\frac{s}{s+a}\mu_1+\frac{a}{s+a}\nu_1 \\ \mu_2+\frac{b}{s+a}(\nu_1-\mu_1) \end{array}\right)$.
 \end{fact}
 
 \begin{pf}
@@ -342,28 +826,28 @@ where $C=(A^{-1}+B^{\dagger})^{-1}=\frac{s}{s+a}A+\left(\begin{array}{cc} 0 & 0 
 \\ &\text{ since $A$ and $B$ are symmetric}
 \\&=x^T(A^{-1}+B^{\dagger})x-2x^T(A^{-1}+B^{\dagger})(A^{-1}+B^{\dagger})^{-1}(A^{-1}\mu+B^{\dagger}\nu)
 \\&+\mu^TA^{-1}\mu+\nu^TB^{\dagger}\nu 
-\\ \text{ Let } C&=(A^{-1}+B^{\dagger})^{-1}\text{ and $\rho=C(A^{-1}\mu+B^{\dagger}\nu)$. Then }
-\\\Rightarrow(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{\dagger}(x-\nu)&=x^TC^{-1}x-2x^TC^{-1}\rho+\rho^TC^{-1}\rho-\rho^TC^{-1}\rho+\mu^TA^{-1}\mu+\nu^TB^{\dagger}\nu
-\\&=(x-\rho)^TC^{-1}(x-\rho)
-\\&-(A^{-1}\mu+B^{\dagger}\nu)^T(A^{-1}+B^{\dagger}) (A^{-1}\mu+B^{\dagger}\nu)+\mu^TA^{-1}\mu+\nu^TB^{\dagger}\nu
+\\ \text{ Let } C&=(A^{-1}+B^{\dagger})^{-1}\text{ and $c=C(A^{-1}\mu+B^{\dagger}\nu)$. Then }
+\\(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{\dagger}(x-\nu)&=x^TC^{-1}x-2x^TC^{-1}c+c^TC^{-1}c-c^TC^{-1}c+\mu^TA^{-1}\mu+\nu^TB^{\dagger}\nu
+\\&=(x-c)^TC^{-1}(x-c)
+\\&-(A^{-1}\mu+B^{\dagger}\nu)^T(A^{-1}+B^{\dagger}) ^{-1}(A^{-1}\mu+B^{\dagger}\nu)+\mu^TA^{-1}\mu+\nu^TB^{\dagger}\nu
 \end{align*}
-Let $D^\dagger=\left(\begin{array}{cc} \frac{1}{A_{11}+s} & 0 \\ 0 & 0 \end{array} \right)$. By Fact \ref{rewrite_inverse} $A^{-1}(A^{-1}+B^{\dagger})^{-1}B^{\dagger}=B^{\dagger}(A^{-1}+B^{\dagger})^{-1}A^{-1}=D^\dagger$. Note further that 
+Let $D^\dagger=\left(\begin{array}{cc} \frac{1}{a+s} & 0 \\ 0 & 0 \end{array} \right)$. By Fact \ref{rewrite_inverse} $A^{-1}(A^{-1}+B^{\dagger})^{-1}B^{\dagger}=B^{\dagger}(A^{-1}+B^{\dagger})^{-1}A^{-1}=D^\dagger$. Note further that 
 \begin{align*}
 A^{-1}(A^{-1}+B^{\dagger})^{-1}A^{-1}&=(A^{-1}+B^{\dagger})(A^{-1}+B^{\dagger})^{-1}A^{-1}-B^{\dagger}(A^{-1}+B^{\dagger})^{-1}A^{-1}
 \\&=A^{-1}-D^\dagger
 \\\text{ and similarly } B^{\dagger}(A^{-1}+B^{\dagger})^{-1}B^{\dagger} &=B^{\dagger}-D^\dagger
 \end{align*}
 Therefore 
-\begin{align*}
-(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{\dagger}(x-\nu)&=(x-\rho)^TC^{-1}(x-\rho)
-\\&-\mu^TA^{-1}\mu+\mu^TD^\dagger\mu-2\mu^TD^\dagger\nu-\nu^TB^{-1}\nu+\nu^TD^\dagger\nu
-\\&+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu
-\\&=(x-\rho)^TC^{-1}(x-\rho)+(\mu-\nu)^TD^\dagger(\mu-\nu)
-\\&=(x-\rho)^TC^{-1}(x-\rho)+\frac{(\mu_1-\nu_1)^2}{A_{11}+s}
-\end{align*}
+\begin{align}
+(x-\mu)^TA^{-1}(x-\mu)+(x-\nu)^TB^{\dagger}(x-\nu)&=(x-c)^TC^{-1}(x-c) \notag
+\\&-\mu^TA^{-1}\mu+\mu^TD^\dagger\mu-\mu^TD^\dagger\nu-\nu^TB^{-1}\nu+\nu^TD^\dagger\nu-\nu^TD^\dagger\mu \notag
+\\&+\mu^TA^{-1}\mu+\nu^TB^{-1}\nu \notag
+\\&=(x-c)^TC^{-1}(x-c)+(\mu-\nu)^TD^\dagger(\mu-\nu) \notag
+\\&=(x-c)^TC^{-1}(x-c)+\frac{(\mu_1-\nu_1)^2}{a+s} \label{conclusion}
+\end{align}
 By Fact \ref{rewrite_inverse}, $C=\frac{s}{s+a}A+\left(\begin{array}{cc}0 & 0 \\ 0 & \frac{|A|}{s+a} \end{array}\right)$. Then
 \begin{align*}
-\rho&=C(A^{-1}\mu+B^\dagger\nu)
+c&=C(A^{-1}\mu+B^\dagger\nu)
 \\&=\left(\frac{s}{s+a}A+\left(\begin{array}{cc}0 & 0 \\ 0 & \frac{|A|}{s+a} \end{array}\right)\right)(A^{-1}\mu+B^\dagger\nu)
 \\&=\frac{s}{s+a}\mu+\frac{s}{s+a}AB^\dagger\nu+\left(\begin{array}{cc}0 & 0 \\ 0 & \frac{|A|}{s+a} \end{array}\right)A^{-1}\mu
 \\&=\frac{s}{s+a}\mu+\frac{s}{s+a}\left(\begin{array}{cc}\frac{a}{s} & 0 \\ \frac{b}{s} & 0 \end{array}\right)\nu+\left(\begin{array}{cc}0 & 0 \\ \frac{-b}{s+a} & \frac{a}{s+a} \end{array}\right)\mu
@@ -374,7 +858,11 @@ By Fact \ref{rewrite_inverse}, $C=\frac{s}{s+a}A+\left(\begin{array}{cc}0 & 0 \\
 \\\mu_2+\frac{b}{s+a}(\nu_1-\mu_1)
 \end{array}\right)
 \end{align*}
-Note that $|C|=(\frac{s}{s+a})^2|A|+\frac{sa|A|}{(s+a)^2}=\frac{s(s+a)}{(s+a)^2}|A|=\frac{s}{s+a}|A|$.
+Note that $|C|=(\frac{s}{s+a})^2|A|+\frac{sa|A|}{(s+a)^2}=\frac{s(s+a)}{(s+a)^2}|A|=\frac{s}{s+a}|A|$. Combining this with Eq. \ref{conclusion}, we find that  
+\begin{align*}
+\frac{1}{2\pi\sqrt{|A|}}\exp\left(-\frac{1}{2}(x-\mu)^TA^{-1}(x-\mu)\right)&\frac{1}{\sqrt{2\pi s}}\exp\left(-\frac{(x-\nu)^TB^\dagger(x-\nu)}{2s}\right)= \notag
+\\&\frac{1}{2\pi\sqrt{|C|}}\exp\left(-\frac{1}{2}(x-c)^TC^{-1}(x-c)\right)\frac{1}{\sqrt{2\pi(a+s)}}\exp\left(-\frac{(\mu_1-\nu_1)^2}{2(a+s)}\right).
+\end{align*}
 \end{pf}
 
 

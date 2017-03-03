@@ -1,0 +1,55 @@
+\documentclass{article}
+
+\usepackage[textwidth=7in,textheight=10in]{geometry}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{/Users/eleanorbrush/Documents/custom2}
+\usepackage{wasysym}
+\usepackage{color}
+\usepackage[numbers,sort&compress]{natbib}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\newcommand{\x}[1]{\text{#1}}
+\newcommand{\Cov}{\text{Cov}}
+\usepackage{lscape} 
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\usepackage{tocloft}% http://ctan.org/pkg/tocloft
+\setlength{\cftsecnumwidth}{2em}% Set length of number width in ToC for \subsection
+\cftsetindents{subsection}{3em}{2em}
+\setcounter{tocdepth}{2}% Allow only \chapter in ToC
+
+\begin{document}
+\tableofcontents
+
+\bibliographystyle{plainnat}
+\bibliography{song_learning_evolution}
+
+\begin{table}
+\caption{\label{equilibrium}Here we show the stable equilibria of the nine possible modes of acquisition. The rows and columns are ordered such that the equilibrium value of $\sigma_x^2$, indicated by $\sigma_x^{2\star}$, is lower in cells that are lower and to the right.  Initial conditions are indicated with $(0)$. For example $\sigma_x^2(0)$ is the initial value of $\sigma_x^2$.}
+\begin{tabular}{|r|l|l|l|}
+\hline & song learned obliquely  & song genetic & song from father
+\\\hline pref from mother  & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0, \ \frac{3\sigma_y^2-5\sigma^2+\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}}{6}$ & $\sigma_x^{2\star}=\min\{0,\sigma_y^2-\sigma^2\}$  
+\\ 	& 	$\sigma_y^{2\star}=\sigma_y^2(0)$ 	& $\sigma_y^{2\star}=\sigma_y^2(0)$ 		  & $\sigma_y^{2\star}=\sigma_y^2(0)$   
+\\ & $\Cov^\star=\Cov(0)$ &   $\Cov^\star=\frac{\sigma_x^{2\star}\sigma_y^{2\star}}{\sigma^2+\sigma_x^{2\star}}$  & $\Cov^\star=0$
+\\\hline pref genetic &  $\sigma_x^{2\star}=\sigma_x^2(0)$  & $\sigma_x^{2\star}=0,\ \infty$  & $\sigma_x^{2\star}=0$                      
+\\  		&  $\sigma_y^{2\star}=0$	& $\sigma_y^{2\star}= 0 , \ \infty$ 	  & $\sigma_y^{2\star}=0$  
+\\ & $\Cov^\star=0$   & $\Cov^\star=0, \ \infty$        & $\Cov^\star=0$          
+\\\hline pref from father & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0$  & $\sigma_x^{2\star}=0$                       
+\\  			& $\sigma_y^{2\star}=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{2\sigma_x^2+\sigma^2}$	  & $\sigma_y^{2\star}=0$  & $\sigma_y^{2\star}=0$                       
+\\ & $\Cov^\star=0$ & $\Cov^\star=0$ & $\Cov^\star=0$
+\\\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}
+\includegraphics[width=6in]{/Users/eleanorbrush/Desktop/equilibrium_variance.pdf}
+\caption{\label{eq_var}The variance of the song trait, $\sigma_x^{2}$, at equilibrium increases as a function of $\sigma_y^2$ and decreases as a function of $\sigma^2$, when song is genetic and preference is learned from the mother, when song is genetic and preference is genetic, and when song is learned from the father and preference is learned from the mother. }
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=6in]{/Users/eleanorbrush/Desktop/transient_variance.pdf}
+\caption{\label{trans_var}The variance of the song trait, $\sigma_x^{2}$, after a few generations increases as a function of $\sigma_y^2$ when song is genetic and preference is learned from the father, when song is learned from the father and preference is genetic, and when song is learned from the father and preference is learned from the father. The effect of $\sigma^2$ on the transient level of $\sigma_x^2$ depends on the mode of acquisition.}
+\end{figure}
+
+
+\end{document}
