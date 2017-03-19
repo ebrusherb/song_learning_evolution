@@ -30,7 +30,7 @@ recursion_all <- function(sigmax2_init,sigmay2_init,sigma2,rho_init){
 		sigmax2_new = sigmax2*(sigma2/(sigma2+sigmax2)+sigmax2*sigmay2/(sigma2+sigmax2)^2)
 		sigmay2_new = 1/4*sigmay2*Q_pref
 		cov_new = 1/2*cov*(sigma2*(sigma2+sigmax2)+sigmax2*sigmay2)/(sigma2+sigmax2)^2+1/2*sigmax2*sigmay2/(sigma2+sigmax2)
-		if(is.nan(cov_new) || (round(cov_new,10)==0 && is.nan(cov_new/sqrt(sigmax2_new*sigmay2_new)))){
+		if(is.nan(cov_new) || round(cov_new,10)<1e-13 ){
 			rho_new = 0
 		} else {
 		rho_new = cov_new / sqrt(sigmax2_new*sigmay2_new)}
@@ -119,7 +119,7 @@ recursion_all <- function(sigmax2_init,sigmay2_init,sigma2,rho_init){
 		sigmax2_new = 1/4*sigmax2*Q
 		sigmay2_new = 1/4*sigmay2*Q_pref
 		cov_new = 1/4*cov*Q+(1-rho^2)/4*sigmax2*sigmay2/(sigma2+sigmax2)
-		if(is.nan(cov_new) || (round(cov_new,10)==0 && is.nan(cov_new/sqrt(sigmax2_new*sigmay2_new)))){
+		if(is.nan(cov_new) || round(cov_new,10)<1e-13 ){
 			rho_new = 0
 		} else if(log(cov_new)>100 && log(sigmax2_new*sigmay2_new)>100) {
 			rho_new = 1} else { 
@@ -137,7 +137,7 @@ recursion_all <- function(sigmax2_init,sigmay2_init,sigma2,rho_init){
 		sigmax2_new = 1/4*sigmax2*Q
 		sigmay2_new = sigmax2*((sigma2*(sigma2+sigmax2)+sigmax2*sigmay2)/(sigma2+sigmax2)^2)
 		cov_new = 1/2*sigmax2*((sigma2*(sigma2+sigmax2)+sigmax2*sigmay2)/(sigma2+sigmax2)^2)+1/2*cov*sigmax2/(sigma2+sigmax2)
-		if(is.nan(cov_new) || (round(cov_new,10)==0 && is.nan(cov_new/sqrt(sigmax2_new*sigmay2_new)))){
+		if(is.nan(cov_new) || round(cov_new,10)<1e-13 ){
 			rho_new = 0
 		} else if(log(cov_new)>100 && log(sigmax2_new*sigmay2_new)>100) {
 			rho_new = 1} else { 
@@ -155,7 +155,7 @@ recursion_all <- function(sigmax2_init,sigmay2_init,sigma2,rho_init){
 		sigmax2_new = 1/4*sigmax2*Q
 		sigmay2_new = sigmay2
 		cov_new = 1/2*sigmax2*sigmay2/(sigma2+sigmax2)+1/2*cov
-		if(is.nan(cov_new) || (round(cov_new,10)==0 && is.nan(cov_new/sqrt(sigmax2_new*sigmay2_new)))){
+		if(is.nan(cov_new) || round(cov_new,10)<1e-13){
 			rho_new = 0
 		} else if(log(cov_new)>100 && log(sigmax2_new*sigmay2_new)>100) {
 			rho_new = 1} else { 

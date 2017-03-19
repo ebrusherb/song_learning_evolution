@@ -9,6 +9,7 @@ store = 1
 
 trait_chunk_num = 5
 source("/Users/eleanorbrush/Documents/research/song_learning_evolution/range_setup.R")
+source('discretize_and_dynamics.R')
 
 continuous_weight = dnorm(mrange,mean=mrange[midpt],sd=sqrt(sigma2)) #female preference function
 minweight = 10^max(floor(log(min(continuous_weight[which(continuous_weight>0)]),base=10)),-320)	

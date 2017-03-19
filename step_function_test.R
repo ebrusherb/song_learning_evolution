@@ -1,9 +1,9 @@
-steps = 100
-sigma2 = 0.5
+ steps = 100
+sigma2 = 1
 sigmay2_init = 1.1
 sigmax2_init = 0.5
-trait_chunk_num = 301
-pref_chunk_num = 301
+trait_chunk_num = 151
+pref_chunk_num = 151
 source("range_setup.R")
 
 f_init = dnorm(frange,fmin,sqrt(sigmay2_init))
