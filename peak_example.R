@@ -14,8 +14,8 @@ steps = 5000
 store = 1
 source('range_setup.R')
 
-k1 = 35
-k2 = 35
+k1 = 55
+k2 = 45
 
 m_init = dnorm(mrange,mmin,sqrt(sigmax2))
 m_init[m_init==0] = 10^max(floor(log(min(m_init[which(m_init>0)]),base=10)),-320)
@@ -26,7 +26,7 @@ f_init[f_init==0] = 10^max(floor(log(min(f_init[which(f_init>0)]),base=10)),-320
 f_init1 = f_init/sum(f_init)
 
 continuous_weight = dnorm(mrange,mean=mrange[midpt],sd=sqrt(sigma2)) 
-fixed_weight = continuous_weight/sum(continuous_weight
+fixed_weight = continuous_weight/sum(continuous_weight)
 
 chunk_vec = c(rep(1,(Nm-k1-2*k2)/2),rep(2,k2),rep(3,k1),rep(4,k2),rep(5,(Nm-k1-2*k2)/2))
 
@@ -38,7 +38,7 @@ s[1:(chunk_vec[midpt]-1)] = 2*s[1:(chunk_vec[midpt]-1)]
 
 m = rbind(n,s,c(1,0,0))
 
-v = c(1,sigmax2,0)
+v = c(1,sigmay2,0)
 p = solve(m,v)
 p[1] = 0
 
@@ -61,19 +61,19 @@ omarg = c(0.03,1,0.35,0.0)
 width = 6.5
 height = 4.5
 
-# pdf('/Users/eleanorbrush/Desktop/peak_example.pdf',width=width,height=height,family=fontfamily)
+pdf('/Users/eleanorbrush/Desktop/peak_example.pdf',width=width,height=height,family=fontfamily)
 
 par(ps=smallfontsize,mai=marg,oma=omarg,mgp=c(3,0.7,0))
 layout(matrix(1:4,ncol=2,byrow=TRUE))
 
 w1 = which(p1$Pm[,t]>1e-7)
 w2 = which(p2$Pm[,t]>1e-15)
-t=1
+t=100
 
-plot(mrange[w1]+1,m_init1[w1],t='l',lwd=lwd,col='black',xlab='',ylab='',ylim=range(c(m_init1,m_init2)))
-lines(mrange[w1]+1,m_init2[w1],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='')
-mtext('Song',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-mtext('Frequency',side=2,line=1.7,at=mean(range(c(m_init1,m_init2))),cex=largefontsize/smallfontsize)
+plot(mrange[w1]+1,f_init1[w1],t='l',lwd=lwd,col='black',xlab='',ylab='',ylim=range(c(f_init1,f_init2)))
+lines(mrange[w1]+1,f_init2[w1],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='')
+mtext('Preference',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext('Frequency',side=2,line=1.7,at=mean(range(c(f_init1,f_init2))),cex=largefontsize/smallfontsize)
 
 plot(mrange[w1]+1,p1$Pm[w1,steps],t='l',lwd=lwd,col='black',xlab='',ylab='',ylim=range(c(p1$Pm[w1,steps],p2$Pm[,steps])))
 points(mrange+1,p2$Pm[,steps],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='')
@@ -92,8 +92,8 @@ mtext('Z',side=2,line=1.7,at=mean(range(c(p1$z[w1,t],p2$z[w2,t]))),cex=largefont
 # mtext('Percent increase',side=2,line=1.7,at=mean(range((apply(p2$pxy[w2,,t],1,sum)-p2$Pm[w2,t])/p2$Pm[w2,t],na.rm=TRUE)),cex=largefontsize/smallfontsize)
 
 plot(mrange[w1]+1,p1$z[w1,t]-p2$z[w1,t],t='l',lwd=lwd,col='black',xlab='',ylab='',ylim=range(p1$z[,t]-p2$z[,t],na.rm=TRUE),yaxt='n')
-axis(2,at=0.0005*(-2:2),labels=c(expression(-1 %*% 10^{-3}),expression(-5 %*% 10^{-4}),0,expression(5 %*% 10^{-4}),expression(1 %*% 10^{-3})))
+axis(2,at=0.0005*2*seq(-6,6,by=1))#,labels=c(expression(-1 %*% 10^{-3}),expression(-5 %*% 10^{-4}),0,expression(5 %*% 10^{-4}),expression(1 %*% 10^{-3})))
 mtext('Preference',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
 mtext('Difference in Z',side=2,line=1.7,at=mean(range(p1$z[,t]-p2$z[,t],na.rm=TRUE)),cex=largefontsize/smallfontsize)
 
-# dev.off()
+dev.off()

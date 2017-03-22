@@ -16,7 +16,7 @@ recursion_all_end <- function(sigmax2,sigmay2,sigma2,equil=TRUE){
 				toreturn[3,1:2] = NA
 			}else{toreturn[3,1:2] = c(sigmay2-sigma2,sigmay2)
 				}
-			if(diff(r[9,1,steps+(0:1)])<0){
+			if(diff(r[9,1,steps+(0:1)])<0 || r[9,1,steps]<1e-10){
 				toreturn[9,1:2] = NA
 			}
 		} else{
@@ -179,6 +179,45 @@ pal1 = brewer.pal(9,'Set1')
 pal2 = brewer.pal(8,'Accent')
 col_vec = pal1[c(1,2,8,7,4,NA,3,5,9)]
 old_to_new = c(6,9,3,4,7,1,5,8,2) # converts old mode numbering system to new mode numbering system
+
+#####
+lwd=2
+
+marg = c(0.53,0.5,0.04,0.05)
+omarg = c(0.4,0.7,0.3,0.0)
+
+width = 6.5
+height =3
+
+par(mfrow=c(3,3),ps=smallfontsize,mai=marg,oma=omarg)
+
+xlab_list = as.list(rep(c(expression(sigma[x]^2~(0)),expression(sigma[y]^2~(0)),expression(sigma^2)),times=3))
+ylab_list = as.list(c(rep(c(expression(sigma[x]^2),'',''),times=2),c('Time','','')))
+
+fem = matrix(c(1:3,7:9),nrow=3)
+
+for(k in c(3,1,2)){
+	subset = fem[k,]
+for(i in c(3,6,9)){
+	ylim = range(sigmax2_toplot[rep(3,3)+rep(c(0,3,6),each=3)[i]],na.rm=TRUE)
+	if(i==6){ylim=c(0,1)}
+	plot(variables[rep(1:3,times=3)[i],],variables[rep(1:3,times=3)[i],],ylim=ylim,xlab='',ylab='',t='n',yaxt=c(rep('t',6),rep('n',3))[i])
+	if(is.element(i,7:9)){
+		axis(2,at=log(5*2^(0:9)),labels=5*2^(0:9))
+	}
+	for(j in subset){
+		if(length(which(!is.na(sigmax2_toplot[[i]][j,])))!=0){
+			lines(variables[rep(1:3,times=3)[i],],sigmax2_toplot[[i]][j,],lty=ltys_vec[j],col=col_vec[j],lwd=lwd)
+		}
+	}
+	mtext(xlab_list[[i]],side=1,at=mean(variables[rep(1:3,times=3)[i],]),line=3,cex=largefontsize/smallfontsize)
+	mtext(ylab_list[[i-2]],side=2,at=mean(ylim),line=2,cex=largefontsize/smallfontsize)
+	if(i==3){
+		legend(2.5,3.7,c(2,3,5,6,8,9),lty=ltys_vec[unique(c(sigmax2_pos,sigmax2_zero))][order(old_to_new[unique(c(sigmax2_pos,sigmax2_zero))])],col=col_vec[unique(c(sigmax2_pos,sigmax2_zero))][order(old_to_new[unique(c(sigmax2_pos,sigmax2_zero))])],bty='n',lwd=lwd)
+	}
+}
+
+}
 
 ####
 lwd=2

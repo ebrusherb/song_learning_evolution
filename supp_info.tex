@@ -260,7 +260,7 @@ In this section, we will find the equilibrium values of the variance of the two 
 \caption{\label{equilibrium}In this table, a superscript ${}^\star$ indicates a stable equilibrium and $(0)$ indicates the initial conditions. For example $\sigma_x^2(0)$ is the initial value of $\sigma_x^2$.}
 \begin{tabular}{|r|l|l|l|}
 \hline & song learned obliquely  & song genetic & song from father
-\\\hline pref from mother  & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0, \ \frac{3\sigma_y^2-5\sigma^2+\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}}{6}$ & $\sigma_x^{2\star}=\min\{0,\sigma_y^2-\sigma^2\}$  
+\\\hline pref from mother  & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0, \ \frac{3\sigma_y^2-5\sigma^2+\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}}{6}$ & $\sigma_x^{2\star}=\max\{0,\sigma_y^2-\sigma^2\}$  
 \\ 	& 	$\sigma_y^{2\star}=\sigma_y^2(0)$ 	& $\sigma_y^{2\star}=\sigma_y^2(0)$ 		  & $\sigma_y^{2\star}=\sigma_y^2(0)$   
 \\ & $\Cov^\star=\Cov(0)$ &   $\Cov^\star=\frac{\sigma_x^{2\star}\sigma_y^{2\star}}{\sigma^2+\sigma_x^{2\star}}$  & $\Cov^\star=0$
 \\\hline pref genetic &  $\sigma_x^{2\star}=\sigma_x^2(0)$  & $\sigma_x^{2\star}=0,\ \infty$  & $\sigma_x^{2\star}=0$                      
@@ -642,7 +642,7 @@ The eigenvalues of $J$ are $1/2$, $0$, and $0$. Since none of these are greater 
 \\ \sigma_y^2(t+1)&=\sigma_y^2 \label{sigmay3}
 \\ \Cov(t+1)&=0
 \end{align}
-In this case, $\sigma_y^2$ never changes. Eq. \ref{sigmax3} shows that $\sigma_x^2(t+1)>\sigma_x^2$ when $\sigma_x^2>0$ and $\sigma_x^2>\sigma_y^2-\sigma^2$ and $\sigma_x^2(t+1)<\sigma_x^2$ when $\sigma_x^2>0$ and $\sigma_x^2>\sigma_y^2-\sigma^2$. Therefore, if $\sigma_y^2-\sigma^2<0$, then $\sigma_x^2$ will always decrease, so $\sigma_x^2=0$ is the only equilibrium and it is stable. On the other hand, if $\sigma_y^2-\sigma^2>0$, then $\sigma_x^2=0$ is an unstable equilibrium and $\sigma_x^2=\sigma_y^2-\sigma^2$ is a stable equilibrium. In summary, $\sigma_x^2=\min\{0,\sigma_y^2-\sigma^2\}$ is always a stable equilibrium.
+In this case, $\sigma_y^2$ never changes. Eq. \ref{sigmax3} shows that $\sigma_x^2(t+1)>\sigma_x^2$ when $\sigma_x^2>0$ and $\sigma_x^2>\sigma_y^2-\sigma^2$ and $\sigma_x^2(t+1)<\sigma_x^2$ when $\sigma_x^2>0$ and $\sigma_x^2>\sigma_y^2-\sigma^2$. Therefore, if $\sigma_y^2-\sigma^2<0$, then $\sigma_x^2$ will always decrease, so $\sigma_x^2=0$ is the only equilibrium and it is stable. On the other hand, if $\sigma_y^2-\sigma^2>0$, then $\sigma_x^2=0$ is an unstable equilibrium and $\sigma_x^2=\sigma_y^2-\sigma^2$ is a stable equilibrium. In summary, $\sigma_x^2=\max\{0,\sigma_y^2-\sigma^2\}$ is always a stable equilibrium.
  
 \item Song is learned from father, preference is genetic. In this case, females do not have a song trait, so $\rho_\x{f}=0$. Since only males have songs, we can drop the m subscript and use $\rho$ for $\rho_\x{m}$ and $\sigma_x^2$ for $\sigma_{x\x{m}}^2$. Since both genders acquire preference in the same way, $\sigma_{y\x{m}}^2=\sigma_{y\x{f}}^2$, and we can drop the subscripts and use $\sigma_y^2$ for both $\sigma_{y\x{m}}^2$ and $\sigma_{y\x{f}}^2$. Then, using Claim \ref{covariance}, the variance and covariance of the traits in the offspring of mating adults will be 
 \begin{align}
