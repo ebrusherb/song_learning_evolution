@@ -9,7 +9,7 @@ pf = 1
 pm = 1 
 rho = 0
 minweight = 10^(-320)
-mut_prob = 0.01
+mut_prob = 0.0
 
 steps = 5000
 store = 1
@@ -28,7 +28,7 @@ xs = length(sigma2_vals)
 k1_vals = c(7,7,15,35,7,15,21,21)
 k2_vals = c(11,35,35,35,21,21,21,35)
 
-k1_vals = c(35,25,55)
+k1_vals = c(35,25,45)
 k2_vals = c(35,35,45)
 
 x1 = length(k1_vals)

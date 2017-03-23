@@ -9,7 +9,7 @@ pf = 1
 pm = 1 
 rho = 0
 minweight = 10^(-320)
-mut_prob = 0.01
+mut_prob = 0.0
 
 steps = 5000
 store = 1

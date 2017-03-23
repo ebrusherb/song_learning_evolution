@@ -11,9 +11,9 @@
 # steps = #how many generations
 
 # mrange = seq(-8,8,by=trait_step) #range of male songs
-mrange = rev(seq(-1,-10,length.out=ceiling(trait_chunk_num/2)))
+mrange = rev(seq(-1,-15,length.out=ceiling(trait_chunk_num/2)))
 trait_step = diff(mrange)[1]
-mrange = c(mrange,seq(-1+trait_step,8,length.out=floor(trait_chunk_num/2)))
+mrange = c(mrange,seq(-1+trait_step,13,length.out=floor(trait_chunk_num/2)))
 Nm = length(mrange) 
 if(Nm%%2==0){
 	mrange = c(mrange[1]-trait_step,mrange)

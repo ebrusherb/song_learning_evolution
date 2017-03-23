@@ -1,4 +1,5 @@
-# source('step_pref_dist.R')
-# source('step_song_dist.R')
+setwd('/Users/eleanorbrush/Documents/research/song_learning_evolution')
+source('step_pref_dist.R')
+source('step_song_dist.R')
 source('step_pref_function.R')
 source('figures.R')

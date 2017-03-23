@@ -6,7 +6,7 @@ Pf = matrix(0,Nf,steps+1) #probability of female preferences over time
 Pf[,1] = f_init
 
 pxy_store = array(0,c(Nm,Nf,steps+1))
-z_store = array(0,c(Nf,steps+1))
+z_store = array(0,c(Nf,steps))
 
 t = 1
 perc = 0
@@ -42,6 +42,7 @@ while(t <= steps){
 		} else{
 			Pm[,(t+1):(steps+1)] = Pm_aftermut
 			Pf[,(t+1):(steps+1)] = Pf_adults
+			z_store[,t:steps] = z_store[,t]
 			t = steps+1
 			}
 }

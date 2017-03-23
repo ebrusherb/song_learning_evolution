@@ -50,7 +50,6 @@ return(pop_dens)
 }
 
 dynamics_pxy_bothmut <-function(){
-	mut_prob_f = 1.5*mut_prob
 Pm = matrix(0,Nm,steps+1) #probability of male songs over time
 Pm[,1] = m_init
 
@@ -102,75 +101,6 @@ pop_dens = list(Pm=Pm[,(store):(steps+1)],Pf=Pf[,(store):(steps+1)],pxy=pxy_stor
 return(pop_dens)
 }
 
-# # trait_chunk_num = 101
-# sigmay2 = 2
-# sigmax2 = 0.8
-# pf = 1
-# pm = 1 
-# rho = 0
-# minweight = 10^(-320)
-# mut_prob = 0.01
-
-# steps = 10000
-# store = 1
-# source('range_setup.R')
-
-# f_init = dnorm(frange,fmin,sqrt(sigmay2))
-# f_init[f_init==0] = 10^max(floor(log(min(f_init[which(f_init>0)]),base=10)),-320)
-# f_init = f_init/sum(f_init)
-
-# trait_chunk_num = 3
-
-# sigma2_vals = seq(0.1,1.9,length.out=10)
-
-# xs = length(sigma2_vals)
-
-# k1_vals = c(7,7,15,35,7,15,21,21)
-# k2_vals = c(11,35,35,35,21,21,21,35)
-
-# k1_vals = c(7,7,15)
-# k2_vals = c(35,25,25)
-
-# k1_vals = c(1,1,5)
-# k2_vals = c(11,9,9)
-
-# x1 = length(k1_vals)
-
-# sigma2 = 0.9
-
-
-	# continuous_weight = dnorm(mrange,mean=mrange[midpt],sd=sqrt(sigma2)) 
-	# fixed_weight = continuous_weight/sum(continuous_weight)
-
- # j=3
- 
- # k1 = k1_vals[j]
-		# k2 = k2_vals[j]
-		
-		# chunk_vec = c(rep(1,(Nm-k1-2*k2)/2),rep(2,k2),rep(3,k1),rep(4,k2),rep(5,(Nm-k1-2*k2)/2))
-
-		# n = apply(matrix(1:chunk_vec[midpt],nrow=1),2,function(x) length(which(chunk_vec==x)))
-		# n[1:(chunk_vec[midpt]-1)] = 2*n[1:(chunk_vec[midpt]-1)]
-		
-		# s = apply(matrix(1:chunk_vec[midpt],nrow=1),2,function(x) sum((mrange[which(chunk_vec==x)]+1)^2))
-		# s[1:(chunk_vec[midpt]-1)] = 2*s[1:(chunk_vec[midpt]-1)]
-		
-		# m = rbind(n,s,c(1,0,0))
-		
-		# v = c(1,sigmax2,0)
-		# p = solve(m,v)
-		# p[1] = 0
-		
-		# if(length(which(p<0))==0 && p[3]>=p[2] ){
-
-			# m_init = apply(matrix(chunk_vec[1:midpt],nrow=1),2,function(x) p[x])
-			# m_init = c(m_init,rev(m_init[1:(length(m_init)-1)]))
-			
-			# p1 = dynamics_pxy_bothmut()	
-			# }
-			
-		
-
 trait_chunk_num = 101
 sigmay2 = 2
 sigmax2 = 0.8
@@ -178,15 +108,15 @@ pf = 1
 pm = 1 
 rho = 0
 minweight = 10^(-320)
-mut_prob = 0.01
+mut_prob = 0.0
 
-steps = 20000
+steps = 10000
 store = 1
 source('range_setup.R')
 
-m_init = dnorm(mrange,mmin,sqrt(sigmax2))
-m_init[m_init==0] = 10^max(floor(log(min(m_init[which(m_init>0)]),base=10)),-320)
-m_init = m_init/sum(m_init)
+f_init = dnorm(frange,fmin,sqrt(sigmay2))
+f_init[f_init==0] = 10^max(floor(log(min(f_init[which(f_init>0)]),base=10)),-320)
+f_init = f_init/sum(f_init)
 
 trait_chunk_num = 3
 
@@ -197,20 +127,23 @@ xs = length(sigma2_vals)
 k1_vals = c(7,7,15,35,7,15,21,21)
 k2_vals = c(11,35,35,35,21,21,21,35)
 
-k1_vals = c(35,25,55)
-k2_vals = c(35,35,45)
+k1_vals = c(7,7,15)
+k2_vals = c(35,25,25)
+
+k1_vals = c(1,1,5)
+k2_vals = c(11,9,9)
+
+x1 = length(k1_vals)
 
 sigma2 = 0.9
 
-j=1
-
-k1_vals = c(11,9,19)
-k2_vals=c(11,11,15)
-j=3
 
 	continuous_weight = dnorm(mrange,mean=mrange[midpt],sd=sqrt(sigma2)) 
 	fixed_weight = continuous_weight/sum(continuous_weight)
-k1 = k1_vals[j]
+
+ j=3
+ 
+ k1 = k1_vals[j]
 		k2 = k2_vals[j]
 		
 		chunk_vec = c(rep(1,(Nm-k1-2*k2)/2),rep(2,k2),rep(3,k1),rep(4,k2),rep(5,(Nm-k1-2*k2)/2))
@@ -223,17 +156,87 @@ k1 = k1_vals[j]
 		
 		m = rbind(n,s,c(1,0,0))
 		
-		v = c(1,sigmay2,0)
+		v = c(1,sigmax2,0)
 		p = solve(m,v)
 		p[1] = 0
 		
 		if(length(which(p<0))==0 && p[3]>=p[2] ){
 
-			f_init = apply(matrix(chunk_vec[1:midpt],nrow=1),2,function(x) p[x])
-			f_init = c(f_init,rev(f_init[1:(length(f_init)-1)]))
+			m_init = apply(matrix(chunk_vec[1:midpt],nrow=1),2,function(x) p[x])
+			m_init = c(m_init,rev(m_init[1:(length(m_init)-1)]))
 			
-			# f_init = dnorm(mrange,mmin,sqrt(sigmay2))
-			# f_init[f_init==0] = 10^max(floor(log(min(f_init[which(f_init>0)]),base=10)),-320)
-			# f_init = f_init/sum(f_init)
+			p1 = dynamics_pxy_bothmut()	
+			}
+			
+		
+
+# # trait_chunk_num = 203
+# trait_chunk_num = 101
+# sigmay2 = 2
+# sigmax2 = 0.8
+# pf = 1
+# pm = 1 
+# rho = 0
+# minweight = 10^(-320)
+# mut_prob = 0.0005
+# mut_prob_f = mut_prob
+
+# steps = 1000
+# store = 1
+# source('range_setup.R')
+
+# m_init = dnorm(mrange,mmin,sqrt(sigmax2))
+# # m_init[m_init==0] = 10^max(floor(log(min(m_init[which(m_init>0)]),base=10)),-320)
+# m_init = m_init/sum(m_init)
+
+# trait_chunk_num = 3
+
+# sigma2_vals = seq(0.1,1.9,length.out=10)
+
+# xs = length(sigma2_vals)
+
+# k1_vals = c(7,7,15,35,7,15,21,21)
+# k2_vals = c(11,35,35,35,21,21,21,35)
+
+# k1_vals = c(35,25,55)
+# k2_vals = c(35,35,45)
+
+# sigma2 = 0.5
+
+# j=1
+
+# k1_vals = c(11,9,19)
+# k2_vals=c(11,11,15)
+# j=1
+
+	# continuous_weight = dnorm(mrange,mean=mrange[midpt],sd=sqrt(sigma2)) 
+	# fixed_weight = continuous_weight/sum(continuous_weight)
+# k1 = k1_vals[j]
+		# k2 = k2_vals[j]
+		
+		# chunk_vec = c(rep(1,(Nm-k1-2*k2)/2),rep(2,k2),rep(3,k1),rep(4,k2),rep(5,(Nm-k1-2*k2)/2))
+
+		# n = apply(matrix(1:chunk_vec[midpt],nrow=1),2,function(x) length(which(chunk_vec==x)))
+		# n[1:(chunk_vec[midpt]-1)] = 2*n[1:(chunk_vec[midpt]-1)]
+		
+		# s = apply(matrix(1:chunk_vec[midpt],nrow=1),2,function(x) sum((mrange[which(chunk_vec==x)]+1)^2))
+		# s[1:(chunk_vec[midpt]-1)] = 2*s[1:(chunk_vec[midpt]-1)]
+		
+		# m = rbind(n,s,c(1,0,0))
+		
+		# v = c(1,sigmay2,0)
+		# p = solve(m,v)
+		# p[1] = 0
+		
+		# if(length(which(p<0))==0 && p[3]>=p[2] ){
+
+			# f_init = apply(matrix(chunk_vec[1:midpt],nrow=1),2,function(x) p[x])
+			# f_init = c(f_init,rev(f_init[1:(length(f_init)-1)]))
+			
+			# p1 = dynamics_pxy_bothmut()	}	
+			
+# # f_init = dnorm(mrange,mmin,sqrt(sigmay2))
+			# # # f_init[f_init==0] = 10^max(floor(log(min(f_init[which(f_init>0)]),base=10)),-320)
+			# # f_init = f_init/sum(f_init)
 						
-			p1 = dynamics_pxy_bothmut()	}			
+			# # p1 = dynamics_pxy_bothmut()					

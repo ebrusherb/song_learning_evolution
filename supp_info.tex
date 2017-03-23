@@ -697,7 +697,48 @@ $\sigma_x^2(t+1)=\sigma_x^2$ when $$ \frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{
 
 \end{enumerate}
 
-\section{Derivatives of equilibrium variance of song \label{sigmax2_derivatives}}
+\section{Derivatives of equilibrium song variance \label{sigmax2_derivatives}}
+In this section, we find the derivatives of the equilibrium song variance for modes $2$ and $3$ in order to show that they do in fact decrease as a function of the variance of the female preference function, $\sigma^2$. In mode $2$, the stable equilibrium value of $\sigma_x^2$ is 
+\begin{align*}
+\sigma_x^{2\star}&=\frac{3\sigma_y^2-5\sigma^2+\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}}{6}
+\\ \Rightarrow \frac{\partial \sigma_x^{2\star}}{\partial \sigma^2}&=\frac{1}{6}\left(-5+\frac{1}{2}\frac{-30\sigma_y^2+2\sigma^2}{\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}}\right)
+\\&=\frac{-5\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}-15\sigma_y^2+\sigma^2}{6\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}}
+\\\Rightarrow \sgn\left(\frac{\partial \sigma_x^{2\star}}{\partial \sigma^2}\right)&=\sgn\left(-5\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}-15\sigma_y^2+\sigma^2\right)
+\\0&>-5\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}-15\sigma_y^2+\sigma^2
+\\ \Leftrightarrow 5\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}>\sigma^2-15\sigma_y^2
+\end{align*}
+We are only considering $\sigma_y^2>\frac{5+2\sqrt{6}}{3}\sigma^2$. This ensures that the quantity on the left side of the inequality is positive and that the quantity on the right side of the inequality is negative, because 
+\begin{align*}
+\sigma_y^2&>\frac{5+2\sqrt{6}}{3}\sigma^2
+\\ \Leftrightarrow 15\sigma_y^2&>(5+2\sqrt{6})\sigma^2,
+\end{align*}
+which is greater than $\sigma^2$.
+Therefore, the inequality is true and $\frac{\partial \sigma_x^{2\star}}{\partial \sigma^2}<0$. In mode $3$, $\sigma_x^{2\star}=\sigma_y^2-\sigma^2$, and it is easy to see that $\frac{\partial \sigma_x^{2\star}}{\partial \sigma^2}<0$.
+
+\section{Construction of step functions and definition of mutation rate}
+In this section, we show how we construct a step function with a given variance and how we define mutation for our numerical analyses.Step functions introduce very sharp boundaries between the traits that have probability $0$ of being found in the population and those that have probability greater than $0$ of being found in the population. These boundaries will persist over the generations, introducing boundary effects at the edges of the distribution. Therefore, we introduce a small probability that a male's song will either mutate or that he will introduce errors in his song as he learns. This introduces an additional step in the model. Let $P_\x{m}\left(x|t+\Delta t\right)$ be the distribution of songs within male offspring found by using Equation \ref{model_numerical} and a particular mode of acquisition. For example, if song is genetic, $P_\x{m}\left(x|t+\Delta t\right)$ would be the distribution of the genes for songs among male zygotes resulting from mating pairs. Before the male is born and produces his first song, however, mutations may occur that slightly alter this distribution. On the other hand, if song is learned, $P_\x{m}\left(x|t+\Delta t\right)$ would be the distribution of songs heard by young males. Young males may make small errors in how the hear or produce the songs they have just heard, so that the distribution of songs when the members of the new generation themselves reproduce may be slightly different. In either case, we assume there is a small ``mutation" rate, $\mu$, so that the probability of finding an adult from the new generation singing song $x$ will be 
+\begin{align*}
+P_\x{m}(x|t+1)&=(1-\mu)P_\x{m}(x|t+\Delta t)+\frac{\mu}{2}P_\x{m}(x-\delta|t+\Delta t)+\frac{\mu}{2}P_\x{m}(x+\delta|t+\Delta t).
+\end{align*}  
+As long as $M$ is large, $\delta$ is small, and $\mu$ is small, the numerical scheme outlined above provides an excellent approximation to the analytical distribution we derived above. (See Figure XXX.)
+
+We will focus here on how to construct a step preference function, but the process is the same for constructing probability distributions of each trait that are step functions. Just as the variance of a Gaussian preference function, $\sigma^2$, was a critical parameter in the analyses above, it will be a critical parameter as we explore the dynamics given by Equation \ref{model_numerical}. For a given $\sigma^2$, to completely define a step function we have to specify the widths of the steps, which we will do by choosing two numbers $m>n>0$ such that $m,n\in S$. There will be three steps, covering the intervals $[-m,-n)$, $[-n,n]$, and $(n,m]$. The step function will be $0$ outside of these intervals. Specifically, we will define three subpartitions of $S$:
+\begin{align*}
+S_1 & = \{-m,-m+\delta,...,-n-2\delta,-n-\delta\}
+\\ S_2&=\{-n,-n+\delta,-n+2\delta,\dots,-\delta,0,\delta,\dots,n-2\delta,n-\delta,n\}
+\\ S_3&=\{n+\delta,n+2\delta,\dots,m-\delta,m\}
+\end{align*}
+We will then construct a step function $P(x)$ over $S$ such that $P(x)=p_1$ for $x\in S_1$ or $S_3$ and $P(x)=p_2$ for $x\in S_3$. To ensure that $\sum_{x\in S}P(x)=1$ and $\sum_{x\in S}x^2P(x)=\sigma^2$, we require that 
+\begin{align*}
+2|S_1|p_1+|S_2|p_2&=1
+\\2\sum_{x\in S_1}x^2p_1+\sum_{x\in S_2}x^2p_2&=\sigma^2.
+\end{align*}
+Having fixed $S_1$ and $S_2$ this gives a system of two equations we can solve to find the appropriate values of $p_1$ and $p_2$. An illustration of this process is provided in Figure \ref{step_ex}. For a particular $\sigma^2$, we only use $m$ and $n$ that give $p_1$ and $p_2$ such that both are positive and $p_2>p_1$.
+
+\begin{figure}
+\includegraphics[width=3.25in]{/Users/eleanorbrush/Desktop/step_function_example.pdf}
+\caption{\label{step_ex}An example of how a step function is constructed with given variance. On the horizontal axis is the difference between a females preferred song $y$ and a male's song $x$. On the vertical axis is a female's preference. The red line shows a discretized version of a Gaussian preference function with variance $\sigma^2=1.5$. The blue line shows a step function with the same variance, with $m=4$ and $n=1$. Here we use a grid with a large $\delta$ for the purposes of illustrating how we find $p_1$ and $p_2$. However, in our analyses, we use a much smaller $\delta$. }
+\end{figure}
 
 \section{Helpful algebra, linear and otherwise}
 In this section, we provide a few mathematical facts. These are not original to this paper, but it is useful to have them stated here for the derivation in Section \ref{cov_derivation}.
