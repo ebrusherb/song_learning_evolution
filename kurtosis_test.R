@@ -11,47 +11,60 @@ rho = 0
 minweight = 10^(-320)
 mut_prob = 0.0
 
-steps = 5000
+steps = 100
 store = 1
 source('range_setup.R')
 
 f_init = dnorm(frange,fmin,sqrt(sigmay2))
 f_init[f_init==0] = 10^max(floor(log(min(f_init[which(f_init>0)]),base=10)),-320)
 f_init = f_init/sum(f_init)
+f_init = pf*f_init+(1-pf)*rev(f_init)
 
-trait_chunk_num = 3
+m_init = dnorm(mrange,mmin,sqrt(sigmax2))
+m_init[m_init==0] = 10^max(floor(log(min(m_init[which(m_init>0)]),base=10)),-320)
+m_init = m_init / sum(m_init)
+m_init = pf*m_init+(1-pf)*rev(m_init)
+
+pref_chunk_num = 3
 
 sigma2_vals = seq(0.1,1.9,length.out=10)
+
+sigma2_vals = 1
 
 xs = length(sigma2_vals)
 
 k1_vals = c(7,7,15,35,7,15,21,21)
 k2_vals = c(11,35,35,35,21,21,21,35)
 
-k1_vals = c(7,7,15,21,35)
-k2_vals = c(35,25,21,21,35)
+k1_vals = c(7,15,35,21,7,21)
+k2_vals = c(35,35,35,35,21,21)
+
+k1_vals = 35
+k2_vals = 21
 
 x1 = length(k1_vals)
 
 equilibrium = as.list(1:((x1+1)*xs*3))
 dim(equilibrium) = c(3,xs,x1+1)
 
+
+kurt = array(NA,c(xs,x1+1))
+
 for(i in 1:xs){
 	sigma2 = sigma2_vals[i]
 	
 	continuous_weight = dnorm(mrange,mean=mrange[midpt],sd=sqrt(sigma2)) 
 	fixed_weight = continuous_weight/sum(continuous_weight)
+	plot(fixed_weight,t='l')
 	
-	m_init = dnorm(mrange,mmin,sqrt(sigmax2))
-	m_init[m_init==0] = 10^max(floor(log(min(m_init[which(m_init>0)]),base=10)),-320)
-	m_init = m_init/sum(m_init)
-
+	k = sum((mrange+1)^4*fixed_weight)/sigma2^2
+	kurt[i,1] = k
 	p1 = dynamics_mode3()	
-	p2 = dynamics_mode5()	
-	# p3 = dynamics_mode9()
+	# p2 = dynamics_mode5()	
+	# # p3 = dynamics_mode9()
 	equilibrium[[1,i,1]] = p1$Pm[,steps]
-	equilibrium[[2,i,1]] = p2$Pf[,steps]
-	# equilibrium[[3,i,1]] = p3$Pm[,steps]
+	# equilibrium[[2,i,1]] = p2$Pf[,steps]
+	# # equilibrium[[3,i,1]] = p3$Pm[,steps]
 	
 	for(j in 1:x1){
 		k1 = k1_vals[j]
@@ -67,27 +80,29 @@ for(i in 1:xs){
 		
 		m = rbind(n,s,c(1,0,0))
 		
-		v = c(1,sigmax2,0)
+		v = c(1,sigma2,0)
 		p = solve(m,v)
 		p[1] = 0
 		
 		if(length(which(p<0))==0 && p[3]>=p[2] ){
-
-			m_init = apply(matrix(chunk_vec[1:midpt],nrow=1),2,function(x) p[x])
-			m_init = c(m_init,rev(m_init[1:(length(m_init)-1)]))
-			
+		
+			fixed_weight = apply(matrix(chunk_vec[1:midpt],nrow=1),2,function(x) p[x])
+			fixed_weight = c(fixed_weight,rev(fixed_weight[1:(length(fixed_weight)-1)]))
+			lines(fixed_weight,t='l',col='red')
+			k = sum((mrange+1)^4*fixed_weight)/sigma2^2
+			kurt[i,j+1] = k
 			p1 = dynamics_mode3()	
-			p2 = dynamics_mode5()
-			# p3 = dynamics_mode9()	
+			# p2 = dynamics_mode5()	
+			# # p3 = dynamics_mode9()
 			equilibrium[[1,i,j+1]] = p1$Pm[,steps]
-			equilibrium[[2,i,j+1]] = p2$Pf[,steps]
-			# equilibrium[[3,i,j+1]] = p3$Pm[,steps]
+			# equilibrium[[2,i,j+1]] = p2$Pf[,steps]
+			# # equilibrium[[3,i,j+1]] = p3$Pm[,steps]
 		# plot(mrange,fixed_weight,main=c(sigma2,j));points(mrange,continuous_weight/sum(continuous_weight),col='red')
 		} else{
 			# print(c(sigma2,k1,k2))
 			equilibrium[[1,i,j+1]] = NA
 			equilibrium[[2,i,j+1]] = NA
-			# equilibrium[[3,i,j+1]] = NA
+			equilibrium[[3,i,j+1]] = NA
 		}
 	}
 }
@@ -104,5 +119,4 @@ for(i in 1:xs){
 	}
 }
 
-saveit(sigma2_vals=sigma2_vals,sigmax2=sigmax2,sigmay2=sigmay2,k1_vals=k1_vals,k2_vals=k2_vals,equilibrium=equilibrium,var_mat=var_mat,mut_prob=mut_prob,file='/Users/eleanorbrush/Documents/research/song_learning_evolution/step_song_equilibrium.Rdata')
-
+print(var_mat[1,,])

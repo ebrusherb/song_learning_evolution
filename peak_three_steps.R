@@ -1,3 +1,4 @@
+setwd('/Users/eleanorbrush/Documents/research/song_learning_evolution')
 source('dynamics_pxy.R')
 library(RColorBrewer)
 library(pracma)
@@ -5,22 +6,27 @@ fontfamily = 'Helvetica'
 smallfontsize = 10
 largefontsize = 12
 
-trait_chunk_num = 301
+trait_chunk_num = 101
 sigmay2 = 2
 sigmax2 = 0.8
-sigma2 = 0.9
+sigma2 = 0.5
 mut_prob = 0.0
 pf = 1
 pm = 1 
 rho = 0
 minweight = 10^(-320)
+minprob = 0
 
-steps = 5000
+steps = 1000
 store = 1
 source('range_setup.R')
 
 k1 = 45
 k2 = 45
+
+k1 = 7
+k2 = 7
+k3 = 15
 
 m_init = dnorm(mrange,mmin,sqrt(sigmax2))
 m_init[m_init==0] = 10^max(floor(log(min(m_init[which(m_init>0)]),base=10)),-320)
@@ -33,7 +39,7 @@ f_init1 = f_init/sum(f_init)
 continuous_weight = dnorm(mrange,mean=mrange[midpt],sd=sqrt(sigma2)) 
 fixed_weight = continuous_weight/sum(continuous_weight)
 
-chunk_vec = c(rep(1,(Nm-k1-2*k2)/2),rep(2,k2),rep(3,k1),rep(4,k2),rep(5,(Nm-k1-2*k2)/2))
+chunk_vec = c(rep(1,(Nm-k1-2*k2-2*k3)/2),rep(2,k3),rep(3,k2),rep(4,k1),rep(5,k2),rep(6,k3),rep(7,(Nm-k1-2*k2-2*k3)/2))
 
 n = apply(matrix(1:chunk_vec[midpt],nrow=1),2,function(x) length(which(chunk_vec==x)))
 n[1:(chunk_vec[midpt]-1)] = 2*n[1:(chunk_vec[midpt]-1)]
@@ -41,23 +47,23 @@ n[1:(chunk_vec[midpt]-1)] = 2*n[1:(chunk_vec[midpt]-1)]
 s = apply(matrix(1:chunk_vec[midpt],nrow=1),2,function(x) sum((mrange[which(chunk_vec==x)]+1)^2))
 s[1:(chunk_vec[midpt]-1)] = 2*s[1:(chunk_vec[midpt]-1)]
 
-m = rbind(n,s,c(1,0,0))
+m = rbind(n,s,c(1,0,0,0),c(0,0,0,1))
 
-v = c(1,sigmay2,0)
+v = c(1,sigmay2,minprob,mean(f_init1[which(chunk_vec==chunk_vec[midpt])]))
 p = solve(m,v)
-p[1] = 0
+p[1] = minprob
 
 f_init = apply(matrix(chunk_vec[1:midpt],nrow=1),2,function(x) p[x])
 f_init = c(f_init,rev(f_init[1:(length(f_init)-1)]))
 f_init2 = f_init
 
 f_init = f_init1
-p1 = dynamics_pxy()
+p1 = dynamics_bothmut()
 
 f_init = f_init2
-p2 = dynamics_pxy()
+p2 = dynamics_bothmut()
 
-saveit(p1=p1,p2=p2,k1=k1,k2=k2,sigmay2=sigmay2,sigmax2=sigmax2,sigma2=sigma2,steps=steps,file='/Users/eleanorbrush/Documents/research/song_learning_evolution/peak_example.Rdata')
+# saveit(p1=p1,p2=p2,k1=k1,k2=k2,sigmay2=sigmay2,sigmax2=sigmax2,sigma2=sigma2,steps=steps,file='/Users/eleanorbrush/Documents/research/song_learning_evolution/peak_example.Rdata')
 
 col_vec = brewer.pal(9,'Set1')[-c(6,7)]
 lwd = 2
@@ -81,12 +87,12 @@ lines(mrange[w1]+1,f_init2[w1],t='l',lwd=lwd,col='black',xlab='',ylab='')
 mtext('Preference',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=1.7,at=mean(range(c(f_init1,f_init2))),cex=largefontsize/smallfontsize)
 
-plot(mrange[w1]+1,p1$Pm[w1,steps],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(p1$Pm[w1,steps],p2$Pm[,steps])))
-points(mrange+1,p2$Pm[,steps],t='l',lwd=lwd,col='black',xlab='',ylab='')
+plot(mrange[w1]+1,p1$Pm[w1,steps+1],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(p1$Pm[w1,t+1],p2$Pm[,steps+1])))
+points(mrange+1,p2$Pm[,steps+1],t='l',lwd=lwd,col='black',xlab='',ylab='')
 mtext('Song',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=1.7,at=mean(range(c(p1$Pm[w1,steps],p2$Pm[,steps]))),cex=largefontsize/smallfontsize)
 
-plot(mrange[w1]+1,p1$z[w1,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(p1$z[w1,t],p2$z[w2,t])))
+plot(mrange[w1]+1,p1$z[w1,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(p1$z[w1,t],p2$z[w1,t])))
 points(mrange[w1]+1,p2$z[w1,t],t='l',lwd=lwd,col='black',xlab='',ylab='')
 mtext('Preference',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
 mtext('Z',side=2,line=1.7,at=mean(range(c(p1$z[w1,t],p2$z[w2,t]))),cex=largefontsize/smallfontsize)
@@ -103,3 +109,5 @@ mtext('Preference',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
 mtext('Difference in Z',side=2,line=1.7,at=mean(range(p2$z[,t]-p1$z[,t],na.rm=TRUE)),cex=largefontsize/smallfontsize)
 
 # dev.off()
+
+print(c(sum((mrange+1)^4*p1$Pf[,1])/sigmay2^2,sum((mrange+1)^4*p2$Pf[,1])/sigmay2^2))

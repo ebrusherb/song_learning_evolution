@@ -28,8 +28,8 @@ xs = length(sigma2_vals)
 k1_vals = c(7,7,15,35,7,15,21,21)
 k2_vals = c(11,35,35,35,21,21,21,35)
 
-k1_vals = c(35,25,45)
-k2_vals = c(35,35,45)
+k1_vals = c(35,25,45,21,15)
+k2_vals = c(35,35,45,21,21)
 
 x1 = length(k1_vals)
 
@@ -104,4 +104,4 @@ for(i in 1:xs){
 	}
 }
 
-saveit(sigma2_vals=sigma2_vals,sigmax2=sigmax2,sigmay2=sigmay2,k1_vals=k1_vals,k2_vals=k2_vals,equilibrium=equilibrium,var_mat=var_mat,file='/Users/eleanorbrush/Documents/research/song_learning_evolution/step_pref_equilibrium.Rdata')
+saveit(sigma2_vals=sigma2_vals,sigmax2=sigmax2,sigmay2=sigmay2,k1_vals=k1_vals,k2_vals=k2_vals,equilibrium=equilibrium,var_mat=var_mat,mut_prob=mut_prob,file='/Users/eleanorbrush/Documents/research/song_learning_evolution/step_pref_equilibrium.Rdata')

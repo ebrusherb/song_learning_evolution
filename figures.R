@@ -163,21 +163,7 @@ dev.off()
 #################
 ##### effect of step preference function
 
-setwd('/Users/eleanorbrush/Documents/research/song_learning_evolution')
-source('dynamics_by_mode.R')
-source('saveit.R')
-
 trait_chunk_num = 301
-sigmay2 = 2
-sigmax2 = 0.8
-pf = 1
-pm = 1 
-rho = 0
-minweight = 10^(-320)
-mut_prob = 0.01
-
-steps = 5000
-store = 1
 source('range_setup.R')
 
 col_vec = brewer.pal(9,'Set1')[-c(6,7)]
@@ -190,12 +176,12 @@ height = 4
 
 load('step_pref_fun_equilibrium.Rdata')
 
-# pdf('/Users/eleanorbrush/Desktop/effect_of_step_function.pdf',width=width,height=height,family=fontfamily)
+pdf('/Users/eleanorbrush/Desktop/effect_of_step_function.pdf',width=width,height=height,family=fontfamily)
 
 par(mfrow=c(2,2),ps=smallfontsize,mai=marg,oma=omarg,mgp=c(3,0.7,0))
 
 for(i in 1:2){
-	sigma2 = sigma2_vals[c(2,6)[i]]
+	sigma2 = sigma2_vals[c(3,6)[i]]
 		
 	continuous_weight = dnorm(mrange,mean=mrange[midpt],sd=sqrt(sigma2)) 
 	fixed_weight = continuous_weight/sum(continuous_weight)
@@ -242,11 +228,11 @@ for(i in 1:2){
 	}
 }
 
-# dev.off()
+dev.off()
 
 ##### effect of step trait distributions
 
-col_vec = brewer.pal(9,'Set1')[-c(6,7)]
+col_vec = brewer.pal(9,'Set1')[c(1,7,2:4,5,8,9)]
 lwd = 2
 marg = c(0.45,0.43,0.02,0.15)
 omarg = c(0.03,1,0.35,0.0)
@@ -309,8 +295,8 @@ for(i in 1:2){
 }
 
 xlim = c(-4,4)
-ylim=c(0,.035)
-k=6
+ylim=c(0,.08)
+k=5
 plot(mrange+1,equilibrium[[1,k,1]],col=col_vec[1],t='l',xlim=xlim,lwd=lwd,ylim=ylim,xlab='',ylab='')
 mtext('Song',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=2,at=mean(ylim),cex=largefontsize/smallfontsize)
@@ -354,7 +340,7 @@ for(j in 1:length(k1_vals)){
 			f_init = apply(matrix(chunk_vec[1:midpt],nrow=1),2,function(x) p[x])
 			f_init = c(f_init,rev(f_init[1:(length(f_init)-1)]))
 			
-			lines(mrange+1,f_init,col=col_vec[j+4],lwd=lwd)
+			lines(mrange+1,f_init,col=col_vec[j+5],lwd=lwd)
 		}
 }
 
@@ -365,24 +351,23 @@ for(i in 1:2){
 	mtext(list(expression(paste(sigma[x]^2, "*")),expression(paste(sigma[y]^2, "*")))[[i]],side=2,line=1.7,at=(round(max(var_mat[i,,],na.rm=TRUE),1)+0.1)/2,cex=largefontsize/smallfontsize)
 	for(j in 1:length(k1_vals)){
 		if(length(which(!is.na(var_mat[i,,j+1])))!=0){
-			points(sigma2_vals,var_mat[i,,j+1],col=col_vec[j+4],t='o',lwd=lwd)}
+			points(sigma2_vals,var_mat[i,,j+1],col=col_vec[j+5],t='o',lwd=lwd)}
 	}
 }
 
 xlim = c(-4,4)
-ylim=c(0,.105)
-k=6
+ylim=c(0,.85)
+k=5
 plot(mrange+1,equilibrium[[1,k,1]],col=col_vec[1],t='l',xlim=xlim,lwd=lwd,ylim=ylim,xlab='',ylab='')
 mtext('Song',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=2,at=mean(ylim),cex=largefontsize/smallfontsize)
 for(j in 1:length(k1_vals)){					
 		if(!is.na(equilibrium[[1,k,j+1]][1])){			
-			lines(mrange+1,equilibrium[[1,k,j+1]],col=col_vec[j+4],lwd=lwd)
+			lines(mrange+1,equilibrium[[1,k,j+1]],col=col_vec[j+5],lwd=lwd)
 		}
 }
 
 dev.off()
 
-
-# source('step_function_example.R')
 # source('peak_example.R')
+# sourece('mutation_test.R')
