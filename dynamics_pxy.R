@@ -43,6 +43,7 @@ while(t <= steps){
 			Pm[,(t+1):(steps+1)] = Pm_aftermut
 			Pf[,(t+1):(steps+1)] = Pf_adults
 			z_store[,t:steps] = z_store[,t]
+			pxy_store[,t:steps] = pxy_store[,,t]
 			t = steps+1
 			}
 }
@@ -59,7 +60,11 @@ for(j in 1:Nf){
 	weight[toreplace[1]:toreplace[2]] = fixed_weight[pull[1]:pull[2]]
 	z = sum(weight*Pm_adults) #normalization factor
 	z_store[j,t] = z
+	if(z>z_thresh){
+			pxy[,j] = Pf_adults[j]*weight*Pm_adults/z
+			}
 }
+pxy_store[,,t] = pxy
 pop_dens = list(Pm=Pm[,(store):(steps+1)],Pf=Pf[,(store):(steps+1)],pxy=pxy_store[,,(store):(steps+1)],z=z_store[,(store):(steps+1)])
 return(pop_dens)
 }
@@ -133,14 +138,23 @@ pop_dens = list(Pm=Pm[,(store):(steps+1)],Pf=Pf[,(store):(steps+1)],pxy=pxy_stor
 return(pop_dens)
 }
 
-dynamics_memory <-function(){
+dynamics_memory <-function(store=FALSE){
 Pm = matrix(0,Nm) #probability of male songs over time
 Pm = m_init
 
 Pf = matrix(0,Nf) #probability of female preferences over time
 Pf = f_init
 
+Pm_store = c()
+Pf_store=c()
+
 t = 1
+
+if(store && is.element(t,store_vec)){
+			Pm_store = cbind(Pm_store,m_init)
+			Pf_store = cbind(Pf_store,f_init)
+		}
+
 perc = 0
 while(t <= steps){
 	Pm_adults = Pm
@@ -168,14 +182,20 @@ while(t <= steps){
 	perc = max(abs(range(Pm_aftermut[nonzero]/Pm_adults[nonzero],na.rm=TRUE)-c(1,1)))
 	if(perc>perc_thresh){	#if growth rate is basically 1 everywhere stop simulations to save time
 		Pm = Pm_aftermut
-		Pf = Pf_adults
+		Pf = Pf_adults		
 		t = t+1
+		if(store && is.element(t,store_vec)){
+			Pm_store = cbind(Pm_store,Pm)
+			Pf_store = cbind(Pf_store,Pf)
+		}
 		} else{
 			Pm = Pm_aftermut
 			Pf = Pf_adults
 			t = steps+1
 			}
 }
-pop_dens = list(Pm=Pm,Pf=Pf)
+if(!store){
+	pop_dens = list(Pm=Pm,Pf=Pf)
+	} else{ pop_dens =list(Pm=Pm,Pm_store=Pm_store,Pf=Pf,Pf_store=Pf_store)}
 return(pop_dens)
 }

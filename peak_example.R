@@ -67,13 +67,13 @@ omarg = c(0.03,1,0.35,0.0)
 width = 6.5
 height = 4.5
 
-# pdf('/Users/eleanorbrush/Desktop/peak_example.pdf',width=width,height=height,family=fontfamily)
+pdf('/Users/eleanorbrush/Desktop/peak_example.pdf',width=width,height=height,family=fontfamily)
 
 par(ps=smallfontsize,mai=marg,oma=omarg,mgp=c(3,0.7,0))
 layout(matrix(1:4,ncol=2,byrow=TRUE))
 
-t=20
-w1 = which(p1$Pm[,t]>1e-9)
+t=1
+w1 = which(p1$Pm[,t]>1e-13)
 w2 = which(p2$Pm[,t]>1e-15)
 
 plot(mrange[w1]+1,f_init1[w1],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(f_init1,f_init2)))
@@ -86,8 +86,8 @@ points(mrange+1,p2$Pm[,steps],t='l',lwd=lwd,col='black',xlab='',ylab='')
 mtext('Song',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=1.7,at=mean(range(c(p1$Pm[w1,steps],p2$Pm[,steps]))),cex=largefontsize/smallfontsize)
 
-plot(mrange[w1]+1,p1$z[w1,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(p1$z[w1,t],p2$z[w2,t])))
-points(mrange[w1]+1,p2$z[w1,t],t='l',lwd=lwd,col='black',xlab='',ylab='')
+plot(mrange[w1]+1,p2$z[w1,t],t='l',lwd=lwd,col='black',xlab='',ylab='',ylim=range(c(p1$z[w1,t],p2$z[w2,t])))
+# points(mrange[w1]+1,p1$z[w1,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='')
 mtext('Preference',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
 mtext('Z',side=2,line=1.7,at=mean(range(c(p1$z[w1,t],p2$z[w2,t]))),cex=largefontsize/smallfontsize)
 
@@ -97,9 +97,15 @@ mtext('Z',side=2,line=1.7,at=mean(range(c(p1$z[w1,t],p2$z[w2,t]))),cex=largefont
 # mtext('Song',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
 # mtext('Percent increase',side=2,line=1.7,at=mean(range((apply(p2$pxy[w2,,t],1,sum)-p2$Pm[w2,t])/p2$Pm[w2,t],na.rm=TRUE)),cex=largefontsize/smallfontsize)
 
-plot(mrange[w1]+1,p2$z[w1,t]-p1$z[w1,t],t='l',lwd=lwd,col='black',xlab='',ylab='',ylim=range(p2$z[,t]-p1$z[,t],na.rm=TRUE))
-# axis(2,at=0.0005*2*seq(-6,6,by=1))#,labels=c(expression(-1 %*% 10^{-3}),expression(-5 %*% 10^{-4}),0,expression(5 %*% 10^{-4}),expression(1 %*% 10^{-3})))
-mtext('Preference',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-mtext('Difference in Z',side=2,line=1.7,at=mean(range(p2$z[,t]-p1$z[,t],na.rm=TRUE)),cex=largefontsize/smallfontsize)
+# plot(mrange[w1]+1,p2$z[w1,t]-p1$z[w1,t],t='l',lwd=lwd,col='black',xlab='',ylab='',ylim=range(p2$z[,t]-p1$z[,t],na.rm=TRUE))
+# # axis(2,at=0.0005*2*seq(-6,6,by=1))#,labels=c(expression(-1 %*% 10^{-3}),expression(-5 %*% 10^{-4}),0,expression(5 %*% 10^{-4}),expression(1 %*% 10^{-3})))
+# mtext('Preference',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+# mtext('Difference in Z',side=2,line=1.7,at=mean(range(p2$z[,t]-p1$z[,t],na.rm=TRUE)),cex=largefontsize/smallfontsize)
 
-# dev.off()
+plot(mrange[w1]+1,log(p1$Pf[w1,t]/p1$z[w1,t]),t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',yaxt='n',ylim=log(range(p2$Pf[w1,t]/p2$z[w1,t],na.rm=TRUE)+c(0.01,0)))
+lines(mrange[w1]+1,log(p2$Pf[w1,t]/p2$z[w1,t]),lwd=lwd,col='black')
+axis(2,at=log(10^(-3:3)),labels=10^(-3:3))
+mtext('Preference',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext('Frequency / Z',side=2,line=1.7,at=mean(log(range(p2$Pf[w1,t]/p2$z[w1,t],na.rm=TRUE)+c(0.01,0))),cex=largefontsize/smallfontsize)
+
+dev.off()

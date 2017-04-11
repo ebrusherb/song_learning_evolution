@@ -8,10 +8,10 @@ fontfamily = 'Helvetica'
 smallfontsize = 10
 largefontsize = 12
 
-trait_chunk_num = 101
+trait_chunk_num = 173
 sigmay2 = 2
 sigmax2 = 0.8
-sigma2 = 0.5
+sigma2 = 1.1
 mut_prob = 0.0
 pf = 1
 pm = 1 
@@ -21,24 +21,24 @@ minprob = 0
 
 steps = 30000
 store = steps+1
-source('range_setup.R')
+source('range_setup_long.R')
 
 m_init = dnorm(mrange,mmin,sqrt(sigmax2))
 m_init[m_init==0] = 10^max(floor(log(min(m_init[which(m_init>0)]),base=10)),-320)
 m_init = m_init/sum(m_init)
 
 f_init = dnorm(frange,fmin,sqrt(sigmay2))
-# f_init[f_init==0] = 10^max(floor(log(min(f_init[which(f_init>0)]),base=10)),-320)
+f_init[f_init==0] = 10^max(floor(log(min(f_init[which(f_init>0)]),base=10)),-320)
 f_init1 = f_init/sum(f_init)
 
 continuous_weight = dnorm(mrange,mean=mrange[midpt],sd=sqrt(sigma2)) 
 fixed_weight = continuous_weight/sum(continuous_weight)
 
-# f_init = f_init1
-# p1 = dynamics_bothmut()
+f_init = f_init1
+p1 = dynamics_memory()
 
-excess_kurt_vals = c(-0.5,-0.2,-0.1,-0.05,0,0.2,0.5)
-mut_prob_vals = c(0,0.01,0.05,0.1)
+excess_kurt_vals = c(-0.5,-0.4,-0.3,-0.2,-0.15,-0.1,-0.05,0,0.05,0.1,0.15,0.2)
+mut_prob_vals = c(0,0.001,0.01,0.05)
 xk = length(excess_kurt_vals)
 xm = length(mut_prob_vals)
 
@@ -61,7 +61,7 @@ for(k in 1:xk){
 }
 
 
-# saveit(equilibrium=equilibrium,excess_kurt_vals=excess_kurt_vals,mut_prob_vals=mut_prob_vals,sigmax2=sigmax2,sigma2=sigma2,sigmay2=sigmay2,file='/Users/eleanorbrush/Documents/research/song_learning_evolution/pearson_kurtosis.Rdata')
+# saveit(p1=p1,equilibrium=equilibrium,excess_kurt_vals=excess_kurt_vals,mut_prob_vals=mut_prob_vals,sigmax2=sigmax2,sigma2=sigma2,sigmay2=sigmay2,file='/Users/eleanorbrush/Documents/research/song_learning_evolution/pearson_kurtosis.Rdata')
 
 #### 
 # col_vec = brewer.pal(9,'Set1')[-c(6,7)]
@@ -110,3 +110,32 @@ for(k in 1:xk){
 # # dev.off()
 
 # print(c(sum((mrange+1)^4*p1$Pf[,1])/sigmay2^2,sum((mrange+1)^4*p2$Pf[,1])/sigmay2^2))
+
+col_vec = brewer.pal(9,'Greys')[c(5,7,9)]
+col_vec = c('black',brewer.pal(9,'Set1')[1])
+lwd = 2
+marg = c(0.38,0.3,0.0,0.15)
+omarg = c(0.03,1,0.35,0.0)
+ylim = c(0,0.22)
+
+width = 6.5
+height = 4.5
+
+w = 87+(-27:27)
+
+pdf('/Users/eleanorbrush/Desktop/pearson_kurtosis.pdf',width=width,height=height,family=fontfamily)
+
+par(ps=smallfontsize,mai=marg,oma=omarg,mgp=c(3,0.7,0))
+layout(matrix(1:6,ncol=3,byrow=TRUE))
+
+for(i in 4:9){
+	plot(mrange[w]+1,mrange[w],t='n',ylim=ylim,xlab='',ylab='')
+	for(j in 1:2){
+		lines(mrange[w]+1,equilibrium[[i,j]][w],lwd=lwd,col=col_vec[j])
+	}
+	mtext('Song',side=1,line=1.7,at=0,cex=largefontsize/smallfontsize)
+	mtext('Frequency',side=2,line=1.7,at=mean(ylim),cex=largefontsize/smallfontsize)
+	if(i ==4){		legend(-7.5,0.23,legend=mut_prob_vals[1:2],lty=1,col=col_vec[1:2],lwd=lwd,bty='n')}
+}
+
+dev.off()
