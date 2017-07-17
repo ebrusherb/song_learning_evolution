@@ -5,7 +5,7 @@ fontfamily = 'Helvetica'
 smallfontsize = 10
 largefontsize = 12
 
-trait_chunk_num = 301
+trait_chunk_num = 281
 sigmay2 = 2
 sigmax2 = 0.8
 sigma2 = 0.9
@@ -19,8 +19,8 @@ steps = 5000
 store = 1
 source('range_setup.R')
 
-k1 = 45
-k2 = 45
+k1 = 35
+k2 = 35
 
 m_init = dnorm(mrange,mmin,sqrt(sigmax2))
 m_init[m_init==0] = 10^max(floor(log(min(m_init[which(m_init>0)]),base=10)),-320)
@@ -73,23 +73,23 @@ par(ps=smallfontsize,mai=marg,oma=omarg,mgp=c(3,0.7,0))
 layout(matrix(1:4,ncol=2,byrow=TRUE))
 
 t=1
-w1 = which(p1$Pm[,t]>1e-13)
+w1 = which(p1$Pm[,t]>1e-15)
 w2 = which(p2$Pm[,t]>1e-15)
 
 plot(mrange[w1]+1,f_init1[w1],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(f_init1,f_init2)))
 lines(mrange[w1]+1,f_init2[w1],t='l',lwd=lwd,col='black',xlab='',ylab='')
-mtext('Preference',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=1.7,at=mean(range(c(f_init1,f_init2))),cex=largefontsize/smallfontsize)
 
 plot(mrange[w1]+1,p1$Pm[w1,steps],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(p1$Pm[w1,steps],p2$Pm[,steps])))
 points(mrange+1,p2$Pm[,steps],t='l',lwd=lwd,col='black',xlab='',ylab='')
-mtext('Song',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext('Song, x',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=1.7,at=mean(range(c(p1$Pm[w1,steps],p2$Pm[,steps]))),cex=largefontsize/smallfontsize)
 
 plot(mrange[w1]+1,p2$z[w1,t],t='l',lwd=lwd,col='black',xlab='',ylab='',ylim=range(c(p1$z[w1,t],p2$z[w2,t])))
 # points(mrange[w1]+1,p1$z[w1,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='')
-mtext('Preference',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-mtext('Z',side=2,line=1.7,at=mean(range(c(p1$z[w1,t],p2$z[w2,t]))),cex=largefontsize/smallfontsize)
+mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext(expression(Z[y]),side=2,line=1.7,at=mean(range(c(p1$z[w1,t],p2$z[w2,t]))),cex=largefontsize/smallfontsize)
 
 # plot(mrange[w1]+1,(apply(p1$pxy[w1,,t],1,sum)-p1$Pm[w1,t])/p1$Pm[w1,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range((apply(p2$pxy[w2,,t],1,sum)-p2$Pm[w2,t])/p2$Pm[w2,t],na.rm=TRUE),yaxt='n')
 # axis(2,at=c(-.1,0,0.2,.4),labels=c(-.1,0,0.2,.4))
@@ -105,7 +105,7 @@ mtext('Z',side=2,line=1.7,at=mean(range(c(p1$z[w1,t],p2$z[w2,t]))),cex=largefont
 plot(mrange[w1]+1,log(p1$Pf[w1,t]/p1$z[w1,t]),t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',yaxt='n',ylim=log(range(p2$Pf[w1,t]/p2$z[w1,t],na.rm=TRUE)+c(0.01,0)))
 lines(mrange[w1]+1,log(p2$Pf[w1,t]/p2$z[w1,t]),lwd=lwd,col='black')
 axis(2,at=log(10^(-3:3)),labels=10^(-3:3))
-mtext('Preference',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-mtext('Frequency / Z',side=2,line=1.7,at=mean(log(range(p2$Pf[w1,t]/p2$z[w1,t],na.rm=TRUE)+c(0.01,0))),cex=largefontsize/smallfontsize)
+mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext(expression(paste('Frequency / ',Z[y])),side=2,line=1.7,at=mean(log(range(p2$Pf[w1,t]/p2$z[w1,t],na.rm=TRUE)+c(0.01,0))),cex=largefontsize/smallfontsize)
 
 dev.off()

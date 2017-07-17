@@ -66,7 +66,7 @@ lwd = 2
 marg = c(0.7,0.5,0.02,0.15)
 omarg = c(0.1,0.4,0.35,0.0)
 
-width = 3.25
+width = 3.8
 height = 3.25
 
 pdf(file='/Users/eleanorbrush/Desktop/step_function_example.pdf',width=width,height=height,family=fontfamily)
@@ -76,8 +76,8 @@ par(ps=smallfontsize,mai=marg,oma=omarg,mgp=c(3,0.5,0))
 plot(mrange[w]+1,fixed_weight2[w],t='o',xlim=range(mrange[w]+1)+c(-.01,.01),yaxt='n',xlab='',ylab='',lwd=lwd,col=col_vec[1],ylim=range(c(fixed_weight1,fixed_weight2))+c(-.00,0),xaxt='n')
 points(mrange[w]+1,fixed_weight1[w],t='o',col=col_vec[2],lwd=lwd)
 axis(2,at=c(p[2],p[3],c(0,0.04,0.08)),labels=c(expression(p[1]),expression(p[2]),c(0,0.04,0.08)))
-axis(1,at=c(seq(-7,-1,by=3),seq(1,7,by=3)),labels=c(seq(-7,-1,by=3),seq(1,7,by=3)))
-mtext('y-x',side=1,line=2.5,at=0,cex=largefontsize/smallfontsize)
+axis(1,at=c(-4,-1,0,1,4),labels=c(-4,-1,0,1,4))
+mtext('Difference in preference and song, y-x',side=1,line=2,at=-0.3,cex=largefontsize/smallfontsize)
 mtext('Preference',side=2,line=1.7,at=p[3]/2,cex=largefontsize/smallfontsize)
 
 dev.off()

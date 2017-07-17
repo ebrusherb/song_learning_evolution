@@ -3,8 +3,13 @@ source('dynamics_pxy.R')
 source('saveit.R')
 source('recursion_all.R')
 library(RColorBrewer)
+library(pracma)
+library(PearsonDS)
+fontfamily = 'Helvetica'
+smallfontsize = 10
+largefontsize = 12
 
-trait_chunk_num = 301
+trait_chunk_num = 281
 sigmay2 = 2
 sigmax2 = 0.8
 pf = 1
@@ -95,6 +100,8 @@ p2_step_pref_dist = dynamics_memory(store=TRUE)
 
 saveit(p2=p2,p1_step_song_dist=p1_step_song_dist,p2_step_song_dist=p2_step_song_dist,p1_step_pref_dist=p1_step_pref_dist,p2_step_pref_dist=p2_step_pref_dist,sigmay2=sigmay2,sigmax2=sigmax2,sigma2=sigma2,steps=steps,store_vec=store_vec,file='/Users/eleanorbrush/Documents/research/song_learning_evolution/mutation_test.Rdata')
 
+load('/Users/eleanorbrush/Documents/research/song_learning_evolution/mutation_test.Rdata')
+
 
 r = recursion_all(sigmax2,sigmay2,sigma2,rho)
 
@@ -117,7 +124,7 @@ marg = c(0.38,0.3,0.0,0.15)
 omarg = c(0.03,1,0.35,0.0)
 
 width = 6.5
-height = 4.5
+height = 5
 ylim = c(0,0.1)
 t = dim(p2$Pm_store)[2]
 w = which(p2$Pm_store[,t]>1e-10)
@@ -131,7 +138,7 @@ plot(mrange[w]+1,mrange[w],t='n',ylim=ylim,xlab='',ylab='')
 for(t in 1:length(t_toplot)){
 	lines(mrange[w]+1,p[w,t],lwd=lwd,col=col_vec[t])
 }
-mtext('Song',side=1,line=1.7,at=0,cex=largefontsize/smallfontsize)
+mtext('Song, x',side=1,line=1.9,at=0,cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=1.7,at=mean(ylim),cex=largefontsize/smallfontsize)
 legend(-4.5,0.1,legend=store_vec[t_toplot],lty=1,col=col_vec,lwd=lwd,bty='n')
 
@@ -139,35 +146,35 @@ plot(mrange[w]+1,mrange[w],t='n',ylim=ylim,xlab='',ylab='')
 for(t in 1:length(t_toplot)){
 	lines(mrange[w]+1,p2$Pm_store[w,t_toplot[t]],lwd=lwd,col=col_vec[t])
 }
-mtext('Song',side=1,line=1.7,at=0,cex=largefontsize/smallfontsize)
+mtext('Song, x',side=1,line=1.9,at=0,cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=1.7,at=mean(ylim),cex=largefontsize/smallfontsize)
 
 plot(mrange[w]+1,mrange[w],t='n',ylim=ylim,xlab='',ylab='')
 for(t in 1:length(t_toplot)){
 	lines(mrange[w]+1,p1_step_song_dist$Pm_store[w,t_toplot[t]],lwd=lwd,col=col_vec[t])
 }
-mtext('Song',side=1,line=1.7,at=0,cex=largefontsize/smallfontsize)
+mtext('Song, x',side=1,line=1.9,at=0,cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=1.7,at=mean(ylim),cex=largefontsize/smallfontsize)
 
 plot(mrange[w]+1,mrange[w],t='n',ylim=ylim,xlab='',ylab='')
 for(t in 1:length(t_toplot)){
 	lines(mrange[w]+1,p2_step_song_dist$Pm_store[w,t_toplot[t]],lwd=lwd,col=col_vec[t])
 }
-mtext('Song',side=1,line=1.7,at=0,cex=largefontsize/smallfontsize)
+mtext('Song, x',side=1,line=1.9,at=0,cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=1.7,at=mean(ylim),cex=largefontsize/smallfontsize)
 
 plot(mrange[w]+1,mrange[w],t='n',ylim=ylim,xlab='',ylab='')
 for(t in 1:length(t_toplot)){
 	lines(mrange[w]+1,p1_step_pref_dist$Pm_store[w,t_toplot[t]],lwd=lwd,col=col_vec[t])
 }
-mtext('Song',side=1,line=1.7,at=0,cex=largefontsize/smallfontsize)
+mtext('Song, x',side=1,line=1.9,at=0,cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=1.7,at=mean(ylim),cex=largefontsize/smallfontsize)
 
 plot(mrange[w]+1,mrange[w],t='n',ylim=ylim,xlab='',ylab='')
 for(t in 1:length(t_toplot)){
 	lines(mrange[w]+1,p2_step_pref_dist$Pm_store[w,t_toplot[t]],lwd=lwd,col=col_vec[t])
 }
-mtext('Song',side=1,line=1.7,at=0,cex=largefontsize/smallfontsize)
+mtext('Song, x',side=1,line=1.9,at=0,cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=1.7,at=mean(ylim),cex=largefontsize/smallfontsize)
 
 dev.off()

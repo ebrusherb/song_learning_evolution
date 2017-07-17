@@ -43,7 +43,7 @@ while(t <= steps){
 			Pm[,(t+1):(steps+1)] = Pm_aftermut
 			Pf[,(t+1):(steps+1)] = Pf_adults
 			z_store[,t:steps] = z_store[,t]
-			pxy_store[,t:steps] = pxy_store[,,t]
+			pxy_store[,,t:steps] = pxy_store[,,t]
 			t = steps+1
 			}
 }

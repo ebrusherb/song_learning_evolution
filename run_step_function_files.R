@@ -1,6 +1,8 @@
 setwd('/Users/eleanorbrush/Documents/research/song_learning_evolution')
+source('saveit.R')
 # source('step_pref_dist.R')
 # source('step_song_dist.R')
 # source('step_pref_function.R')
 source('peak_example.R')
 source('mutation_test.R')
+source('pearson_kurtosis.R')

@@ -2,7 +2,7 @@ setwd('/Users/eleanorbrush/Documents/research/song_learning_evolution')
 source('dynamics_by_mode.R')
 source('saveit.R')
 
-trait_chunk_num = 301
+trait_chunk_num = 281
 sigmay2 = 2
 sigmax2 = 0.8
 pf = 1

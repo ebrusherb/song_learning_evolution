@@ -13,21 +13,21 @@ recursion_all_end <- function(sigmax2,sigmay2,sigma2,equil=TRUE){
 	toreturn = r[,1:2,steps+1]
 	if(equil){		
 			if(sigma2>sigmay2){
-				toreturn[3,1:2] = NA
+				toreturn[3,1:2] = c(NA,sigmay2)
 			}else{toreturn[3,1:2] = c(sigmay2-sigma2,sigmay2)
 				}
 			if(diff(r[9,1,steps+(0:1)])<0 || r[9,1,steps]<1e-10){
-				toreturn[9,1:2] = NA
+				toreturn[9,1:2] = c(NA,sigmay2)
 			}
 		} else{
 			if(sigma2<sigmay2){
-				toreturn[3,1:2] = NA
+				toreturn[3,1:2] = c(NA,sigmay2)
 			} 
 			if(diff(r[7,1,steps+(0:1)])>0){
 				toreturn[7,1:2] = NA
 			} 
 			if(diff(r[9,1,steps+(0:1)])>0){
-				toreturn[9,1:2] = NA
+				toreturn[9,1:2] = c(NA,sigmay2)
 			}
 			}
 	return(toreturn)
@@ -73,11 +73,11 @@ sigma2_vals = matrix(seq(sigma2_min,sigma2_max,length.out=vec_length),nrow=1)
 
 r_sigma2 <- as.list(1:3)
 
-sigmax2_pos = c(9,3)
-sigmax2_zero = c(7,9,1,2,8,3)
+sigmax2_pos = c(3,9)
+sigmax2_zero = c(1,2,3,4,7,8,9)
 
 sigmay2_pos = c(5)
-sigmay2_zero = c(7,1,2,4,8)
+sigmay2_zero = c(1,2,4,7,8)
 
 steps = steps_long
 
@@ -97,8 +97,6 @@ r_sigma2[[3]] <- sapply(sigma2_vals,time_to_zero,sigmax2=sigmax2,sigmay2=sigmay2
 r_sigma2[[3]] <- matrix(unlist(lapply(r_sigma2[[3]],function(y) y[,1])),nrow=9)
 r_sigma2[[3]][setdiff(1:9,sigmax2_zero),] = NA
 
-ltys_vec = c(2,4,6,5,6,NA,1,3,5)
-ltys_vec = c(1,1,1,1,1,NA,1,1,1)
 pal1 = brewer.pal(9,'Set1')
 pal2 = brewer.pal(8,'Accent')
 col_vec = pal1[c(1,2,8,7,4,NA,3,5,9)]
@@ -137,8 +135,8 @@ for(k in 1:3){
 			lines(sigma2_vals,r_sigma2[[2]][subset[j],],lwd=lwd,col=dark_col[j])
 		}
 	}
-	mtext(expression(sigma^2),side=1,at=mean(sigma2_vals),line=3,cex=largefontsize/smallfontsize)
-	mtext(expression(sigma[x]^2),side=2,at=mean(ylim),line=2,cex=largefontsize/smallfontsize)
+	mtext(expression(paste('Variance of pref. function, ', sigma^2)),side=1,at=mean(sigma2_vals),line=3,cex=largefontsize/smallfontsize)
+	mtext(expression(paste('Song variance, ',sigma[x]^2)),side=2,at=mean(ylim)-0.08*diff(ylim),line=2,cex=largefontsize/smallfontsize)
 	
 	if(k==1){
 		legend(1.4,4.4,legend=c(expression(paste(sigma[x]^2, "*",', song genetic')),expression(paste(sigma[x]^2~(10),', song genetic')),expression(paste(sigma[x]^2, "*",', song paternally learned')),expression(paste(sigma[x]^2~(10),', song paternally learned'))),lty=rep(1,4),col=c(pale_col[1],dark_col[1],pale_col[2],dark_col[2]),bty='n')	
@@ -153,17 +151,21 @@ for(k in 1:3){
 		}			
 	}
 	axis(2,at=log(5*4^(0:9)),labels=5*4^(0:9))
-	mtext(expression(sigma^2),side=1,at=mean(sigma2_vals),line=3,cex=largefontsize/smallfontsize)
+	mtext(expression(paste('Variance of pref. function, ', sigma^2)),side=1,at=mean(sigma2_vals),line=3,cex=largefontsize/smallfontsize)
 	mtext('Generations',side=2,at=mean(ylim),line=2,cex=largefontsize/smallfontsize)
 }
 
 
 dev.off()
 
+# source('step_pref_dist.R')
+# source('step_song_dist.R')
+# source('step_pref_function.R')
+
 #################
 ##### effect of step preference function
 
-trait_chunk_num = 301
+trait_chunk_num = 281
 source('range_setup.R')
 
 col_vec = brewer.pal(9,'Set1')[-c(6,7)]
@@ -189,7 +191,7 @@ for(i in 1:2){
 	xlim = c(-4,4)
 	ylim=c(0,c(.15,.15)[i])
 	plot(mrange+1,fixed_weight,col=col_vec[1],t='l',xlim=xlim,lwd=lwd,ylim=ylim,xlab='',ylab='')
-	mtext('y-x',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
+	mtext('Difference in preference and song, y-x',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
 	mtext('Preference',side=2,line=2,at=mean(ylim),cex=largefontsize/smallfontsize)
 	for(j in 1:length(k1_vals)){		
 			k1 = k1_vals[j]
@@ -220,8 +222,8 @@ for(i in 1:2){
 
 for(i in 1:2){
 	plot(sigma2_vals,var_mat[i,,1],ylim=c(0,round(max(var_mat[i,,],na.rm=TRUE),1)+.1),t='o',lwd=lwd,col=col_vec[1],xlab='',ylab='')
-	mtext(expression(sigma^2),side=1,line=2,at=mean(sigma2_vals),cex=largefontsize/smallfontsize)
-	mtext(list(expression(paste(sigma[x]^2, "*")),expression(paste(sigma[y]^2, "*")))[[i]],side=2,line=1.7,at=(round(max(var_mat[i,,],na.rm=TRUE),1)+0.1)/2,cex=largefontsize/smallfontsize)
+	mtext(expression(paste('Variance of pref. function, ', sigma^2)),side=1,line=2,at=mean(sigma2_vals),cex=largefontsize/smallfontsize)
+	mtext(list(expression(paste('Eq. song var., ',sigma[x]^2, "*")),expression(paste('Eq. pref. var., ',sigma[y]^2, "*")))[[i]],side=2,line=1.7,at=(round(max(var_mat[i,,],na.rm=TRUE),1)+0.1)/2,cex=largefontsize/smallfontsize)
 	for(j in 1:length(k1_vals)){
 		if(length(which(!is.na(var_mat[i,,j+1])))!=0){
 			points(sigma2_vals,var_mat[i,,j+1],col=col_vec[j+1],t='o',lwd=lwd)}
@@ -232,7 +234,7 @@ dev.off()
 
 ##### effect of step trait distributions
 
-col_vec = brewer.pal(9,'Set1')[c(1,7,2:4,5,8,9)]
+col_vec = c(brewer.pal(9,'Set1')[c(1,7,2:4)],brewer.pal(8,'Dark2')[c(1)],brewer.pal(9,'Set1')[c(9,5,8)])
 lwd = 2
 marg = c(0.45,0.43,0.02,0.15)
 omarg = c(0.03,1,0.35,0.0)
@@ -251,10 +253,10 @@ m_init = dnorm(mrange,mmin,sqrt(sigmax2))
 m_init[m_init==0] = 10^max(floor(log(min(m_init[which(m_init>0)]),base=10)),-320)
 m_init = m_init/sum(m_init)
 
-xlim = c(-4,4)
-ylim=c(0,.12)
+xlim = c(-6,6)
+ylim=c(0,.13)
 plot(mrange+1,m_init,col=col_vec[1],t='l',xlim=xlim,lwd=lwd,ylim=ylim,xlab='',ylab='')
-mtext('Song',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
+mtext('Song, x',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=2,at=mean(ylim),cex=largefontsize/smallfontsize)
 for(j in 1:length(k1_vals)){		
 		k1 = k1_vals[j]
@@ -286,19 +288,19 @@ for(j in 1:length(k1_vals)){
 
 for(i in 1:2){
 	plot(sigma2_vals,var_mat[i,,1],ylim=c(0,round(max(var_mat[i,,],na.rm=TRUE),1)+.1),t='o',lwd=lwd,col=col_vec[1],xlab='',ylab='')
-	mtext(expression(sigma^2),side=1,line=2.3,at=mean(sigma2_vals),cex=largefontsize/smallfontsize)
-	mtext(list(expression(paste(sigma[x]^2, "*")),expression(paste(sigma[y]^2, "*")))[[i]],side=2,line=1.7,at=(round(max(var_mat[i,,],na.rm=TRUE),1)+0.1)/2,cex=largefontsize/smallfontsize)
+	mtext(expression(paste('Variance of pref. function, ', sigma^2)),side=1,line=2.3,at=mean(sigma2_vals),cex=largefontsize/smallfontsize)
+	mtext(list(expression(paste('Eq. song var., ',sigma[x]^2, "*")),expression(paste('Eq. pref. var., ',sigma[y]^2, "*")))[[i]],side=2,line=1.7,at=(round(max(var_mat[i,,],na.rm=TRUE),1)+0.1)/2,cex=largefontsize/smallfontsize)
 	for(j in 1:length(k1_vals)){
 		if(length(which(!is.na(var_mat[i,,j+1])))!=0){
 			points(sigma2_vals,var_mat[i,,j+1],col=col_vec[j+1],t='o',lwd=lwd)}
 	}
 }
 
-xlim = c(-4,4)
+xlim = c(-6,6)
 ylim=c(0,.08)
 k=5
 plot(mrange+1,equilibrium[[1,k,1]],col=col_vec[1],t='l',xlim=xlim,lwd=lwd,ylim=ylim,xlab='',ylab='')
-mtext('Song',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
+mtext('Song, x',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=2,at=mean(ylim),cex=largefontsize/smallfontsize)
 for(j in 1:length(k1_vals)){					
 		if(!is.na(equilibrium[[1,k,j+1]][1])){			
@@ -312,10 +314,10 @@ f_init = dnorm(mrange,mmin,sqrt(sigmay2))
 f_init[f_init==0] = 10^max(floor(log(min(f_init[which(f_init>0)]),base=10)),-320)
 f_init = f_init/sum(f_init)
 
-xlim = c(-4,4)
-ylim=c(0,.12)
+xlim = c(-6,6)
+ylim=c(0,.13)
 plot(mrange+1,f_init,col=col_vec[1],t='l',xlim=xlim,lwd=lwd,ylim=ylim,xlab='',ylab='')
-mtext('Preference',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
+mtext('Preference, y',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=2,at=mean(ylim),cex=largefontsize/smallfontsize)
 for(j in 1:length(k1_vals)){		
 		k1 = k1_vals[j]
@@ -347,19 +349,19 @@ for(j in 1:length(k1_vals)){
 
 for(i in 1:2){
 	plot(sigma2_vals,var_mat[i,,1],ylim=c(0,round(max(var_mat[i,,],na.rm=TRUE),1)+.1),t='o',lwd=lwd,col=col_vec[1],xlab='',ylab='')
-	mtext(expression(sigma^2),side=1,line=2.3,at=mean(sigma2_vals),cex=largefontsize/smallfontsize)
-	mtext(list(expression(paste(sigma[x]^2, "*")),expression(paste(sigma[y]^2, "*")))[[i]],side=2,line=1.7,at=(round(max(var_mat[i,,],na.rm=TRUE),1)+0.1)/2,cex=largefontsize/smallfontsize)
+	mtext(expression(paste('Variance of pref. function, ', sigma^2)),side=1,line=2.3,at=mean(sigma2_vals),cex=largefontsize/smallfontsize)
+	mtext(list(expression(paste('Eq. song var., ',sigma[x]^2, "*")),expression(paste('Eq. pref. var., ',sigma[y]^2, "*")))[[i]],side=2,line=1.7,at=(round(max(var_mat[i,,],na.rm=TRUE),1)+0.1)/2,cex=largefontsize/smallfontsize)
 	for(j in 1:length(k1_vals)){
 		if(length(which(!is.na(var_mat[i,,j+1])))!=0){
 			points(sigma2_vals,var_mat[i,,j+1],col=col_vec[j+5],t='o',lwd=lwd)}
 	}
 }
 
-xlim = c(-4,4)
-ylim=c(0,.85)
+xlim = c(-6,6)
+ylim=c(0,.9)
 k=5
 plot(mrange+1,equilibrium[[1,k,1]],col=col_vec[1],t='l',xlim=xlim,lwd=lwd,ylim=ylim,xlab='',ylab='')
-mtext('Song',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
+mtext('Song, x',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
 mtext('Frequency',side=2,line=2,at=mean(ylim),cex=largefontsize/smallfontsize)
 for(j in 1:length(k1_vals)){					
 		if(!is.na(equilibrium[[1,k,j+1]][1])){			
@@ -370,4 +372,3 @@ for(j in 1:length(k1_vals)){
 dev.off()
 
 # source('peak_example.R')
-# sourece('mutation_test.R')
