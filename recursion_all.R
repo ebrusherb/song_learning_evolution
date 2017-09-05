@@ -170,8 +170,8 @@ recursion_all <- function(sigmax2_init,sigmay2_init,sigma2,rho_init){
 recursion_all_new_numbers <- function(sigmax2_init,sigmay2_init,sigma2,rho_init){
 	cov_init = rho_init*sqrt(sigmax2_init*sigmay2_init)
 	Q_init = Q_fun(sigmax2_init,sigmay2_init,cov_init)
-	variables_mat = array(NA,dim=c(9,5,steps+1)) #sigmax2, sigmay2, cov, rho, Q
-	variables_mat[,,1]=matrix(c(sigmax2_init,sigmay2_init,cov_init,rho_init,Q_init),nrow=9,ncol=5,byrow=TRUE)
+	variables_mat = array(NA,dim=c(12,5,steps+1)) #sigmax2, sigmay2, cov, rho, Q
+	variables_mat[,,1]=matrix(c(sigmax2_init,sigmay2_init,cov_init,rho_init,Q_init),nrow=12,ncol=5,byrow=TRUE)
 	
 	for(t in 1:steps){
 		#mode 6: song learned from father, preference genetic
@@ -310,6 +310,60 @@ recursion_all_new_numbers <- function(sigmax2_init,sigmay2_init,sigma2,rho_init)
 		sigmax2_new = 1/4*sigmax2*Q
 		sigmay2_new = sigmay2
 		cov_new = 1/2*sigmax2*sigmay2/(sigma2+sigmax2)+1/2*cov
+		if(is.nan(cov_new) || round(cov_new,10)<1e-13){
+			rho_new = 0
+		} else if(log(cov_new)>100 && log(sigmax2_new*sigmay2_new)>100) {
+			rho_new = 1} else { 
+		rho_new = cov_new / sqrt(sigmax2_new*sigmay2_new)}
+		Q_new = Q_fun(sigmax2_new,sigmay2_new,cov_new)
+		variables_mat[m,,t+1]=c(sigmax2_new,sigmay2_new,cov_new,rho_new,Q_new)
+		
+		#mode 10: song from oblique male, preference learned from oblique male
+		m = 10
+		sigmax2 = variables_mat[m,1,t]
+		sigmay2 = variables_mat[m,2,t]
+		cov = variables_mat[m,3,t]
+		rho = variables_mat[m,4,t]
+		Q = variables_mat[m,5,t]
+		sigmax2_new = sigmax2
+		sigmay2_new = sigmax2
+		cov_new = 0
+		if(is.nan(cov_new) || round(cov_new,10)<1e-13){
+			rho_new = 0
+		} else if(log(cov_new)>100 && log(sigmax2_new*sigmay2_new)>100) {
+			rho_new = 1} else { 
+		rho_new = cov_new / sqrt(sigmax2_new*sigmay2_new)}
+		Q_new = Q_fun(sigmax2_new,sigmay2_new,cov_new)
+		variables_mat[m,,t+1]=c(sigmax2_new,sigmay2_new,cov_new,rho_new,Q_new)
+		
+		#mode 11: song genetic, preference learned from oblique male
+		m = 11
+		sigmax2 = variables_mat[m,1,t]
+		sigmay2 = variables_mat[m,2,t]
+		cov = variables_mat[m,3,t]
+		rho = variables_mat[m,4,t]
+		Q = variables_mat[m,5,t]
+		sigmax2_new = 1/4*sigmax2*(sigma2/(sigma2+sigmax2)+sigmax2*sigmay2/(sigma2+sigmax2)^2+1)
+		sigmay2_new = sigmax2
+		cov_new = 0
+		if(is.nan(cov_new) || round(cov_new,10)<1e-13){
+			rho_new = 0
+		} else if(log(cov_new)>100 && log(sigmax2_new*sigmay2_new)>100) {
+			rho_new = 1} else { 
+		rho_new = cov_new / sqrt(sigmax2_new*sigmay2_new)}
+		Q_new = Q_fun(sigmax2_new,sigmay2_new,cov_new)
+		variables_mat[m,,t+1]=c(sigmax2_new,sigmay2_new,cov_new,rho_new,Q_new)
+		
+		#mode 12: song from father, preference learned from oblique male
+		m = 12
+		sigmax2 = variables_mat[m,1,t]
+		sigmay2 = variables_mat[m,2,t]
+		cov = variables_mat[m,3,t]
+		rho = variables_mat[m,4,t]
+		Q = variables_mat[m,5,t]
+		sigmax2_new = sigmax2*(sigma2/(sigma2+sigmax2)+sigmax2*sigmay2/(sigma2+sigmax2)^2)
+		sigmay2_new = sigmax2
+		cov_new = 0
 		if(is.nan(cov_new) || round(cov_new,10)<1e-13){
 			rho_new = 0
 		} else if(log(cov_new)>100 && log(sigmax2_new*sigmay2_new)>100) {

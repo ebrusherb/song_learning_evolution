@@ -1,41 +1,117 @@
-\documentclass{article}
-
-\usepackage[textwidth=7in,textheight=10in]{geometry}
-\usepackage{graphicx}
-\usepackage{enumerate}
-\usepackage{/Users/eleanorbrush/Documents/custom2}
-\usepackage{wasysym}
-\usepackage{color}
+\documentclass[12pt]{article}
+\usepackage[sc]{mathpazo} %Like Palatino with extensive math support
+\usepackage{fullpage}
+\usepackage{setspace,lipsum}
+%\usepackage[textwidth=7in,textheight=8in]{geometry}
+%\usepackage[authoryear,sectionbib]{natbib}
 \usepackage[numbers,sort&compress]{natbib}
+\linespread{1.7}
+\usepackage[utf8]{inputenc}
+\usepackage{latexsym}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\usepackage{/Users/eleanorbrush/Documents/custom2}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 \newcommand{\x}[1]{\text{#1}}
 \newcommand{\Cov}{\text{Cov}}
 \usepackage{lscape} 
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\usepackage{lineno}
+\usepackage{enumerate}
+\usepackage{multirow}
+\linenumbers{}
+%\modulolinenumbers[3]
 
-\usepackage{tocloft}% http://ctan.org/pkg/tocloft
-\setlength{\cftsecnumwidth}{2em}% Set length of number width in ToC for \subsection
-\cftsetindents{subsection}{3em}{2em}
-\setcounter{tocdepth}{2}% Allow only \chapter in ToC
+\usepackage{xr}
+\externaldocument{supp_info}
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\lhead{Comparing Learned and Genetics Songs is Complicated}
+
+\setlength{\headsep}{0.15in}
+
+\title{Comparing the Evolutionary Dynamics of Learned and Genetic Songs is Complicated}
+
+\author{Eleanor Brush$^{1\ast}$, William Fagan$^{1}$}
+
+
+\date{}
 
 \begin{document}
-%\tableofcontents
+
+\maketitle
+
+\noindent{} 1. Department of Biology, University of Maryland;
+
+\noindent{} $\ast$ Corresponding author; e-mail: eleanor.brush@gmail.com.
+
+
+\bigskip
+
+\textit{Keywords}: learning, song, evolution, speciation, quantitative genetics.
+
+\bigskip
+
+\bigskip
+
+%\linenumbers{}
+%\modulolinenumbers[3]
+\thispagestyle{fancy}
+\newpage{}
 
 \section*{Introduction}
+
+Cultural and biological evolution are similar in many ways \cite{Mesoudi:2006fk}. Since the mathematical models that describe how learned traits and genetically inherited traits change over time are so similar, these two types of traits should evolve in much the same way \cite{Mesoudi:2006fk}. However, there are fundamental differences between traits that are learned and those that are genetically inherited: animals that can learn can be more plastic and flexible than those whose behaviors are entirely genetic \cite{Ancel:2000vn,Anderson:1995ys}. This reduces the correlation between genotype and phenotype, since animals with different genotypes can learn the same behavior. Sometimes this slows down the rate at which natural selection drives a population towards an optimal genotype \cite{Lachlan:2004tg,Ancel:2000vn,Anderson:1995ys}, but under other circumstances it accelerates the rate of evolution \cite{Ancel:2000vn}. In this paper, we focus on bird song as an example of a trait that can be both learned and genetically inherited and we identify the circumstances under which differences in how the trait is acquired do or do not affect the trait's evolutionary dynamics.
+
+In many species of birds, males sing songs to attract mates. It has been hypothesized that the mechanism by which bird song is acquired---learning or genetic inheritance---affects how likely it is that a population will speciate. If learning generates variation more quickly than genetic inheritance, than those species that learn their songs should evolve and speciate more quickly \cite{Beecher:2005ly}. One compelling piece of evidence supporting this argument is the fact that, of the roughly forty orders of birds, one of the three that contains birds who learn their songs accounts for more than half of the known species of birds. While the astounding overrepresentation of this order may due to the fact that they learn their songs, not all studies have found the predicted relationship between speciation rates and learning (reviewed in \cite{Wilkins:2012ve,Lachlan:2004tg}).  Some theoretical models and thought experiments have shown that learned song \cite{Lachlan:2004tg,Irwin:2012hc} or learned preferences \cite{Gilman:2015fk,Servedio:2013uq,Bailey:2012kx,Irwin:1999fk} can accelerate speciation. However, overall, theoretical models of the evolution of bird song have led to conflicting findings of the effects of learning \cite{Verzijden:2012uq}. Understanding the effect of whether the members of a population learn or genetically inherit their songs could therefore greatly improve our understanding of the evolution of an entire class of animals.
+
+
+There is only evidence for song learning in three orders of birds \cite{Beecher:2005ly}. In the most speciose order, with few exceptions \cite{Saranathan:2007dq}, there is only evidence for learning in one suborder (the oscine passerines, commonly referred to as the songbirds) \cite{Seddon:2008bh}.  Among those species of birds in which males learn their songs, males can learn from different sources. In some species, males learn their songs from their fathers (for example in Darwin's finches \cite{Grant:1996ve}). In others, they learn from an unrelated male (for example in white-crowned sparrows \cite{Baptista:1998qf}). This is called oblique learning, as opposed to vertical learning. Like any complex behavior, song can have both learned and genetic components \cite{Forstmeier:2009cr,Slabbekoorn:2002kl,Airey:2000dq}.
+In addition to the male birds' songs, the females' preferences can also be acquired in different ways. There is evidence in some species that female preferences are genetic \cite{Verzijden:2005vn}. In others, they seem to be learned. In this case, a female's preference can be learned by imprinting on a father's song \cite{Verzijden:2005vn} or by copying other females' choices \cite{Kirkpatrick:1994vn}. 
+%\begin{itemize}
+%\item examples of females imprinting on males \cite{Verzijden:2005vn}
+%\item examples of genetic preference   \cite{Verzijden:2005vn}
+%\item females learn preferences by copying other females \cite{Kirkpatrick:1994vn}
+%\item mathematical model in which females learn to be choosy by copying their mothers, though no examples given \cite{Laland:1994ys}
+%\item size of brain region associated with song complexity is heritable in zebra finches \cite{Airey:2000dq}
+%\item some of the variation in both female preferences for songs and male songs in the field cricket can be explained by genetics \cite{Gray:1999dz}
+%\end{itemize}
+
+
+This variation in how songs and preferences are learned complicates the comparison between traits that are genetically inherited and those that are learned. If we consider songs that can be paternally learned, obliquely learned, or genetically inherited, and preferences that can be paternally imprinted, maternally learned, or genetically inherited, this gives rise to nine possible combinations of how the two traits are acquired. However, in most previous studies one of two simplifying assumptions is made:  either the mechanism by which one trait is acquired is fixed and the authors study the effects of varying how the other trait is acquired (for example in \cite{Gilman:2015fk,Verzijden:2005vn,Kirkpatrick:1994vn,Lachlan:2004tg}) or (b) it is assumed that the two traits are acquired in the same way and the authors study the effect of this one mechanism of acquisition (for example in \cite{Yeh:2015bh}). 
+%--- song genetic, preference genetic or learned \cite{Verzijden:2005vn}
+%--- song from father (haploid or Y-linked), preference learned from older females  either en masse or by choosing an individual to copy \cite{Kirkpatrick:1994vn}
+%--- ecological phenotype is genetic, preference is genetic, maternally imprinted, paternally imprinted, or obliquely imprinted \cite{Gilman:2015fk}
+%--- preference is genetic, song has genetic component but is either learned or genetic \cite{Lachlan:2004tg}
+%--- both males and females have a trait, females mate assortatively, trait can be genetic, maternally, obliquely, or paternally learned \cite{Yeh:2015bh}
+The ``model" or ``imprinting set" upon which young birds base either their songs or their preferences is an important factor in determining the evolutionary dynamics of those traits \cite{Tramm:2008ij}. However, no previous studies, to our knowledge, have compared the evolutionary dynamics of all nine possible mechanisms.
+
+The evolution of bird song is a complicated phenomenon for another reason: a bird's song is a complex trait. Not only can members of the same species sing different songs from each other (e.g. in Darwin's finches \cite{Gibbs:1990fk}), but individual males can have large repertoires of songs to choose from  \cite{Devoogd:1993uq,Beecher:2005ly}. Song type can be thought of as a discrete variable: a male sings either song A or song B.  There are also aspects of song that are better thought of as continuous traits. These can include the average pitch of a song (for example in zebra finches \cite{Forstmeier:2009cr}), its duration (for example in zebra finches \cite{Forstmeier:2009cr}), frequency bandwidth (for example in Darwin's finches \cite{Podos:2001vn}), and trill rate (for example in swamp sparrows \cite{Ballentine:2004kx} and Darwin's finches \cite{Podos:2001vn}). Several studies have focused on the discrete aspect of bird song and compared how the frequencies of discrete song types change over time, depending on whether songs are learned or genetically inherited (e.g. \cite{Lachlan:2004tg,Verzijden:2005vn,Yeh:2015bh}).  While there are some evolutionary models of songs as continuous traits (e.g. \cite{Aoki:2001ly}), there are few such that compare evolutionary dynamics of songs that are learned or genetically inherited. The evolution of continuously distributed traits is described well by quantitative genetics models \cite{Lande:1980zr,Lande:1981fk,Mead:2004uq}, which we use here. 
+
+
+Selection can only drive the evolution of a trait if there is a variation in how that trait is expressed among the members of a population. In particular, in order for two subpopulations to speciate based on a particular trait, there needs to be sufficient variation in that trait. On the other hand, if the trait is used in mate choice, if there is too much variation and the ranges of the traits expressed in two diverging subpopulations overlap, then members of the two subpopulations might breed more easily, which would prevent speciation. The amount of variation in a trait is therefore an important factor in understanding how likely a population is to speciate. In this paper, we focus on how the way in which a song is acquired---through genetic inheritance or learning of various kinds---affects the amount of variation in the songs present in the population at equilibrium.
+
+
+In this paper, we study how the frequencies of different male songs and female preferences change over time in a population where the females use the male's song for mate choice and in which the two traits are continuously distributed. We consider songs that can be (1) obliquely learned, (2) genetically inherited, or (3) paternally learned and preferences that can be (1) maternally learned, (2) genetically inherited, or (3) paternally learned. This gives rise to nine possible mechanisms by which the two traits are acquired and we compare the evolutionary dynamics of song and preference in all nine cases. The likelihood of a population diverging into two species that differ in a particular trait depends on the amount of variation that the population exhibits in that trait. For that reason, we focus on the amount of variance the males of a population exhibit in their songs when the population has reached evolutionary equilibrium. 
 We find that 
 \begin{enumerate}
-\item There are more cases in which variance in the distribution of songs can be maintained when song is genetic as opposed to paternally learned.
+\item There is a complicated interaction between how songs are acquired and how preferences are acquired that determines how easily variance in the distribution of songs is maintained.
+\item Variance can be maintained at equilibrium when song preferences are maternally learned or when both song and preferences are genetic. The scenario in which both traits are genetic can lead to the variance of both increasing indefinitely.
 \item The actual level of variance in the distribution of songs is higher in those cases when song is paternally learned as opposed to genetic.
-\item There is the most variance in the distribution of songs when females are highly choosy when deciding with whom to mate.
-\item The basic rule dictating how mating pairs form allows for both a normal distribution of songs at equilibrium and a multimodal distribution of songs at equilibrium.
+\item The variance in the distribution of songs tends to be higher when females are choosy when deciding with whom to mate.
+\item The basic rule dictating how mating pairs form allows for both a normal distribution  and a multimodal distribution of songs at equilibrium.
 \end{enumerate}
 
 \section*{Model}
 
 In our model, we consider a single population of birds. Each male bird has a song it uses to attract female birds. Each female has a preference for a particular song. All females get to mate and have equal mating success. On the other hand, males can mate with multiple females and those with more attractive songs will have higher mating success. Depending on the scenarios we consider, both male song and female preference may be genetically inherited or learned. If the song is genetic, then both males and females carry a gene for song, and females may in fact sing, but a bird's song only affects the mating success of males. Male birds may learn their songs from their father, or they may learn obliquely, learning a randomly chosen song from all songs present in the population. If the preference is genetic, then both males and females carry a gene for preference, but a male bird's preference gene has no effect on who it mates with. After the adults mate and reproduce, they die and their offspring become next year's adults. In other words, we assume there are non-overlapping generations. Depending on how songs and preferences are acquired, the population distribution of these traits will change over time. In particular, the diversity of songs among offspring can either increase or decrease over time.
 
+The interesting questions of how female preferences evolve in the first place \cite{Kirkpatrick:1982kl}, how the way in which females learn their preferences evolves (for example in \cite{Tramm:2008ij,Chaffee:2013bs}) have been addressed elsewhere. Instead, we assume that females \emph{do} have some preference and we study how the frequencies of females with different preferences and males with different songs change over time. Additionally, the question of how imitative learning of song evolves has also been addressed elsewhere \cite{Aoki:1989bh,Olofsson:2008dq}. 
+
 \subsection*{Mating. }
-\ Mathematically, we will assume every bird has two traits, a song $x$ and preference $y$. (Table \ref{variables} defines all the variables used in the text.) We assume that initially both traits are normally distributed among the adults of the population. 
+\ Mathematically, we will assume every bird has two traits, a song $x$ and preference $y$. (Table \ref{variables} defines all the variables used in the text.) For most of our analyses, we assume that initially both traits are normally distributed among the adults of the population. (In our last analysis, we explore different initial conditions, as described below.)
 If $v=(x,y)^T$ is the two-dimensional vector giving the song and preference traits, the probability distribution of these traits among all adult males is 
 \begin{align*}
 P_\x{m}(v)&=\frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v-\mu_\x{m})^T\Sigma_\x{m}^{-1}(v-\mu_\x{m})\right),
@@ -47,7 +123,9 @@ is the covariance matrix for the traits in adult males. Note that the parameter 
 \begin{align*}
 P_\x{f}(v)&=\frac{1}{2\pi\sqrt{|\Sigma_\x{f}|}}\exp\left(-\frac{1}{2}(v-\mu_\x{f})^T\Sigma_\x{f}^{-1}(v-\mu_\x{f})\right), 
 \end{align*}
-where $\mu_\x{f}$ gives the expected values of songs and preferences among adult females,  $\Sigma_\x{f}$ is the covariance matrix of these traits among adult females, $\rho_\x{f}$ is the correlation between the traits among adult females, and $C_\x{f}$ is the covariance between the trait in adult females. For most of the analyses that follow, we assume that each female uses a Gaussian preference function, centered at her preference $y$ with a variance $\sigma^2$:
+where $\mu_\x{f}$ gives the expected values of songs and preferences among adult females,  $\Sigma_\x{f}$ is the covariance matrix of these traits among adult females, $\rho_\x{f}$ is the correlation between the traits among adult females, and $C_\x{f}$ is the covariance between the trait in adult females. 
+% Genetic traits that are affected by multiple genes, each of which contributes a small amount to the organism's phenotype, should be continuously distributed \cite{Mead:2004uq,Lande:1981fk,Aoki:2001ly}
+For most of the analyses that follow, we assume that each female uses a Gaussian preference function, centered at her preference $y$ with a variance $\sigma^2$:
 \begin{align*}
 f_y(x)&=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{(x-y)^2}{2\sigma^2}\right).
 \end{align*}
@@ -59,7 +137,7 @@ P_\x{mate}(v_\x{m},v_\x{f})=\frac{P_\x{f}(v_\x{f})P_\x{m}(v_\x{m})f_{y_\x{f}}(x_
 \end{equation}
 where $Z_{y_\x{f}}=\int_{\R^2} P_\x{m}(v_\x{m})f_{y_\x{f}}(x_\x{m})dv_\x{m}$ is a normalizing factor that describes the fraction of males a female with preference $y_\x{f}$ finds attractive.
 
-In the Supporting Information, we derive the probability that a male with traits $v_\x{m}=(x_\x{m},y_\x{m})^T$ and a female with traits $v_\x{f}=(x_\x{f},y_\x{f})^T$ will mate. Because we use normal distributions for the initial conditions of both traits and for the preference function, the probability of a particular pair mating can also be described with a normal distribution. Specifically, if $u=(x_\x{m},y_\x{m},x_\x{f},y_\x{f})^T$ the distribution $P_\text{mate}(u)$ is a multivariate normal with expectation 
+In the Supporting Information, Section 1, we derive the probability that a male with traits $v_\x{m}=(x_\x{m},y_\x{m})^T$ and a female with traits $v_\x{f}=(x_\x{f},y_\x{f})^T$ will mate. Because we use normal distributions for the initial conditions of both traits and for the preference function, the probability of a particular pair mating can also be described with a normal distribution. Specifically, if $u=(x_\x{m},y_\x{m},x_\x{f},y_\x{f})^T$ the distribution $P_\text{mate}(u)$ is a multivariate normal with expectation 
 \begin{align}
 \mu_\text{mate}&=\left(\begin{array}{cc} \frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{x\x{m}}+\frac{\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{y\x{f}} 
 \\ \mu_{y\x{m}}+\frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}}{\sigma^2+\sigma_{x\x{m}}^2}(\mu_{y\x{f}}-\mu_{x\x{m}})
@@ -75,17 +153,18 @@ and covariance $\Sigma_\text{mate}$:
 \\ & & & \sigma_{y\x{f}}^2
 \end{array}\right). \label{covariance}
 \end{align}
-Note that both the expected values and the covariance structure of the traits among  mating females is the same as among all adult females. This is because of our assumption that all females have equal reproductive success. Among mating males, however, the expected song becomes a weighted average of the average male song and average female preference. The expected male preference increases by an amount that depends on the correlation between male song and male preference and on whether the average female preference is greater than or less than the average male song.
+Note that the distribution of the two traits among mating females is the same as among all adult females. This follows from our assumption that all females have equal reproductive success. Among mating males, however, the expected song becomes a weighted average of the average male song and average female preference. The expected male preference increases by an amount that depends on the correlation between male song and male preference and on whether the average female preference is greater than or less than the average male song.
 
 \subsection*{Transmission of traits to offspring.  } 
 \ This distribution of the traits within mating pairs allows us to find the distribution of the traits within the offspring of these pairs. To do so, we need to specify how the offspring acquire each trait. We will consider three ways each trait can be acquired. The song can be acquired by 
 \begin{enumerate}[A.]
-\item a male learning the song of a randomly chosen adult (``obliquely" as opposed to vertically),
+\item a male learning the song of a randomly chosen adult (``obliquely," as opposed to vertically),
 \item a bird of either sex inheriting the song gene from its parents, 
 \item or a male learning the song of its father.
 \end{enumerate}
-When song is genetic, we will assume that a bird's song is the average of its parents' songs. Since the distribution of mating pairs is normal, the distribution of the traits among offspring will also be normal. For example, using Equations \ref{mean} and  \ref{covariance}, if a male learns the song of its father, the songs among males in the offspring generation will be normally distributed with mean $$\mu_{x\x{m}}(t+1)=\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{x\x{m}}+\frac{\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{y\x{f}}$$ and variance $$\sigma_{x\x{m}}^2(t+1)=\sigma_{x\x{m}}^2\left(\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{ x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right).$$
-We focus on how the variances of the two traits change over time. For the three ways of acquiring song, the variance of songs among males of the offspring generation obey the following recursion equations: 
+When song is genetic, we will assume that a bird's song is the average of its parents' songs. Since the distribution of mating pairs is normal, the distribution of the traits among offspring will also be normal. 
+
+The songs among males in the offspring generation will be normally distributed with mean $$\mu_{x\x{m}}(t+1)=\frac{\sigma^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{x\x{m}}+\frac{\sigma_{x\x{m}}^2}{\sigma^2+\sigma_{x\x{m}}^2}\mu_{y\x{f}},$$ by Equation \ref{mean}. The variance of the distribution of songs among male offspring depends on how the trait is acquired. For the three ways of acquiring song, Equation \ref{covariance} implies that the variance of songs among males of the offspring generation obey the following recursion equations: 
 \begin{align*}
 \x{A.} \ &\sigma_{x\x{m}}^2(t+1)=\sigma_{x\x{m}}^2
 \\ \x{B.} \ &\sigma_{x\x{m}}^2(t+1)=\frac{1}{4}\sigma_{x\x{m}}^2\left(\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{ x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)+\frac{1}{2}\sigma_{x\x{m}}^2\frac{\rho_\x{f}\sigma_{x\x{f}}\sigma_{y\x{f}}}{\sigma^2+\sigma_{x\x{m}}^2}+\frac{1}{4}\sigma_{x\x{f}}^2
@@ -99,34 +178,33 @@ The preference can be acquired by
 \item a bird of either sex inheriting the preference gene from its parents,
 \item or a female learning the song of its father and preferring that song.
 \end{enumerate}
-As with song, when preference is genetic, we will assume that a bird's preference is the average of its parents' preferences. Using Equation 2, we can also find the variance of preferences among females of the offspring generation for the three ways of acquiring preference:
+As with song, when preference is genetic, we will assume that a bird's preference is the average of its parents' preferences. 
+% say something about W-linked
+Using Equation 2, we can also find the variance of preferences among females of the offspring generation for the three ways of acquiring preference:
 \begin{align*}
 \x{I.} \ & \sigma_{y\x{f}}^2(t+1) = \sigma_{y\x{f}}^2
 \\\x{II.} \ & \sigma_{y\x{f}}^2(t+1) = \frac{1}{4}\sigma_{y\x{m}}^2\left(\frac{(\sigma^2+\sigma_{x\x{m}}^2)^2-\rho_\x{m}^2\sigma_{x\x{m}}^2(\sigma^2+\sigma_{x\x{m}}^2)+\rho_\x{m}^2\sigma_{x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right)+\frac{1}{2}\sigma_{y\x{f}}^2\frac{\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}}{\sigma^2+\sigma_{x\x{m}}^2}+\frac{1}{4}\sigma_{y\x{f}}^2
 \\\x{III.} \ & \sigma_{y\x{f}}^2(t+1) = \sigma_{x\x{m}}^2\left(\frac{\sigma^2(\sigma^2+\sigma_{x\x{m}}^2)+\sigma_{ x\x{m}}^2\sigma_{y\x{f}}^2}{(\sigma^2+\sigma_{x\x{m}}^2)^2}\right).
 \end{align*}
-When females acquire their song by learning from their mothers, the distribution of songs does not change over time because all females have equal mating success, so the variance of preferences stays the same. Note that this could happen if females observe the mating choices of their mothers and copy those choices or if preference is a sex-linked gene that only females have. 
 
-Given a distribution of traits among adults, how the variance of songs changes does not depend on how preference is acquired. Likewise, how the variance of preferences changes does not depend on how song is acquired. However, in order to keep track of how these quantities change over many generations, we also need to keep track of how the correlations $\rho_\x{m}$ and $\rho_\x{f}$, or equivalently the covariances $C_\x{m}$ and $C_\x{f}$, change over time. These dynamics depend both on how songs are acquired and on how preferences are acquired. Note that there can only be a correlation between the traits if at least one is genetic because otherwise each sex only has one of the two traits.
-
-There are nine possible combinations of the three ways each trait can be acquired, which we will number from $1$ to $9$: 
+\subsection*{Dynamics of variance. }
+\ Given a distribution of traits among adults, the variance of songs among offspring does not depend on how preference is acquired. Likewise, the variance of preferences among offspring does not depend on how song is acquired. However, the correlations between these traits in each sex depend on how both traits are acquired. Note that there can only be a correlation between the traits if at least one of them is genetic, since otherwise each sex only has one of the two traits. There are nine possible combinations of the three ways each trait can be acquired, which we will number from $1$ to $9$: 
 \newline
 \begin{equation*}
 \begin{tabular}{|l|c|c|c|}
-\hline & A. song learned obliquely  & B. song genetic & C. song learned from father
-\\\hline I. pref learned from mother & 1 & 2 & 3
+\hline\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ song:  & A. obliquely learned  & B. genetic & C.  paternally learned
+\\\hline I. pref maternally learned & 1 & 2 & 3
 \\\hline II. pref genetic & 4 & 5 & 6
-\\\hline III. pref learned from father & 7 & 8 & 9
+\\\hline III. pref paternally learned & 7 & 8 & 9
 \\\hline
 \end{tabular}
 \end{equation*}
 \newline
 
-In the Supporting Information, we derive the full dynamics of $\sigma_x^2$, $\sigma_y^2$, and $C$ for each of these modes of acquisition. Here we will show as an example mode $2$, the case where song is genetic and a female acquires the preference of its mother. Because both sexes acquire song in the same way, we can drop the sex-specific subscripts on $\sigma_x^2$, and because only females have preferences, we can drop the sex-specific subscripts on $\sigma_y^2$ without losing track of which sex we are referring to. In this case, because males only have songs, $C_\x{m}=0$. However, females have both traits and, using Equation \ref{covariance}, the covariance between those traits among females of the next generation will be 
+In the Supporting Information, Section 2, we derive the full dynamics of $\sigma_x^2$, $\sigma_y^2$, and $C$ for each of these mechanisms of acquisition. Here we show this derivation for mechanism 2, as an example. This is the case where song is genetic and a female acquires the preference of its mother. Because both sexes acquire song in the same way, we can drop the sex-specific subscripts on $\sigma_x^2$, and because only females have preferences, we can drop the sex-specific subscripts on $\sigma_y^2$ without losing track of which sex we are referring to. In this case, because males only have songs, $C_\x{m}=0$. However, females have both traits and, using Equation \ref{covariance}, the covariance between those traits among females of the next generation will be 
 \begin{align*}
 C_\x{f}(t+1)&=\frac{1}{2}\sigma_{x}^2\frac{\sigma_{y}^2}{\sigma^2+\sigma_{x}^2}+\frac{1}{2}\rho_\x{f}\sigma_{x}\sigma_{y}.
-\end{align*}
-Since 
+\end{align*} 
 Using the fact that $C_\x{f}=\rho_\x{f}\sigma_{x}\sigma_{y}$, we now have three recursion equations for how $\sigma_{x}^2$, $\sigma_{y}^2$, and $C_\x{f}$ change over time:
 \begin{align*}
 \sigma_x^2(t+1)&=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_{x}^2)+\sigma_{x}^2\sigma_{y}^2}{(\sigma^2+\sigma_{x}^2)^2}+\frac{2C_\x{f}}{\sigma^2+\sigma_x^2}+1\right)
@@ -143,95 +221,124 @@ Using the fact that $C_\x{f}=\rho_\x{f}\sigma_{x}\sigma_{y}$, we now have three 
 %\\\sigma_{y}^2(t+1)& =\sigma_{x}^2\left(\frac{\sigma^2(\sigma^2+\sigma_{x}^2)+\sigma_{x}^2\sigma_{y}^2}{(\sigma^2+\sigma_{x}^2)^2}\right)
 %\\C_\x{f}(t+1)&=\frac{1}{2}\sigma_{x}^2\left(\frac{\sigma^2(\sigma^2+\sigma_{x}^2)+\sigma_{x}^2\sigma_{y}^2}{(\sigma^2+\sigma_{x}^2)^2}\right)+\frac{1}{2}\sigma_{x}^2\frac{C_\x{f}}{\sigma^2+\sigma_{x}^2}.
 %\end{align*}
-In the Supporting Information, we show that there are two stable equilibria of these dynamics. The first occurs at $\sigma_x^{2\star}=C_\x{f}^\star=0$. The second stable equilibrium occurs when
+In the Supporting Information, Section 2, we show that there are two stable equilibria of these dynamics. The first occurs when $\sigma_x^{2\star}=C_\x{f}^\star=0$. The second stable equilibrium occurs when
 \begin{align*}
 \sigma_x^{2\star}&=\frac{3\sigma_y^2-5\sigma^2+\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}}{6}
 \\ C_\x{f}^\star&=\frac{\sigma_x^{2\star}\sigma_y^2}{\sigma^2+\sigma_x^{2\star}}.
 \end{align*}
-In the Supporting Information, we derive the corresponding recursion equations describing how $\sigma_x^2$, $\sigma_y^2$, and $C$ change.
+Mechanism 5 in our model is almost identical to the model studied by \citet{Aoki:2001ly}. IS THAT RIGHT?!? They only consider this mechanism, the one in which both traits are genetic, whereas we consider all nine mechanisms shown in the table above. Although \citet{Aoki:2001ly} consider viability selection against males based on their songs, we made the simplifying assumption that neither males nor females experience viability selection based on either their songs or preferences in order to explore the effects of the nine mechanisms. The last difference between their study and ours is that they focus on how the average male song evolves over time, whereas we focus on how the variance among male songs evolves over time.
+%In the Supporting Information, we derive the corresponding recursion equations describing how $\sigma_x^2$, $\sigma_y^2$, and $C$ change in every other mechanism.
 
 \section*{Results}
 \subsection*{Variance of song distribution at equilibrium. }
-The stable equilibria of all nine modes of acquisition are presented in Table \ref{equilibrium}. We will first focus on the equilibrium values of $\sigma_x^2$. As noted above, when song is learned obliquely from a randomly chosen adult the variance of the distribution of songs does not change, so its equilibrium value $\sigma_x^{2\star}$ is equal to its initial value $\sigma_x^2(0)$. Of the other six modes, there are three in which $\sigma_x^2$ can approach a non-zero equilibrium and three in which $\sigma_x^2$ always approaches $0$.  If $\sigma_x^2>0$ at equilibrium, multiple songs are present in the population. On the other hand, if $\sigma_x^2$ approaches $0$, only one song is present in the population and there is no diversity.
+\ The stable equilibria of all nine mechanisms of acquisition are presented in Table \ref{equilibrium}. We will first focus on the equilibrium values of $\sigma_x^2$. If $\sigma_x^2>0$ at equilibrium, multiple songs are present in the population. On the other hand, if $\sigma_x^2$ approaches $0$, only one song is present in the population and there is no diversity. As noted above, when song is learned obliquely from a randomly chosen adult the variance of the distribution of songs does not change, so its equilibrium value $\sigma_x^{2\star}$ is equal to its initial value $\sigma_x^2(0)$. Of the other six mechanisms, there are three in which $\sigma_x^2$ can approach a non-zero equilibrium and three in which $\sigma_x^2$ always approaches $0$.  
 
 \begin{enumerate}
 \item
-In mode $2$ (song is genetic and preference is maternally learned), the system of recursion equations for $\sigma_x^2$ and $C$ is bistable ($\sigma_y^2$ does not change). There are two stable equilibria: one where $\sigma_x^{2\star}=C=0$ and another where $\sigma_x^{2\star}>0$, as long as $\sigma_y^2\geq\frac{5+2\sqrt{6}}{3}\sigma^2$. Otherwise $\sigma_x^{2\star}=C=0$ is the only stable equilibrium. If the initial values of $\sigma_x^2$ and $C$ are small, the dynamics will reach the first equilibrium, and if they are high enough, the dynamics will reach the second equilibrium. See Figure \ref{mode9} for an example of trajectories that lead to each of these equilibria. 
-\item In mode $3$ (song is paternally learned and preference is maternally learned), the recursion equations of $\sigma_x^2$ and $C$ only have one stable equilibrium, $\sigma_x^{2\star}=\max\{\sigma_y^2-\sigma^2,0\}$, which is greater than $0$ as long as $\sigma_y^2>\sigma^2$.
-\item In mode $5$ (song is genetic and preference is genetic), the system of recursion equations for $\sigma_x^2$, $\sigma_y^2$, and $C$ is bistable. There is a stable equilibria where $\sigma_x^{2\star}=\sigma_y^{2\star}=C=0$, which is reached if the initial values of $\sigma_x^2$, $\sigma_y^2$, and $C$ are small. If the initial values $\sigma_x^2$, $\sigma_y^2$, and $C$ are large enough, all three will increase indefinitely. (See Figure \ref{mode7}.)
-\item In modes $6$, $8$, and $9$ the only stable equilibrium occurs when $\sigma_x^{2\star}=0$. (See Figures \ref{mode8}, \ref{mode1}, and \ref{mode2} respectively). 
+In mechanism $2$ (song is genetic and preference is maternally learned), the system of recursion equations for $\sigma_x^2$ and $C$ is bistable ($\sigma_y^2$ does not change). There are two stable equilibria: one where $\sigma_x^{2\star}=C=0$ and another where $\sigma_x^{2\star}>0$, as long as $\sigma_y^2\geq\frac{5+2\sqrt{6}}{3}\sigma^2$. Otherwise $\sigma_x^{2\star}=C=0$ is the only stable equilibrium. If the initial values of $\sigma_x^2$ and $C$ are small, the dynamics will reach the first equilibrium, and if they are high enough, the dynamics will reach the second equilibrium. See Figure \ref{mode9} for an example of trajectories that lead to each of these equilibria. 
+\item In mechanism $3$ (song is paternally learned and preference is maternally learned), the recursion equations of $\sigma_x^2$ and $C$ only have one stable equilibrium ($\sigma_y^2$ does not change). At this equilibrium, $\sigma_x^{2\star}=\max\{\sigma_y^2-\sigma^2,0\}$, which is greater than $0$ as long as $\sigma_y^2>\sigma^2$, and $C^\star=0$.
+\item In mechanism $5$ (song is genetic and preference is genetic), the system of recursion equations for $\sigma_x^2$, $\sigma_y^2$, and $C$ is bistable. There is a stable equilibria where $\sigma_x^{2\star}=\sigma_y^{2\star}=C=0$, which is reached if the initial values of $\sigma_x^2$, $\sigma_y^2$, and $C$ are small. If the initial values $\sigma_x^2$, $\sigma_y^2$, and $C$ are large enough, all three will increase indefinitely. (See Figure \ref{mode7}.)
+\item In mechanisms $6$, $8$, and $9$ the only stable equilibrium occurs when $\sigma_x^{2\star}=0$. (See Figures \ref{mode1}, \ref{mode8}, and \ref{mode2} respectively). 
 \end{enumerate}
 
-For both traits, there are the most modes in which the variance of songs at equilibrium is greater than $0$ when the trait is maternally or obliquely learned, the second most when the trait is genetic, and the least when the trait is paternally learned. The rows and columns of Table \ref{equilibrium} are ordered so that $\sigma_x^{2\star}=0$ in cells that are lower and to the right. When song is obliquely learned, $\sigma_x^{2\star}=\sigma_x^2(0)>0$, regardless of how preference is acquired. In other words, oblique learning of song permits the variation of songs present in the population to persist undiminished through the generations. Similarly, when preference is maternally learned, song variation can persist ($\sigma_x^{2\star}>0$), regardless of how song is acquired.  When song is genetic, both maternal inheritance and genetic inheritance of preference permit persistence of song variation. When preference is genetic, both oblique learning and genetic inheritance of song permit persistence of song variation.  When song is paternally learned, only maternal inheritance of preference permits persistence of song variation. When preference is paternally learned, only oblique song learning permits persistence of song variation.  
+For both traits, there are the most mechanisms in which the variance of songs at equilibrium is greater than $0$ when the trait is maternally or obliquely learned, the second most when the trait is genetic, and the least when the trait is paternally learned. The rows and columns of Table \ref{equilibrium} are ordered so that $\sigma_x^{2\star}=0$ in cells that are lower and to the right. When song is obliquely learned, $\sigma_x^{2\star}=\sigma_x^2(0)>0$, regardless of how preference is acquired. In other words, oblique learning of song permits the variation of songs present in the population to persist undiminished through the generations. Similarly, when preference is maternally learned, song variation can persist ($\sigma_x^{2\star}>0$), regardless of how song is acquired.  When song is genetic, both maternal inheritance and genetic inheritance of preference permit persistence of song variation. When preference is genetic, both oblique learning and genetic inheritance of song permit persistence of song variation.  When song is paternally learned, only maternal inheritance of preference permits persistence of song variation. When preference is paternally learned, only oblique song learning permits persistence of song variation.  
 
-Conversely, song variance tends to be greater when song is paternally learned than when song is genetic. This is true asymptotically for the modes and parameters where the equilibrial variance of songs is positive (compare the light red and blue curves Figure \ref{sigmax2_sigma2}A). When preference is learned either maternally or paternally, it is true transiently for the modes and parameters where the equilibrial variance is zero,  (compare the dark red and blues curves in Figure \ref{sigmax2_sigma2}A and C). When preference is genetic, the transient level of song variance can be slightly higher when song is genetic than when it is paternally learned (compare the dark red and blue curves in Figure \ref{sigmax2_sigma2} B), but even then it takes more generations for song variance to approach zero when song is paternally learned (compare the dark red and blue curves in Figure \ref{sigmax2_sigma2}E).
+Conversely, song variance tends to be greater when song is paternally learned than when song is genetic. This is true asymptotically for the mechanisms and parameters where the equilibrial variance of songs is positive (compare the light red and blue curves Figure \ref{sigmax2_sigma2}A). When preference is learned either maternally or paternally, it is true transiently for the mechanisms and parameters where the equilibrial variance is zero,  (compare the dark red and blues curves in Figure \ref{sigmax2_sigma2}A and C). When preference is genetic, the transient level of song variance can be slightly higher when song is genetic than when it is paternally learned (compare the dark red and blue curves in Figure \ref{sigmax2_sigma2} B), but even then it takes more generations for song variance to approach zero when song is paternally learned (compare the dark red and blue curves in Figure \ref{sigmax2_sigma2}E).
 
 
 %Similarly, when preference is learned from a female's mother, the equilibrium value $\sigma_y^{2\star}=\sigma_y^2(0)$. 
 
 \subsection*{Female choosiness. }
-Both equilibrium and transient variance are highest at small values of $\sigma^2$. Equilibrium song variance ($\sigma_x^{2\star})$ decreases monotonically as a function of $\sigma^2$ (light red and blue curves in Figure \ref{sigmax2_sigma2}A). (We derive the derivatives of $\sigma_x^{2\star}$ for these modes and show that they are in fact negative in the Supporting Information.) When song is genetic, transient song variance ($\sigma_x^2(10)$) decreases monotonically as a function of $\sigma^2$ (dark red curves in Figure \ref{sigmax2_sigma2}A-C). When song is paternally learned, transient song variance does not strictly decrease with $\sigma^2$, but it is highest at low values of $\sigma^2$ (dark blue curves in Figure \ref{sigmax2_sigma2}A-C).  (We show $\sigma_x^{2\star}$, $\sigma_x^2(10)$, $\sigma_y^{2\star}$, and $\sigma_y^2(10)$ as a function of $\sigma^2$, as well as of initial values $\sigma_x^2(0)$ and $\sigma_y^2(0)$, in Figures \ref{sigmax2_full} and \ref{sigmay2_full}.)
+\ Both equilibrium and transient variance are highest at small values of $\sigma^2$. Equilibrium song variance ($\sigma_x^{2\star})$ decreases monotonically as a function of $\sigma^2$ (light red and blue curves in Figure \ref{sigmax2_sigma2}A). (We derive the derivatives of $\sigma_x^{2\star}$ for these mechanisms and show that they are in fact negative in the Supporting Information, Section 3.) When song is genetic, transient song variance ($\sigma_x^2(10)$) decreases monotonically as a function of $\sigma^2$ (dark red curves in Figure \ref{sigmax2_sigma2}A-C). When song is paternally learned, transient song variance does not strictly decrease with $\sigma^2$, but it is highest at low values of $\sigma^2$ (dark blue curves in Figure \ref{sigmax2_sigma2}A-C).  (We show $\sigma_x^{2\star}$  and $\sigma_x^2(10)$ as a function of initial values $\sigma_x^2(0)$ and $\sigma_y^2(0)$ in Figures \ref{sigmax2_sigmax2}-\ref{sigmax2_sigmay2} and $\sigma_y^{2\star}$ and $\sigma_y^2(10)$ as a function of $\sigma^2$, $\sigma_x^2(0)$, and $\sigma_y^2(0)$, in Figures \ref{sigmay2_sigma2}-\ref{sigmay2_sigmay2}.)
 %Finally, we measure the number of generations it takes before $\sigma_x^2$ is less than a threshold of $5\times 10^{-3}$. For those cases where song is genetic ($2$, $5$ and $8$), this number decreases as a function of $\sigma^2$ (Figure \ref{sigmax2_sigma2}). On the other hand, for those cases where song is paternally learned ($6$ and $9$), this number tends to increase as a function of $\sigma^2$. 
 
 \subsection*{Alternate equilibria. }
-Until this point, we have assumed that both male song and female preference are initially normally distributed. With the addition of a Gaussian preference function, this ensures that both traits continue to be normally distributed across generations. Here we explore how the dynamics given by the mating rules in Equation \ref{model} are affected when we use a non-normal distribution either trait or a non-Gaussian preference function. In these cases, it is not possible to write down an analytical expression for the distribution of traits in the offspring generation. Instead, it becomes necessary to find the distribution of traits among offspring numerically. To do so, we restrict both traits to be within a range $[-M,M]$ and we establish a partition of this range with an step size of $\delta$:
+\ Until this point, we have assumed that both male song and female preference are initially normally distributed. With the addition of a Gaussian preference function, this ensures that both traits continue to be normally distributed across generations. Here we explore how the dynamics given by the mating rules in Equation \ref{model} are affected when we use a non-normal distribution for one or the other of the traits or a non-Gaussian preference function. In these cases, it is not possible to write down an analytical expression for the distribution of traits in the offspring generation. Instead, it becomes necessary to find the distribution of traits among offspring numerically. To do so, we restrict both traits to be within a range $[-M,M]$ and we establish a partition of this range with a step size of $\delta$:
 $$
 S=\{-M,-M+\delta,\dots,-2\delta,-\delta,0,\delta,2\delta,\dots,M-\delta,M\}.$$
-For example, if $M=10$ and $\delta=0.01$, we consider a partition $$S=\{-10,-9.99,\dots,-0.02,-0.01,0,0.01,0.02,\dots,9.99,10\}$$
-We only consider trait values that are in this partition, for both songs and preferences. For adults of each sex, we then construct a probability distribution over trait values in this partition:
-\begin{align*}
-P_\x{m}(v) &\text{ such that } \sum_{x\in S}\sum_{y \in S}P(x,y)=1
-\\ \text{ and } P_\x{f}(v) &\text{ such that } \sum_{x\in S}\sum_{y \in S}P_\x{f}(x,y)=1
-\end{align*}
-We also have to define a preference function $f_y$ over this partition, such that $\sum_{x\in S}f_y(x)=1$. Given initial trait distributions and a preference function, we use a slightly modified version of Equation \ref{model} to describe the probability of a particular pair mating. If $u=(x_\x{m},y_\x{m},x_\x{f},y_\x{f})^T$, the probability of a pair with traits $(x_\x{m},y_\x{m})$ and $(x_\x{f},y_\x{f})$ mating is 
-\begin{equation}
-P_\text{mate}(u)=\frac{P_\x{f}(v_\x{f})P_\x{m}(v_\x{m})f_{y_\x{f}}(x_\x{m})}{Z_{y_\x{f}}}, \label{model_numerical}
-\end{equation}
-where $Z_{y_\x{f}}=\sum_{x\in S}\sum_{y\in S}P_\x{m}((x,y))f_{y_\x{f}}(x_\x{m})$. We can find this distribution numerically and then sum over the appropriate dimensions of $P_\text{mate}(u)$ to find the distribution of each trait in the offspring generation. We find such distributions for each of the nine modes of acquisition.
-
-We can use this scheme with the same normal trait distributions and Gaussian preference functions as we used above, with the slight modification that we have to normalize the distributions and preference function. For example, instead of using 
-\begin{align*}
-P_\x{m}(v)=\frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v-\mu_\x{m})^T\Sigma_\x{m}^{-1}(v-\mu_\x{m})\right)
-\end{align*}
-for any $v\in\R^2$, we use
-\begin{align*}
-P_\x{m}(v)=\frac{\frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v-\mu_\x{m})^T\Sigma_\x{m}^{-1}(v-\mu_\x{m})\right)}{\sum_x\sum_y\frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v-\mu_\x{m})^T\Sigma_\x{m}^{-1}(v-\mu_\x{m})\right)}
-\end{align*}
-for $v=\in S\times S$. We can normalize a normal distribution of preferences and a Gaussian preference function similarly. 
-
-Our purpose in using this numerical process to see how the distribution of the traits change over time is to explore the robustness of the previous results to using different initial trait distributions and a different preference function. In particular, we will use step functions for each of these.  
+For example, if $M=14$ and $\delta=0.1$, we consider a partition $$S=\{-14,-13.9,\dots,-0.2,-0.1,0,0.1,0.2,\dots,13.9,14\}$$
+We only consider trait values that are in this partition, for both songs and preferences.
+%For adults of each sex, we then construct a probability distribution over trait values in %this partition:
+%\begin{align*}
+%P_\x{m}(v) &\text{ such that } \sum_{x\in S}\sum_{y \in S}P(x,y)=1
+%\\ \text{ and } P_\x{f}(v) &\text{ such that } \sum_{x\in S}\sum_{y \in S}P_\x{f}(x,y)=1
+%\end{align*}
+%We also have to define a preference function $f_y$ over this partition, such that $\sum_{x\in S}f_y(x)=1$. 
+The only modification to Equation \ref{model} that we have to make is to normalize it appropriately: the normalization factor becomes 
+%to describe the probability of a particular pair mating. If $u=(x_\x{m},y_\x{m},x_\x{f},y_\x{f})^T$, the probability of a pair with traits $(x_\x{m},y_\x{m})$ and $(x_\x{f},y_\x{f})$ mating is 
+%\begin{equation}
+%P_\text{mate}(u)=\frac{P_\x{f}(v_\x{f})P_\x{m}(v_\x{m})f_{y_\x{f}}(x_\x{m})}{Z_{y_\x{f}}}, \label{model_numerical}
+%\end{equation}
+%where 
+$Z_{y_\x{f}}=\sum_{v\in S\times S}P_\x{m}((x_\x{m},y_\x{m}))f_{y_\x{f}}(x_\x{m})$. We can then find $P_\text{mate}(u)$ numerically and sum over the appropriate dimensions to find the distribution of each trait in the offspring generation. 
+%We find such distributions for each of the nine mechanisms of acquisition.
+ 
+Our purpose in using this numerical process is to explore the effects of using different initial trait distributions and a different preference function. In particular, we will use step functions for each of these. To make the comparison between a step function and a Gaussian distribution as direct as possible, we construct a step function with the same mean ($0$) and variance and such that the step function decreases with distance from $0$. See Supporting Information Section 4 for more details and Figure \ref{step_ex} for an example.
+  
 %%% took a bunch out for the supp info but do need to define $\mu$, $p_1$, and $p_2$: We will then construct a step function $P(x)$ over $S$ such that $P(x)=p_1$ for $x\in S_1$ or $S_3$ and $P(x)=p_2$ for $x\in S_3$.
-For these analyses, we focus on modes of acquisition $3$ and $7$. In mode $3$ preference is maternally learned and the variance in the distribution of songs reaches a nonzero equilibrium, whereas in mode $7$ song is learned obliquely and the variance in the distribution of preferences reaches a nonzero equilibrium. In each, the variance of the trait of interest (song in the former and preference in the latter) does not depend on the shape of the preference being used (Figure \ref{effect_of_step_function}). In other words, the results we showed above are robust to using different preference functions.
+For these analyses, we focus on mechanisms $3$ and $7$. In mechanism $3$ preference is maternally learned so that the distribution of preferences does not change, while the variance in the distribution of songs reaches a nonzero equilibrium. Conversely, in mechanism $7$ song is learned obliquely so that the distribution of songs does not change, while the variance in the distribution of preferences reaches a nonzero equilibrium. We focus on the trait that does change in each mechanism: song in mechanism 3 and preference in mechanism 7. In each case, using a step preference function does not strongly affect the variance of the trait of interest at equilibrium (Figure \ref{effect_of_step_function}). Nor does using step functions as the initial distributions of either trait strongly affect the variance of the traits of interest (Figure \ref{effect_of_step_dist}). (Using a step function as the initial distribution of songs does reduce the equilibrium variance of preferences in mechanism 7, but this equilibrium variance still responds to the variance of the preference function in the same way (the curves in Figure \ref{effect_of_step_dist}C are roughly parallel). These distributions are shown in Figure \ref{effect_of_step_dist_on_prefs}.) In other words, the results we showed above and in Table \ref{equilibrium} are robust to using different preference functions. The effects of using a step preference function and step functions as initial conditions are summarized in Table \ref{step_effects}.
 
-Using initial distributions of each trait also do not strongly affect the variance of the traits of interest in these modes (Figure \ref{effect_of_step_dist}). Using a step function as the distribution of songs does change the equilibrium variance of the preference distribution in mode $7$ a little. However, the trend in this variance as a function of the variance of the preference function is very similar. Otherwise, regardless of the widths of the steps used in the step function for either trait distribution, the equilibrium variance of the song distribution in mode $3$ and the equilibrium variance of the preference distribution in mode $7$ are almost exactly the same as if the initial conditions involved normal distributions. 
+When we use a Gaussian preference function and normal distributions of traits, songs continue to be normally distributed at every generation. However, when we use step functions for either the initial distribution of male songs or the initial distribution of female preferences, the distribution of songs in mechanism $3$ does not approach a unimodal distribution. Rather, the equilibrium distribution exhibits multiple peaks (Figure \ref{effect_of_step_dist}, Table \ref{step_effects}). If we were to observe a population with this distribution of songs, we would find males singing a few discrete song types and no males singing intermediate song types. The distribution of songs would appear to be discrete, even though the both the distribution of female preferences and the preference function is continuous.
 
-Up to now, we have been focusing on the variance of the trait distributions at equilibrium because they have been unimodally distributed and variance is a convenient was of measuring the shape of a unimodal distribution. However, when we use step functions for the initial distribution of female preferences, the distribution of songs in mode $3$ does not approach a unimodal distribution. Rather, the equilibrium distribution exhibits multiple peaks (Figure \ref{effect_of_step_dist}). 
+These peaks occur because of the ``shoulders" of the distribution of female preferences (Figure \ref{peak_example}). Note in Figure \ref{peak_example}A that at the edges of the steps, there are more females under the step function than under the normal distribution. Recall that $Z_{y_\x{f}}=\sum_{x\in S}\sum_{y\in S}P_\x{m}((x,y))f_{y_\x{f}}(x_\x{m})$ indicates the total fraction of males a female with preference $y$ finds attractive and that the probability of a male with song $x_\x{m}$ mating depends on $P_\x{f}(y)/Z_y$. The shoulders of the distribution $P_\x{f}(y)$ cause bumps in the function $P_\x{f}(y)/Z_y$ (Figure \ref{peak_example}D): at these values, there are many females who have few mating options. This leads to males that sing songs preferred by those females having disproportionate mating success and increasing in frequency, leading to bumps in the distribution of songs (Figure \ref{peak_example}B). The crucial factor is the presence of the shoulders in the distribution of preferences; in other words, the distribution has negative excess kurtosis. The Pearson type VII family of distributions allows us to explicitly tune the kurtosis of the distribution of preferences. The equilibrium distribution of songs is multimodal only when there is sufficiently negative excess kurtosis (Figure \ref{kurtosis}). If we consider a non-zero mutation rate, the peaks eventually disappear and the distribution becomes unimodal, but peaks can persist for thousands of generations Figure \ref{mut_sensitivity}.
 
-These peaks occur because of how the songs a female finds attractive are distributed. Remember that $Z_{y_\x{f}}=\sum_{x\in S}\sum_{y\in S}P_\x{m}((x,y))f_{y_\x{f}}(x_\x{m})$ indicates the total fraction of males a female with preference $y$ finds attractive. When the distribution of male songs follows a step function, rather than a normal distribution, there are somewhat more males singing the ``average" song and and more singing extreme songs, but fewer males singing songs in between. %KURTOSIS?? XXX
-Consequently, females that prefer average songs and extreme songs have many options, but females that prefer songs in between have fewer options. The desperation of females that prefer intermediate songs means that males who sing those songs have disproportionate mating success. Intermediate males increase in frequency until there are enough of them to sate the demand of previously desperate females. As this peak is established, there are troughs on either side that are then favored because the females that prefer those songs do not have many options. This process of peaks appearing continues until the distribution reaches an equilibrium, where the desperation of females is balanced XXXX
+
 
 \section*{Discussion}
 
-%There are two cases in which song is genetic that can maintain song diversity ($2$ and $5$), but only one in which song is paternally learned than can maintain song diversity ($3$). On the other hand, there is a higher amount of song diversity present in those cases where song is paternally learned compared to those cases where song is genetic (compare mode $3$ to $2$, $6$ to $5$, and $9$ to $8$). This leads to the following prediction: of those species that have multiple song types, more should have genetic song than paternally learned song, but there should be more song types in species in which song is paternally learned than in species in which song is genetic. 
+It has been argued that whether bird songs are learned or inherited determines the evolutionary dynamics of the trait (reviewed in \cite{Wilkins:2012ve,Lachlan:2004tg}). Our main finding is that the situation is actually much more complicated. Not only does whether male song is learned or genetic affect the evolutionary dynamics of bird song, but  whether female preference is learned or genetic and which parent young birds of either sex learn from also affect these dynamics. 
+%This agrees with previous theoretical studies that have found that the likelihood of a population speciating strongly depends on how the female preferences are acquired \cite{Verzijden:2005vn,Kirkpatrick:1994vn}. 
+In a review of mathematical models of sexual selection and learning, \citet{Verzijden:2012uq} found no clear patterns for how song learning affects sexual selection. This can be explained by our finding that the effects of song learning depend on how female preferences are acquired and on how learning occurs: song learning can both increase and decrease the amount of variation we would expect to find in the songs sung by the members of a population.
+
+There are several previous studies in which the authors compared two mechanisms for how songs and preferences are acquired. Crucially, no previous studies have compared all nine possible mechanisms that we consider here. Additionally, no such comparative studies have treated either song or preference as continuous variables. When we analyze all nine mechanisms, there is no simple rule that explains when diversity in songs can or cannot persist. However, some patterns emerge. The only scenarios in which male songs evolve away from their initial distributions to have finite, but non-zero, variance at equilibrium occur when song preferences are maternally learned. The only scenario in which female preferences evolve away from their initial distributions to have finite, but non-zero, variance at equilibrium occurs when male learn their songs obliquely and females learn their preferences from their fathers. The scenario in which both traits are genetic can lead to both increasing indefinitely, so that if the population were observed at any point in time non-zero variance would be observed. Our results lead to predictions that we are interested in testing empirically. For example, we predict that there should be no species in which song is genetic and preference is paternally imprinted that support song diversity, while there should be species in which both traits are genetic that support song diversity. One general pattern that emerges from our analysis is that the amount of variation in songs tends to be higher when songs are paternally learned than when songs are genetic. This also leads to a prediction about the number of songs the males in different species should be able to produce.
+
+One poorly understood feature of bird song is the persistence of multiple song types or dialects within a single species of bird \cite{Weissing:2011hc,Planque:2014qf}. Several mechanisms have been proposed to explain this phenomenon. For example, if there are distinct subpopulations whose members migrate back and forth to only a limited degree, variety can be maintained \cite{Planque:2014qf,Yeh:2015bh,Ellers:2003zr}. If dispersal depends on mating success, subpopulations that sing different songs can be maintained \cite{Payne:1997fk}. Another mechanism that maintains diversity is viability selection against more-preferred songs \cite{Planque:2014qf,Yeh:2015bh}. Negative frequency-dependent natural selection can also generate variation \cite{Verzijden:2005vn}. However, our results show that such a mechanism is not always required in order to maintain variation.
+
+The case where both traits are genetic is the only one in which variation can continue to increase indefinitely. This occurs because, only in this case, does a perfect correlation between female preference and male song arise. ``Runaway" selection occurs when a correlation arises between mating preferences and the traits under sexual selection and the trait under selection becomes more and more exaggerated over time \cite{Lande:1981fk,Doorn:2000nx,Aoki:2001ly,Mead:2004uq}. Our finding shows that not only the mean value of a trait but also its variance depend strongly on the correlation between a sexually selected trait and the preference for that trait. It also agrees with previous studies that found that, among situations where song is genetic, the case where preference is also genetic is fundamentally different in how readily it leads to speciation \cite{Verzijden:2005vn,Gilman:2015fk}. Our results therefore provide further evidence that the evolutionary dynamics of song are fundamentally different when both traits are genetic.
+ 
+While no previous studies have considered all nine mechanisms, we can compare our results to pairwise comparisons in previous studies. Encouragingly, our results are similar to the comparisons made in previous studies in which both traits were assumed to be discrete rather than continuous variables. In these models, it is usually assumed that males can sing one of two songs and each female prefers one song over the other. In their influential paper, \citet{Lachlan:2004tg} studied a model in which a single gene controls both female preferences and males' predisposition to sing different songs, which they can then acquire either genetically or by learning obliquely. The case where song is acquired genetically is similar to our mechanism 5. The case where song is learned obliquely is related to our mechanism 4, although there are substantial differences. They find that variance in both song and preference distributions disappears more quickly when song is genetic (mechanism 5) compared to when song is learned (mechanism 4). Since they only consider three possible songs, the variance in the distribution of songs cannot increase indefinitely, as we find in mechanism 5. Excluding this possibility, we find that variance in the distribution of songs disappears when song is genetic (mechanism 5) but not when song is learned obliquely (mechanism 4), which is in rough agreement with their findings.   \citet{Yeh:2015bh} studied a model in which two diverging populations are coming back into contact. They considered a situation where females prefer to mate with males that have the same trait as they do, and compared situations where the trait is genetic or paternally learned. Although tere are considerable differences between their model and ours, the two cases they focus on are most similar to our mechanisms 5 and 9. They find that divergence between the two populations is more easily maintained in their version of mechanism 9 than in their version of mechanism 5. Again excluding the case where variance increases indefinitely, we find that variance disappears more slowly in mechanism 9 than in mechanism 5, again showing rough agreement between our model and a quite different model. \citet{Verzijden:2005vn} studied the equivalent of our mechanisms 5 and 8: song is genetic and preference is either genetic or imprinted from the father's song. They found, as we did, that variance in the distribution of male songs can be maintained via mechanism 5, but not via mechanism 8, which agrees with our results. \citet{Kirkpatrick:1994vn} studied songs that are male sex-linked and preferences that are acquired by observing randomly chosen successfully-mating males, which is most similar to our mechanism 9. They found that variation in male songs could not be maintained, which agrees with our results. This shows that these models are somewhat robust to changing the kinds of traits being considered. By studying a model of continuously distributed traits, we have expanded our understanding of how the mechanisms of acquisition themselves, rather than the types of traits under consideration, determine the evolutionary dynamics of song.
+
+We find that, in general, there is more variance in the distribution of songs when females are choosier. This is somewhat surprising, as it might seem that choosier females would exert stronger selection pressure and would make it so that only an optimally preferred song would persist. However, we find the opposite. Our model is similar to one studied by  \citet{Doorn:2000nx}. They considered the adaptive dynamics of a mating trait and preference trait when each is haploid genetic, similar to mechanism 5 in our model, and found that evolutionary branching only occurs when females are sufficiently choosy \cite{Doorn:2000nx}. 
+%``Classical female choice models already demonstrated that a single runaway process will occur only if the initial level of choosiness exceeds a certain threshold value \cite{Kirkpatrick:1982kl}" \cite{van-Doorn:2004tg} %Kirkpatrick reference needs to be checked 
+As we wrote above, the model studied by \citet{Aoki:2001ly} is nearly identical to mechanism 5 in our model. However, since they only consider the evolution of the average male song over time, our results are not directly comparable.  
+ 
+This result is closely related to the results of previous studies on evolutionary branching. Evolutionary branching refers to a situation where a monomorphic population divides into two subpopulations that have different phenotypes and such that breeding only occurs between members of the same subpopulation \cite{Doebeli:2000oq,Doorn:2000nx,Weissing:2011hc}. When this is driven by ecological specialization, the critical factor is whether the animals are specialists or generalists. Several models have shown that two subpopulations can co-exist only if the animals in each subpopulation focus on a narrow range of resources, and otherwise a single optimally-adapted type will reach fixation \cite{Doebeli:2000oq,Doorn:2000nx,Weissing:2011hc}. This can also occur through sexual selection. In this case, males are competing for females, not resources, but the outcome is similar: if females are choosy, males ``specialize" in traits that are preferred by a small subset of females and many male traits can persist, but if females are promiscuous, males are ``generalists" and a single male trait will reach fixation. \citet{Van-Doorn:2001fv} found this to be true for sperm proteins under sexual selection to match egg proteins, just as we do for male songs under sexual selection to math female preferences. Although general principles of evolution occurring through both natural and sexual selection have been hard to come by \cite{Kirkpatrick:2002fu}, one commonality across these many models is that animals that specialize, either in environmental resources or in their appeal to mating partners, can maintain diversity more easily.
+
+
+Surprisingly, even when both songs and preferences are continuously distributed, the population can reach an equilibrium in which songs are multimodally distributed. In other words, a few discrete song types are present in the population, while intermediate songs are not. While we found these equilibria by considering step functions as the initial conditions for either trait, the fact that we found these equilibria means that they, or similar equilibria, are attracting in the space of distributions so other initial conditions, or perturbations during evolution, should also lead to multimodal distributions. The song types produced by the males in a population are often treated as discrete, with no intermediate types (for example in \cite{Gibbs:1990fk,Devoogd:1993uq}) One interpretation of this fact is that they are only capable of producing those songs. Another is that, for whatever reason, females only like those discrete songs. Our results show that a few discrete song types can be favored even if males are capable of producing a continuous range of songs and there are females that prefer every song.
+The multimodal distributions of songs that we find in our model do not qualify as evolutionary branching because it is still possible for any two members of the population to mate with each other. However, the absence of intermediate males may make it easier for evolutionary branching to occur. This interesting question is left for future work. 
+ 
+ 
+In this paper, we study how the amount of variation in both male traits and female preferences for those traits depend on how the traits and preferences are acquired and on how promiscuous females are. Our results are relevant to standing patterns of variation within single populations of birds, which we can test against empirical patterns as described before. Ultimately, we are interested in how these patterns affect the rates at which different groups of birds have speciated. Greater variance in male songs can both accelerate and decelerate speciation. On the one hand, two subpopulations can only diverge with respect to their songs if they sing different songs, so some amount of variance is required for speciation \cite{Mead:2004uq,Slabbekoorn:2002kl}. If a population produces multiple song types and they become associated with particular habitat types, song divergence can be accompanied by ecological divergence, which can result in speciation \cite{Slabbekoorn:2002kl,Doorn:2000nx}
+On the other hand, if two subpopulations are beginning to diverge and the range of songs produced by males in each subpopulation overlap, it will be more difficult for speciation to occur via sexual selection \cite{Verzijden:2012uq,Olofsson:2011kx,Kirkpatrick:2002fu,Irwin:1999fk}. Two important factors determining whether speciation occurs are the amount of ecological diversification that accompany diversification in mating traits and the correlation that does (or does not) arise between female preferences and male traits \cite{Doorn:2000nx,Doebeli:2000oq,Verzijden:2012uq}.  Frequency-dependent selection seems to facilitate evolutionary branching in both female preferences and male traits \cite{van-Doorn:2004tg,Weissing:2011hc}. We can make specific predictions about how the mechanism of song acquisition affects the amount of standing variance within a population at equilibrium, which we plan to compare to the amounts of variance observed in real populations. However, further modeling work is required before we can make predictions about how the mechanism of song acquisition affects how likely a population is to speciate. Specifically, we plan to extend this model to include two subpopulations that are beginning to diverge and to identify the circumstances under which they are or are not likely to completely diverge and become two separate species.
+
+We constructed a simple model of the evolutionary dynamics of bird song driven by female mate choice, so that our results could be more easily interpreted and generalized across many species of birds. In future work, we plan to extend the model in several ways to test whether our results are affected by making the model more realistic and to answer the next set of questions we are interest in. In reality, songs can vary in several dimensions at once. For example, different males can sing different pitches and can repeat their songs at different rates. How the dimensionality of a trait affects its evolutionary dynamics is an open question in evolutionary theory and this would be an interesting model system in which to address this question. Further, we assumed that each male can sing a single song and we considered variation at the population level. However, males in several species of bird can produce many songs. This ability is correlated with the size of the brain region associated with song production \cite{Airey:2000dq}, and how the range of songs male can sing evolves is an interesting question. Second, we only considered two types of female preference function, a Gaussian and a step function. Encouragingly, we found that this did not have a strong effect on our results. However, in the rare cases where female preference functions for male songs have been measured (for example in bushcrickets \cite{Ritchie:1996ys}), the preference function does not appear to be Gaussian. We are interested in more thoroughly testing the effects of this factor. Third, in our model, when either song or preference is genetic, an offspring acquires the average of its parents' traits. This is a very simple model of genetic inheritance. Other possibilities would be that Finally, as we wrote above, the model can be extended to describe two diverging subpopulations, in order to study when learning, and which type of learning, accelerates speciation. 
+ 
+
+There are many interesting biological traits that have learned components. In addition to bird song, other examples include migratory behavior \cite{Mueller:2013bh}, the structures bowerbirds use to attract mates \cite{Madden:2008ij}, and nest-site choice \cite{Seppanen:2007zr}. As with bird song, divergence in any of these traits can lead to speciation, so the question of how learning affects speciation is quite general. Humans are unique in the extent to which our behavior is shaped by learning rather than by genes \cite{Laland:2010fu}, so understanding the effects of learning on evolution is critical to understanding our own evolutionary history. There are striking similarities between biological evolution and cultural evolution, and the same mathematical models have been used to study each with great success \cite{Mesoudi:2006fk}. However, as we have found, there can be dramatic differences in the dynamics of traits that are genetically inherited and those that are learned. By comparing the evolutionary dynamics of animal behavior when it is acquired in different ways, we can improve our understanding of the relationship between biological and cultural evolution and the sometimes surprising outcomes of cultural evolution.
+
+%There are two cases in which song is genetic that can maintain song diversity ($2$ and $5$), but only one in which song is paternally learned than can maintain song diversity ($3$). On the other hand, there is a higher amount of song diversity present in those cases where song is paternally learned compared to those cases where song is genetic (compare mechanism $3$ to $2$, $6$ to $5$, and $9$ to $8$). This leads to the following prediction: of those species that have multiple song types, more should have genetic song than paternally learned song, but there should be more song types in species in which song is paternally learned than in species in which song is genetic. 
 
 %When we use initially normally distributed traits, the traits continue to be normally distributed until they reach equilibrium. When we use traits that are initially distributed according to a step function, in some cases we find distributions of songs at equilibrium that exhibit multiple peaks. Rather than interpreting the presence of multiple discrete song types as a transient condition that will eventually be replaced by one in which only one song is present, it is possible that such a pattern can be maintained even by the simple mating process we model here. While we found this pattern by using initial distributions that followed step functions, other initial conditions could lead to the same patterns. The important thing is not the exact shape of the initial conditions, since the step function shape disappears after only a few generations. 
 
 
-\newpage
-
-\bibliographystyle{plainnat}
+\bibliographystyle{unsrtnat}
 \bibliography{song_learning_evolution}
 
-\begin{table}
-\caption{\label{variables} Table of variables used in the text. In this table, we only give the version of each variable with a male-specific subscript for brevity. For example, while we use both $\sigma_{x\x{m}}^2$ and $\sigma_{x\x{f}}^2$ in the text, we only include $\sigma_{x\x{m}}^2$ in the table.}
+\newpage
+
+\begin{table}[tp]
+\caption{\label{variables} Table of variables used in the text. For the sake of brevity, we only give the male version of any sex-specific variable. For example, while we use both $\sigma_{x\x{m}}^2$ and $\sigma_{x\x{f}}^2$ in the text, we only include $\sigma_{x\x{m}}^2$ in the table.}
+\vspace{5pt}
 \begin{tabular}{lllll}
 Variable & Interpretation
 \\\hline $C_\x{m}=\rho_\x{m}\sigma_{x\x{m}}\sigma_{y\x{m}}$ & covariance of traits among adult males
 \\ $C^\star$ & equilibrium covariance of traits
 \\ $\mu$ & mutation rate 
 \\$\mu_\x{m}=(\mu_{x\x{m}},\mu_{y\x{m}})^T$ & vector of average values of each trait among adult males 
-\\$m,n$ & give widths of step function
+\\$m,n$ & widths of steps in step function 
 \\ $\rho_\x{m}=\frac{C_\x{m}}{\sigma_{x\x{m}}\sigma_{y\x{m}}}$ & correlation between traits among adult males
+\\ $\rho^\star$ & equilibrium correlation between traits
 \\$\Sigma_\x{m}$ & covariance matrix of traits among adult males
 \\$\Sigma_\text{mate}$ & covariance matrix of traits among mating adults
 \\$\sigma_{x\x{m}}^2$ & variance of songs among adult males
@@ -244,51 +351,83 @@ Variable & Interpretation
 \\$x$ & song
 \\$y$ & preference
 \\$Z_y=\int_{\R^2}P_\x{m}(v_\x{m})f_{y}(x_\x{m})dv_\x{m}$ & integral of males a female with preference $y$ finds attractive
-\\ $\delta$ & width of steps of the partition $S$
-\\ $M$ & half-width of interval over which we find probability distribution numerically
-\\ $S$ & partition that includes the discrete set of traits we consider in our numerical analyses
+\\ $\delta$ & width of steps of the partition $S$ for numerical analyses
+\\ $M$ & half-width of interval of traits for numerical analyses
+\\ $S$ & partition of discrete set of traits for numerical analyses
 \end{tabular}
 \end{table}
 
 
 \begin{table}
-\caption{\label{equilibrium}Here we show the stable equilibria of the nine possible modes of acquisition. Stable equilibria are indicated with a ${}^\star$ and initial values are indicated with $(0)$. For example $\sigma_x^{2\star}$ is a stable equilibrium of $\sigma_x^2$, and $\sigma_x^2(0)$ is the initial value of $\sigma_x^2$. There are two modes in which the system of recursion equations for $\sigma_x^2$ and $C$ are bistable: when song is genetic and preference is maternally learned and when both song and preference are genetic. Both stable equilibria are included in the table. The second equilibrium when song is genetic and preference is maternally learned only exists when $\sigma_y^2\geq\frac{5+2\sqrt{6}}{3}\sigma^2$. The rows and columns are ordered such that the equilibrium value $\sigma_x^{2\star}$ is smaller in cells that are lower and to the right. }
+\caption{\label{equilibrium}Here we show the stable equilibria of the nine possible mechanisms of acquisition. The rows and columns are ordered such that the equilibrium value, $\sigma_x^{2\star}$, tends to be smaller in cells that are lower and to the right. Stable equilibria are indicated with a ${}^\star$ and initial values are indicated with $(0)$. For example $\sigma_x^{2\star}$ is a stable equilibrium of $\sigma_x^2$, and $\sigma_x^2(0)$ is the initial value of $\sigma_x^2$. We write ND when $\rho$ is not defined, because either $\sigma_x^{2\star}$ or $\sigma_y^{2\star}$ or both are equal to $0$. There are two mechanisms in which the system of recursion equations for $\sigma_x^2$ and $C$ are bistable: when song is genetic and preference is maternally learned and when both song and preference are genetic. Both stable equilibria are included in the table. The second equilibrium when song is genetic and preference is maternally learned only exists when $\sigma_y^2\geq\frac{5+2\sqrt{6}}{3}\sigma^2$.  }
+\vspace{5pt}
+\hspace{-50pt}
 \begin{tabular}{|l|l|l|l|}
-\hline & A. song learned obliquely  & B. song genetic & C. song learned from father
-\\\hline I. pref from mother  & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0, \ \frac{3\sigma_y^2-5\sigma^2+\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}}{6}$ & $\sigma_x^{2\star}=\max\{\sigma_y^2-\sigma^2,0\}$  
+\hline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ song: & A.  obliquely learned  & B. genetic & C. paternally learned
+\\\hline 
+pref: &&&
+\\I. maternally learned  & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0, \ \frac{3\sigma_y^2-5\sigma^2+\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}}{6}$ & $\sigma_x^{2\star}=\max\{\sigma_y^2-\sigma^2,0\}$  
 \\ 	& 	$\sigma_y^{2\star}=\sigma_y^2(0)$ 	& $\sigma_y^{2\star}=\sigma_y^2(0)$ 		  & $\sigma_y^{2\star}=\sigma_y^2(0)$   
 \\ & $ C^\star=0$ &   $ C^\star=\frac{\sigma_x^{2\star}\sigma_y^{2\star}}{\sigma^2+\sigma_x^{2\star}}$  & $ C^\star=0$
-\\\hline II. pref genetic &  $\sigma_x^{2\star}=\sigma_x^2(0)$  & $\sigma_x^{2\star}=0,\ \infty$  & $\sigma_x^{2\star}=0$                      
+\\ & $\rho^\star=0$ & $\rho^\star=\text{ND},\frac{\sigma_x^{\star}\sigma_y^{\star}}{\sigma^2+\sigma_x^{2\star}}$ & $\rho^\star=0$ 
+\\\hline II. genetic &  $\sigma_x^{2\star}=\sigma_x^2(0)$  & $\sigma_x^{2\star}=0,\ \infty$  & $\sigma_x^{2\star}=0$                      
 \\  		&  $\sigma_y^{2\star}=0$	& $\sigma_y^{2\star}= 0 , \ \infty$ 	  & $\sigma_y^{2\star}=0$  
-\\ & $ C^\star=0$   & $ C^\star=0, \ \infty$        & $ C^\star=0$          
-\\\hline III. pref from father & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0$  & $\sigma_x^{2\star}=0$                       
+\\ & $ C^\star=0$   & $ C^\star=0, \ \infty$        & $ C^\star=0$ 
+\\ & $\rho^\star=\text{ND}$ & $\rho^\star=\text{ND},1$ & $\rho^\star=\text{ND}$         
+\\\hline III. paternally learned & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0$  & $\sigma_x^{2\star}=0$                       
 \\  			& $\sigma_y^{2\star}=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{2\sigma_x^2+\sigma^2}$	  & $\sigma_y^{2\star}=0$  & $\sigma_y^{2\star}=0$                       
 \\ & $ C^\star=0$ & $ C^\star=0$ & $ C^\star=0$
+\\ & $\rho^\star=0$ & $\rho^\star=\text{ND}$ & $\rho^\star=\text{ND}$
 \\\hline
 \end{tabular}
 \end{table}
 
+\begin{table}
+\caption{\label{step_effects}Using a step preference function instead of a Gaussian preference function has little effect on the equilibrium amount of variance in either songs or preferences and does not make either trait multimodal. Using step functions as the initial distributions of either trait do not strongly affect the equilibrium amount of variance in either songs or preferences, but they do make the equilibrium distribution of songs in mechanism 3 multimodal. Here we summarize the effects of the three types of step functions---as a preference function, as the initial distribution of songs, and as the initial distribution of preferences---on the equilibrium distribution of songs in mechanism 3 and the equilibrium distribution of preferences in mechanism 7. In mechanism 3, preferences are maternally learned, so the distribution of preferences is always equal to its initial condition. Similarly, in mechanism 7, songs are obliquely learned, so the distribution of songs is always equal to its initial condition. We use ``pref." as an abbreviation for preference and ``dist." as an abbreviation for distribution.}
+\begin{tabular}{|l|l|l|l|l|}
+%\multicolumn{2}{c|}{}&Neuter&Masculine&Feminine\\
+  \cline{3-5}
+\multicolumn{2}{c|}{} & step pref. function  & step song dist. & step pref. dist.
+\\\hline \multirow{2}{*}{mechanism 3}&$\sigma_x^{2\star}$& small increase & no effect & small increase \\ 
+	 %\cline{2-5}&$\sigma_y^{2\star}$ & ? & ? & ? \\ 
+    \cline{2-5}&multimodal songs & no & yes & yes 
+\\\hline \multirow{2}{*}{mechanism 7}
+%&$\sigma_x^{2\star}$& ? & ? & ? \\
+ %   \cline{2-5}
+    &$\sigma_y^{2\star}$& small increase & decrease & no effect \\
+    \cline{2-5}&multimodal prefs & no & no & no 
+\\\hline
+\end{tabular}
+\end{table}
+
+
 \begin{figure}
-\includegraphics[width=6.5in]{/Users/eleanorbrush/Desktop/sigmax2_by_female_mode.pdf}
-\caption{\label{sigmax2_sigma2} Song variance is highest when females are choosy. In the left column, we show either equilibrium variance ($\sigma_x^{2\star}$) or transient variance ($\sigma_x^2(10)$) as a function of the variance of the preference function ($\sigma^2$). In the right column, we show the number of generations before $\sigma_x^2$ is less than $0.05$, for those cases where $\sigma_x^{2\star}=0$. In the top row, preference is maternally learned. In the second row, preference is genetic. In the bottom row, preference is paternally learned. Red indicates song is genetic; blue indiciates song is paternally learned. In this figure we ignore the modes in which song is learned obliquely. We use lighter colors for parameters where $\sigma_x^{2\star}>0$ and darker colors for parameters where $\sigma_x^{2\star}=0$. In the middle row, B and E, the dark red curves (meaning both song and preference are genetic) start at $\sigma^2\approx 1.3$ because, at smaller values of $\sigma^2$, $\sigma_x^{2\star}=\infty$. Parameters: $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=4$, $\rho(0)=0.6$. In this figure traits are normally distributed and we use a Gaussian preference function. }
+\includegraphics[width=6.5in]{sigmax2_by_female_mode.pdf}
+\caption{\label{sigmax2_sigma2}  Song variance is highest when females are choosy. In the left column, we show either equilibrium song variance, $\sigma_x^{2\star}$, or transient song variance, $\sigma_x^2(10)$, as a function of the variance of the preference function, $\sigma^2$. In the right column, we show the number of generations before $\sigma_x^2$ is less than $0.05$, for those cases where $\sigma_x^{2\star}=0$. In the top row, A and B, preference is maternally learned. In the second row, C and D, preference is genetic. In the bottom row, E and F, preference is paternally learned. Red indicates song is genetic; blue indicates song is paternally learned. In this figure we ignore the mechanisms in which song is learned obliquely. We use lighter colors for parameters where $\sigma_x^{2\star}>0$ and darker colors for parameters where $\sigma_x^{2\star}=0$. In the middle row, C and D, the dark red curves (meaning both song and preference are genetic) start at $\sigma^2\approx 1.3$ because, at smaller values of $\sigma^2$, $\sigma_x^{2\star}=\infty$. Parameters: $\sigma_x^2(0)=1$, $\sigma_y^2(0)=4.1$, $\rho(0)=1$, $\sigma^2=1$. In this figure traits are normally distributed and we use a Gaussian preference function. }
+\end{figure}
+
+
+\begin{figure}
+\includegraphics[width=6.5in]{effect_of_step_function.pdf}
+\caption{\label{effect_of_step_function} Using a step preference function, instead of a Gaussian preference function, has smal effects on the equilibrium distributions of song and preference. In A and B, we show examples of preference functions that have the same variance: in A $\sigma^2=0.3$ and in B $\sigma^2=0.9$. The red curve in each panel is a Gaussian with the variance given. Curves with the same color in the two panels have steps of the same width. There is no purple function in the left panel because no function with those widths can have the desired variance. In C, we show the equilibrium song variance, $\sigma_x^{2\star}$, in mechanism $3$ as a function of the variance of the preference function, $\sigma^2$. In D, we show how the equilibrium preference variance, $\sigma_y^{2\star}$, in mechanism $7$ as a function of the variance of the preference distribution, $\sigma^2$. The colors of the curves correspond to the colors of the preference functions in the upper panels. Parameters: $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=2$, $\rho(0)=0$, $\mu=0$, $M=14$, $\delta=0.1$, number of generations = $5000$. In this figure, both songs and preferences are initially normally distributed.}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=6.5in]{/Users/eleanorbrush/Desktop/effect_of_step_function.pdf}
-\caption{\label{effect_of_step_function} Using a step preference function, instead of a Gaussian preference function, has barely any effect on the equilibrium distributions of song and preference. In the upper row, we show examples of preference functions that have the same variance, in the left panel $\sigma^2=0.3$ and in the right $\sigma^2=0.9$. The red curve in each panel is a Gaussian with the variance given. Curves with the same color in the two panels have steps of the same width. There is no purple function in the left panel because no function with those widths can have the desired variance. In the lower left panel, we show how the equilibrium variance of the song distribution in mode $3$ (song is paternally learned and preference is maternally learned) as a function of $\sigma^2$. The colors of the curves correspond to the colors of the preference functions in the upper panels. The curves overlap, indicating that the shape of the preference function does not affect the variance of the equilibrium distribution of songs. In the lower right panel, we show how the equilibrium variance of the preference distribution in mode $7$ (song is learned obliquely and preference is paternally learned) as a function of $\sigma^2$. The colors of the curves correspond to the colors of the preference functions in the upper panels. There are differences between the curves, but they are overall very similar to each other, indicating that the shape of the preference function does not have a large effect on the variance of the equilibrium distribution of preferences. Parameters: $\mu=0.01$, $\rho(0)=0$, $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=2$, number of generations = $5000$. In this figure, both songs and preferences are initially normally distributed.}
-\end{figure}
-
-\begin{figure}
-\includegraphics[width=6.5in]{/Users/eleanorbrush/Desktop/effect_of_step_distribution.pdf}
-\caption{\label{effect_of_step_dist}The model allows for equilibrium distributions of songs that are multimodal. In this figure, we show the effect of using step functions as initial conditions for songs and preferences, while using a Gaussian preference function. In the upper row, we show the step functions that we use as initial distributions of songs on the left and of preferences on the right. The red curve in each panel is a normal distribution. 
+\includegraphics[width=6.5in]{effect_of_step_distribution.pdf}
+\caption{\label{effect_of_step_dist}The model allows for equilibrium distributions of songs that are multimodal. Multimodal distributions reached when we use step functions as initial conditions for either songs or preferences, while using a Gaussian preference function. In the upper row, A and B, we show the step functions that we use as initial distributions of songs on the left and of preferences on the right. The red curve in each panel is a normal distribution. Caption continued below.
 %All of the distributions on the left have variance $\sigma_x^2(0)=0.8$ and all of the distributions on the right have variance $\sigma_y^2(0)=2$. 
-In the left column, we use the step functions in the top left panel for the initial distributions of songs, while using a normal distribution of preferences. In the right column, we use the step functions in the top right panel for the initial distributions of preferences, while using a normal distribution of songs.  In the second row, we show the equilibrium variance of the song distribution in mode $3$ (song is paternally learned and preference is maternally learned) as a function of the variance of the preference function ($\sigma^2$). In the third row, we show the equilibrium variance of the preference distribution in mode $7$ (song is learned obliquely and preference is paternally learned) as a function of the variance of the preference function ($\sigma^2$). In the bottom row, we show equilibrium distributions of songs in mode $3$, using step functions as initial conditions of the song distribution on the left and step functions as initial conditions of the preference distribution on the right. Parameters: $\mu=0.01$, $\rho(0)=0$, $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=2$, $\sigma^2=1.1$ unless it is being varied, number of generations = $5000$. }
+}
+\end{figure}
+
+\addtocounter{figure}{-1}
+\begin{figure}
+\caption{
+In the left column, we use the step functions in A for the initial distributions of songs, while using a normal distribution of preferences. In the right column, we use the step functions in B for the initial distributions of preferences, while using a normal distribution of songs.  In the second row, C and D, we show the equilibrium song variance, $\sigma_x^{2\star}$, in mechanism $3$ as a function of the variance of the preference function, $\sigma^2$. In the third row, E and F, we show the equilibrium preference variance, $\sigma_y^{2\star}$ in mechanism $7$ as a function of the variance of the preference function, $\sigma^2$. In the bottom row, G and H, we show equilibrium distributions of songs in mechanism $3$. Parameters: $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=2$, $\rho(0)=0$, $\mu=0$, $M=14$, $\delta=0.1$, $\sigma^2=0.9$ unless it is being varied, number of generations = $5000$. }
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=6.5in]{/Users/eleanorbrush/Desktop/peak_example.pdf}
-\caption{\label{peak_example}  A multimodal distribution occurs when the distribution of $Z$, the total fraction of males available to females with preference $y$, diverges from a normal distribution. In A we show the initial distribution of preferences in the population, red indicating a normal distribution and black a step function. In B we show the equilibrium distribution of songs following from those initial conditions. In C we show $Z$ at $10$ %XXX may change---keep track of parameters!
-generations as a function of female preference. In D we show the difference in the two curves in C, the black curve minus the red curve, as a function of female preference. The peaks in this curve lead to peaks in the distribution of songs. Parameters: $\mu=0.01$, $\rho(0)=0$, $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=2$, $\sigma^2=0.9$, number of generations = $5000$. In this figure, we use a Gaussian preference function. 
+\includegraphics[width=6.5in]{peak_example.pdf}
+\caption{\label{peak_example}  A multimodal distribution of songs occurs in mechanism 3 when the distribution of female preferences, $P_\x{f}(y)$, has excess negative kurtosis. In A we show the initial distribution of preferences, with red indicating a normal distribution and black a step function. In B we show the equilibrium distribution of songs following from those initial conditions. In C we show the integral of males that females find attractive, $Z_y$, during the first generation, as a function of female preference, $y$. This does not depend on how female preferences are distributed. In D we show, for each preference $y$, the frequency of females with that preference, $P_\x{f}(y)$, divided by $Z_y$, with red indicating the normal distribution of female preferences from A and black indicating the step function distribution of preferences from A. The y-axis is on a logarithmic scale. The peaks in this curve lead to peaks in the distribution of songs. Parameters: $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=2$, $\rho(0)=0$, $\sigma^2=0.9$, $\mu=0$, $M=14$, $\delta=0.1$, $m=2.2,$ $n=6.7$, number of generations = $5000$. In this figure, we use a Gaussian preference function. 
 }
 \end{figure}
 
@@ -301,45 +440,8 @@ generations as a function of female preference. In D we show the difference in t
 \renewcommand{\thefigure}{S\arabic{figure}}
 \setcounter{equation}{0}  
 \setcounter{figure}{0}
+\setcounter{section}{0}
 \setcounter{table}{0}
-
-\begin{figure}
-\includegraphics[width=3.25in]{/Users/eleanorbrush/Desktop/mode9_dynamics}
-\caption{\label{mode9}}
-\end{figure}
-
-\begin{figure}
-\includegraphics[width=3.25in]{/Users/eleanorbrush/Desktop/mode7_dynamics}
-\caption{\label{mode7}}
-\end{figure}
-
-\begin{figure}
-\includegraphics[width=3.25in]{/Users/eleanorbrush/Desktop/mode8_dynamics}
-\caption{\label{mode8}}
-\end{figure}
-
-\begin{figure}
-\includegraphics[width=3.25in]{/Users/eleanorbrush/Desktop/mode1_dynamics}
-\caption{\label{mode1}}
-\end{figure}
-
-
-\begin{figure}
-\includegraphics[width=3.25in]{/Users/eleanorbrush/Desktop/mode2_dynamics}
-\caption{\label{mode2}}
-\end{figure}
-
-
-\begin{figure}
-\includegraphics[width=6.5in]{/Users/eleanorbrush/Desktop/sigmax2_full.pdf}
-\caption{\label{sigmax2_full} The variance of the song trait $\sigma_x^{2}$ increases as a function of $\sigma_y^2(0)$ and decreases or is non-monotonic as a function of $\sigma^2$. There are two possibilites for the dynamics of $\sigma_x^2$: the equilibrium value of $\sigma_x^2$ can either be greater than $0$ or equal to $0$. In this figure we ignore the modes in which song is learned obliquely. In the top row, we show $\sigma_x^{2\star}$ for two other modes in which $\sigma_x^{2\star}>0$ ($2$ and $3$). (In mode $5$, $\sigma_x^2$ approaches infinity, which we do not show here.) In the second row, we show $\sigma_x^2(10)$  for those modes in which $\sigma_x^{2\star}=0$ ($2$, $5$, $6$, $8$, and $9$). In the third row, we show the number of generations before $\sigma_x^2$ is less than $5\times10^{-3}$ for those modes in which $\sigma_x^{2\star}=0$. In the first column we show these quantities as a function of initial value $\sigma_x^{2}(0)$. In the second column we show these quantities as a function of initial value $\sigma_y^2(0)$. In the third column we show these quantities as a function of $\sigma^2$. Note that for the bistable modes, $2$ and $5$, some parameters give $\sigma_x^{2\star}>0$ and others give $\sigma_x^{2\star}=0$, i.e. the grey curves is split between the top and middle rows and the green curve only appears for some parameters in the middle row. Parameters: unless the parameter is being varied $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=4$, $\sigma^2=1$, $\rho(0)=0.6$. In this figure both songs and preferences are initially normally distributed and we use a Gaussian preference function. } 
-\end{figure}
-
-\begin{figure}
-\includegraphics[width=6.5in]{/Users/eleanorbrush/Desktop/sigmay2_full.pdf}
-\caption{\label{sigmay2_full} The variance of the preference trait $\sigma_y^{2}$ increases as a function of $\sigma_y^2(0)$ and decreases or is non-monotonic as a function of $\sigma^2$. There are two possibilites for the dynamics of $\sigma_y^2$: the equilibrium value of $\sigma_y^2$ can either be greater than $0$ or equal to $0$. In this figure we ignore the modes in which preference is maternally learned. In the top row, we show $\sigma_y^{2\star}$ for the other mode in which $\sigma_y^{2\star}>0$ ($7$). (In mode $5$, $\sigma_y^2$ approaches infinity, which we do not show here.) In the second row, we show $\sigma_y^2(10)$  for those modes in which $\sigma_y^{2\star}=0$ ($4$, $5$, $6$, $8$, and $9$). In the third row, we show the number of generations before $\sigma_y^2$ is less than $5\times10^{-3}$ for those modes in which $\sigma_x^{2\star}=0$. In the first column we show these quantities as a function of initial value $\sigma_x^{2}(0)$. In the second column we show these quantities as a function of initial value $\sigma_y^2(0)$. In the third column we show these quantities as a function of $\sigma^2$. Note that for the bistable mode, $5$, some parameters give $\sigma_y^{2\star}>0$ and others give $\sigma_y^{2\star}=0$, i.e. the green curve only appears for some parameters in the middle row.  Parameters: unless the parameter is being varied $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=4$, $\sigma^2=1$, $\rho(0)=0.6$. In this figure both songs and preferences are initially normally distributed and we use a Gaussian preference function.}
-\end{figure}
-
 
 
 \end{document}

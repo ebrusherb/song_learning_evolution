@@ -25,12 +25,7 @@ m0 = which(mrange==mmin)
 m1 = which(mrange==mmax)
 mrange_orig = seq(mmin,mmax,by=trait_step) 
 frange = mrange #range of female preferences
-Nf = length(frange)
-fmin = -1
-fmax = 1
-f0 = which(frange==fmin)
-f1 = which(frange==fmax)
-frange_orig = seq(fmin,fmax,by=trait_step)
+
 midpt = ceiling(Nm/2)
 
 nonzero_thresh = 1e-5
