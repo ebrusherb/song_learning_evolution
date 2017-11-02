@@ -2,24 +2,24 @@ dynamics_pxy <-function(){
 Pm = matrix(0,Nm,steps+1) #probability of male songs over time
 Pm[,1] = m_init
 
-Pf = matrix(0,Nf,steps+1) #probability of female preferences over time
+Pf = matrix(0,Nm,steps+1) #probability of female preferences over time
 Pf[,1] = f_init
 
-pxy_store = array(0,c(Nm,Nf,steps+1))
-z_store = array(0,c(Nf,steps+1))
+pxy_store = array(0,c(Nm,Nm,steps+1))
+z_store = array(0,c(Nm,steps+1))
 
 t = 1
 perc = 0
 while(t <= steps){
 	Pm_adults = Pm[,t]
 	Pf_adults = Pf[,t]
-	pxy = matrix(0,Nm,Nf) #probability of a (x,y) pair
+	pxy = matrix(0,Nm,Nm) #probability of a (x,y) pair
 	### should I round Pm_adults?!? how?!? is that why I'm getting bumps?!?
-	for(j in 1:Nf){
+	for(j in 1:Nm){
 		s = sign(midpt-j+0.5)
-		weight = rep(minweight,Nf)
-		toreplace=sort(c((s)%%(Nf+1),j+s*(midpt-1)))
-		pull=sort(c((s)%%(Nf+1)+midpt-j,(-s)%%(Nf+1)))
+		weight = rep(minweight,Nm)
+		toreplace=sort(c((s)%%(Nm+1),j+s*(midpt-1)))
+		pull=sort(c((s)%%(Nm+1)+midpt-j,(-s)%%(Nm+1)))
 		weight[toreplace[1]:toreplace[2]] = fixed_weight[pull[1]:pull[2]]
 		z = sum(weight*Pm_adults) #normalization factor
 		z_store[j,t] = z
@@ -50,13 +50,13 @@ while(t <= steps){
 t=steps+1
 Pm_adults = Pm[,t]
 Pf_adults = Pf[,t]
-pxy = matrix(0,Nm,Nf) #probability of a (x,y) pair
+pxy = matrix(0,Nm,Nm) #probability of a (x,y) pair
 ### should I round Pm_adults?!? how?!? is that why I'm getting bumps?!?
-for(j in 1:Nf){
+for(j in 1:Nm){
 	s = sign(midpt-j+0.5)
-	weight = rep(minweight,Nf)
-	toreplace=sort(c((s)%%(Nf+1),j+s*(midpt-1)))
-	pull=sort(c((s)%%(Nf+1)+midpt-j,(-s)%%(Nf+1)))
+	weight = rep(minweight,Nm)
+	toreplace=sort(c((s)%%(Nm+1),j+s*(midpt-1)))
+	pull=sort(c((s)%%(Nm+1)+midpt-j,(-s)%%(Nm+1)))
 	weight[toreplace[1]:toreplace[2]] = fixed_weight[pull[1]:pull[2]]
 	z = sum(weight*Pm_adults) #normalization factor
 	z_store[j,t] = z
@@ -73,24 +73,24 @@ dynamics_bothmut <-function(){
 Pm = matrix(0,Nm,steps+1) #probability of male songs over time
 Pm[,1] = m_init
 
-Pf = matrix(0,Nf,steps+1) #probability of female preferences over time
+Pf = matrix(0,Nm,steps+1) #probability of female preferences over time
 Pf[,1] = f_init
 
-pxy_store = array(0,c(Nm,Nf,steps+1))
-z_store = array(0,c(Nf,steps+1))
+pxy_store = array(0,c(Nm,Nm,steps+1))
+z_store = array(0,c(Nm,steps+1))
 
 t = 1
 perc = 0
 while(t <= steps){
 	Pm_adults = Pm[,t]
 	Pf_adults = Pf[,t]
-	pxy = matrix(0,Nm,Nf) #probability of a (x,y) pair
+	pxy = matrix(0,Nm,Nm) #probability of a (x,y) pair
 	### should I round Pm_adults?!? how?!? is that why I'm getting bumps?!?
-	for(j in 1:Nf){
+	for(j in 1:Nm){
 		s = sign(midpt-j+0.5)
-		weight = rep(minweight,Nf)
-		toreplace=sort(c((s)%%(Nf+1),j+s*(midpt-1)))
-		pull=sort(c((s)%%(Nf+1)+midpt-j,(-s)%%(Nf+1)))
+		weight = rep(minweight,Nm)
+		toreplace=sort(c((s)%%(Nm+1),j+s*(midpt-1)))
+		pull=sort(c((s)%%(Nm+1)+midpt-j,(-s)%%(Nm+1)))
 		weight[toreplace[1]:toreplace[2]] = fixed_weight[pull[1]:pull[2]]
 		z = sum(weight*Pm_adults) #normalization factor
 		z_store[j,t] = z
@@ -122,13 +122,13 @@ while(t <= steps){
 t=steps+1
 Pm_adults = Pm[,t]
 Pf_adults = Pf[,t]
-pxy = matrix(0,Nm,Nf) #probability of a (x,y) pair
+pxy = matrix(0,Nm,Nm) #probability of a (x,y) pair
 ### should I round Pm_adults?!? how?!? is that why I'm getting bumps?!?
-for(j in 1:Nf){
+for(j in 1:Nm){
 	s = sign(midpt-j+0.5)
-	weight = rep(minweight,Nf)
-	toreplace=sort(c((s)%%(Nf+1),j+s*(midpt-1)))
-	pull=sort(c((s)%%(Nf+1)+midpt-j,(-s)%%(Nf+1)))
+	weight = rep(minweight,Nm)
+	toreplace=sort(c((s)%%(Nm+1),j+s*(midpt-1)))
+	pull=sort(c((s)%%(Nm+1)+midpt-j,(-s)%%(Nm+1)))
 	weight[toreplace[1]:toreplace[2]] = fixed_weight[pull[1]:pull[2]]
 	z = sum(weight*Pm_adults) #normalization factor
 	z_store[j,t] = z
@@ -142,7 +142,7 @@ dynamics_memory <-function(store=FALSE){
 Pm = matrix(0,Nm) #probability of male songs over time
 Pm = m_init
 
-Pf = matrix(0,Nf) #probability of female preferences over time
+Pf = matrix(0,Nm) #probability of female preferences over time
 Pf = f_init
 
 Pm_store = c()
@@ -159,13 +159,13 @@ perc = 0
 while(t <= steps){
 	Pm_adults = Pm
 	Pf_adults = Pf
-	pxy = matrix(0,Nm,Nf) #probability of a (x,y) pair
+	pxy = matrix(0,Nm,Nm) #probability of a (x,y) pair
 	### should I round Pm_adults?!? how?!? is that why I'm getting bumps?!?
-	for(j in 1:Nf){
+	for(j in 1:Nm){
 		s = sign(midpt-j+0.5)
-		weight = rep(minweight,Nf)
-		toreplace=sort(c((s)%%(Nf+1),j+s*(midpt-1)))
-		pull=sort(c((s)%%(Nf+1)+midpt-j,(-s)%%(Nf+1)))
+		weight = rep(minweight,Nm)
+		toreplace=sort(c((s)%%(Nm+1),j+s*(midpt-1)))
+		pull=sort(c((s)%%(Nm+1)+midpt-j,(-s)%%(Nm+1)))
 		weight[toreplace[1]:toreplace[2]] = fixed_weight[pull[1]:pull[2]]
 		z = sum(weight*Pm_adults) #normalization factor
 		if(z>z_thresh){
