@@ -16,17 +16,17 @@ sigmax2 = 1
 sigma2 = 0.5
 rho = 0.9
 
-# # song = 'norm'
-# pref = 'step'
-# func = 'norm'
+song = 'norm'
+pref = 'step'
+func = 'norm'
 
-# k1 = 7
-# k2 = 7
+k1 = 7
+k2 = 7
 
-# ic = init_conds(song,pref,func,sigmax2,sigmay2,sigma2,k1,k2)
-# m_init = ic$m_init
-# f_init = ic$f_init
-# fixed_weight = ic$fixed_weight
+ic = init_conds(song,pref,func,sigmax2,sigmay2,sigma2,k1,k2)
+m_init = ic$m_init
+f_init = ic$f_init
+fixed_weight = ic$fixed_weight
 
 # var_mat  = array(NA,c(12,2,steps+1))
 
@@ -64,21 +64,22 @@ rho = 0.9
 
 # save(d3,d4,d6,d7,d8,d9,d11,d12,var_mat,sigmax2,sigmay2,sigma2,k1,k2,trait_chunk_num,steps,file='/homes/ebrush/priv/song_learning_evolution/all_modes_numerically_step_pref_dist.Rdata')
 
-# # song = 'step'
-# pref = 'norm'
-# func = 'norm'
+##
+song = 'step'
+pref = 'norm'
+func = 'norm'
 
-# k1 = 7
-# k2 = 7
+k1 = 7
+k2 = 7
 
-# ic = init_conds(song,pref,func,sigmax2,sigmay2,sigma2,k1,k2)
-# m_init = ic$m_init
-# f_init = ic$f_init
-# fixed_weight = ic$fixed_weight
+ic = init_conds(song,pref,func,sigmax2,sigmay2,sigma2,k1,k2)
+m_init = ic$m_init
+f_init = ic$f_init
+fixed_weight = ic$fixed_weight
 
-# var_mat  = array(NA,c(12,2,steps+1))
+var_mat  = array(NA,c(12,2,steps+1))
 
-# d3 = dynamics_mode3()
+d3 = dynamics_mode3()
 # var_mat[3,1,] = apply(d3$Pm,2,function(v) sum((mrange+1)^2*v))
 # var_mat[3,2,] = apply(d3$Pf,2,function(v) sum((mrange+1)^2*v))
 

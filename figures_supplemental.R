@@ -900,7 +900,110 @@ for(j in 1:length(k1_vals)){
 
 dev.off()
 
+##### effect of step pref function on peaks and var
 
+
+trait_chunk_num = 281
+source('range_setup.R')
+
+col_vec = brewer.pal(9,'Set1')[-c(6,7)]
+lwd = 2
+marg = c(0.55,0.43,0.02,0.15)
+omarg = c(0.05,1,0.35,0.0)
+
+width = 6.5
+height = 6
+
+load('step_pref_fun_equilibrium.Rdata')
+
+pdf('/Users/eleanorbrush/Desktop/effect_of_step_pref_fun.pdf',width=width,height=height,family=fontfamily)
+
+par(mfrow=c(3,2),ps=smallfontsize,mai=marg,oma=omarg,mgp=c(3,0.7,0))
+
+for(i in 1:2){
+	sigma2 = sigma2_vals[c(3,6)[i]]
+		
+	continuous_weight = dnorm(mrange,mean=mrange[midpt],sd=sqrt(sigma2)) 
+	fixed_weight = continuous_weight/sum(continuous_weight)
+	
+	xlim = c(-4,4)
+	ylim=c(0,c(.15,.15)[i])
+	plot(mrange+1,fixed_weight,col=col_vec[1],t='l',xlim=xlim,lwd=lwd,ylim=ylim,xlab='',ylab='')
+	mtext('Difference in preference and song, y-x',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
+	mtext('Preference',side=2,line=2,at=mean(ylim),cex=largefontsize/smallfontsize)
+	for(j in 1:length(k1_vals)){		
+			k1 = k1_vals[j]
+			k2 = k2_vals[j]
+			
+			chunk_vec = c(rep(1,(Nm-k1-2*k2)/2),rep(2,k2),rep(3,k1),rep(4,k2),rep(5,(Nm-k1-2*k2)/2))
+	
+			n = apply(matrix(1:chunk_vec[midpt],nrow=1),2,function(x) length(which(chunk_vec==x)))
+			n[1:(chunk_vec[midpt]-1)] = 2*n[1:(chunk_vec[midpt]-1)]
+			
+			s = apply(matrix(1:chunk_vec[midpt],nrow=1),2,function(x) sum((mrange[which(chunk_vec==x)]+1)^2))
+			s[1:(chunk_vec[midpt]-1)] = 2*s[1:(chunk_vec[midpt]-1)]
+			
+			m = rbind(n,s,c(1,0,0))
+			
+			v = c(1,sigma2,0)
+			p = solve(m,v)
+			p[1] = 0
+			
+			if(length(which(p<0))==0 && p[3]>=p[2]){
+			
+				fixed_weight = apply(matrix(chunk_vec[1:midpt],nrow=1),2,function(x) p[x])
+				fixed_weight = c(fixed_weight,rev(fixed_weight[1:(length(fixed_weight)-1)]))
+				lines(mrange+1,fixed_weight,col=col_vec[j+1],lwd=lwd)
+			}
+	}
+}
+
+for(i in 1){
+	plot(sigma2_vals,var_mat[i,,1],ylim=c(0,round(max(var_mat[i,,],na.rm=TRUE),1)+.1),t='o',lwd=lwd,col=col_vec[1],xlab='',ylab='')
+	mtext(expression(paste('Variance of pref. function, ', sigma^2)),side=1,line=2,at=mean(sigma2_vals),cex=largefontsize/smallfontsize)
+	mtext(list(expression(paste('Eq. song var., ',sigma[x]^2, "*")),expression(paste('Eq. pref. var., ',sigma[y]^2, "*")))[[i]],side=2,line=1.7,at=(round(max(var_mat[i,,],na.rm=TRUE),1)+0.1)/2,cex=largefontsize/smallfontsize)
+	for(j in 1:length(k1_vals)){
+		if(length(which(!is.na(var_mat[i,,j+1])))!=0){
+			points(sigma2_vals,var_mat[i,,j+1],col=col_vec[j+1],t='o',lwd=lwd)}
+	}
+}
+
+xlim = c(-6,6)
+ylim=c(0,.04)
+k=5
+plot(mrange+1,equilibrium[[1,k,1]],col=col_vec[1],t='l',xlim=xlim,lwd=lwd,ylim=ylim,xlab='',ylab='')
+mtext('Song, x',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
+mtext('Frequency',side=2,line=2,at=mean(ylim),cex=largefontsize/smallfontsize)
+for(j in 1:length(k1_vals)){					
+		if(!is.na(equilibrium[[1,k,j+1]][1])){			
+			lines(mrange+1,equilibrium[[1,k,j+1]],col=col_vec[j+1],lwd=lwd)
+		}
+}
+
+
+for(i in 2){
+	plot(sigma2_vals,var_mat[i,,1],ylim=c(0,round(max(var_mat[i,,],na.rm=TRUE),1)+.1),t='o',lwd=lwd,col=col_vec[1],xlab='',ylab='')
+	mtext(expression(paste('Variance of pref. function, ', sigma^2)),side=1,line=2,at=mean(sigma2_vals),cex=largefontsize/smallfontsize)
+	mtext(list(expression(paste('Eq. song var., ',sigma[x]^2, "*")),expression(paste('Eq. pref. var., ',sigma[y]^2, "*")))[[i]],side=2,line=1.7,at=(round(max(var_mat[i,,],na.rm=TRUE),1)+0.1)/2,cex=largefontsize/smallfontsize)
+	for(j in 1:length(k1_vals)){
+		if(length(which(!is.na(var_mat[i,,j+1])))!=0){
+			points(sigma2_vals,var_mat[i,,j+1],col=col_vec[j+1],t='o',lwd=lwd)}
+	}
+}
+
+xlim = c(-6,6)
+ylim=c(0,.04)
+k=5
+plot(mrange+1,equilibrium[[1,k,1]],col=col_vec[1],t='l',xlim=xlim,lwd=lwd,ylim=ylim,xlab='',ylab='')
+mtext('Song, x',side=1,line=2,at=mean(xlim),cex=largefontsize/smallfontsize)
+mtext('Frequency',side=2,line=2,at=mean(ylim),cex=largefontsize/smallfontsize)
+for(j in 1:length(k1_vals)){					
+		if(!is.na(equilibrium[[1,k,j+1]][1])){			
+			lines(mrange+1,equilibrium[[1,k,j+1]],col=col_vec[j+5],lwd=lwd)
+		}
+}
+
+dev.off()
 
 # source('step_function_example.R')
 # sourece('mutation_test.R')

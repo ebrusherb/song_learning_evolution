@@ -18,9 +18,9 @@
 \cftsetindents{subsection}{3em}{2em}
 \setcounter{tocdepth}{2}% Allow only \chapter in ToC
 
-\title{Supporting Information: Comparing the Evolutionary Dynamics of Learned and Genetic Songs is Complicated}
+\title{Supporting Information: The Effect of Song Learning Depends on How Female Preferences Are Acquired}
 
-\author{Eleanor Brush$^{1\ast}$, William Fagan$^{1}$}
+\author{Eleanor Brush$^{1\ast}$, William F. Fagan$^{1}$}
 
 \date{}
 
@@ -270,37 +270,50 @@ We have just found that each pair of variables from $(x_\x{m},y_\x{m},x_\x{f},y_
 \end{pf}
 
 \section{Stable equilibria for nine mechanisms of acquisition}
-In this section, we will find the equilibrium values of the variance of the two traits, songs and preferences, and the covariance between the traits for each of nine different ``mechanisms" of acquisition. In the above, it was convenient to keep track of the correlation between the traits in a particular gender, using $\rho$. In deriving the distribution of the traits in offspring, it will be convenient to keep track of the covariance of the traits, using $\Cov=\rho\sigma_x\sigma_y$.  In Table \ref{equilibrium}, we show the stable equilibrium values of $\sigma_x^2$, $\sigma_y^2$, and $\Cov$.
+In this section, we will find the equilibrium values of the variance of the two traits, songs and preferences, and the covariance between the traits for each of nine different ``mechanisms" of acquisition. In the above, it was convenient to keep track of the correlation between the traits in a particular gender, using $\rho$. In deriving the distribution of the traits in offspring, it will be convenient to keep track of the covariance of the traits, using $C=\rho\sigma_x\sigma_y$.  In Table \ref{equilibrium}, we show the stable equilibrium values of $\sigma_x^2$, $\sigma_y^2$, and $C$.
+\begin{landscape}
 \begin{table}
-\caption{\label{equilibrium}In this table, a superscript ${}^\star$ indicates a stable equilibrium and $(0)$ indicates the initial conditions. For example $\sigma_x^2(0)$ is the initial value of $\sigma_x^2$.}
-\begin{tabular}{|r|l|l|l|}
-\hline & song learned obliquely  & song genetic & song from father
-\\\hline pref from mother  & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0, \ \frac{3\sigma_y^2-5\sigma^2+\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}}{6}$ & $\sigma_x^{2\star}=\max\{0,\sigma_y^2-\sigma^2\}$  
+\caption{\label{equilibrium}Here we show the stable equilibria of the twelve possible mechanisms of acquisition. Stable equilibria are indicated with a ${}^\star$ and initial values are indicated with $(0)$. For example $\sigma_x^{2\star}$ is a stable equilibrium of $\sigma_x^2$, and $\sigma_x^2(0)$ is the initial value of $\sigma_x^2$. The rows and columns are ordered so that the equilibrium variance of the distribution of songs $\sigma_x^{2\star}=0$ in cells that are lower and to the right.  We write ND when $\rho$ is not defined, because either $\sigma_x^{2\star}$ or $\sigma_y^{2\star}$ or both are equal to $0$. There are two mechanisms in which the system of recursion equations for $\sigma_x^2$ and $C$ are bistable: when song is genetic and preference is maternally learned and when both song and preference are genetic. Both stable equilibria are included in the table. The second equilibrium when song is genetic and preference is maternally learned only exists when $\sigma_y^2\geq\frac{5+2\sqrt{6}}{3}\sigma^2$.  }
+%\vspace{5pt}
+%\hspace{-50pt}
+\begin{tabular}{|l|l|l|l|}
+\hline \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ song: & A.  obliquely learned  & B. genetic & C. paternally learned
+\\\hline 
+pref: &&&
+\\I. maternally learned  & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0, \ \frac{3\sigma_y^2-5\sigma^2+\sqrt{9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2}}{6}$ & $\sigma_x^{2\star}=\max\{\sigma_y^2-\sigma^2,0\}$  
 \\ 	& 	$\sigma_y^{2\star}=\sigma_y^2(0)$ 	& $\sigma_y^{2\star}=\sigma_y^2(0)$ 		  & $\sigma_y^{2\star}=\sigma_y^2(0)$   
-\\ & $\Cov^\star=\Cov(0)$ &   $\Cov^\star=\frac{\sigma_x^{2\star}\sigma_y^{2\star}}{\sigma^2+\sigma_x^{2\star}}$  & $\Cov^\star=0$
-\\\hline pref genetic &  $\sigma_x^{2\star}=\sigma_x^2(0)$  & $\sigma_x^{2\star}=0,\ \infty$  & $\sigma_x^{2\star}=0$                      
+\\ & $ C^\star=0$ &   $ C^\star=\frac{\sigma_x^{2\star}\sigma_y^{2\star}}{\sigma^2+\sigma_x^{2\star}}$  & $ C^\star=0$
+\\ & $\rho^\star=0$ & $\rho^\star=\text{ND},\frac{\sigma_x^{\star}\sigma_y^{\star}}{\sigma^2+\sigma_x^{2\star}}$ & $\rho^\star=0$ 
+\\\hline II. genetic &  $\sigma_x^{2\star}=\sigma_x^2(0)$  & $\sigma_x^{2\star}=0,\ \infty$  & $\sigma_x^{2\star}=0$                      
 \\  		&  $\sigma_y^{2\star}=0$	& $\sigma_y^{2\star}= 0 , \ \infty$ 	  & $\sigma_y^{2\star}=0$  
-\\ & $\Cov^\star=0$   & $\Cov^\star=0, \ \infty$        & $\Cov^\star=0$          
-\\\hline pref from father & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0$  & $\sigma_x^{2\star}=0$                       
+\\ & $ C^\star=0$   & $ C^\star=0, \ \infty$        & $ C^\star=0$ 
+\\ & $\rho^\star=\text{ND}$ & $\rho^\star=\text{ND},1$ & $\rho^\star=\text{ND}$         
+\\\hline III. paternally imprinted & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0$  & $\sigma_x^{2\star}=0$                       
 \\  			& $\sigma_y^{2\star}=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{2\sigma_x^2+\sigma^2}$	  & $\sigma_y^{2\star}=0$  & $\sigma_y^{2\star}=0$                       
-\\ & $\Cov^\star=0$ & $\Cov^\star=0$ & $\Cov^\star=0$
+\\ & $ C^\star=0$ & $ C^\star=0$ & $ C^\star=0$
+\\ & $\rho^\star=0$ & $\rho^\star=\text{ND}$ & $\rho^\star=\text{ND}$
+\\ \hline IV. obliquely imprinted & $\sigma_x^{2\star}=\sigma_x^2(0)$ & $\sigma_x^{2\star}=0$ & $\sigma_x^{2\star}=0$
+\\ & $\sigma_y^{2\star}=\sigma_x^2(0)$ & $\sigma_y^{2\star}=0$ & $\sigma_y^{2\star}=0$
+\\ & $C^\star=0$ & $C^\star=0$ & $C^\star=0$
+\\ & $\rho^\star=0$ & $\rho^\star=ND$ & $\rho^\star=ND$
 \\\hline
 \end{tabular}
-\end{table} 
+\end{table}
+\end{landscape}
 
 \begin{enumerate}
 \item Song is learned from a random adult male, preference is imprinted from mother. In this case, neither the distribution of songs nor the distribution of preferences every changes. 
 
 \item Song is genetic, preference is imprinted from mother. Since both genders acquire song in the same way, $\sigma_{x\x{m}}^2=\sigma_{x\x{f}}^2$, so we can drop the subscripts and use $\sigma_x^2$ for both $\sigma_{x\x{m}}^2$ and $\sigma_{x\x{f}}^2$. In this case, males do not have a preference trait, so $\rho_\x{m}=0$. Since only females have preferences, we can drop the f subscript and use $\rho$ for $\rho_\x{f}$ and $\sigma_y^2$ for $\sigma_{y\x{f}}^2$. Then, using Claim \ref{covariance}, the variance and covariance of the traits in the offspring of mating adults will be
 \begin{align}
-\sigma_x^2(t+1)&=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov }{\sigma^2+\sigma_x^2}+1\right) \label{sigmax9}
+\sigma_x^2(t+1)&=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2C }{\sigma^2+\sigma_x^2}+1\right) \label{sigmax9}
 \\ \sigma_y^2(t+1)&=\sigma_y^2
-\\ \Cov (t+1)&=\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\frac{1}{2}\rho\sigma_x\sigma_y=\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\frac{1}{2}\Cov  \label{cov9}
+\\ C (t+1)&=\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\frac{1}{2}\rho\sigma_x\sigma_y=\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\frac{1}{2}C  \label{cov9}
 \end{align}
-One equilibrium occurs when $\sigma_x^2=\Cov=0$. If $\sigma_x^2,\Cov>0$, 
+One equilibrium occurs when $\sigma_x^2=C=0$. If $\sigma_x^2,C>0$, 
 \begin{align*}
-\Cov (t+1)=\Cov \Rightarrow \Cov& =\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2} \numberthis \label{cov_eq9}
-\\ \text{ and } \sigma_x^2(t+1)=\sigma_x^2\Rightarrow 4&=\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov }{\sigma^2+\sigma_x^2}+1.
+C (t+1)=C \Rightarrow C& =\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2} \numberthis \label{cov_eq9}
+\\ \text{ and } \sigma_x^2(t+1)=\sigma_x^2\Rightarrow 4&=\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2C }{\sigma^2+\sigma_x^2}+1.
 \\ \text{Combined with Eq. \ref{cov_eq9}} \Rightarrow 4&=\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+1
 \\\Rightarrow 3(\sigma^2+\sigma_x^2)^2&=\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2+2\sigma_x^2\sigma_y^2
 \\\Rightarrow 3(\sigma^2)^2+6\sigma^2\sigma_x^2+3(\sigma_x^2)^2&=\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2+2\sigma_x^2\sigma_y^2
@@ -320,32 +333,32 @@ D=9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2&\geq 0. %\numberthis \label{
 \\ &=\left(\frac{30\pm\sqrt{864}}{18}\right)\sigma^2
 \\&=\left(\frac{5\pm 2 \sqrt{6}}{3}\right)\sigma^2
 \end{align*}
-Therefore $9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2\geq 0$ when (A) $\sigma_y^2\leq \left(\frac{5-2\sqrt{6}}{3}\right)\sigma^2$ or (B) $\sigma_y^2\geq \left(\frac{5+2\sqrt{6}}{3}\right)\sigma^2$. If (A), then $3\sigma_y^2-5\sigma^2\leq -2\sqrt{6}<0$. Since $D=(5\sigma^2-3\sigma_y^2)-24(\sigma^2)^2<(5\sigma^2-3\sigma_y^2)^2$, $\sqrt{D}<(5\sigma^2-3\sigma_y^2)$ so that both values of $\sigma_x^2$ will be negative, which is not possible. If (B), then $3\sigma_y^2-5\sigma^2>0$ and $\sqrt{D}<5\sigma^2-3\sigma_y^2$ so that both values of $\sigma_x^2$ will be real and positive.  This gives us three equilibrial values of $\sigma_x^2$ and $\Cov$:
+Therefore $9(\sigma_y^2)^2-30\sigma^2\sigma_y^2+(\sigma^2)^2\geq 0$ when (A) $\sigma_y^2\leq \left(\frac{5-2\sqrt{6}}{3}\right)\sigma^2$ or (B) $\sigma_y^2\geq \left(\frac{5+2\sqrt{6}}{3}\right)\sigma^2$. If (A), then $3\sigma_y^2-5\sigma^2\leq -2\sqrt{6}<0$. Since $D=(5\sigma^2-3\sigma_y^2)-24(\sigma^2)^2<(5\sigma^2-3\sigma_y^2)^2$, $\sqrt{D}<(5\sigma^2-3\sigma_y^2)$ so that both values of $\sigma_x^2$ will be negative, which is not possible. If (B), then $3\sigma_y^2-5\sigma^2>0$ and $\sqrt{D}<5\sigma^2-3\sigma_y^2$ so that both values of $\sigma_x^2$ will be real and positive.  This gives us three equilibrial values of $\sigma_x^2$ and $C$:
 \begin{enumerate}[1.]
-\item $s_1^2=0$, $\Cov_1=0$
-\item $s_2^{2}=\frac{3\sigma_y^2-5\sigma^2-\sqrt{(\sigma^2)^2-30\sigma^2\sigma_y^2+9(\sigma_y^2)^2}}{6}$ and $\Cov_2=\frac{s_2^{2}\sigma_y^2}{\sigma^2+s_2^2}$
-\item $s_3^{2}=\frac{3\sigma_y^2-5\sigma^2+\sqrt{(\sigma^2)^2-30\sigma^2\sigma_y^2+9(\sigma_y^2)^2}}{6}$ and $\Cov_3=\frac{s_3^3\sigma_y^2}{\sigma^2+s_3^2}$
+\item $s_1^2=0$, $C_1=0$
+\item $s_2^{2}=\frac{3\sigma_y^2-5\sigma^2-\sqrt{(\sigma^2)^2-30\sigma^2\sigma_y^2+9(\sigma_y^2)^2}}{6}$ and $C_2=\frac{s_2^{2}\sigma_y^2}{\sigma^2+s_2^2}$
+\item $s_3^{2}=\frac{3\sigma_y^2-5\sigma^2+\sqrt{(\sigma^2)^2-30\sigma^2\sigma_y^2+9(\sigma_y^2)^2}}{6}$ and $C_3=\frac{s_3^3\sigma_y^2}{\sigma^2+s_3^2}$
 \end{enumerate}
 The first and third equilibria are stable. The second is unstable. We will show this using the Jacobian of the dynamics in Eqs. \ref{sigmax9}-\ref{cov9}. Let 
 \begin{align*}
-f(\sigma_x^2,\Cov)&=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}+1\right)
-\\ \text{ and } g(\sigma_x^2,\Cov)&=\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\frac{1}{2}\Cov.
+f(\sigma_x^2,C)&=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2C}{\sigma^2+\sigma_x^2}+1\right)
+\\ \text{ and } g(\sigma_x^2,C)&=\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\frac{1}{2}C.
 \end{align*}
 We will construct a Jacobian matrix for each equilibrium $i$:
 \begin{align*}
-J^i&=\left.\left(\begin{array}{cc} \frac{\partial f}{\partial \sigma_x^2} & \frac{\partial f }{\partial \Cov} \\ \frac{\partial g}{\partial \sigma_x^2} & \frac{\partial g}{\partial \Cov}\end{array}\right)\right|_{(s_i^2,\Cov_i^2)}
+J^i&=\left.\left(\begin{array}{cc} \frac{\partial f}{\partial \sigma_x^2} & \frac{\partial f }{\partial C} \\ \frac{\partial g}{\partial \sigma_x^2} & \frac{\partial g}{\partial C}\end{array}\right)\right|_{(s_i^2,C_i^2)}
 \end{align*}
 Equilibrium $i$ is stable if and only if all eigenvalues of $J^i$ have absolute value less than $1$. 
 \begin{align*}
-\frac{\partial f}{\partial \sigma_x^2}&=\frac{1}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}+1\right)+
-\\&\frac{\sigma_x^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)^2(\sigma^2+\sigma_y^2)-2(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2)(\sigma^2+\sigma_x^2)}{(\sigma^2+\sigma_x^2)^4}-\frac{2\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
-\\&=\frac{1}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}+1\right)+
-\\&\frac{\sigma_x^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)(\sigma^2+\sigma_y^2)-2(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2)}{(\sigma^2+\sigma_x^2)^3}-\frac{2\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
-\\&=\frac{1}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}+1\right)+
-\\&\frac{\sigma_x^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)(\sigma_y^2-\sigma^2)-2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}-\frac{2\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
-\\ \frac{\partial f}{\partial \Cov}&=\frac{2\sigma_x^2}{4(\sigma^2+\sigma_x^2)}=\frac{\sigma_x^2}{2(\sigma^2+\sigma_x^2)}
+\frac{\partial f}{\partial \sigma_x^2}&=\frac{1}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2C}{\sigma^2+\sigma_x^2}+1\right)+
+\\&\frac{\sigma_x^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)^2(\sigma^2+\sigma_y^2)-2(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2)(\sigma^2+\sigma_x^2)}{(\sigma^2+\sigma_x^2)^4}-\frac{2C}{(\sigma^2+\sigma_x^2)^2}\right)
+\\&=\frac{1}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2C}{\sigma^2+\sigma_x^2}+1\right)+
+\\&\frac{\sigma_x^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)(\sigma^2+\sigma_y^2)-2(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2)}{(\sigma^2+\sigma_x^2)^3}-\frac{2C}{(\sigma^2+\sigma_x^2)^2}\right)
+\\&=\frac{1}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2C}{\sigma^2+\sigma_x^2}+1\right)+
+\\&\frac{\sigma_x^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)(\sigma_y^2-\sigma^2)-2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}-\frac{2C}{(\sigma^2+\sigma_x^2)^2}\right)
+\\ \frac{\partial f}{\partial C}&=\frac{2\sigma_x^2}{4(\sigma^2+\sigma_x^2)}=\frac{\sigma_x^2}{2(\sigma^2+\sigma_x^2)}
 \\ \frac{\partial g}{\partial \sigma_x^2}&=\frac{1}{2}\frac{(\sigma^2+\sigma_x^2)\sigma_y^2-\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}=\frac{1}{2}\frac{\sigma^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}
-\\ \frac{\partial g}{\partial \Cov}&=\frac{1}{2}
+\\ \frac{\partial g}{\partial C}&=\frac{1}{2}
 \end{align*}
 We can now evaluate these derivatives to find each $J_i$:
 \begin{align*}
@@ -356,12 +369,12 @@ $J^1$ has two eigenvalues equal to $1/2$, so equilibrium $1$ is stable.
 
 According to the Perron-Frobenius Theorem, if all entries of $J$ are positive, there is an eigenvalue $\lambda>0$ of $J$ such that the absolute value of any other eigenvalue is less than $\lambda$. Further, $\min_j\sum_k J_{jk}\leq \lambda\leq \max_j\sum_k J_{jk}$. We will use this theorem to evaluate the stability of the non-zero equilibria. We first have to show that all entries of $J^2$ and $J^3$ are positive. It is easy to see that as long as $\sigma_x^2>0$ $J_{12}$, $J_{21}$, and $J_{22}$ are positive at both non-zero equilibria. At both non-zero equilibria,
 \begin{align*}
-4&=\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}+1
-\\ \text{ and } \Cov &=\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}.
+4&=\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2C}{\sigma^2+\sigma_x^2}+1
+\\ \text{ and } C &=\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}.
 \end{align*}
 Therefore, at both these equilibria, 
 \begin{align*}
-J_{11}=\frac{\partial f}{\partial \sigma_x^2}&= 1 + \frac{\sigma_x^2}{4}\left(\frac{\sigma_y^2-\sigma^2-4\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
+J_{11}=\frac{\partial f}{\partial \sigma_x^2}&= 1 + \frac{\sigma_x^2}{4}\left(\frac{\sigma_y^2-\sigma^2-4C}{(\sigma^2+\sigma_x^2)^2}\right)
 \\&=\frac{4(\sigma^2+\sigma_x^2)^2+\sigma_x^2\left(\sigma_y^2-\sigma^2-4\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}\right)}{4(\sigma^2+\sigma_x^2)^2}
 \\&=\frac{4(\sigma^2+\sigma_x^2)^3+\sigma_x^2\sigma_y^2(\sigma^2+\sigma_x^2)-\sigma_x^2\sigma^2(\sigma^2+\sigma_x^2)-4(\sigma_x^2)^2\sigma_y^2}{4(\sigma^2+\sigma_x^2)^3}
 \\&=\frac{4(\sigma_x^2)^3+12(\sigma_x^2)^2\sigma^2+12\sigma_x^2(\sigma^2)^2+4(\sigma^2)^3+\sigma_x^2\sigma_y^2\sigma^2+(\sigma_x^2)^2\sigma_y^2-\sigma_x^2(\sigma^2)^2-(\sigma_x^2)^2\sigma^2-4(\sigma_x^2)^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}
@@ -383,20 +396,20 @@ Since $n-p$ is always positive and $p=0$ at the equilibrium values of $\sigma_x^
 
 We will now find the sum of each row of $J$ at both non-zero equilibria: 
 \begin{align*}
-J_{11}+J_{12}&=1 + \frac{\sigma_x^2}{4}\left(\frac{\sigma_y^2-\sigma^2-4\Cov}{(\sigma^2+\sigma_x^2)^2}\right)+\frac{\sigma_x^2}{2(\sigma^2+\sigma_x^2)}
-\\&=1 + \frac{\sigma_x^2}{4}\left(\frac{\sigma_y^2-\sigma^2-4\Cov+2(\sigma^2+\sigma_x^2)}{(\sigma^2+\sigma_x^2)^2}\right)
-\\&=1 + \frac{\sigma_x^2}{4}\left(\frac{2\sigma_x^2+\sigma^2+\sigma_y^2-4\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
-\\ \Rightarrow J_{11}+J_{12}-1&=\frac{\sigma_x^2}{4}\left(\frac{2\sigma_x^2+\sigma^2+\sigma_y^2-4\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
-\\ \Rightarrow \sgn(J_{11}+J_{12}-1)&=\sgn\left(\frac{\sigma_x^2}{4}\left(\frac{2\sigma_x^2+\sigma^2+\sigma_y^2-4\Cov}{(\sigma^2+\sigma_x^2)^2}\right)\right)
-\\&=\sgn\left(\frac{2\sigma_x^2+\sigma^2+\sigma_y^2-4\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
-\\&=\sgn\left(2\sigma_x^2+\sigma^2+\sigma_y^2-4\Cov\right)
+J_{11}+J_{12}&=1 + \frac{\sigma_x^2}{4}\left(\frac{\sigma_y^2-\sigma^2-4C}{(\sigma^2+\sigma_x^2)^2}\right)+\frac{\sigma_x^2}{2(\sigma^2+\sigma_x^2)}
+\\&=1 + \frac{\sigma_x^2}{4}\left(\frac{\sigma_y^2-\sigma^2-4C+2(\sigma^2+\sigma_x^2)}{(\sigma^2+\sigma_x^2)^2}\right)
+\\&=1 + \frac{\sigma_x^2}{4}\left(\frac{2\sigma_x^2+\sigma^2+\sigma_y^2-4C}{(\sigma^2+\sigma_x^2)^2}\right)
+\\ \Rightarrow J_{11}+J_{12}-1&=\frac{\sigma_x^2}{4}\left(\frac{2\sigma_x^2+\sigma^2+\sigma_y^2-4C}{(\sigma^2+\sigma_x^2)^2}\right)
+\\ \Rightarrow \sgn(J_{11}+J_{12}-1)&=\sgn\left(\frac{\sigma_x^2}{4}\left(\frac{2\sigma_x^2+\sigma^2+\sigma_y^2-4C}{(\sigma^2+\sigma_x^2)^2}\right)\right)
+\\&=\sgn\left(\frac{2\sigma_x^2+\sigma^2+\sigma_y^2-4C}{(\sigma^2+\sigma_x^2)^2}\right)
+\\&=\sgn\left(2\sigma_x^2+\sigma^2+\sigma_y^2-4C\right)
 \\&=\sgn\left((2\sigma_x^2+\sigma^2+\sigma_y^2)(\sigma^2+\sigma_x^2)-4\sigma_x^2\sigma_y^2\right)
 \end{align*}
 \begin{align*}
 \text{ Let } q(\sigma_x^2)&=(2\sigma_x^2+\sigma^2+\sigma_y^2)(\sigma^2+\sigma_x^2)-4\sigma_x^2\sigma_y^2
 \\&=2(\sigma_x^2)^2+(3\sigma^2-3\sigma_y^2)\sigma_x^2+\sigma^2(\sigma^2+\sigma_y^2).
 \end{align*}
-The sign of $q(\sigma_x^2)$ gives the sign of $J_{11}+J_{12}-1$ at a particular $\sigma_x^2$, fixing $\Cov=\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}$. The zeros of $q(\sigma_x^2)$ are 
+The sign of $q(\sigma_x^2)$ gives the sign of $J_{11}+J_{12}-1$ at a particular $\sigma_x^2$, fixing $C=\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}$. The zeros of $q(\sigma_x^2)$ are 
 \begin{align*}
 v_1^2,v_2^2&=\frac{(3\sigma_y^2-3\sigma^2)\pm\sqrt{9(\sigma_y^2)^2-26\sigma^2\sigma_y^2+(\sigma^2)^2}}{4}.
 \end{align*}
@@ -444,7 +457,7 @@ J_{21}+J_{22}-1&=\frac{1}{2}\frac{\sigma^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\
 \\&=\frac{1}{2}\left(\frac{-(\sigma_x^2)^2-2\sigma^2\sigma_x^2+\sigma^2(\sigma_y^2-\sigma^2)}{(\sigma^2+\sigma_x^2)^2}\right)
 \\ \Rightarrow \sgn(J_{21}+J_{22}-1)&=\sgn(-(\sigma_x^2)^2-2\sigma^2\sigma_x^2+\sigma^2(\sigma_y^2-\sigma^2))
 \end{align*}
-Let $m(\sigma_x^2)=-(\sigma_x^2)^2-2\sigma^2\sigma_x^2-\sigma^2(\sigma^2-\sigma_y^2)$. The sign of $m(\sigma_x^2)$ is equal to the sign of $J_{21}+J_{22}-1$ at a particular $\sigma_x^2$, fixing $\Cov=\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}$. The zeros of $m(\sigma_x^2)$ are $z_1^2,z_2^2=-\sigma^2\pm\sigma_y\sigma$. If we can show that $z_1^2<s_2^2<z_2^2<s_3^2$ then we would know that $J_{21}+J_{22}>1$ at equilibrium $2$ and $J_{21}+J_{22}<1$ at equilibrium $3$. We will do so by evaluating $p$ at $z_1^2,z_2^2$:
+Let $m(\sigma_x^2)=-(\sigma_x^2)^2-2\sigma^2\sigma_x^2-\sigma^2(\sigma^2-\sigma_y^2)$. The sign of $m(\sigma_x^2)$ is equal to the sign of $J_{21}+J_{22}-1$ at a particular $\sigma_x^2$, fixing $C=\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}$. The zeros of $m(\sigma_x^2)$ are $z_1^2,z_2^2=-\sigma^2\pm\sigma_y\sigma$. If we can show that $z_1^2<s_2^2<z_2^2<s_3^2$ then we would know that $J_{21}+J_{22}>1$ at equilibrium $2$ and $J_{21}+J_{22}<1$ at equilibrium $3$. We will do so by evaluating $p$ at $z_1^2,z_2^2$:
 \begin{align*}
 p(z_1^2)&=3(z_1^2)^2+(5\sigma^2-3\sigma_y^2)z_1^2+2(\sigma^2)^2
 \\&=3(-\sigma^2-\sigma_y\sigma)^2+(5\sigma^2-3\sigma_y^2)(-\sigma^2-\sigma_y\sigma)+2(\sigma^2)^2
@@ -479,7 +492,7 @@ Therefore, at equilibrium $2$, $\min_j\sum_k J_{jk}>1$, which means that there i
 \begin{align}
 \sigma_x^2(t+1)&=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) \label{sigmax3}
 \\ \sigma_y^2(t+1)&=\sigma_y^2 \notag % \label{sigmay3}
-\\ \Cov(t+1)&=0 \notag
+\\ C(t+1)&=0 \notag
 \end{align}
 In this case, $\sigma_y^2$ never changes. Eq. \ref{sigmax3} shows that $\sigma_x^2(t+1)>\sigma_x^2$ when $\sigma_x^2>0$ and $\sigma_x^2<\sigma_y^2-\sigma^2$ and $\sigma_x^2(t+1)<\sigma_x^2$ when $\sigma_x^2>0$ and $\sigma_x^2>\sigma_y^2-\sigma^2$. Therefore, if $\sigma_y^2-\sigma^2<0$, then $\sigma_x^2$ will always decrease, so $\sigma_x^2=0$ is the only equilibrium and it is stable. On the other hand, if $\sigma_y^2-\sigma^2>0$, then $\sigma_x^2=0$ is an unstable equilibrium and $\sigma_x^2=\sigma_y^2-\sigma^2$ is a stable equilibrium. In summary, $\sigma_x^2=\max\{0,\sigma_y^2-\sigma^2\}$ is always a stable equilibrium.
 
@@ -488,8 +501,8 @@ In this case, $\sigma_y^2$ never changes. Eq. \ref{sigmax3} shows that $\sigma_x
 \sigma_x^2(t+1)&=\sigma_x^2 %\label{sigmax4}
 \\ \sigma_y^2(t+1)&=\frac{\sigma_y^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)^2-\rho^2\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right) \notag
 \\&=\frac{\sigma_y^2}{4}\left(\frac{-\rho^2\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+2\right)  \notag
-\\&=\frac{1}{4}\frac{-\Cov^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_y^2}{4}\left(\left(\frac{\Cov}{\sigma^2+\sigma_x^2}+1\right)^2+1\right) %\label{sigmay4}
-\\ \Cov(t+1)&=0
+\\&=\frac{1}{4}\frac{-C^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_y^2}{4}\left(\left(\frac{C}{\sigma^2+\sigma_x^2}+1\right)^2+1\right) %\label{sigmay4}
+\\ C(t+1)&=0
 \end{align*}
 Note that, after the first generation, any correlation between song and preference will be lost because there is no relationship between the adult male a young male happens to learn from and the preference genes he inherits from his parents. Therefore, after the first generation,
 \begin{align*}
@@ -503,41 +516,41 @@ Therefore, $\sigma_x^2$ remains constant and $\sigma_y^2=0$ is the only stable e
 \\\sigma_y^2(t+1)&=\frac{\sigma_y^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)^2-\rho^2\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right) 
 \notag
 \\&=\frac{\sigma_y^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right) +\frac{1}{4}\frac{(1-\rho^2)\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}\frac{(\sigma^2+\sigma_x^2-\sigma_y^2)}{\sigma^2+\sigma_x^2}
-\\\Cov(t+1)&=\frac{1}{4}\left(\frac{\rho\sigma_x\sigma_y(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2)}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\frac{\rho^2\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\rho\sigma_x\sigma_y\right)  \notag
+\\C(t+1)&=\frac{1}{4}\left(\frac{\rho\sigma_x\sigma_y(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2)}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\frac{\rho^2\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}+\rho\sigma_x\sigma_y\right)  \notag
 \\&=\frac{\rho\sigma_x\sigma_y}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right) +\frac{1}{4}\frac{(1-\rho^2)\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}
 \end{align*}
 Let 
-\begin{align*}Q(\sigma_x^2,\sigma_y^2,\Cov)&=\frac{1}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)
-\\\text{ and } g(\sigma_x^2,\sigma_y^2,\Cov)&=\frac{1}{4}\frac{(1-\rho^2)\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}
-\\&=\frac{1}{4}\frac{\sigma_x^2\sigma_y^2-\Cov^2}{\sigma^2+\sigma_x^2},
+\begin{align*}Q(\sigma_x^2,\sigma_y^2,C)&=\frac{1}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)
+\\\text{ and } g(\sigma_x^2,\sigma_y^2,C)&=\frac{1}{4}\frac{(1-\rho^2)\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}
+\\&=\frac{1}{4}\frac{\sigma_x^2\sigma_y^2-C^2}{\sigma^2+\sigma_x^2},
 \end{align*}
-where we have used the fact that $\Cov=\rho\sigma_x\sigma_y$. 
+where we have used the fact that $C=\rho\sigma_x\sigma_y$. 
 Then we can rewrite the dynamics as 
 \begin{align}
-\sigma_x^2(t+1)&=Q(\sigma_x^2,\sigma_y^2,\Cov)\sigma_x^2  \label{sigmax7}
-\\\sigma_y^2(t+1)&=Q(\sigma_x^2,\sigma_y^2,\Cov)\sigma_y^2+g(\sigma_x^2,\sigma_y^2,\Cov)\left(\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2}\right) \label{sigmay7}
-\\\Cov(t+1)&=Q(\sigma_x^2,\sigma_y^2,\Cov)\Cov+g(\sigma_x^2,\sigma_y^2,\Cov)\label{cov7}
+\sigma_x^2(t+1)&=Q(\sigma_x^2,\sigma_y^2,C)\sigma_x^2  \label{sigmax7}
+\\\sigma_y^2(t+1)&=Q(\sigma_x^2,\sigma_y^2,C)\sigma_y^2+g(\sigma_x^2,\sigma_y^2,C)\left(\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2}\right) \label{sigmay7}
+\\C(t+1)&=Q(\sigma_x^2,\sigma_y^2,C)C+g(\sigma_x^2,\sigma_y^2,C)\label{cov7}
 \end{align}
-Since $g(0,0,0)=0$, there is one equilibrium where $\sigma_x^2=\sigma_y^2=\Cov=0$.  For there to be an equilibrium at which $\sigma_x^2>0$, it must be that $Q=1$. If $Q=1$, then for $\Cov$ to reach equilibrium it must be that $g=0$ and therefore that $\rho=1$, which also ensures that $\sigma_y^2$ reaches equilibrium.  We will now show that $\sigma_x^2=\sigma_y^2=\Cov=0$ is a stable equilibrium and the surface in $(\sigma_x^2,\sigma_y^2,\Cov)$ space that satisfies $Q=1$ and $\Cov=\sigma_x\sigma_y$ is a manifold of unstable equilibria. To do so we will use the Jacobian of the dynamics in Eqs. \ref{sigmax7}-\ref{cov7},
+Since $g(0,0,0)=0$, there is one equilibrium where $\sigma_x^2=\sigma_y^2=C=0$.  For there to be an equilibrium at which $\sigma_x^2>0$, it must be that $Q=1$. If $Q=1$, then for $C$ to reach equilibrium it must be that $g=0$ and therefore that $\rho=1$, which also ensures that $\sigma_y^2$ reaches equilibrium.  We will now show that $\sigma_x^2=\sigma_y^2=C=0$ is a stable equilibrium and the surface in $(\sigma_x^2,\sigma_y^2,C)$ space that satisfies $Q=1$ and $C=\sigma_x\sigma_y$ is a manifold of unstable equilibria. To do so we will use the Jacobian of the dynamics in Eqs. \ref{sigmax7}-\ref{cov7},
 \begin{align*}
 \hspace{-60pt}
-J&=\left.\left(\begin{array}{ccc}\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+Q & \sigma_x^2\frac{\partial Q}{\partial \sigma_y^2} &\sigma_x^2\frac{\partial Q}{\partial \Cov}
-\\ \sigma_y^2\frac{\partial Q}{\partial \sigma_x^2}+g\times\left(\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)+\frac{\partial g}{\partial \sigma_x^2}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2} & \sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+Q+g\times\left(-\frac{1}{\sigma^2+\sigma_x^2}\right)+ \frac{\partial g}{\partial \sigma_y^2}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2} & \sigma_y^2\frac{\partial Q}{\partial \Cov}+\frac{\partial g}{\partial \Cov}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2}
-\\ \Cov\frac{\partial Q}{\partial \sigma_x^2}+\frac{\partial g}{\partial \sigma_x^2}  & \Cov\frac{\partial Q}{\partial \sigma_y^2}+\frac{\partial g}{\partial\sigma_y^2} & \Cov\frac{\partial Q}{\partial \Cov}+Q+\frac{\partial g}{\partial \Cov}
+J&=\left.\left(\begin{array}{ccc}\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+Q & \sigma_x^2\frac{\partial Q}{\partial \sigma_y^2} &\sigma_x^2\frac{\partial Q}{\partial C}
+\\ \sigma_y^2\frac{\partial Q}{\partial \sigma_x^2}+g\times\left(\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)+\frac{\partial g}{\partial \sigma_x^2}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2} & \sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+Q+g\times\left(-\frac{1}{\sigma^2+\sigma_x^2}\right)+ \frac{\partial g}{\partial \sigma_y^2}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2} & \sigma_y^2\frac{\partial Q}{\partial C}+\frac{\partial g}{\partial C}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2}
+\\ C\frac{\partial Q}{\partial \sigma_x^2}+\frac{\partial g}{\partial \sigma_x^2}  & C\frac{\partial Q}{\partial \sigma_y^2}+\frac{\partial g}{\partial\sigma_y^2} & C\frac{\partial Q}{\partial C}+Q+\frac{\partial g}{\partial C}
 \end{array}\right)\right |_\text{equilibrium}
-\\\hspace{-60pt}&=\left.\left(\begin{array}{ccc}\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+Q & \sigma_x^2\frac{\partial Q}{\partial \sigma_y^2} &\sigma_x^2\frac{\partial Q}{\partial \Cov}
-\\ \sigma_y^2\frac{\partial Q}{\partial \sigma_x^2}+\frac{\partial g}{\partial \sigma_x^2}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2} & \sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+Q+ \frac{\partial g}{\partial \sigma_y^2}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2} & \sigma_y^2\frac{\partial Q}{\partial \Cov}+\frac{\partial g}{\partial \Cov}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2}
-\\ \Cov\frac{\partial Q}{\partial \sigma_x^2}+\frac{\partial g}{\partial \sigma_x^2}  & \Cov\frac{\partial Q}{\partial \sigma_y^2}+\frac{\partial g}{\partial\sigma_y^2} & \Cov\frac{\partial Q}{\partial \Cov}+Q+\frac{\partial g}{\partial \Cov}
+\\\hspace{-60pt}&=\left.\left(\begin{array}{ccc}\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+Q & \sigma_x^2\frac{\partial Q}{\partial \sigma_y^2} &\sigma_x^2\frac{\partial Q}{\partial C}
+\\ \sigma_y^2\frac{\partial Q}{\partial \sigma_x^2}+\frac{\partial g}{\partial \sigma_x^2}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2} & \sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+Q+ \frac{\partial g}{\partial \sigma_y^2}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2} & \sigma_y^2\frac{\partial Q}{\partial C}+\frac{\partial g}{\partial C}\frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2}
+\\ C\frac{\partial Q}{\partial \sigma_x^2}+\frac{\partial g}{\partial \sigma_x^2}  & C\frac{\partial Q}{\partial \sigma_y^2}+\frac{\partial g}{\partial\sigma_y^2} & C\frac{\partial Q}{\partial C}+Q+\frac{\partial g}{\partial C}
 \end{array}\right)\right |_\text{equilibrium}
 \end{align*}
 since $g=0$ at all equilibria.
 To simplify $J$, we need to know the derivatives of $g$:
 \begin{align*}
-\frac{\partial g}{\partial \sigma_x^2}&=\frac{1}{4}\frac{\sigma_y^2}{\sigma^2+\sigma_x^2}-\frac{1}{4}\frac{\sigma_x^2\sigma_y^2-\Cov^2}{(\sigma^2+\sigma_x^2)^2}
+\frac{\partial g}{\partial \sigma_x^2}&=\frac{1}{4}\frac{\sigma_y^2}{\sigma^2+\sigma_x^2}-\frac{1}{4}\frac{\sigma_x^2\sigma_y^2-C^2}{(\sigma^2+\sigma_x^2)^2}
 \\ \frac{\partial g}{\partial \sigma_y^2}&=\frac{1}{4}\frac{\sigma_x^2}{\sigma^2+\sigma_x^2}
-\\ \frac{\partial g}{\partial \Cov}&=\frac{1}{4}\frac{-2\Cov}{\sigma^2+\sigma_x^2}
+\\ \frac{\partial g}{\partial C}&=\frac{1}{4}\frac{-2C}{\sigma^2+\sigma_x^2}
 \end{align*}
-We first consider the $(0,0,0)$ equilibrium. Since $Q(0,0,0)=1/2$ and $g(0,0,0)=\frac{\partial g}{\partial \sigma_x^2}=\frac{\partial g}{\partial \sigma_y^2}=\frac{\partial g}{\partial \Cov}=0$, at this equilibrium,
+We first consider the $(0,0,0)$ equilibrium. Since $Q(0,0,0)=1/2$ and $g(0,0,0)=\frac{\partial g}{\partial \sigma_x^2}=\frac{\partial g}{\partial \sigma_y^2}=\frac{\partial g}{\partial C}=0$, at this equilibrium,
 \begin{align*}
 J&=\left(\begin{array}{ccc}
 \frac{1}{2} & 0 & 0
@@ -547,67 +560,67 @@ J&=\left(\begin{array}{ccc}
 \end{align*}
 Therefore, all three eigenvalues of $J$ are equal to $1/2$. Since there is no eigenvalue with absolute value greater than $1$ the $(0,0,0)$ equilibrium is stable. 
 
-Next consider any point $(\sigma_x^2,\sigma_y^2,\Cov)$ such that $Q(\sigma_x^2,\sigma_y^2,\Cov)=1$ and $\Cov=\sigma_x\sigma_y$ and let $J$ be the Jacobian evaluated at this point. Let $v=(\sigma_x^2,\sigma_y^2,\Cov)^T$. Then
+Next consider any point $(\sigma_x^2,\sigma_y^2,C)$ such that $Q(\sigma_x^2,\sigma_y^2,C)=1$ and $C=\sigma_x\sigma_y$ and let $J$ be the Jacobian evaluated at this point. Let $v=(\sigma_x^2,\sigma_y^2,C)^T$. Then
 \begin{align*}
-Jv&=\left(\begin{array}{c}\sigma_x^2 \\ \sigma_y^2 \\ \Cov \end{array}\right)+
+Jv&=\left(\begin{array}{c}\sigma_x^2 \\ \sigma_y^2 \\ C \end{array}\right)+
 \left(\begin{array}{c}
-\sigma_x^2\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}\right) 
-\\ \sigma_y^2\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}\right)
-\\ \Cov\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}\right) \end{array}\right)
+\sigma_x^2\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+C\frac{\partial Q}{\partial C}\right) 
+\\ \sigma_y^2\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+C\frac{\partial Q}{\partial C}\right)
+\\ C\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+C\frac{\partial Q}{\partial C}\right) \end{array}\right)
 + \left(\begin{array}{c} 
 0 
-\\ \frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2}\left(\sigma_x^2\frac{\partial g}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial g}{\partial \sigma_y^2}+\Cov\frac{\partial g}{\partial \Cov}\right)
-\\ \sigma_x^2\frac{\partial g}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial g}{\partial \sigma_y^2}+\Cov\frac{\partial g}{\partial \Cov}
+\\ \frac{\sigma^2+\sigma_x^2-\sigma_y^2}{\sigma^2+\sigma_x^2}\left(\sigma_x^2\frac{\partial g}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial g}{\partial \sigma_y^2}+C\frac{\partial g}{\partial C}\right)
+\\ \sigma_x^2\frac{\partial g}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial g}{\partial \sigma_y^2}+C\frac{\partial g}{\partial C}
 \end{array}\right) \text{ since $Q=1$}.
 \end{align*}
-At this equilibrium $\sigma_x^2\sigma_y^2-\Cov^2=0$ so 
+At this equilibrium $\sigma_x^2\sigma_y^2-C^2=0$ so 
 \begin{align*}
-\sigma_x^2\frac{\partial g}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial g}{\partial \sigma_y^2}+\Cov\frac{\partial g}{\partial \Cov}&=\frac{1}{4(\sigma^2+\sigma_x^2)}(\sigma_x^2\sigma_y^2+\sigma_x^2\sigma_y^2-2\Cov^2)
-\\&=\frac{1}{2(\sigma^2+\sigma_x^2)}(\sigma_x^2\sigma_y^2-\Cov^2)=0.
+\sigma_x^2\frac{\partial g}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial g}{\partial \sigma_y^2}+C\frac{\partial g}{\partial C}&=\frac{1}{4(\sigma^2+\sigma_x^2)}(\sigma_x^2\sigma_y^2+\sigma_x^2\sigma_y^2-2C^2)
+\\&=\frac{1}{2(\sigma^2+\sigma_x^2)}(\sigma_x^2\sigma_y^2-C^2)=0.
 \end{align*}
 Therefore,
 \begin{align*}
-Jv&=\left(\begin{array}{c}\sigma_x^2 \\ \sigma_y^2 \\ \Cov \end{array}\right)+
+Jv&=\left(\begin{array}{c}\sigma_x^2 \\ \sigma_y^2 \\ C \end{array}\right)+
 \left(\begin{array}{c}
-\sigma_x^2\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}\right) 
-\\ \sigma_y^2\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}\right)
-\\ \Cov\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}\right) \end{array}\right)
-\\&=\left(1+\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}\right)v,
+\sigma_x^2\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+C\frac{\partial Q}{\partial C}\right) 
+\\ \sigma_y^2\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+C\frac{\partial Q}{\partial C}\right)
+\\ C\left(\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+C\frac{\partial Q}{\partial C}\right) \end{array}\right)
+\\&=\left(1+\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+C\frac{\partial Q}{\partial C}\right)v,
 \end{align*}
-so $v$ is an eigenvector of $J$ with eigenvalue $\lambda = 1+\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}$. We will now show that $\lambda>1$:
+so $v$ is an eigenvector of $J$ with eigenvalue $\lambda = 1+\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+C\frac{\partial Q}{\partial C}$. We will now show that $\lambda>1$:
 \begin{align*}
-\frac{\partial Q}{\partial \sigma_x^2}&=\frac{1}{4}\left(-\frac{\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}-\frac{2\Cov}{(\sigma^2+\sigma_x^2)^2}\right)
+\frac{\partial Q}{\partial \sigma_x^2}&=\frac{1}{4}\left(-\frac{\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}-\frac{2C}{(\sigma^2+\sigma_x^2)^2}\right)
 \\&=\frac{1}{4}\left(\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}-\frac{3}{\sigma^2+\sigma_x^2}\right) 
-\\&\text{ since $\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}=3$ at this equilibrium }
+\\&\text{ since $\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2C}{\sigma^2+\sigma_x^2}=3$ at this equilibrium }
 \\&=\frac{1}{4}\left(\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\frac{\sigma^2}{\sigma^2+\sigma_x^2}-\frac{3}{\sigma^2+\sigma_x^2}\right)
 \\ \Rightarrow \sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}&=\frac{1}{4}\left(\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\frac{\sigma^2}{\sigma^2+\sigma_x^2}-\frac{3\sigma_x^2}{\sigma^2+\sigma_x^2}\right).
 \\\frac{\partial Q}{\partial \sigma_y^2}&=\frac{1}{4}\frac{\sigma_x^2}{(\sigma^2+\sigma_x^2)^2}
 \\ \Rightarrow \sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}&=\frac{1}{4}\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}.
-\\ \frac{\partial Q}{\partial \Cov}&=\frac{1}{4}\frac{2}{\sigma^2+\sigma_x^2}
-\\ \Rightarrow \Cov\frac{\partial Q}{\partial \Cov}&=\frac{1}{4}\frac{2\Cov}{\sigma^2+\sigma_x^2}.
-\\ \Rightarrow \sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}&=\frac{1}{4}\left(\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\frac{\sigma^2}{\sigma^2+\sigma_x^2}-\frac{3\sigma_x^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}\right)
+\\ \frac{\partial Q}{\partial C}&=\frac{1}{4}\frac{2}{\sigma^2+\sigma_x^2}
+\\ \Rightarrow C\frac{\partial Q}{\partial C}&=\frac{1}{4}\frac{2C}{\sigma^2+\sigma_x^2}.
+\\ \Rightarrow \sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+C\frac{\partial Q}{\partial C}&=\frac{1}{4}\left(\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\frac{\sigma^2}{\sigma^2+\sigma_x^2}-\frac{3\sigma_x^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2C}{\sigma^2+\sigma_x^2}\right)
 \\ &=\frac{1}{4}\left(\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\frac{\sigma^2}{\sigma^2+\sigma_x^2}-\frac{3\sigma_x^2}{\sigma^2+\sigma_x^2}+3-\frac{\sigma^2}{\sigma^2+\sigma_x^2}\right)
 \\&=\frac{1}{4}\left(\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{3\sigma^2}{\sigma^2+\sigma_x^2}-\frac{\sigma^2}{\sigma^2+\sigma_x^2}\right)
 \\&=\frac{1}{4}\left(\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{2\sigma^2}{\sigma^2+\sigma_x^2}\right)
 \\&=\frac{1}{4}\frac{\sigma^2}{\sigma^2+\sigma_x^2}\left(\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+2\right)>0.
-\\ \Rightarrow \lambda &=1+\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+\Cov\frac{\partial Q}{\partial \Cov}>1.
+\\ \Rightarrow \lambda &=1+\sigma_x^2\frac{\partial Q}{\partial \sigma_x^2}+\sigma_y^2\frac{\partial Q}{\partial \sigma_y^2}+C\frac{\partial Q}{\partial C}>1.
 \end{align*}
-Since there is an eigenvalue of $J$ that is greater than $1$, the equilibrium is unstable. Trajectories that start below this manifold of equilibria will approach the stable equilibrium at $\sigma_x^2=\sigma_y^2=\Cov=0$. If a trajectory starts above this manifold, $\sigma_x^2$, $\sigma_y^2$ and $\Cov$ will increase indefinitely. By iterating the recursion equations numerically, we find that, in this case, $\rho$ approaches $1$.
+Since there is an eigenvalue of $J$ that is greater than $1$, the equilibrium is unstable. Trajectories that start below this manifold of equilibria will approach the stable equilibrium at $\sigma_x^2=\sigma_y^2=C=0$. If a trajectory starts above this manifold, $\sigma_x^2$, $\sigma_y^2$ and $C$ will increase indefinitely. By iterating the recursion equations numerically, we find that, in this case, $\rho$ approaches $1$.
 
 \item Song is learned from father, preference is genetic. In this case, females do not have a song trait, so $\rho_\x{f}=0$. Since only males have songs, we can drop the m subscript and use $\rho$ for $\rho_\x{m}$ and $\sigma_x^2$ for $\sigma_{x\x{m}}^2$. Since both genders acquire preference in the same way, $\sigma_{y\x{m}}^2=\sigma_{y\x{f}}^2$, and we can drop the subscripts and use $\sigma_y^2$ for both $\sigma_{y\x{m}}^2$ and $\sigma_{y\x{f}}^2$. Then, using Claim \ref{covariance}, the variance and covariance of the traits in the offspring of mating adults will be 
 \begin{align}
 \sigma_x^2(t+1)&=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) \label{sigmax1}
 \\ \sigma_y^2(t+1)&=\frac{\sigma_y^2}{4}\left(\frac{(\sigma^2+\sigma_x^2)^2-\rho^2\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right) \notag
 \\&=\frac{\sigma_y^2}{4}\left(\frac{-\rho^2\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+2\right) \label{sigmay1}
-\\ \Cov(t+1)&=\frac{1}{2}\frac{\rho\sigma_x\sigma_y(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2)}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2} \notag
-\\&=\frac{1}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)\Cov+\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}. \label{cov1}
+\\ C(t+1)&=\frac{1}{2}\frac{\rho\sigma_x\sigma_y(\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2)}{(\sigma^2+\sigma_x^2)^2}+\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2} \notag
+\\&=\frac{1}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)C+\frac{1}{2}\frac{\sigma_x^2\sigma_y^2}{\sigma^2+\sigma_x^2}. \label{cov1}
 \end{align}
-One equilibrium occurs when $\sigma_x^2=\sigma_y^2=\Cov=0$. For there to be an equilibrium at which $\sigma_x^2>0$, it must be that 
+One equilibrium occurs when $\sigma_x^2=\sigma_y^2=C=0$. For there to be an equilibrium at which $\sigma_x^2>0$, it must be that 
 \begin{align*}
 \sigma_x^2&=\sigma_y^2-\sigma^2 \text{ using Eq. \ref{sigmax1}} %\numberthis \label{sigmax_condition} 
 \\ \text{ and }
-\Cov&=\frac{1}{2}\Cov+\frac{1}{2}\sigma_x^2 \text{ using Eq. \ref{cov1}}
-\\ \Leftrightarrow \Cov&=\sigma_x^2 %=\sigma_y^2-\sigma^2 %\numberthis \label{cov_condition}
+C&=\frac{1}{2}C+\frac{1}{2}\sigma_x^2 \text{ using Eq. \ref{cov1}}
+\\ \Leftrightarrow C&=\sigma_x^2 %=\sigma_y^2-\sigma^2 %\numberthis \label{cov_condition}
 \\ \Leftrightarrow  \rho\sigma_x\sigma_y&=\sigma_x^2
   \numberthis \label{rho_condition}
 \\ \text{and  }  4&=\frac{-\rho^2\sigma_x^2(\sigma^2+\sigma_x^2)+\rho^2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+2 \text{ using Eq. \ref{sigmay1}}
@@ -615,17 +628,17 @@ One equilibrium occurs when $\sigma_x^2=\sigma_y^2=\Cov=0$. For there to be an e
 \\ \Leftrightarrow \rho\sigma_x\sigma_y&=\sigma^2+\sigma_x^2
 \\ \Leftrightarrow \sigma_x^2&=\sigma^2+\sigma_x^2 \text{ using Eq. \ref{rho_condition} } 
 \end{align*}
-This is only possible if $\sigma^2=0$. If $\sigma^2>0$, then there can be no equilibrium at which $\sigma_x^2>0$. We will now show that the equilibrium at which $\sigma_x^2=\sigma_y^2=\Cov=0$ is stable by finding the Jacobian of the dynamics in Eqs. \ref{sigmax1}-\ref{cov1}. To do so, it will be useful to rewrite Eq. \ref{sigmay1} as 
+This is only possible if $\sigma^2=0$. If $\sigma^2>0$, then there can be no equilibrium at which $\sigma_x^2>0$. We will now show that the equilibrium at which $\sigma_x^2=\sigma_y^2=C=0$ is stable by finding the Jacobian of the dynamics in Eqs. \ref{sigmax1}-\ref{cov1}. To do so, it will be useful to rewrite Eq. \ref{sigmay1} as 
 \begin{align*}
-\sigma_y^2(t+1)&=\frac{1}{4}\frac{-\Cov}{\sigma^2+\sigma_x^2}+\frac{\sigma_y^2}{4}\left(\left(\frac{\Cov}{\sigma^2+\sigma_x^2}+1\right)^2+1\right). 
+\sigma_y^2(t+1)&=\frac{1}{4}\frac{-C}{\sigma^2+\sigma_x^2}+\frac{\sigma_y^2}{4}\left(\left(\frac{C}{\sigma^2+\sigma_x^2}+1\right)^2+1\right). 
 \end{align*}
 Now, 
 \begin{align*}
 \hspace{-73pt}J&\hspace{-2pt}=\hspace{-5pt}\left.\left(\hspace{-5pt}\begin{array}{ccc} 
 \frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\sigma_x^2\left(-\frac{\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}\right)
 & \frac{(\sigma_x^2)^2}{(\sigma^2+\sigma_x^2)^2} & 0 
-\\ \frac{\Cov}{4(\sigma^2+\sigma_x^2)^2}+\frac{2\sigma_y^2}{4}\left(\frac{\Cov}{\sigma^2+\sigma_x^2}+1\right)\frac{-\Cov}{(\sigma^2+\sigma_x^2)^2} & \frac{1}{4}\left(\left(\frac{\Cov}{\sigma^2+\sigma_x^2}+1\right)^2+1\right) & \frac{1}{4}\frac{-1}{\sigma^2+\sigma_x^2}+\frac{2\sigma_y^2}{4(\sigma^2+\sigma_x^2)}\left(\frac{\Cov}{\sigma^2+\sigma_x^2}+1\right)
-\\ \frac{1}{2}\left(\Cov\left(-\frac{\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}\right)+\frac{\sigma_y^2}{\sigma^2+\sigma_x^2}-\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) & \frac{\sigma_x^2\Cov}{2(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_x^2}{2(\sigma^2+\sigma_x^2)} & \frac{1}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)
+\\ \frac{C}{4(\sigma^2+\sigma_x^2)^2}+\frac{2\sigma_y^2}{4}\left(\frac{C}{\sigma^2+\sigma_x^2}+1\right)\frac{-C}{(\sigma^2+\sigma_x^2)^2} & \frac{1}{4}\left(\left(\frac{C}{\sigma^2+\sigma_x^2}+1\right)^2+1\right) & \frac{1}{4}\frac{-1}{\sigma^2+\sigma_x^2}+\frac{2\sigma_y^2}{4(\sigma^2+\sigma_x^2)}\left(\frac{C}{\sigma^2+\sigma_x^2}+1\right)
+\\ \frac{1}{2}\left(C\left(-\frac{\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}\right)+\frac{\sigma_y^2}{\sigma^2+\sigma_x^2}-\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) & \frac{\sigma_x^2C}{2(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_x^2}{2(\sigma^2+\sigma_x^2)} & \frac{1}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)
 \end{array}\hspace{-9pt}\right)\hspace{-2.8pt}\right|_\text{equilibrium}
 \\\hspace{-73pt} &=\left(\begin{array}{ccc} 
 1 & 0 & 0 
@@ -633,7 +646,7 @@ Now,
 \\ 0 & 0 & \frac{1}{2}
 \end{array}\right)
 \end{align*}
-This linearization shows that small perturbations from equilibrium in either the $\sigma_y^2$ or $\Cov$ directions will shrink. However, since $(1,0,0)^T$ is an eigenvector of $J$ with eigenvalue $1$, the linearization cannot tell us what happens to a small perturbation in the $\sigma_x^2$ direction. However, Eq. \ref{sigmax1} shows that, as long as $\sigma_x^2>\sigma_y^2-\sigma^2$ then $\sigma_x^2(t+1)<\sigma_x^2(t)$. In particular, if $\sigma_y^2=0$ then any perturbation in the $\sigma_x^2$ direction will shrink. Therefore, the equilibrium with $\sigma_x^2=\sigma_y^2=\Cov=0$ is stable.
+This linearization shows that small perturbations from equilibrium in either the $\sigma_y^2$ or $C$ directions will shrink. However, since $(1,0,0)^T$ is an eigenvector of $J$ with eigenvalue $1$, the linearization cannot tell us what happens to a small perturbation in the $\sigma_x^2$ direction. However, Eq. \ref{sigmax1} shows that, as long as $\sigma_x^2>\sigma_y^2-\sigma^2$ then $\sigma_x^2(t+1)<\sigma_x^2(t)$. In particular, if $\sigma_y^2=0$ then any perturbation in the $\sigma_x^2$ direction will shrink. Therefore, the equilibrium with $\sigma_x^2=\sigma_y^2=C=0$ is stable.
 
 
 \item Song is learned from a random adult male, preference is learned / imprinted from father. 
@@ -641,7 +654,7 @@ In this case, females do not have a song trait, so $\rho_\x{f}=0$, and males do 
 \begin{align}
 \sigma_x^2(t+1)&=\sigma_x^2 \notag % \label{sigmax5}
 \\ \sigma_y^2(t+1)&=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) \label{sigmay5}
-\\ \Cov(t+1)&=0 \notag
+\\ C(t+1)&=0 \notag
 \end{align}
 If $\sigma_x^2=0$, then $\sigma_y^2=0$ is a stable equilibrium. If $\sigma_x^2>0$, according to Eq. \ref{sigmay5}, 
 \begin{align*}
@@ -658,25 +671,25 @@ Therefore $\sigma_y^2=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{\sigma^2+2\sigma_x^
 \item Song is genetic, preference is learned / imprinted from father. Since both genders acquire song in the same way, $\sigma_{x\x{m}}^2=\sigma_{x\x{f}}^2$, so we can drop the 
 subscripts and use $\sigma_x^2$ for both $\sigma_{x\x{m}}^2$ and $\sigma_{x\x{f}}^2$. In this case, males do not have a preference trait, so $\rho_\x{m}=0$. Since only females have preferences, we can drop the f subscript and use $\rho$ for $\rho_\x{f}$ and $\sigma_y^2$ for $\sigma_{y\x{f}}^2$. Then, using Claim 1.1, the variance and covariance o the traits in the offspring of mating adults will be 
 \begin{align}
-\sigma_x^2(t+1)&=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov }{\sigma^2+\sigma_x^2}+1\right) \label{sigmax8}
+\sigma_x^2(t+1)&=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\rho\sigma_x\sigma_y}{\sigma^2+\sigma_x^2}+1\right)=\frac{\sigma_x^2}{4}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2C }{\sigma^2+\sigma_x^2}+1\right) \label{sigmax8}
 \\ \sigma_y^2(t+1)&=\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)\sigma_x^2 \label{sigmay8}
-\\ \Cov(t+1)&=\frac{1}{2}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)\sigma_x^2+\frac{1}{2}\frac{\rho\sigma_x^2\sigma_x\sigma_y}{\sigma^2+\sigma_x^2} \notag
-\\&=\frac{\sigma_x^2}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\Cov}{\sigma^2+\sigma_x^2}\right) \label{cov8}
+\\ C(t+1)&=\frac{1}{2}\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)\sigma_x^2+\frac{1}{2}\frac{\rho\sigma_x^2\sigma_x\sigma_y}{\sigma^2+\sigma_x^2} \notag
+\\&=\frac{\sigma_x^2}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{C}{\sigma^2+\sigma_x^2}\right) \label{cov8}
 \end{align}
-There is one equilibrium at which $\sigma_x^2=\sigma_y^2=\Cov=0$. If there is to be an equilibrium at which $\sigma_x^2\neq 0$, it must be that
+There is one equilibrium at which $\sigma_x^2=\sigma_y^2=C=0$. If there is to be an equilibrium at which $\sigma_x^2\neq 0$, it must be that
 \begin{align*}
-4&=\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov }{\sigma^2+\sigma_x^2}+1 \numberthis \label{first} 
+4&=\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2C }{\sigma^2+\sigma_x^2}+1 \numberthis \label{first} 
 \\  \sigma_y^2&=\left(\frac{\sigma^2(\sigma^2+\sigma_x^2)+\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)\sigma_x^2 \numberthis \label{second}
-\\ \text{ and } \Cov&=\frac{\sigma_x^2}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\Cov}{\sigma^2+\sigma_x^2}\right).\numberthis  \label{third} 
+\\ \text{ and } C&=\frac{\sigma_x^2}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{C}{\sigma^2+\sigma_x^2}\right).\numberthis  \label{third} 
 \\ \text{Eq. \ref{second} } \Leftrightarrow \left(1-\frac{(\sigma_x^2)^2}{(\sigma^2+\sigma_x^2)^2}\right)\sigma_y^2&=\frac{\sigma^2\sigma_x^2}{\sigma^2+\sigma_x^2}
 \\\Leftrightarrow \left(\frac{(\sigma^2)^2+2\sigma^2\sigma_x^2+(\sigma_x^2)^2-(\sigma_x^2)^2}{(\sigma^2+\sigma_x^2)^2}\right)\sigma_y^2&=\frac{\sigma^2\sigma_x^2}{\sigma^2+\sigma_x^2}
 \\ \Leftrightarrow \sigma_y^2&=\frac{\sigma^2\sigma_x^2(\sigma^2+\sigma_x^2)}{\sigma^2(\sigma^2+2\sigma_x^2)}
 \\&=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{\sigma^2+2\sigma_x^2}.  \numberthis \label{sigmayeq8}
-\\ \text{Eq. \ref{third} } \Leftrightarrow \frac{2\sigma^2+\sigma_x^2}{\sigma^2+\sigma_x^2}\Cov&=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)
+\\ \text{Eq. \ref{third} } \Leftrightarrow \frac{2\sigma^2+\sigma_x^2}{\sigma^2+\sigma_x^2}C&=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right)
 \\ &=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{(\sigma_x^2)^2}{(\sigma^2+\sigma_x^2)(\sigma^2+2\sigma_x^2)}\right)  \text{ using Eq. \ref{sigmayeq8}}
 \\&=\sigma_x^2\left(\frac{(\sigma^2)^2+2\sigma^2\sigma_x^2+(\sigma_x^2)^2}{(\sigma^2+\sigma_x^2)(\sigma^2+2\sigma_x^2)}\right)
 \\&=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)}{\sigma^2+2\sigma_x^2}
-\\ \Leftrightarrow \Cov&=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)^2}{(\sigma^2+2\sigma_x^2)(2\sigma^2+\sigma_x^2)}.  \numberthis \label{coveq8}
+\\ \Leftrightarrow C&=\frac{\sigma_x^2(\sigma^2+\sigma_x^2)^2}{(\sigma^2+2\sigma_x^2)(2\sigma^2+\sigma_x^2)}.  \numberthis \label{coveq8}
 \\\text{Eqs. \ref{first}, \ref{sigmayeq8}, \ref{coveq8} } \Rightarrow 3&=\frac{\sigma^2+\sigma_x^2}{\sigma^2+2\sigma_x^2}+\frac{2\sigma_x^2(\sigma^2+\sigma_x^2)}{(\sigma^2+2\sigma_x^2)(2\sigma^2+\sigma_x^2)}
 \\&=\frac{(\sigma^2+\sigma_x^2)(2\sigma^2+\sigma_x^2)+2\sigma_x^2(\sigma^2+\sigma_x^2)}{(\sigma^2+2\sigma_x^2)(2\sigma^2+\sigma_x^2)}
 \\\Leftrightarrow 6(\sigma^2)^2+15\sigma^2\sigma_x^2+6(\sigma_x^2)^2&=2(\sigma^2)^2+3\sigma^2\sigma_x^2+(\sigma_x^2)^2+2\sigma^2\sigma_x^2+2(\sigma_x^2)^2
@@ -685,12 +698,12 @@ There is one equilibrium at which $\sigma_x^2=\sigma_y^2=\Cov=0$. If there is to
 \\& = \left(\frac{-10\pm\sqrt{52}}{6}\right)\sigma^2
 \\&=\left(\frac{-10\pm 2\sqrt{13}}{6}\right)\sigma^2.
 \end{align*}
-Both of these values are negative, and thus are not possible values of $\sigma_x^2$. Therefore there are no equilibria other than the one at which $\sigma_x^2=\sigma_y^2=\Cov=0$. We will now show that this equilibrium is stable by finding the Jacobian of the dynamics in Eqs.  \ref{sigmax8}-\ref{cov8}:
+Both of these values are negative, and thus are not possible values of $\sigma_x^2$. Therefore there are no equilibria other than the one at which $\sigma_x^2=\sigma_y^2=C=0$. We will now show that this equilibrium is stable by finding the Jacobian of the dynamics in Eqs.  \ref{sigmax8}-\ref{cov8}:
 \begin{align*}
 \hspace{-60pt}J&=\left.\left(\begin{array}{lll} 
-\frac{\sigma_x^2}{4}\left(\frac{-\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}-\frac{2\Cov}{(\sigma^2+\sigma_x^2)^2}\right)+\frac{1}{4}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2\Cov}{\sigma^2+\sigma_x^2}+1\right) & \frac{(\sigma_x^2)^2}{4(\sigma^2+\sigma_x^2)^2} & \frac{2\sigma_x^2}{\sigma^2+\sigma_x^2}
+\frac{\sigma_x^2}{4}\left(\frac{-\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}-\frac{2C}{(\sigma^2+\sigma_x^2)^2}\right)+\frac{1}{4}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{2C}{\sigma^2+\sigma_x^2}+1\right) & \frac{(\sigma_x^2)^2}{4(\sigma^2+\sigma_x^2)^2} & \frac{2\sigma_x^2}{\sigma^2+\sigma_x^2}
 \\ \sigma_x^2\left(\frac{-\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}\right)+\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) & \frac{(\sigma_x^2)^2}{(\sigma^2+\sigma_x^2)^2} & 0 
-\\ \frac{\sigma_x^2}{2}\left(\frac{-\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}-\frac{\Cov}{(\sigma^2+\sigma_x^2)^2}\right)+\frac{1}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\Cov}{\sigma^2+\sigma_x^2}\right) & \frac{(\sigma_x^2)^2}{2(\sigma^2+\sigma_x^2)^2} & \frac{\sigma_x^2}{2(\sigma^2+\sigma_x^2)}
+\\ \frac{\sigma_x^2}{2}\left(\frac{-\sigma^2}{(\sigma^2+\sigma_x^2)^2}+\frac{\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}-\frac{2\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^3}-\frac{C}{(\sigma^2+\sigma_x^2)^2}\right)+\frac{1}{2}\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}+\frac{C}{\sigma^2+\sigma_x^2}\right) & \frac{(\sigma_x^2)^2}{2(\sigma^2+\sigma_x^2)^2} & \frac{\sigma_x^2}{2(\sigma^2+\sigma_x^2)}
 \end{array}\right)\right|_\text{equilibrium}
 \\\hspace{-20pt}&=\left(\begin{array}{lll} 
 \frac{1}{2} & 0 & 0 
@@ -706,7 +719,7 @@ The eigenvalues of $J$ are $1/2$, $0$, and $0$. Since none of these are greater 
 \begin{align}
 \sigma_x^2(t+1)&=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) \label{sigmax2}
 \\ \sigma_y^2(t+1)&=\sigma_x^2\left(\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}\right) \label{sigmay2}
-\\ \Cov(t+1)&=0 \notag
+\\ C(t+1)&=0 \notag
 \end{align}
 There is one equilibrium where $\sigma_x^2=\sigma_y^2=0$. Using Eq. \ref{sigmax2}, 
 $\sigma_x^2(t+1)=\sigma_x^2$ when $$ \frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}=1 \Leftrightarrow \sigma_x^2=\sigma_y^2-\sigma^2.$$ However, if $\frac{\sigma^2}{\sigma^2+\sigma_x^2}+\frac{\sigma_x^2\sigma_y^2}{(\sigma^2+\sigma_x^2)^2}=1$ then $\sigma_y^2(t+1)=\sigma_x^2=\sigma_y^2-\sigma^2<\sigma_y^2$, as long as $\sigma^2>0$. Therefore, $\sigma_x^2=\sigma_y^2=0$ is the only equilibrium. Note that, regardless of the initial conditions, after one generation, it will be the case that $\sigma_x^2=\sigma_y^2$. As long as $\sigma^2>0$, this means that $\sigma_x^2>\sigma_y^2-\sigma^2$, so that according to Eqs. \ref{sigmax2} and \ref{sigmay2}, $\sigma_x^2(t+1)=\sigma_y^2(t+1)<\sigma_x^2(t)=\sigma_y^2(t)$. Therefore, after the first generation, both $\sigma_x^2$ and $\sigma_y^2$ shrink every generation, so $\sigma_x^2=\sigma_y^2=0$ is a stable equilibrium.
@@ -732,7 +745,19 @@ which is greater than $\sigma^2$.
 Therefore, the inequality is true and $\frac{\partial \sigma_x^{2\star}}{\partial \sigma^2}<0$. In mechanism $3$, $\sigma_x^{2\star}=\sigma_y^2-\sigma^2$, and it is easy to see that $\frac{\partial \sigma_x^{2\star}}{\partial \sigma^2}<0$.
 
 \section{Construction of step functions and definition of mutation rate}
-In this section, we show how we construct a step function with a given variance and how we define mutation for our numerical analyses. Specifically, we introduce a small probability that a male's song will either mutate or that he will introduce errors in his song as he learns. This introduces an additional step in the model. Let $P_\x{m}\left(x|t+\Delta t\right)$ be the distribution of songs within male offspring found by using Equation 4 in the main text and a particular mechanism of acquisition. For example, if song is genetic, $P_\x{m}\left(x|t+\Delta t\right)$ would be the distribution of the genes for songs among male zygotes resulting from mating pairs. Before the male is born and produces his first song, however, mutations may occur that slightly alter this distribution. On the other hand, if song is learned, $P_\x{m}\left(x|t+\Delta t\right)$ would be the distribution of songs heard by young males. Young males may make small errors in how the hear or produce the songs they have just heard, so that the distribution of songs when the members of the new generation themselves reproduce may be slightly different. In either case, we assume there is a small ``mutation" rate, $\mu$, so that the probability of finding an adult from the new generation singing song $x$ will be 
+In this section, we show how we construct a step function with a given variance and how we define mutation for our numerical analyses. 
+
+ To do so, we restrict both traits to be within a range $[-M,M]$ and we establish a partition of this range with a step size of $\delta$:
+$$
+S=\{-M,-M+\delta,\dots,-2\delta,-\delta,0,\delta,2\delta,\dots,M-\delta,M\}.$$
+For example, if $M=10$ and $\delta=0.1$, we consider a partition $$S=\{-10,-9.9,\dots,-0.2,-0.1,0,0.1,0.2,\dots,9.9,10\}.$$
+We only consider trait values that are in this partition, for both songs and preferences.
+We then define a probability distribution of either songs or preferences in this parti
+ 
+The only modification to the mating model, Equation \ref{model}, that we have to make is to normalize it appropriately: the normalization factor becomes  
+$Z_{y_\x{f}}=\sum_{v_\x{m}\in S\times S}P_\x{m}(v_\x{m})f_{y_\x{f}}(x_\x{m})$. We can then find $P_\text{mate}(u)$ numerically and sum over the appropriate dimensions to find the distribution of each trait in the offspring generation. 
+
+Specifically, we introduce a small probability that a male's song will either mutate or that he will introduce errors in his song as he learns. This introduces an additional step in the model. Let $P_\x{m}\left(x|t+\Delta t\right)$ be the distribution of songs within male offspring found by using Equation 4 in the main text and a particular mechanism of acquisition. For example, if song is genetic, $P_\x{m}\left(x|t+\Delta t\right)$ would be the distribution of the genes for songs among male zygotes resulting from mating pairs. Before the male is born and produces his first song, however, mutations may occur that slightly alter this distribution. On the other hand, if song is learned, $P_\x{m}\left(x|t+\Delta t\right)$ would be the distribution of songs heard by young males. Young males may make small errors in how the hear or produce the songs they have just heard, so that the distribution of songs when the members of the new generation themselves reproduce may be slightly different. In either case, we assume there is a small ``mutation" rate, $\mu$, so that the probability of finding an adult from the new generation singing song $x$ will be 
 \begin{align*}
 P_\x{m}(x|t+1)&=(1-\mu)P_\x{m}(x|t+\Delta t)+\frac{\mu}{2}P_\x{m}(x-\delta|t+\Delta t)+\frac{\mu}{2}P_\x{m}(x+\delta|t+\Delta t).
 \end{align*}  
@@ -761,11 +786,16 @@ P_\x{m}(v)=\frac{\frac{1}{2\pi\sqrt{|\Sigma_\x{m}|}}\exp\left(-\frac{1}{2}(v-\mu
 \end{align*}
 for $v=\in S\times S$. We can normalize a normal distribution of preferences and a Gaussian preference function similarly. As long as $\delta$ is small (and it does not actually have to be very small), the variance of this discretized distribution will be equal to $\sigma^2$.
 
-\begin{figure}[tp]
-\includegraphics[width=3.8in]{step_function_example.pdf}
-\caption{\label{step_ex}This figures shows an example of how a step function is constructed with given variance. On the horizontal axis is the difference between a females preferred song $y$ and a male's song $x$. On the vertical axis is a female's preference. The red line shows a discretized version of a Gaussian preference function with variance $\sigma^2=1.5$. The blue line shows a step function with the same variance, with $m=4$ and $n=1$. Here we use a grid with a large $\delta$ for the purposes of illustrating how we find $p_1$ and $p_2$. However, in our analyses, we use a much smaller $\delta$. }
-\end{figure}
+
 \newpage
+\section{Effects of alternative initial distributions and preference functions}
+
+For every mechanism of acquisition, step functions as the initial distributions of either trait or using a step preference function does not affect the fact that the variance of the distribution of songs  (Figures XX and \ref{effect_of_step_function}). 
+XXXXX
+Using a step function as the initial distribution of songs can reduce the equilibrium variance of preferences in mechanism 7, but this equilibrium variance still responds to the variance of the preference function in the same way (the curves in Figure \ref{effect_of_step_dist}C are roughly parallel). In other words, the results we showed above and in Table \ref{equilibrium} are somewhat robust to using different preference functions. 
+%The effects of using a step preference function and step functions as initial conditions are summarized in Table \ref{step_effects}.
+
+While the variance of the distribution of songs is not strongly affected by these changes in our assumptions,
 \section{Helpful algebra, linear and otherwise}
 In this section, we provide a few mathematical facts. These are not original to this paper, but it is useful to have them stated here for the derivation in Section \ref{cov_derivation}.
 \begin{fact} \label{univariate}
@@ -934,85 +964,120 @@ Note that $|C|=(\frac{s}{s+a})^2|A|+\frac{sa|A|}{(s+a)^2}=\frac{s(s+a)}{(s+a)^2}
 \end{align*}
 \end{pf}
 
-\section*{Figures}
-\begin{figure}
-\includegraphics[width=3.25in]{mode9_dynamics}
-\caption{\label{mode9} The dynamics of $\sigma_x^2$ and $\Cov$ are bistable in mechanism 2, when song is genetic and preference is maternally learned. The variance of the distribution of songs, $\sigma_x^2$, is on the x-axis and the covariance between songs and preferences in females, $\Cov$, is on the y-axis. Each arrow shows how $\sigma_x^2$ and $\Cov$ change from one generation to the next, starting at the endpoint of the arrow. The solid black lines show three representative trajectories. The open red circle shows the unstable equilibrium and the solid red circles show the two stable equilibria. Trajectories that start toward the bottom left corner will reach the equilibrium at $(0,0)$ and trajectories that start elsewhere will reach the non-zero equilibrium. Parameters: $\sigma_y^2=3.4$, $\sigma^2=1$.}
+\newpage
+\section{Supplemental Figures}
+
+\begin{figure}[ht]
+\includegraphics[width=3.25in]{mode2_dynamics}
+\caption{\label{mode2} The dynamics of $\sigma_x^2$ and $C$ are bistable in mechanism 2, when song is genetic and preference is maternally learned. The variance of the distribution of songs, $\sigma_x^2$, is on the x-axis and the covariance between songs and preferences in females, $C$, is on the y-axis. The vector field shows how $\sigma_x^2$ and $C$ change from one generation to the next. The solid black lines show three representative trajectories. The open red circle shows the unstable equilibrium and the solid red circles show the two stable equilibria. Trajectories that start toward the bottom left corner will reach the equilibrium at $(0,0)$ and trajectories that start elsewhere will reach the non-zero equilibrium. Parameters: $\sigma_y^2=3.4$, $\sigma^2=1$.}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=3.25in]{mode7_dynamics}
-\caption{\label{mode7}The dynamics of $\sigma_x^2$, $\sigma_y^2$, and $\Cov$ are bistable in mechanism 5, when both song and preference are genetic. The variance of the distribution of songs, $\sigma_x^2$, is on the x-axis and the variance of the distribution of preferences, $\sigma_y^2$, is on the y-axis. Here, the two traits are initially perfectly correlated ($\rho=1$) and continue to be perfectly correlated for every subsequent generation, so that we do not need to show the dynamics of $\Cov$. Each arrow shows how $\sigma_x^2$ and $\sigma_y^2$ change from one generation to the next, starting at the endpoint of the arrow. The solid black lines show three representative trajectories. The solid red circle show the only stable equilibrium, $(0,0)$. The red curve shows a manifold of unstable trajectories. Trajectories that start below the red curve will reach the equilibrium at $(0,0)$ and trajectories that start above the red curve will increase indefinitely. Parameters:  $\rho(0)=1$, $\sigma^2=1$.}
+\includegraphics[width=3.25in]{mode5_dynamics}
+\caption{\label{mode5}The dynamics of $\sigma_x^2$, $\sigma_y^2$, and $C$ are bistable in mechanism 5, when both song and preference are genetic. The variance of the distribution of songs, $\sigma_x^2$, is on the x-axis and the variance of the distribution of preferences, $\sigma_y^2$, is on the y-axis. Here, the two traits are initially perfectly correlated ($\rho=1$) and continue to be perfectly correlated for every subsequent generation, so that we do not need to show the dynamics of $C$. The vector field shows how $\sigma_x^2$ and $\sigma_y^2$ change from one generation to the next. The solid black lines show three representative trajectories. The solid red circle shows the only stable equilibrium, $(0,0)$. The red curve shows a manifold of unstable trajectories. Trajectories that start below the red curve will reach the equilibrium at $(0,0)$ and trajectories that start above the red curve will increase indefinitely. Parameters:  $\rho(0)=1$, $\sigma^2=1$.}
 \end{figure}
 
 
 \begin{figure}
-\includegraphics[width=3.25in]{mode1_dynamics}
-\caption{\label{mode1} 
-The only stable equilibrium in mechanism 6, when song is paternally learned and preference is genetic,  occurs where $\sigma_x^2=\sigma_y^2=\Cov=0$. The variance of the distribution of songs, $\sigma_x^2$, is on the x-axis and the variance of the distribution of preferences, $\sigma_y^2$, is on the y-axis. We do not show the dynamics of $\Cov$. Each arrow shows how $\sigma_x^2$ and $\sigma_y^2$ change from one generation to the next, starting at the endpoint of the arrow. The solid black lines show two representative trajectories. The solid red circle shows the stable equilibrium. Parameters: $\rho(0)=1$, $\sigma^2=1$.}
+\includegraphics[width=3.25in]{mode6_dynamics}
+\caption{\label{mode6} 
+The only stable equilibrium in mechanism 6, when song is paternally learned and preference is genetic,  occurs where $\sigma_x^2=\sigma_y^2=C=0$. The variance of the distribution of songs, $\sigma_x^2$, is on the x-axis and the variance of the distribution of preferences, $\sigma_y^2$, is on the y-axis. We do not show the dynamics of $C$. The vector field shows how $\sigma_x^2$ and $\sigma_y^2$ change from one generation to the next. The solid black lines show two representative trajectories. The solid red circle shows the stable equilibrium. Parameters: $\rho(0)=1$, $\sigma^2=1$.}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=3.25in]{mode8_dynamics}
-\caption{\label{mode8} The only stable equilibrium in mechanism 8, when song is genetic and preference is paternally learned,  occurs where $\sigma_x^2=\sigma_y^2=\Cov=0$. The variance of the distribution of songs, $\sigma_x^2$, is on the x-axis and the variance of the distribution of preferences, $\sigma_y^2$, is on the y-axis. We do not show the dynamics of $\Cov$. Each arrow shows how $\sigma_x^2$ and $\sigma_y^2$ change from one generation to the next, starting at the endpoint of the arrow. The solid black lines show two representative trajectories. The solid red circle shows the stable equilibrium. Parameters: $\rho(0)=1$, $\sigma^2=1$.}
+\caption{\label{mode8} The only stable equilibrium in mechanism 8, when song is genetic and preference is paternally imprinted,  occurs where $\sigma_x^2=\sigma_y^2=C=0$. The variance of the distribution of songs, $\sigma_x^2$, is on the x-axis and the variance of the distribution of preferences, $\sigma_y^2$, is on the y-axis. We do not show the dynamics of $C$. The vector field shows how $\sigma_x^2$ and $\sigma_y^2$ change from one generation to the next. The solid black lines show two representative trajectories. The solid red circle shows the stable equilibrium. Parameters: $\rho(0)=1$, $\sigma^2=1$.}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=3.25in]{mode2_dynamics}
-\caption{\label{mode2} The only stable equilibrium in mechanism 9, when both song and preference are paternally learned,  occurs where $\sigma_x^2=\sigma_y^2=\Cov=0$. The variance of the distribution of songs, $\sigma_x^2$, is on the x-axis and the variance of the distribution of preferences, $\sigma_y^2$, is on the y-axis. We do not show the dynamics of $\Cov$. Each arrow shows how $\sigma_x^2$ and $\sigma_y^2$ change from one generation to the next, starting at the endpoint of the arrow. The solid black line shows one representative trajectory. The solid red circle shows the stable equilibrium. Parameters: $\rho(0)=1$, $\sigma^2=1$.}
+\includegraphics[width=3.25in]{mode9_dynamics}
+\caption{\label{mode9} The only stable equilibrium in mechanism 9, when song is paternally learned and preference is obliquely imprinted,  occurs where $\sigma_x^2=\sigma_y^2=0$. The variance of the distribution of songs, $\sigma_x^2$, is on the x-axis and the variance of the distribution of preferences, $\sigma_y^2$, is on the y-axis. The vector field shows how $\sigma_x^2$ and $\sigma_y^2$ change from one generation to the next. The solid black line shows one representative trajectory. The solid red circle shows the stable equilibrium. In this mechanism, $C$ is always equal to $0$. Parameters: $\sigma^2=1$.}
 \end{figure}
 
+
+\begin{figure}
+\includegraphics[width=3.25in]{mode11_dynamics}
+\caption{\label{mode11} The only stable equilibrium in mechanism 11, when song is genetic and preference is obliquely imprinted,  occurs where $\sigma_x^2=\sigma_y^2=C=0$. The variance of the distribution of songs, $\sigma_x^2$, is on the x-axis and the variance of the distribution of preferences, $\sigma_y^2$, is on the y-axis. We do not show the dynamics of $C$. The vector field shows how $\sigma_x^2$ and $\sigma_y^2$ change from one generation to the next. The solid black lines show two representative trajectories. The solid red circle shows the stable equilibrium. Parameters: $\rho(0)=1$, $\sigma^2=1$.}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=3.25in]{mode12_dynamics}
+\caption{\label{mode12} The only stable equilibrium in mechanism 12, when song is paternally learned and preference is obliquely imprinted,  occurs where $\sigma_x^2=\sigma_y^2=0$. The variance of the distribution of songs, $\sigma_x^2$, is on the x-axis and the variance of the distribution of preferences, $\sigma_y^2$, is on the y-axis. The vector field shows how $\sigma_x^2$ and $\sigma_y^2$ change from one generation to the next. The solid black line shows one representative trajectory. The solid red circle shows the stable equilibrium. In this mechanism, $C$ is always equal to $0$. Parameters: $\sigma^2=1$.}
+\end{figure}
 
 \begin{figure}
 \includegraphics[width=6.5in]{sigmax2_sigmax2.pdf}
-\caption{\label{sigmax2_sigmax2} Song variance is lowest when the initial song variance is small. In the left column, we show either equilibrium song variance, $\sigma_x^{2\star}$, or transient song variance, $\sigma_x^2(10)$, as a function of the initial song variance, $\sigma_x^2(0)$. In the right column, we show the number of generations before $\sigma_x^2$ is less than $0.05$, for those cases where $\sigma_x^{2\star}=0$. In the top row, A and B, preference is maternally learned. In the second row, C and D, preference is genetic. In the bottom row, E and F, preference is paternally learned. Red indicates song is genetic; blue indicates song is paternally learned. In this figure we ignore the mechanisms in which song is learned obliquely. We use lighter colors for parameters where $\sigma_x^{2\star}>0$ and darker colors for parameters where $\sigma_x^{2\star}=0$. In the middle row, C and D, the dark red curves (meaning both song and preference are genetic) do not appear when $\sigma_x^2(0)$ is greater than $\approx 0.6$ or less than $\approx 1.2$ because, in this range, $\sigma_x^{2\star}=\infty$. Parameters: $\sigma_x^2(0)=1$, $\sigma_y^2(0)=4.1$, $\rho(0)=1$, $\sigma^2=1$. In this figure traits are normally distributed and we use a Gaussian preference function.  } 
+\caption{\label{sigmax2_sigmax2} Song variance is lowest when the initial song variance is small. In the left column, we show either equilibrium song variance, $\sigma_x^{2\star}$, or transient song variance, $\sigma_x^2(10)$, as a function of the initial song variance, $\sigma_x^2(0)$. In the right column, we show the number of generations before $\sigma_x^2$ is less than $0.05$, for those cases where $\sigma_x^{2\star}=0$. In the top row, A and B, preference is maternally learned. In the second row, C and D, preference is genetic. In the third row, E and F, preference is paternally imprinted. In the fourth row, G and H, preference is obliquely imprinted. Red indicates song is genetic; blue indicates song is paternally learned. Mechanisms in which song is obliquely learned are not presented here.  We use lighter colors for parameters where $\sigma_x^{2\star}>0$ and darker colors for parameters where $\sigma_x^{2\star}=0$. In the middle row, C and D, the dark red curves (meaning both song and preference are genetic) do not appear when $\sigma_x^2(0)$ is greater than $\approx 0.6$ or less than $\approx 1.2$ because, in this range, $\sigma_x^{2\star}=\infty$. In this figure traits are both normally distributed and the preference function is Gaussian. Parameters: $\sigma_x^2(0)=1$, $\sigma_y^2(0)=4.1$, $\rho(0)=1$, $\sigma^2=1$.    
+} 
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=6.5in]{sigmax2_sigmay2.pdf}
-\caption{\label{sigmax2_sigmay2} Song variance is highest when the initial preference variance is large. In the left column, we show either equilibrium song variance, $\sigma_x^{2\star}$, or transient song variance, $\sigma_x^2(10)$, as a function of the initial variance of the preference distribution, $\sigma_y^2(0)$. In the right column, we show the number of generations before $\sigma_x^2$ is less than $0.05$, for those cases where $\sigma_x^{2\star}=0$. In the top row, A and B, preference is maternally learned. In the second row, C and D, preference is genetic. In the bottom row, E and F, preference is paternally learned. Red indicates song is genetic; blue indicates song is paternally learned. In this figure we ignore the mechanisms in which song is learned obliquely. We use lighter colors for parameters where $\sigma_x^{2\star}>0$ and darker colors for parameters where $\sigma_x^{2\star}=0$. In the middle row, C and D, the dark red curves (meaning both song and preference are genetic) end at $\sigma_y^2(0)\approx 4$ because, at larger values of $\sigma_y^2(0)$, $\sigma_x^{2\star}=\infty$. Parameters: $\sigma_x^2(0)=1$, $\sigma_y^2(0)=4.1$, $\rho(0)=1$, $\sigma^2=1$. In this figure traits are normally distributed and we use a Gaussian preference function.  } 
+\caption{\label{sigmax2_sigmay2} Song variance is highest when the initial preference variance is large. In the left column, we show either equilibrium song variance, $\sigma_x^{2\star}$, or transient song variance, $\sigma_x^2(10)$, as a function of the initial variance of the preference distribution, $\sigma_y^2(0)$. In the right column, we show the number of generations before $\sigma_x^2$ is less than $0.05$, for those cases where $\sigma_x^{2\star}=0$. In the top row, A and B, preference is maternally learned. In the second row, C and D, preference is genetic. In the third row, E and F, preference is paternally imprinted. In the fourth row, G and H, preference is obliquely imprinted.  Red indicates song is genetic; blue indicates song is paternally learned. Mechanisms in which song is obliquely learned are not presented here.  We use lighter colors for parameters where $\sigma_x^{2\star}>0$ and darker colors for parameters where $\sigma_x^{2\star}=0$. In the middle row, C and D, the dark red curves (meaning both song and preference are genetic) end at $\sigma_y^2(0)\approx 4$ because, at larger values of $\sigma_y^2(0)$, $\sigma_x^{2\star}=\infty$. In this figure traits are both normally distributed and the preference function is Gaussian. Parameters: $\sigma_x^2(0)=1$, $\sigma_y^2(0)=4.1$, $\rho(0)=1$, $\sigma^2=1$. 
+} 
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=6.5in]{sigmay2_sigma2.pdf}
 \caption{\label{sigmay2_sigma2} 
 Preference variance tends to be highest when females are choosy.  
-In the left column, we show either equilibrium preference variance, $\sigma_y^{2\star}$, or transient preference variance, $\sigma_y^2(10)$, as a function of the variance of the preference function, $\sigma^2$. In the right column, we show the number of generations before $\sigma_y^2$ is less than $0.05$, for those cases where $\sigma_y^{2\star}=0$. In the top row, A and B, preference is genetic. In the bottom row, C and D, preference is paternally learned. Green indicates song is obliquely learned; red indicates song is genetic; blue indicates song is paternally learned. In this figure we ignore the mechanisms in which preference is maternally learned. We use lighter colors for parameters where $\sigma_x^{2\star}>0$ and darker colors for parameters where $\sigma_x^{2\star}=0$. In the top row, A and B, the dark red curves (meaning both song and preference are genetic) start at $\sigma^2\approx 1.3$ because, at smaller values of $\sigma^2$, $\sigma_y^{2\star}=\infty$. Parameters: $\sigma_x^2(0)=1$, $\sigma_y^2(0)=4.1$, $\rho(0)=1$, $\sigma^2=1$. In this figure traits are normally distributed and we use a Gaussian preference function.}
+In the left column, we show either equilibrium preference variance, $\sigma_y^{2\star}$, or transient preference variance, $\sigma_y^2(10)$, as a function of the variance of the preference function, $\sigma^2$. In the right column, we show the number of generations before $\sigma_y^2$ is less than $0.05$, for those cases where $\sigma_y^{2\star}=0$. In the top row, A and B, preference is genetic. In the second row, C and D, preference is paternally imprinted. In the third row, E and F, preference is obliquely imprinted. Green indicates song is obliquely learned; red indicates song is genetic; blue indicates song is paternally learned. Mechanisms in which preference is maternally learned are not presented here.  We use lighter colors for parameters where $\sigma_x^{2\star}>0$ and darker colors for parameters where $\sigma_x^{2\star}=0$. In the top row, A and B, the dark red curves (meaning both song and preference are genetic) start at $\sigma^2\approx 1.3$ because, at smaller values of $\sigma^2$, $\sigma_y^{2\star}=\infty$. In this figure traits are both normally distributed and the preference function is Gaussian. Parameters: $\sigma_x^2(0)=1$, $\sigma_y^2(0)=4.1$, $\rho(0)=1$, $\sigma^2=1$. 
+}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=6.5in]{sigmay2_sigmax2.pdf}
-\caption{\label{sigmay2_sigmax2} When preference is genetic, preference variance is maximized when the initial song variance is intermediate. When preference is paternally learned, preference variance increases as initial song variance increase. 
-In the left column, we show either equilibrium preference variance, $\sigma_y^{2\star}$, or transient preference variance, $\sigma_y^2(10)$, as a function of the initial song variance, $\sigma_x^2(0)$. In the right column, we show the number of generations before $\sigma_y^2$ is less than $0.05$, for those cases where $\sigma_y^{2\star}=0$. In the top row, A and B, preference is genetic. In the bottom row, C and D, preference is paternally learned. Green indicates song is obliquely learned; red indicates song is genetic; blue indicates song is paternally learned. In this figure we ignore the mechanisms in which preference is maternally learned. We use lighter colors for parameters where $\sigma_x^{2\star}>0$ and darker colors for parameters where $\sigma_x^{2\star}=0$. In the top row, A and B, the dark red curves (meaning both song and preference are genetic) do not appear when $\sigma_x^2(0)$ is greater than $\approx 0.6$ or less than $\approx 1.2$ because, in this range, $\sigma_x^{2\star}=\infty$. Parameters: $\sigma_x^2(0)=1$, $\sigma_y^2(0)=4.1$, $\rho(0)=1$, $\sigma^2=1$. In this figure traits are normally distributed and we use a Gaussian preference function.}
+\caption{\label{sigmay2_sigmax2} When preference is genetic, preference variance is maximized at an intermediate initial song variance. Otherwise, preference is paternally imprinted, preference variance increases as initial song variance increase. 
+In the left column, we show either equilibrium preference variance, $\sigma_y^{2\star}$, or transient preference variance, $\sigma_y^2(10)$, as a function of the initial song variance, $\sigma_x^2(0)$. In the right column, we show the number of generations before $\sigma_y^2$ is less than $0.05$, for those cases where $\sigma_y^{2\star}=0$. In the top row, A and B, preference is genetic. In the second row, C and D, preference is paternally imprinted. In the third row, E and F, preference is obliquely imprinted. Green indicates song is obliquely learned; red indicates song is genetic; blue indicates song is paternally learned. Mechanisms in which preference is maternally learned are not presented here. We use lighter colors for parameters where $\sigma_x^{2\star}>0$ and darker colors for parameters where $\sigma_x^{2\star}=0$. In the top row, A and B, the dark red curves (meaning both song and preference are genetic) do not appear when $\sigma_x^2(0)$ is greater than $\approx 0.6$ or less than $\approx 1.2$ because, in this range, $\sigma_x^{2\star}=\infty$.  In this figure traits are both normally distributed and the preference function is Gaussian. Parameters: $\sigma_x^2(0)=1$, $\sigma_y^2(0)=4.1$, $\rho(0)=1$, $\sigma^2=1$.}
 \end{figure}
 
 
 \begin{figure}
 \includegraphics[width=6.5in]{sigmay2_sigmay2.pdf}
 \caption{\label{sigmay2_sigmay2} Preference variance increases as the initial preference variance increases.  
-In the left column, we show either equilibrium preference variance, $\sigma_y^{2\star}$, or transient preference variance, $\sigma_y^2(10)$, as a function of the initial preference variance, $\sigma_y^2(0)$. In the right column, we show the number of generations before $\sigma_y^2$ is less than $0.05$, for those cases where $\sigma_y^{2\star}=0$. In the top row, A and B, preference is genetic. In the bottom row, C and D, preference is paternally learned. Green indicates song is obliquely learned; red indicates song is genetic; blue indicates song is paternally learned. In this figure we ignore the mechanisms in which preference is maternally learned. We use lighter colors for parameters where $\sigma_x^{2\star}>0$ and darker colors for parameters where $\sigma_x^{2\star}=0$. Parameters: $\sigma_x^2(0)=1$, $\sigma_y^2(0)=4.1$, $\rho(0)=1$, $\sigma^2=1$. In this figure traits are normally distributed and we use a Gaussian preference function.}
-\end{figure}
-
-\begin{figure}
-\includegraphics[width=6.5in]{effect_of_step_distribution_on_preferences.pdf}
-\caption{\label{effect_of_step_dist_on_prefs} The equilibrium distribution of preferences in mechanism 7 is stil unimodal, even when step functions are used for the initial conditions of either trait. In the upper row, A and B, we show the step functions that we use as initial distributions of songs on the left and of preferences on the right. The red curve in each panel is a normal distribution. In the left column, we use the step functions in A for the initial distributions of songs, while using a normal distribution of preferences. In the right column, we use the step functions in B for the initial distributions of preferences, while using a normal distribution of songs.  In the second row, C and D, we show the equilibrium preference variance, $\sigma_y^{2\star}$, in mechanism $7$ as a function of the variance of the preference function, $\sigma^2$. In the bottom row, E and F, we show equilibrium distributions of preferences in mechanism $7$. Parameters: $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=2$, $\rho(0)=0$, $\mu=0$, $M=14$, $\delta=0.1$, $\sigma^2=0.9$ unless it is being varied, number of generations = $5000$. In this figure we use a Gaussian preference function. }
+In the left column, we show either equilibrium preference variance, $\sigma_y^{2\star}$, or transient preference variance, $\sigma_y^2(10)$, as a function of the initial preference variance, $\sigma_y^2(0)$. In the right column, we show the number of generations before $\sigma_y^2$ is less than $0.05$, for those cases where $\sigma_y^{2\star}=0$. In the top row, A and B, preference is genetic. In the second row, C and D, preference is paternally imprinted. In the third row, E and F, preference is obliquely imprinted. Green indicates song is obliquely learned; red indicates song is genetic; blue indicates song is paternally learned. Mechanisms in which preference is maternally learned are not presented here. We use lighter colors for parameters where $\sigma_x^{2\star}>0$ and darker colors for parameters where $\sigma_x^{2\star}=0$.  In this figure traits are both normally distributed and the preference function is Gaussian.  Parameters: $\sigma_x^2(0)=1$, $\sigma_y^2(0)=4.1$, $\rho(0)=1$, $\sigma^2=1$.}
 \end{figure}
 
 
 \begin{figure}
 \includegraphics[width=6.5in]{pearson_kurtosis.pdf}
-\caption{\label{kurtosis} The equilibrium distribution of songs in mechanism 3 is multimodal when the distribution of female preferences has sufficiently negative excess kurtosis. Here we use a Pearson type VII distribution as the initial distribution of preferences, which allows us to control the kurtosis of the distribution. In A the kurtosis of the distribution of female preferences is $2.8$, in B $2.85$, in C $2.9$, and in D $2.95$. (A normal distribution has kurtosis $3$.) The equilibrium distribution of songs is multimodal only when the kurtosis of the distribution of preferences is sufficiently small. The black lines indicate that there is no mutation and the red lines indicate a mutation rate of $\mu=0.001$. Parameters: $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=2$, $\rho(0)=0$, $\sigma^2=1.1$, $M=25$, $\delta=0.25$, number of generations: $30,000$. In this figure, we use a Gaussian preference function and a normal initial distribution of songs.  }
+\caption{\label{kurtosis} The equilibrium distribution of songs in mechanism 3 is multimodal when the distribution of female preferences has sufficiently negative excess kurtosis. Here the initial distribution of preferences follows a Pearson type VII distribution, which allows us to control the kurtosis of the distribution. In A the kurtosis of the distribution of female preferences is $2.8$, in B $2.85$, in C $2.9$, and in D $2.95$. (A normal distribution has kurtosis $3$.) The equilibrium distribution of songs is multimodal only when the kurtosis of the distribution of preferences is sufficiently small. The black lines indicate that there is no mutation and the red lines indicate a mutation rate of $\mu=0.001$. In this figure the initial distribution of songs is normal and the preference function is Gaussian.  Parameters: $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=2$, $\rho(0)=0$, $\sigma^2=1.1$, $M=25$, $\delta=0.25$, number of generations: $30,000$. 
+}
 \end{figure}
 
 \begin{figure}
 \includegraphics[width=6.5in]{mutation_sensitivity.pdf}
-\caption{\label{mut_sensitivity} The distribution of songs in mechanism 3 eventually becomes unimodal when there is a non-zero mutation rate, although peaks in the distribution can persist for many thousand generations. In each panel, we show the distribution of songs after the number of generations given in the legend. In the left column, both traits are initially normally distributed. In the middle column, the initial distribution of songs is a step function ($m=0.7$, $n=3.2$), while the initial distribution of preferences is normal. In the right column, the initial distribution of songs is normal, while the initial distribution of preferences is a step function ($m=2.2$, $n=6.7$). In the top row, A-C, there is no mutation. In the bottom row, D-F, the mutation rate is $\mu=0.001$. We use a number of generations ($20,000$) that is sufficient for the distribution to reach equilibrium in the absence of mutation. In the presence of mutation, the distribution does not reach equilibrium, but after $20,000$ generations, it only changes slightly from one generation to the next. Parameters: $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=2$, $\rho(0)=0$, $\sigma^2=1.1$, $M=14$, $\delta=0.1$. In this figure, we use a Gaussian preference function. }
+\caption{\label{mut_sensitivity} The distribution of songs in mechanism 3 eventually becomes unimodal when there is a non-zero mutation rate, although peaks in the distribution can persist for several thousand generations. In each panel, we show the distribution of songs after the number of generations given in the legend. In the left column, both traits are initially normally distributed. In the middle column, the initial distribution of songs is a step function ($m=0.7$, $n=3.2$), while the initial distribution of preferences is normal. In the right column, the initial distribution of songs is normal, while the initial distribution of preferences is a step function ($m=2.2$, $n=6.7$). In the top row, A-C, there is no mutation and the distribution of songs has reached equilibrium. In the bottom row, D-F, the mutation rate is $\mu=0.001$, so the distribution does not reach equilibrium, but after $20,000$ generations, it only changes slightly from one generation to the next. In this figure, the preference function is Gaussian.  Parameters: $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=2$, $\rho(0)=0$, $\sigma^2=1.1$, $M=14$, $\delta=0.1$. }
 \end{figure}
 
+\begin{figure}[tp]
+\includegraphics[width=3.8in]{step_function_example.pdf}
+\caption{\label{step_ex}This figure shows an example of how a step function is constructed with a given variance. The difference between a female's preferred song $y$ and a male's song $x$ is on the x-axis. A female's preference is on the y-axis. The red line shows a discretized version of a Gaussian preference function with variance $\sigma^2=1.5$. The blue line shows a step function with the same variance, with $m=4$ and $n=1$. Here the grid has a relatively value of $\delta=0.25$ for the purposes of illustrating how we find $p_1$ and $p_2$. In our analyses, we use smaller values of $\delta$. }
+\end{figure}
 
+\begin{figure}
+\includegraphics[width=6.5in]{effect_of_step_traits_on_peaks.pdf}
+\caption{\label{effect_of_step_dist} Using step functions as the initial distribution of either trait can lead to multimodal distributions, but does not always. In the first column, we show the step functions that we use as initial distributions of songs and preferences in A and D respectively. The red curve in A and the dark blue curve in D are normal distributions. 
+%Caption continued below.
+%All of the distributions on the left have variance $\sigma_x^2(0)=0.8$ and all of the distributions on the right have variance $\sigma_y^2(0)=2$. 
+In the top row, B and C, we use the step functions in A for the initial distributions of songs, while using a normal distribution of preferences. In the bottom row, E and F, we use the step functions in D for the initial distributions of preferences, while using a normal distribution of songs.  In the middle column, B and E, we show equilibrium distributions of songs in mechanism $3$. In the right column, C and F, we show equilibrium distributions of preferences in mechanism $7$. The color of the lines corresponds to the initial conditions in the left column. In this figure the preference function is Gaussian. Parameters: $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=2$, $\rho(0)=0$, $\mu=0$, $M=14$, $\delta=0.1$, $\sigma^2=0.9$, number of generations = $5000$. }
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=6.5in]{effect_of_step_traits_on_variance.pdf}
+\caption{\label{effect_of_step_dist_on_prefs} Using step functions as the initial distribution of either trait affects the variance of the equilibrium distribution of each trait. However, the general effect of $\sigma^2$---that increasing $\sigma^2$ decreases $\sigma_x^{2\star}$ and increases $\sigma_y^{2\star}$---still holds. In the first column, we show the step functions that we use as initial distributions of songs and preferences in A and D respectively. The red curve in A and the dark blue curve in D are normal distributions. 
+%Caption continued below.
+%All of the distributions on the left have variance $\sigma_x^2(0)=0.8$ and all of the distributions on the right have variance $\sigma_y^2(0)=2$. 
+In the top row, B and C, we use the step functions in A for the initial distributions of songs, while using a normal distribution of preferences. In the bottom row, E and F, we use the step functions in D for the initial distributions of preferences, while using a normal distribution of songs.  In the middle column, B and E, we show the variance of the equilibrium distribution of songs $\sigma_x^{2\star}$ in mechanism $3$ as a function of $\sigma^2$. In the right column, C and F, we show the variance of the equilibrium distribution of preferences $\sigma_y^{2\star}$ in mechanism $7$ as a function of $\sigma^2$. The color of the lines corresponds to the initial conditions in the left column. In this figure the preference function is Gaussian. Parameters: $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=2$, $\rho(0)=0$, $\mu=0$, $M=14$, $\delta=0.1$, $\sigma^2=0.9$, number of generations = $5000$. }
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=6.5in]{effect_of_step_pref_fun.pdf}
+\caption{\label{effect_of_step_function} Using a step preference function, instead of a Gaussian preference function, does not lead a to multimodal distribution of either trait. It does affect the variance of the equilibrium distribution of each trait. However, the general effect of $\sigma^2$---that increasing $\sigma^2$ decreases $\sigma_x^{2\star}$ and increases $\sigma_y^{2\star}$---still holds.  In A and C, we show examples of preference functions that have the same variance: in A $\sigma^2=0.3$ and in B $\sigma^2=1.7$. The red curve in each panel is a Gaussian with the variance given. Curves with the same color in the two panels have steps of the same width. In B, we show the equilibrium distribution of songs in mechanism 3, when $\sigma^2=1.7$, using the preference functions in D. In E, we show the equilibrium song variance, $\sigma_x^{2\star}$, in mechanism $3$ as a function of the variance of the preference function, $\sigma^2$. In C, we show the equilibrium distribution of preferences in mechanism 7, when $\sigma^2=1.7$, using the preference functions in D. In F, we show the equilibrium preference variance, $\sigma_y^{2\star}$, in mechanism $7$ as a function of the variance of the preference distribution, $\sigma^2$. The colors of the curves in B, C, E, and F correspond to the widths of the preference functions given in A and D. In this figure both songs and preferences are initially normally distributed. Parameters: $\sigma_x^2(0)=0.8$, $\sigma_y^2(0)=2$, $\sigma^2=0.5,0.9,1.3$, $\rho(0)=0$, $\mu=0$, $M=14$, $\delta=0.1$, number of generations = $5000$. }
+\end{figure}
 
 \bibliographystyle{unsrtnat}
-\bibliography{song_learning_evolution}
+%\bibliography{song_learning_evolution}
 
 
 \end{document}

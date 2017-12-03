@@ -8,6 +8,13 @@ library(pracma)
 fontfamily = 'Helvetica'
 smallfontsize = 10
 largefontsize = 12
+lwd=2
+pal1 = brewer.pal(9,'Set1')
+pal2 = brewer.pal(8,'Accent')
+col_vec = pal1[c(1,2,8,7,4,NA,3,5,9)]
+pale_col = c(brewer.pal(9,'RdPu')[4],brewer.pal(9,'Blues')[4])
+dark_col = c(brewer.pal(9,'Reds')[7],brewer.pal(9,'Blues')[7])
+old_to_new = c(6,9,3,4,7,1,5,8,2) # converts old mode numbering system to new mode numbering system
 
 recursion_all_end <- function(sigmax2,sigmay2,sigma2,equil=TRUE){
 	r = recursion_all_new_numbers(sigmax2,sigmay2,sigma2,rho)
@@ -60,7 +67,7 @@ sigma2_max = 4.5
 sigma2_min = 0.01
 rho = 0.6
 steps_long = 1000
-steps_short = 10
+steps_short = 25
 steps_time = 5000
 disappear_thresh <- 0.05 #5e-3
 
@@ -75,10 +82,10 @@ sigma2_vals = matrix(seq(sigma2_min,sigma2_max,length.out=vec_length),nrow=1)
 r_sigma2 <- as.list(1:3)
 
 sigmax2_pos = c(2,3)
-sigmax2_zero = c(2,3,4,5,6,8,9,11,12)
+sigmax2_zero = c(2,3,5,6,8,9,11,12)
 
-sigmay2_pos = c(7)
-sigmay2_zero = c(4,5,6,8,9)
+sigmay2_pos = c(2,3,7)
+sigmay2_zero = c(4,5,6,8,9,10,11,12)
 
 steps = steps_long
 
@@ -98,15 +105,7 @@ r_sigma2[[3]] <- sapply(sigma2_vals,time_to_zero,sigmax2=sigmax2,sigmay2=sigmay2
 r_sigma2[[3]] <- matrix(unlist(lapply(r_sigma2[[3]],function(y) y[,1])),nrow=12)
 r_sigma2[[3]][setdiff(1:12,sigmax2_zero),] = NA
 
-pal1 = brewer.pal(9,'Set1')
-pal2 = brewer.pal(8,'Accent')
-col_vec = pal1[c(1,2,8,7,4,NA,3,5,9)]
-pale_col = c(brewer.pal(9,'RdPu')[4],brewer.pal(9,'Blues')[4])
-dark_col = c(brewer.pal(9,'Reds')[7],brewer.pal(9,'Blues')[7])
-old_to_new = c(6,9,3,4,7,1,5,8,2) # converts old mode numbering system to new mode numbering system
-
-#####
-lwd=2
+####
 
 marg = c(0.4,0.5,0.1,0.05)
 omarg = c(0.5,0.7,0.3,0.0)
@@ -124,8 +123,13 @@ modes = matrix(c(2,3,5,6,8,9,11,12),nrow=4,byrow=TRUE)
 
 for(k in 1:4){
 	subset = modes[k,]
-	
-	ylim = range(r_sigma2[1:2],na.rm=TRUE)
+	if(is.element(k,c(1,3,4))){
+		ylim = range(r_sigma2[1:2],na.rm=TRUE)
+	}else if(k==2){
+		ylim = c(min(unlist(lapply(r_sigma2[1:2],min,na.rm=TRUE))),0.4)
+	}else{
+		ylim = c(min(unlist(lapply(r_sigma2[1:2],min,na.rm=TRUE))),1.5)
+	}		
 	
 	plot(sigma2_vals,sigma2_vals,ylim=ylim,xlab='',ylab='',t='n')
 	for(j in 1:2){
@@ -139,7 +143,10 @@ for(k in 1:4){
 	mtext(expression(paste('Var. of preference function, ', sigma^2)),side=1,at=mean(sigma2_vals),line=2.5,cex=largefontsize/smallfontsize)
 	mtext(expression(paste('Var. of songs, ',sigma[x]^2)),side=2,at=mean(ylim)-0.19*diff(ylim),line=2,cex=largefontsize/smallfontsize)
 	
-	
+	if(k==1){
+		legend(2,4.5,legend=c(expression(paste(sigma[x]^2, "*",', genetic')),expression(paste(sigma[x]^2~(25),', genetic')),expression(paste(sigma[x]^2, "*",', paternally learned')),expression(paste(sigma[x]^2~(25),', paternally learned'))),lty=rep(1,4),col=c(pale_col[1],dark_col[1],pale_col[2],dark_col[2]),bty='n')	
+		}
+
 	
 	ylim = range(r_sigma2[3],na.rm=TRUE)
 	
@@ -149,13 +156,13 @@ for(k in 1:4){
 			lines(sigma2_vals,r_sigma2[[3]][subset[j],],lwd=lwd,col=dark_col[j])
 		}			
 	}
-	axis(2,at=log(5*4^(0:9)),labels=5*4^(0:9))
+	axis(2,at=log(c(5*10^(0:9))),labels=c(5*10^(0:9)))
 	mtext(expression(paste('Var. of preference function, ', sigma^2)),side=1,at=mean(sigma2_vals),line=2.5,cex=largefontsize/smallfontsize)
 	mtext('Generations',side=2,at=mean(ylim)-0.06*diff(ylim),line=2,cex=largefontsize/smallfontsize)
 	
-	if(k==1){
-		legend(-0.25,6.4,legend=c(expression(paste(sigma[x]^2, "*",', song genetic')),expression(paste(sigma[x]^2~(10),', song genetic')),expression(paste(sigma[x]^2, "*",', song paternally learned')),expression(paste(sigma[x]^2~(10),', song paternally learned'))),lty=rep(1,4),col=c(pale_col[1],dark_col[1],pale_col[2],dark_col[2]),bty='n')	
-		}
+# # 	if(k==1){
+		# legend(-0.25,6.4,legend=c(expression(paste(sigma[x]^2, "*",', song genetic')),expression(paste(sigma[x]^2~(20),', song genetic')),expression(paste(sigma[x]^2, "*",', song paternally learned')),expression(paste(sigma[x]^2~(20),', song paternally learned'))),lty=rep(1,4),col=c(pale_col[1],dark_col[1],pale_col[2],dark_col[2]),bty='n')	
+		# }
 }
 
 
@@ -163,19 +170,29 @@ dev.off()
 
 ##### effect of step trait distributions
 
-load('/Users/eleanorbrush/Desktop/all_modes_numerically_step_song_dist.Rdata')
-load('/Users/eleanorbrush/Desktop/all_modes_numerically_step_song_dist2.Rdata')
+load('all_modes_numerically_step_song_dist.Rdata')
+load('i_ran_mode3_for_a_long_time_step_song.Rdata')
+load('all_modes_numerically_step_song_dist2.Rdata')
 
 D_song = list(d3,d5)
 rm(d2,d4,d6,d7,d8,d9,d11,d12)
 
-load('/Users/eleanorbrush/Desktop/all_modes_numerically_step_pref_dist.Rdata')
-load('/Users/eleanorbrush/Desktop/all_modes_numerically_step_pref_dist2.Rdata')
+load('all_modes_numerically_step_pref_dist.Rdata')
+load('i_ran_mode3_for_a_long_time_step_pref.Rdata')
+load('all_modes_numerically_step_pref_dist2.Rdata')
 
 D_pref = list(d3,d5)
 rm(d2,d4,d6,d7,d8,d9,d11,d12)
 
 source('range_setup_long.R')
+
+marg = c(0.3,0.4,0.03,0.05)
+omarg = c(0.7,0.7,1.3,0.0)
+
+width = 6.8
+height = 3.5
+
+pdf('/Users/eleanorbrush/Desktop/effect_of_step_trait_distribution.pdf',width=width,height=height,family=fontfamily)
 
 par(ps=smallfontsize,mai=marg,oma=omarg,mgp=c(3,0.7,0))
 layout(matrix(1:6,ncol=3,byrow=TRUE))
@@ -195,9 +212,13 @@ xlim=c(-6,6)
 
 plot(mrange+1,m_init,t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=c(0,pmax),xlim=xlim)
 lines(mrange+1,f_init,lwd=lwd,col=col_vec[2])
+# mtext('Song',side=1,line=2,cex=largefontsize/smallfontsize)
+mtext('Frequency',side=2,line=2,cex=largefontsize/smallfontsize)
+mtext('Initial conditions',side=3,line=0,cex=largefontsize/smallfontsize)
+legend(-6,0.2,legend=c('Male song','Female preference'),bty='n',lwd=lwd,col=col_vec,lty=1)
 
 for(i in 1:2){	
-	t = dim(D_song[[i]]$Pm)[length(dim(D_song[[i]]$Pm))]
+	t = min(dim(D_song[[i]]$Pm)[length(dim(D_song[[i]]$Pm))],10001)
 	n = length(dim(D_song[[i]]$Pm))
 	if(n==2){
 		plot(mrange+1,D_song[[i]]$Pm[,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=c(0,pmax),xlim=xlim)}else{
@@ -208,6 +229,12 @@ for(i in 1:2){
 		lines(mrange+1,D_song[[i]]$Pf[,t],t='l',lwd=lwd,col=col_vec[2])}else{
 		lines(mrange+1,apply(D_song[[i]]$Pf[,,t],2,sum),t='l',col=col_vec[2],lwd=lwd)
 	}
+	# mtext('Song',side=1,line=2,cex=largefontsize/smallfontsize)
+	#mtext('Frequency',side=2,line=2,cex=largefontsize/smallfontsize)
+	if(i ==1){
+		mtext('Mechanism 3',side=3,line=0,cex=largefontsize/smallfontsize)
+	}else{
+		mtext('Mechanism 5',side=3,line=0,cex=largefontsize/smallfontsize)}
 }
 
 song = 'norm'
@@ -222,9 +249,12 @@ fixed_weight = ic$fixed_weight
 
 plot(mrange+1,m_init,t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=c(0,pmax),xlim=xlim)
 lines(mrange+1,f_init,lwd=lwd,col=col_vec[2])
+# mtext('Song',side=1,line=2,cex=largefontsize/smallfontsize)
+mtext('Trait',side=1,line=2,cex=largefontsize/smallfontsize)
+mtext('Frequency',side=2,line=2,cex=largefontsize/smallfontsize)
 
 for(i in 1:2){
-	t = dim(D_pref[[i]]$Pm)[length(dim(D_pref[[i]]$Pm))]
+	t = min(dim(D_pref[[i]]$Pm)[length(dim(D_pref[[i]]$Pm))],1001)
 	n = length(dim(D_pref[[i]]$Pm))
 	if(n==2){
 		plot(mrange+1,D_pref[[i]]$Pm[,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=c(0,pmax),xlim=xlim)}else{
@@ -235,6 +265,10 @@ for(i in 1:2){
 		lines(mrange+1,D_pref[[i]]$Pf[,t],t='l',lwd=lwd,col=col_vec[2])}else{
 		lines(mrange+1,apply(D_pref[[i]]$Pf[,,t],2,sum),t='l',col=col_vec[2],lwd=lwd)
 	}	
+	mtext('Trait',side=1,line=2,cex=largefontsize/smallfontsize)
+	#mtext('Frequency',side=2,line=2,cex=largefontsize/smallfontsize)
 }
 
 dev.off()
+
+# source('peak_example.R')

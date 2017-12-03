@@ -6,83 +6,23 @@ fontfamily = 'Helvetica'
 smallfontsize = 10
 largefontsize = 12
 
-trait_chunk_num = 281
+trait_chunk_num = 141
 sigmay2 = 2
-sigmax2 = 0.8
-sigma2 = 0.9
+sigmax2 = 1
+sigma2 = 0.5
 mut_prob = 0.0
 pf = 1
 pm = 1 
-rho = 0
+rho = 0.9
 minweight = 10^(-320)
 
-steps = 5000
+steps = 10000
 store = 1
 source('range_setup.R')
 
-k1 = 35
-k2 = 35
 
-ic = init_conds('norm','norm','norm',sigmax2,sigmay2,sigma2,k1,k2)
-m_init = ic$m_init
-fixed_weight = ic$fixed_weight
-f_init1 = ic$f_init
-
-ic = init_conds('norm','step','norm',sigmax2,sigmay2,sigma2,k1,k2)
-f_init2 = ic$f_init
-
-f_init = f_init1
-p1 = dynamics_pxy()
-
-f_init = f_init2
-p2 = dynamics_pxy()
-
-saveit(p1=p1,p2=p2,k1=k1,k2=k2,sigmay2=sigmay2,sigmax2=sigmax2,sigma2=sigma2,steps=steps,file='/Users/eleanorbrush/Documents/research/song_learning_evolution/peak_example_pref_dist.Rdata')
-
-# load('/Users/eleanorbrush/Documents/research/song_learning_evolution/peak_example_pref_dist.Rdata')
-
-col_vec = brewer.pal(9,'Set1')[-c(6,7)]
-lwd = 2
-marg = c(0.45,0.43,0.02,0.15)
-omarg = c(0.03,1,0.35,0.0)
-
-width = 6.5
-height = 4.5
-
-pdf('/Users/eleanorbrush/Desktop/peak_example_step_pref_dist.pdf',width=width,height=height,family=fontfamily)
-
-par(ps=smallfontsize,mai=marg,oma=omarg,mgp=c(3,0.7,0))
-layout(matrix(1:4,ncol=2,byrow=TRUE))
-
-t=1
-w1 = which(p1$Pm[,t]>1e-15)
-w2 = which(p2$Pm[,t]>1e-15)
-
-plot(mrange[w1]+1,f_init1[w1],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(f_init1,f_init2)))
-lines(mrange[w1]+1,f_init2[w1],t='l',lwd=lwd,col='black',xlab='',ylab='')
-mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-mtext(expression(paste("Frequency, ",P[f] ,'(y,0)')),side=2,line=1.7,at=mean(range(c(f_init1,f_init2))),cex=largefontsize/smallfontsize)
-
-plot(mrange[w1]+1,p1$Pm[w1,steps],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(p1$Pm[w1,steps],p2$Pm[,steps])))
-points(mrange+1,p2$Pm[,steps],t='l',lwd=lwd,col='black',xlab='',ylab='')
-mtext('Song, x',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-mtext(expression(paste("Frequency, ",P[m] ,'(x,5000)')),side=2,line=1.7,at=mean(range(c(p1$Pm[w1,steps],p2$Pm[,steps])))-0.03,cex=largefontsize/smallfontsize)
-
-plot(mrange[w1]+1,p2$z[w1,t],t='l',lwd=lwd,col='black',xlab='',ylab='',ylim=range(c(p1$z[w1,t],p2$z[w2,t])))
-# points(mrange[w1]+1,p1$z[w1,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='')
-mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-mtext((expression(paste('Frac. of attractive males, ',Z[y]))),side=2,line=1.7,at=mean(range(c(p1$z[w1,t],p2$z[w2,t])))-0.003,cex=largefontsize/smallfontsize)
-
-plot(mrange[w1]+1,log(p1$Pf[w1,t]/p1$z[w1,t]),t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',yaxt='n',ylim=log(range(p2$Pf[w1,t]/p2$z[w1,t],na.rm=TRUE)+c(0.01,0)))
-lines(mrange[w1]+1,log(p2$Pf[w1,t]/p2$z[w1,t]),lwd=lwd,col='black')
-axis(2,at=log(10^(-3:3)),labels=10^(-3:3))
-mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-mtext(expression(paste(P[f] ,'(y)',' / ',Z[y])),side=2,line=1.7,at=mean(log(range(p2$Pf[w1,t]/p2$z[w1,t],na.rm=TRUE)+c(0.01,0))),cex=largefontsize/smallfontsize)
-
-dev.off()
-
-k1 = 15
-k2 = 25
+k1 = 9
+k2 = 9
 
 ic = init_conds('norm','norm','norm',sigmax2,sigmay2,sigma2,k1,k2)
 f_init = ic$f_init
@@ -92,15 +32,15 @@ m_init1 = ic$m_init
 ic = init_conds('step','norm','norm',sigmax2,sigmay2,sigma2,k1,k2)
 m_init2 = ic$m_init
 
-m_init = m_init1
-p1 = dynamics_pxy()
+# # m_init = m_init1
+# p1 = dynamics_pxy()
 
-m_init = m_init2
-p2 = dynamics_pxy()
+# m_init = m_init2
+# p2 = dynamics_pxy()
 
-saveit(p1=p1,p2=p2,k1=k1,k2=k2,sigmay2=sigmay2,sigmax2=sigmax2,sigma2=sigma2,steps=steps,file='/Users/eleanorbrush/Documents/research/song_learning_evolution/peak_example_step_song_dist.Rdata')
+# saveit(p1=p1,p2=p2,k1=k1,k2=k2,sigmay2=sigmay2,sigmax2=sigmax2,sigma2=sigma2,steps=steps,file='/Users/eleanorbrush/Documents/research/song_learning_evolution/peak_example_step_song_dist.Rdata')
 
-# load('/Users/eleanorbrush/Documents/research/song_learning_evolution/peak_example_step_song_dist.Rdata')
+load('/Users/eleanorbrush/Documents/research/song_learning_evolution/peak_example_step_song_dist.Rdata')
 
 col_vec = brewer.pal(9,'Set1')[-c(6,7)]
 lwd = 2
@@ -120,16 +60,16 @@ w1 = which(p1$Pm[,t]>1e-10)
 w2 = which(p2$Pm[,t]>1e-10)
 
 plot(mrange[w1]+1,m_init1[w1],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(m_init1,m_init2)),yaxt='n')
-axis(2,at=seq(0,0.04,0.01))
+axis(2,at=seq(0,0.1,0.02))
 lines(mrange[w1]+1,m_init2[w1],t='l',lwd=lwd,col='black',xlab='',ylab='')
 mtext('Song, x',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-mtext(expression(paste("Frequency, ",P[m] ,'(x,0)')),side=2,line=1.7,at=mean(range(c(m_init1,m_init2))),cex=largefontsize/smallfontsize)
+mtext(expression(paste("Frequency, ",P[m] ,'(x)')),side=2,line=1.7,at=mean(range(c(m_init1,m_init2))),cex=largefontsize/smallfontsize)
 
 plot(mrange[w1]+1,p1$Pm[w1,steps],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(p1$Pm[w1,steps],p2$Pm[,steps])),yaxt='n')
-axis(2,at=seq(0,0.08,by=0.02))
+axis(2,at=seq(0,0.1,by=0.02))
 points(mrange+1,p2$Pm[,steps],t='l',lwd=lwd,col='black',xlab='',ylab='')
 mtext('Song, x',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-mtext(expression(paste("Frequency, ",P[m] ,'(x,5000)')),side=2,line=1.7,at=mean(range(c(p1$Pm[w1,steps],p2$Pm[,steps])))-0.01,cex=largefontsize/smallfontsize)
+mtext(expression(paste("Frequency, ",P[m] ,'(x)')),side=2,line=1.7,at=mean(range(c(p1$Pm[w1,steps],p2$Pm[,steps])))-0.01,cex=largefontsize/smallfontsize)
 
 plot(mrange[w1]+1,p1$z[w1,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(p1$z[w1,t],p2$z[w1,t])))
 points(mrange[w1]+1,p2$z[w1,t],t='l',lwd=lwd,col='black',xlab='',ylab='')
@@ -139,7 +79,7 @@ mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
 mtext((expression(paste('Frac. of attractive males, ',Z[y]))),side=2,line=1.7,at=mean(range(c(p1$z[w1,t],p2$z[w2,t])))-0.003,cex=largefontsize/smallfontsize)
 
 # plot(mrange[w1]+1,log(p1$Pf[w1,t]/p1$z[w1,t]),t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',yaxt='n',ylim=log(range(p2$Pf[w1,t]/p2$z[w1,t],na.rm=TRUE)+c(0.01,0)))
-expylim = c(0.5,2)
+expylim = c(0.8,4)
 plot(mrange[w1]+1,log(p1$Pf[w1,t]/p1$z[w1,t]),t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',yaxt='n',ylim=log(expylim))
 lines(mrange[w1]+1,log(p2$Pf[w1,t]/p2$z[w1,t]),lwd=lwd,col='black')
 # points(mrange[w1[w3]]+1.05,apply(cbind(log(p2$Pf[w1[w],t]/p2$z[w1[w],t]),log(p2$Pf[w1[w+1],t]/p2$z[w1[w+1],t])),1,mean),lwd=lwd)
@@ -148,3 +88,66 @@ mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
 mtext(expression(paste(P[f] ,'(y)',' / ',Z[y])),side=2,line=1.7,at=mean(log(expylim+c(0.0,0))),cex=largefontsize/smallfontsize)
 
 dev.off()
+
+k1 = 19
+k2 = 19
+
+ic = init_conds('norm','norm','norm',sigmax2,sigmay2,sigma2,k1,k2)
+m_init = ic$m_init
+fixed_weight = ic$fixed_weight
+f_init1 = ic$f_init
+
+ic = init_conds('norm','step','norm',sigmax2,sigmay2,sigma2,k1,k2)
+f_init2 = ic$f_init
+
+# f_init = f_init1
+# p1 = dynamics_pxy()
+
+# f_init = f_init2
+# p2 = dynamics_pxy()
+
+# saveit(p1=p1,p2=p2,k1=k1,k2=k2,sigmay2=sigmay2,sigmax2=sigmax2,sigma2=sigma2,steps=steps,file='/Users/eleanorbrush/Documents/research/song_learning_evolution/peak_example_pref_dist.Rdata')
+
+load('/Users/eleanorbrush/Documents/research/song_learning_evolution/peak_example_pref_dist.Rdata')
+
+col_vec = brewer.pal(9,'Set1')[-c(6,7)]
+lwd = 2
+marg = c(0.45,0.43,0.02,0.15)
+omarg = c(0.03,1,0.35,0.0)
+
+width = 6.5
+height = 4.5
+
+pdf('/Users/eleanorbrush/Desktop/peak_example_step_pref_dist.pdf',width=width,height=height,family=fontfamily)
+
+par(ps=smallfontsize,mai=marg,oma=omarg,mgp=c(3,0.7,0))
+layout(matrix(1:4,ncol=2,byrow=TRUE))
+
+t=1
+w1 = which(p1$Pm[,t]>1e-15)
+w2 = which(p2$Pm[,t]>1e-15)
+
+plot(mrange[w1]+1,f_init1[w1],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(f_init1,f_init2)),yaxt='n')
+axis(2,at=seq(0,0.05,0.01))
+lines(mrange[w1]+1,f_init2[w1],t='l',lwd=lwd,col='black',xlab='',ylab='')
+mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext(expression(paste("Frequency, ",P[f] ,'(y)')),side=2,line=1.7,at=mean(range(c(f_init1,f_init2))),cex=largefontsize/smallfontsize)
+
+plot(mrange[w1]+1,p1$Pm[w1,steps],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(p1$Pm[w1,steps],p2$Pm[,steps])))
+points(mrange+1,p2$Pm[,steps],t='l',lwd=lwd,col='black',xlab='',ylab='')
+mtext('Song, x',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext(expression(paste("Frequency, ",P[m] ,'(x)')),side=2,line=1.7,at=mean(range(c(p1$Pm[w1,steps],p2$Pm[,steps])))-0.03,cex=largefontsize/smallfontsize)
+
+plot(mrange[w1]+1,p2$z[w1,t],t='l',lwd=lwd,col='black',xlab='',ylab='',ylim=range(c(p1$z[w1,t],p2$z[w2,t])))
+# points(mrange[w1]+1,p1$z[w1,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='')
+mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext((expression(paste('Frac. of attractive males, ',Z[y]))),side=2,line=1.7,at=mean(range(c(p1$z[w1,t],p2$z[w2,t])))-0.003,cex=largefontsize/smallfontsize)
+
+plot(mrange[w1]+1,log(p1$Pf[w1,t]/p1$z[w1,t]),t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',yaxt='n',ylim=log(range(p2$Pf[w1,t]/p2$z[w1,t],na.rm=TRUE)+c(0.01,0)))
+lines(mrange[w1]+1,log(p2$Pf[w1,t]/p2$z[w1,t]),lwd=lwd,col='black')
+axis(2,at=log(10^(-3:3)),labels=10^(-3:3))
+mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext(expression(paste(P[f] ,'(y)',' / ',Z[y])),side=2,line=1.7,at=mean(log(range(p2$Pf[w1,t]/p2$z[w1,t],na.rm=TRUE)+c(0.01,0))),cex=largefontsize/smallfontsize)
+
+dev.off()
+
