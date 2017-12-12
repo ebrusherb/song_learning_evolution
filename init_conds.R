@@ -105,11 +105,15 @@ P_init_pearson <- function(){
 	f_init = ic$f_init	
 	
 	Pm = array(0,c(Nm,Nm))
-	if(song=='step'){
+	if(song=='pearson'){
+		m_init = dpearson(mrange,moments=c(mean=-1,variance=sigmax2,skewness=0,kurtosis=3+excess_kurt))
+			m_init = m_init / sum(m_init)
 		for(i in 1:Nm){
 			Pm[i,] = m_init[i]*dnorm(mrange,-1+rho*sqrt(sigmay2/sigmax2)*(mrange[i]+1),sqrt((1-rho^2)*sigmay2))/sum(dnorm(mrange,-1+rho*sqrt(sigmay2/sigmax2)*(mrange[i]+1),sqrt((1-rho^2)*sigmay2)))
 		}
 	}else{
+		f_init = dpearson(mrange,moments=c(mean=-1,variance=sigmay2,skewness=0,kurtosis=3+excess_kurt))
+			f_init = f_init / sum(f_init)
 		for(i in 1:Nm){
 			Pm[,i] = f_init[i]*dnorm(mrange,-1+rho*sqrt(sigmax2/sigmay2)*(mrange[i]+1),sqrt((1-rho^2)*sigmax2))/sum(dnorm(mrange,-1+rho*sqrt(sigmax2/sigmay2)*(mrange[i]+1),sqrt((1-rho^2)*sigmax2)))
 		}

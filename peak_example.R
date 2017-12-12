@@ -1,5 +1,7 @@
-# source('dynamics_pxy.R')
+source('dynamics_pxy.R')
+source('dynamics_by_mode_new_numbers.R')
 source('init_conds.R')
+source('saveit.R')
 library(RColorBrewer)
 library(pracma)
 fontfamily = 'Helvetica'
@@ -17,7 +19,6 @@ sigma2 = 0.5
 mut_prob = 0.0
 rho = 0
 
-steps = 30000
 store = 1
 
 k1 = 21
@@ -31,62 +32,71 @@ m_init1 = ic$m_init
 ic = init_conds('step','norm','norm',sigmax2,sigmay2,sigma2,k1,k2)
 m_init2 = ic$m_init
 
-m_init = m_init1
-p1 = dynamics_pxy()
+# m_init = m_init1
+# steps = 1
+# p1_hold = dynamics_pxy()
+# steps = 30000
+# p1 = dynamics_mode3()
+# p1$pxy = p1_hold$pxy
+# p1$z = p1_hold$z
 
-m_init = m_init2
-p2 = dynamics_pxy()
+# m_init = m_init2
+# steps = 1
+# p2_hold = dynamics_pxy()
+# steps = 30000
+# p2 = dynamics_mode3()
+# p2$pxy = p2_hold$pxy
+# p2$z = p2_hold$z
 
-saveit(p1=p1,p2=p2,k1=k1,k2=k2,sigmay2=sigmay2,sigmax2=sigmax2,sigma2=sigma2,steps=steps,file='/homes/ebrush/priv/song_learning_evolution/peak_example_step_song_dist.Rdata')
+# saveit(p1=p1,p2=p2,k1=k1,k2=k2,sigmay2=sigmay2,sigmax2=sigmax2,sigma2=sigma2,steps=steps,file='/Users/eleanorbrush/Desktop/peak_example_step_song_dist.Rdata')
 
 # load('/Users/eleanorbrush/Documents/research/song_learning_evolution/peak_example_step_song_dist.Rdata')
 
-# col_vec = brewer.pal(9,'Set1')[-c(6,7)]
-# lwd = 2
-# marg = c(0.45,0.43,0.02,0.15)
-# omarg = c(0.03,1,0.35,0.0)
+col_vec = brewer.pal(9,'Set1')[-c(6,7)]
+lwd = 2
+marg = c(0.45,0.43,0.02,0.15)
+omarg = c(0.03,1,0.35,0.0)
 
-# width = 6.5
-# height = 4.5
+width = 6.5
+height = 4.5
 
-# pdf('/Users/eleanorbrush/Desktop/peak_example_step_song_dist.pdf',width=width,height=height,family=fontfamily)
+pdf('/Users/eleanorbrush/Desktop/peak_example_step_song_dist.pdf',width=width,height=height,family=fontfamily)
 
-# par(ps=smallfontsize,mai=marg,oma=omarg,mgp=c(3,0.7,0))
-# layout(matrix(1:4,ncol=2,byrow=TRUE))
+par(ps=smallfontsize,mai=marg,oma=omarg,mgp=c(3,0.7,0))
+layout(matrix(1:4,ncol=2,byrow=TRUE))
 
-# t=1
-# w1 = which(p1$Pm[,t]>1e-10)
-# w2 = which(p2$Pm[,t]>1e-10)
+t=1
+w1 = which(p1$Pm[,t]>1e-10)
+w2 = which(p2$Pm[,t]>1e-10)
+w1 = which(abs(mrange+1)<6.1)
+w2 = which(abs(mrange+1)<6.1)
 
-# plot(mrange[w1]+1,m_init1[w1],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(m_init1,m_init2)),yaxt='n')
-# axis(2,at=seq(0,0.1,0.02))
-# lines(mrange[w1]+1,m_init2[w1],t='l',lwd=lwd,col='black',xlab='',ylab='')
-# mtext('Song, x',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-# mtext(expression(paste("Frequency, ",P[m] ,'(x)')),side=2,line=1.7,at=mean(range(c(m_init1,m_init2))),cex=largefontsize/smallfontsize)
+plot(mrange[w1]+1,m_init1[w1],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=c(0,0.04),yaxt='n')
+axis(2,at=seq(0,0.1,0.02))
+lines(mrange[w1]+1,m_init2[w1],t='l',lwd=lwd,col='black',xlab='',ylab='')
+mtext('Song, x',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext(expression(paste("Frequency, ",P[m] ,'(x)')),side=2,line=1.7,cex=largefontsize/smallfontsize)
 
-# plot(mrange[w1]+1,p1$Pm[w1,steps],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(p1$Pm[w1,steps],p2$Pm[,steps])),yaxt='n')
-# axis(2,at=seq(0,0.1,by=0.02))
-# points(mrange+1,p2$Pm[,steps],t='l',lwd=lwd,col='black',xlab='',ylab='')
-# mtext('Song, x',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-# mtext(expression(paste("Frequency, ",P[m] ,'(x)')),side=2,line=1.7,at=mean(range(c(p1$Pm[w1,steps],p2$Pm[,steps])))-0.01,cex=largefontsize/smallfontsize)
+plot(mrange[w1]+1,p1$Pm[w1,steps],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=c(0,0.35),yaxt='n')
+axis(2,at=seq(0,0.4,by=0.05))
+points(mrange+1,p2$Pm[,steps],t='l',lwd=lwd,col='black',xlab='',ylab='')
+mtext('Song, x',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext(expression(paste("Frequency, ",P[m] ,'(x)')),side=2,line=1.7,cex=largefontsize/smallfontsize)
 
-# plot(mrange[w1]+1,p1$z[w1,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(p1$z[w1,t],p2$z[w1,t])))
-# points(mrange[w1]+1,p2$z[w1,t],t='l',lwd=lwd,col='black',xlab='',ylab='')
-# w3=which(diff(sign(p2$z[w1,t]-p1$z[w1,t]))!=0)
-# # points(mrange[w1[w3]]+1.05,apply(cbind(p2$z[w1[w],t],p2$z[w1[w+1],t]),1,mean),lwd=lwd)
-# mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-# mtext((expression(paste('Frac. of attractive males, ',Z[y]))),side=2,line=1.7,at=mean(range(c(p1$z[w1,t],p2$z[w2,t])))-0.003,cex=largefontsize/smallfontsize)
+plot(mrange[w1]+1,p1$z[w1,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=c(0,0.033))
+points(mrange[w1]+1,p2$z[w1,t],t='l',lwd=lwd,col='black',xlab='',ylab='')
+mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext((expression(paste('Frac. of attractive males, ',Z[y]))),side=2,line=1.7,cex=largefontsize/smallfontsize)
 
-# # plot(mrange[w1]+1,log(p1$Pf[w1,t]/p1$z[w1,t]),t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',yaxt='n',ylim=log(range(p2$Pf[w1,t]/p2$z[w1,t],na.rm=TRUE)+c(0.01,0)))
-# expylim = c(0.8,4)
-# plot(mrange[w1]+1,log(p1$Pf[w1,t]/p1$z[w1,t]),t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',yaxt='n',ylim=log(expylim))
-# lines(mrange[w1]+1,log(p2$Pf[w1,t]/p2$z[w1,t]),lwd=lwd,col='black')
-# # points(mrange[w1[w3]]+1.05,apply(cbind(log(p2$Pf[w1[w],t]/p2$z[w1[w],t]),log(p2$Pf[w1[w+1],t]/p2$z[w1[w+1],t])),1,mean),lwd=lwd)
-# axis(2,at=log(2^(-3:3)),labels=2^(seq(-3,3,by=)))
-# mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-# mtext(expression(paste(P[f] ,'(y)',' / ',Z[y])),side=2,line=1.7,at=mean(log(expylim+c(0.0,0))),cex=largefontsize/smallfontsize)
+plot(mrange[w1]+1,log(p1$Pf[w1,t]/p1$z[w1,t]),t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',yaxt='n',ylim=log(c(0.7,4.4)))
+points(mrange[w1]+1,log(p2$Pf[w1,t]/p2$z[w1,t]),lwd=lwd,col='black',t='l')
+axis(2,at=log(2^(-3:3)),labels=2^(-3:3))
+mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext(expression(paste(P[f] ,'(y)',' / ',Z[y])),side=2,line=1.7,cex=largefontsize/smallfontsize)
 
-# dev.off()
+dev.off()
+
+####
 
 k1 = 21
 k2 = 15
@@ -99,54 +109,67 @@ f_init1 = ic$f_init
 ic = init_conds('norm','step','norm',sigmax2,sigmay2,sigma2,k1,k2)
 f_init2 = ic$f_init
 
-f_init = f_init1
-p1 = dynamics_pxy()
+# f_init = f_init1
+# steps = 1
+# p1_hold = dynamics_pxy()
+# steps = 30000
+# p1 = dynamics_mode3()
+# p1$pxy = p1_hold$pxy
+# p1$z = p1_hold$z
 
-f_init = f_init2
-p2 = dynamics_pxy()
+# f_init = f_init2
+# steps = 1
+# p2_hold = dynamics_pxy()
+# steps = 30000
+# p2 = dynamics_mode3()
+# p2$pxy = p2_hold$pxy
+# p2$z = p2_hold$z
 
-saveit(p1=p1,p2=p2,k1=k1,k2=k2,sigmay2=sigmay2,sigmax2=sigmax2,sigma2=sigma2,steps=steps,file='/homes/ebrush/priv/song_learning_evolution/peak_example_step_pref_dist.Rdata')
+# saveit(p1=p1,p2=p2,k1=k1,k2=k2,sigmay2=sigmay2,sigmax2=sigmax2,sigma2=sigma2,steps=steps,file='/Users/eleanorbrush/Desktop/peak_example_step_pref_dist.Rdata')
 
 # load('/Users/eleanorbrush/Documents/research/song_learning_evolution/peak_example_step_pref_dist.Rdata')
 
-# col_vec = brewer.pal(9,'Set1')[-c(6,7)]
-# lwd = 2
-# marg = c(0.45,0.43,0.02,0.15)
-# omarg = c(0.03,1,0.35,0.0)
+col_vec = brewer.pal(9,'Set1')[-c(6,7)]
+lwd = 2
+marg = c(0.45,0.43,0.02,0.15)
+omarg = c(0.03,1,0.35,0.0)
 
-# width = 6.5
-# height = 4.5
+width = 6.5
+height = 4.5
 
-# pdf('/Users/eleanorbrush/Desktop/peak_example_step_pref_dist.pdf',width=width,height=height,family=fontfamily)
+pdf('/Users/eleanorbrush/Desktop/peak_example_step_pref_dist.pdf',width=width,height=height,family=fontfamily)
 
-# par(ps=smallfontsize,mai=marg,oma=omarg,mgp=c(3,0.7,0))
-# layout(matrix(1:4,ncol=2,byrow=TRUE))
+par(ps=smallfontsize,mai=marg,oma=omarg,mgp=c(3,0.7,0))
+layout(matrix(1:4,ncol=2,byrow=TRUE))
 
-# t=1
-# w1 = which(p1$Pm[,t]>1e-15)
-# w2 = which(p2$Pm[,t]>1e-15)
+t=1
+w1 = which(p1$Pm[,t]>1e-15)
+w2 = which(p2$Pm[,t]>1e-15)
+w1 = which(abs(mrange+1)<6.1)
+w2 = which(abs(mrange+1)<6.1)
 
-# plot(mrange[w1]+1,f_init1[w1],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(f_init1,f_init2)),yaxt='n')
-# axis(2,at=seq(0,0.05,0.01))
-# lines(mrange[w1]+1,f_init2[w1],t='l',lwd=lwd,col='black',xlab='',ylab='')
-# mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-# mtext(expression(paste("Frequency, ",P[f] ,'(y)')),side=2,line=1.7,at=mean(range(c(f_init1,f_init2))),cex=largefontsize/smallfontsize)
+plot(mrange[w1]+1,f_init1[w1],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=c(0,0.04),yaxt='n')
+axis(2,at=seq(0,0.1,0.02))
+points(mrange[w1]+1,f_init2[w1],t='l',lwd=lwd,col='black',xlab='',ylab='')
+mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext(expression(paste("Frequency, ",P[f] ,'(y)')),side=2,line=1.7,cex=largefontsize/smallfontsize)
 
-# plot(mrange[w1]+1,p1$Pm[w1,steps],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=range(c(p1$Pm[w1,steps],p2$Pm[,steps])))
-# points(mrange+1,p2$Pm[,steps],t='l',lwd=lwd,col='black',xlab='',ylab='')
-# mtext('Song, x',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-# mtext(expression(paste("Frequency, ",P[m] ,'(x)')),side=2,line=1.7,at=mean(range(c(p1$Pm[w1,steps],p2$Pm[,steps])))-0.03,cex=largefontsize/smallfontsize)
+plot(mrange[w1]+1,p1$Pm[w1,steps],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',ylim=c(0,0.35),yaxt='n')
+axis(2,at=seq(0,0.4,by=0.05))
+points(mrange+1,p2$Pm[,steps],t='l',lwd=lwd,col='black',xlab='',ylab='')
+mtext('Song, x',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext(expression(paste("Frequency, ",P[m] ,'(x)')),side=2,line=1.7,cex=largefontsize/smallfontsize)
 
-# plot(mrange[w1]+1,p2$z[w1,t],t='l',lwd=lwd,col='black',xlab='',ylab='',ylim=range(c(p1$z[w1,t],p2$z[w2,t])))
-# # points(mrange[w1]+1,p1$z[w1,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='')
-# mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-# mtext((expression(paste('Frac. of attractive males, ',Z[y]))),side=2,line=1.7,at=mean(range(c(p1$z[w1,t],p2$z[w2,t])))-0.003,cex=largefontsize/smallfontsize)
+plot(mrange[w1]+1,p2$z[w1,t],t='l',lwd=lwd,col='black',xlab='',ylab='',ylim=range(c(p1$z[w1,t],p2$z[w2,t])))
+# points(mrange[w1]+1,p1$z[w1,t],t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='')
+mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext((expression(paste('Frac. of attractive males, ',Z[y]))),side=2,line=1.7,cex=largefontsize/smallfontsize)
 
-# plot(mrange[w1]+1,log(p1$Pf[w1,t]/p1$z[w1,t]),t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',yaxt='n',ylim=log(range(p2$Pf[w1,t]/p2$z[w1,t],na.rm=TRUE)+c(0.01,0)))
-# lines(mrange[w1]+1,log(p2$Pf[w1,t]/p2$z[w1,t]),lwd=lwd,col='black')
-# axis(2,at=log(10^(-3:3)),labels=10^(-3:3))
-# mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
-# mtext(expression(paste(P[f] ,'(y)',' / ',Z[y])),side=2,line=1.7,at=mean(log(range(p2$Pf[w1,t]/p2$z[w1,t],na.rm=TRUE)+c(0.01,0))),cex=largefontsize/smallfontsize)
+plot(mrange[w1]+1,log(p1$Pf[w1,t]/p1$z[w1,t]),t='l',lwd=lwd,col=col_vec[1],xlab='',ylab='',yaxt='n',ylim=log(c(0.7,4.4)))
+lines(mrange[w1]+1,log(p2$Pf[w1,t]/p2$z[w1,t]),lwd=lwd,col='black')
+axis(2,at=log(2^(-3:3)),labels=2^(-3:3))
+mtext('Preference, y',side=1,line=1.5,at=0,cex=largefontsize/smallfontsize)
+mtext(expression(paste(P[f] ,'(y)',' / ',Z[y])),side=2,line=1.7,cex=largefontsize/smallfontsize)
 
-# dev.off()
+dev.off()
 

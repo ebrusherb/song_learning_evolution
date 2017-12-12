@@ -1,6 +1,7 @@
 # setwd('/Users/eleanorbrush/Documents/research/song_learning_evolution')
 source('dynamics_by_mode_new_numbers.R')
 source('saveit.R')
+source('init_conds.R')
 
 trait_chunk_num = 281
 minweight = 10^(-320)

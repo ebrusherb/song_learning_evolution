@@ -1,6 +1,7 @@
-setwd('/Users/eleanorbrush/Documents/research/song_learning_evolution')
+# setwd('/Users/eleanorbrush/Documents/research/song_learning_evolution')
 source('dynamics_by_mode_new_numbers.R')
 source('saveit.R')
+source('init_conds.R')
 
 trait_chunk_num = 281
 minweight = 10^(-320)
@@ -11,8 +12,9 @@ sigmay2 = 2
 sigmax2 = 1
 rho = 0
 
+
 steps = 30000
-# store = 1
+store = 1
 
 sigma2_vals = seq(0.1,1.9,length.out=10)
 

@@ -4,7 +4,7 @@ source('saveit.R')
 source('recursion_all.R')
 source('init_conds.R')
 library(RColorBrewer)
-library(pracma)
+#library(pracma)
 library(PearsonDS)
 fontfamily = 'Helvetica'
 smallfontsize = 10

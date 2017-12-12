@@ -2,8 +2,8 @@
 source('dynamics_pxy.R')
 source('saveit.R')
 source('init_conds.R')
-library(RColorBrewer)
-library(pracma)
+# library(RColorBrewer)
+# library(pracma)
 library(PearsonDS)
 fontfamily = 'Helvetica'
 smallfontsize = 10
